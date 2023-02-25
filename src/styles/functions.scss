@@ -1,0 +1,8 @@
+@use 'sass:math';
+@function rem($pixel) {
+    @if not $pixel {
+        @error 'Missing argument $pixel';
+    }
+
+    @return math.div($pixel, 16)*1rem;
+}

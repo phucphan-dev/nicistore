@@ -1,0 +1,16 @@
+diff --git a/node_modules/react-scripts/config/webpack.config.js b/node_modules/react-scripts/config/webpack.config.js
+index 26c2a65..9750899 100644
+--- a/node_modules/react-scripts/config/webpack.config.js
++++ b/node_modules/react-scripts/config/webpack.config.js
+@@ -193,6 +193,11 @@ module.exports = function (webpackEnv) {
+         }
+       );
+     }
++    if (preProcessor === 'sass-loader') {
++      loaders.push(
++        { loader: 'import-glob-loader' }
++      );
++    }
+     return loaders;
+   };
+ 

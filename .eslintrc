@@ -1,0 +1,100 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "airbnb",
+    "react-app",
+    "react-app/jest"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": [
+          "src"
+        ]
+      }
+    }
+  },
+  "overrides": [
+    {
+      // For TS / TSX
+      "files": "*.{ts,tsx}",
+      "extends": [
+        "airbnb-typescript"
+      ],
+      "rules": {
+        "import/no-extraneous-dependencies": [
+          "error",
+          {
+            "devDependencies": [
+              "src/setupTests.ts",
+              "src/**/*.stories.tsx",
+              "src/**/*.test.{ts,tsx}"
+            ]
+          }
+        ],
+        "react/function-component-definition": 0,
+        "no-param-reassign": [
+          "error",
+          {
+            "props": true,
+            "ignorePropertyModificationsFor": [
+              "$state",
+              "$config"
+            ]
+          }
+        ],
+        "no-promise-executor-return": 0,
+        // Custom
+        "@typescript-eslint/indent": "off",
+        "@typescript-eslint/no-use-before-define": "error",
+        "@typescript-eslint/no-unused-vars": ["error"],
+        "jsx-a11y/no-static-element-interactions": "off",
+        "jsx-a11y/click-events-have-key-events": "off",
+        "jsx-a11y/no-noninteractive-element-interactions": "off",
+        "jsx-a11y/interactive-supports-focus": "off",
+        "react/jsx-props-no-spreading": "off",
+        "react/require-default-props": "off",
+        "react/default-props-match-prop-types": "off",
+        "react/prop-types": "off",
+        "@typescript-eslint/comma-dangle": "off"
+      }
+    },
+    // Storybook
+    {
+      "files": [
+        "**/*.stories.*"
+      ],
+      "rules": {
+        "import/no-anonymous-default-export": "off"
+      }
+    },
+    {
+      "files": "scripts/**/*",
+      "rules": {
+        "no-restricted-syntax": "off"
+      }
+    }
+  ],
+  "rules": {
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "scripts/**/*"
+        ]
+      }
+    ],
+    "import/order": [
+      "error",
+      {
+        "alphabetize": {
+          "order": "asc"
+        },
+        "newlines-between": "always"
+      }
+    ]
+  }
+}

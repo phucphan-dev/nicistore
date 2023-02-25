@@ -1,0 +1,24 @@
+{
+  "extends": "stylelint-config-sass-guidelines",
+  "plugins": [
+    "stylelint-order"
+  ],
+  "rules": {
+    "indentation": 4,
+    "declaration-block-no-duplicate-properties": true,
+    "order/order": [
+      [
+        "custom-properties",
+        "declarations"
+      ]
+    ],
+    "order/properties-alphabetical-order": null,
+    "max-nesting-depth": 6,
+    "selector-class-pattern": null,
+    "property-no-vendor-prefix": null,
+    "value-no-vendor-prefix": null,
+    "scss/at-extend-no-missing-placeholder": null,
+    "selector-max-compound-selectors": null,
+    "scss/at-import-partial-extension-blacklist": null
+  }
+}

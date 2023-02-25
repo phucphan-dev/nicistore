@@ -1,0 +1,7 @@
+{
+    "recommendations": [
+        "dbaeumer.vscode-eslint",
+        "SonarSource.sonarlint-vscode",
+        "stylelint.vscode-stylelint"
+    ],
+}

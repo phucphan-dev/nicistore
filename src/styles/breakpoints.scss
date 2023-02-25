@@ -1,0 +1,111 @@
+@mixin break-max($pixel) {
+    @media (max-width: $pixel) {
+        @content;
+    }
+}
+@mixin break-min($pixel) {
+    @media (min-width: $pixel) {
+        @content;
+    }
+}
+@mixin break($pixel1, $pixel2) {
+    @media (min-width: $pixel1) and (max-width: $pixel2) {
+        @content;
+    }
+}
+
+@mixin max-desktop {
+    @media (min-width: 1441px) {
+        @content;
+    }
+}
+@mixin max-desktop-down {
+    @media (max-width: 1440px) {
+        @content;
+    }
+}
+@mixin desktop-up {
+    @media (min-width: 1200px) {
+        @content;
+    }
+}
+@mixin desktop {
+    @media (min-width: 992px) and (max-width: 1199px) {
+        @content;
+    }
+}
+@mixin desktop-down {
+    @media (max-width: 1199px) {
+        @content;
+    }
+}
+@mixin tablet-desktop {
+    @media (min-width: 768px) and (max-width: 1199px) {
+        @content;
+    }
+}
+@mixin tablet {
+    @media (min-width: 768px) and (max-width: 991px) {
+        @content;
+    }
+}
+@mixin tablet-down {
+    @media (max-width: 991px) {
+        @content;
+    }
+}
+@mixin tablet-up {
+    @media (min-width: 992px) {
+        @content;
+    }
+}
+@mixin mobile {
+    @media (min-width: 576px) and (max-width: 767px) {
+        @content;
+    }
+}
+@mixin mobile-down {
+    @media (max-width: 767px) {
+        @content;
+    }
+}
+@mixin mobile-up {
+    @media (min-width: 768px) {
+        @content;
+    }
+}
+@mixin mobile-tablet {
+    @media (min-width: 576px) and (max-width: 991px) {
+        @content;
+    }
+}
+@mixin small-mobile {
+    @media (max-width: 575px) {
+        @content;
+    }
+}
+@mixin small-mobile-up {
+    @media (min-width: 576px) {
+        @content;
+    }
+}
+@mixin ipad-pro13-lands {
+    @media only screen and (min-width: 1366px) and (orientation: landscape) {
+        @content;
+    }
+}
+@mixin ipad-pro11-lands {
+    @media only screen and (min-width: 1194px) and (orientation: landscape) {
+        @content;
+    }
+}
+@mixin iphone11-promax-lands {
+    @media only screen and (min-width: 896px) and (orientation: landscape) {
+        @content;
+    }
+}
+@mixin iphone11-pro-lands {
+    @media only screen and (min-width: 812px) and (orientation: landscape) {
+        @content;
+    }
+}

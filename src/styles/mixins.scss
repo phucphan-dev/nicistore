@@ -1,0 +1,156 @@
+@use 'sass:math';
+
+@mixin text-overflow ($number: 2) {
+    display: box;
+    -webkit-line-clamp: ($number);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@mixin aspect-ratio($width: 1, $height: 1) {
+    position: relative;
+
+    &::before {
+        content: '';
+        display: block;
+        padding-bottom: math.div($height, $width) * 100%;
+    }
+}
+
+@mixin transition($value) {
+    transition: $value;
+}
+
+@mixin scroll-bars(
+    $size: 12, $thumb-color: $green-ryb, $track-color: $bg-white-smoke, $border-radius-thumb: 5, $border-thumb: 2
+) {
+
+    // For Internet Explorer
+
+    scrollbar-face-color: $thumb-color;
+    scrollbar-track-color: $track-color;
+
+    // For Google Chrome
+    &::-webkit-scrollbar {
+        height: rem($size);
+        margin-right: rem(10);
+        width: rem($size);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        // background: $thumb-color;
+        // border: rem($border-thumb) solid $track-color;
+        border-radius: rem($border-radius-thumb);
+    }
+
+    &::-webkit-scrollbar-track {
+        background: $track-color;
+    }
+}
+
+@mixin font-base($font-size: 16, $line-height: 24) {
+    font-size: rem($font-size);
+    line-height: rem($line-height);
+}
+
+@mixin style-bg-color() {
+    &-bg-white {
+        background-color: $white;
+    }
+}
+
+@mixin style-font-weight() {
+    &-100 {
+        font-weight: 100;
+    }
+
+    &-200 {
+        font-weight: 200;
+    }
+
+    &-300 {
+        font-weight: 300;
+    }
+
+    &-400 {
+        font-weight: normal;
+    }
+
+    &-500 {
+        font-weight: 500;
+    }
+
+    &-600 {
+        font-weight: 600;
+    }
+
+    &-700 {
+        font-weight: bold;
+    }
+
+    &-800 {
+        font-weight: 800;
+    }
+
+    &-900 {
+        font-weight: 900;
+    }
+}
+
+@mixin style-general() {
+    &-uppercase {
+        text-transform: uppercase;
+    }
+
+    &-capitalize {
+        text-transform: capitalize;
+    }
+
+    &-underline {
+        text-decoration: underline;
+    }
+
+    &-italic {
+        font-style: italic;
+    }
+
+    &-center {
+        text-align: center;
+    }
+
+    &-justify {
+        text-align: justify;
+    }
+}
+
+@mixin reset-button {
+    appearance: none;
+    background-color: none;
+    border: 0;
+    outline: none;
+}
+
+@mixin list-style-none {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+@mixin adjust-flex($justify-content: center, $align-item: center) {
+    align-items: $align-item;
+    display: flex;
+    justify-content: $justify-content;
+}
+
+$colors-design: (
+    'white': $white,
+    'black': $black,
+);
+
+@mixin style-color {
+    @each $name, $color in $colors-design {
+        &-#{$name} {
+            color: $color;
+        }
+    }
+}

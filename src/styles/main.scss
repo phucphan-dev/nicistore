@@ -1,0 +1,63 @@
+html,
+body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 16px;
+    overflow-x: hidden;
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent; //issue click in mobile flash background highligh
+}
+
+button {
+    &:focus {
+        outline: none;
+    }
+}
+
+p {
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+[role='button'],
+button {
+    cursor: pointer;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+input {
+    word-break: normal;
+}
+
+ul,
+ol {
+    margin: 0;
+    padding: 0;
+}
+
+.hidden-animation {
+    visibility: hidden;
+}
+
+.overflow-hidden {
+    height: 100vh;
+}
+
+.u-mt {
+    &-24 {
+        margin-top: rem(24);
+    }
+
+    &-16 {
+        margin-top: rem(16);
+    }
+}
