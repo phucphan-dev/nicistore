@@ -1,14 +1,16 @@
 import { Story, Meta } from '@storybook/react';
 import React from 'react';
 
-import Example from '.';
+import Image from '.';
+
+import logo from 'assets/images/logo.svg';
 
 export default {
-  title: 'Components/atoms/Example',
-  component: Example,
+  title: 'Components/atoms/Image',
+  component: Image,
   argTypes: {},
 } as Meta;
 
 export const normal: Story = () => (
-  <Example />
+  <Image imgSrc={logo} alt="logo" />
 );

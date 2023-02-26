@@ -59,6 +59,68 @@
     }
 }
 
+@mixin style-font-base() {
+    &-10x12 {
+        @include font-base(10, 12);
+    }
+
+    &-12x14 {
+        @include font-base(12, 14);
+    }
+
+    &-13x16 {
+        @include font-base(13, 16);
+    }
+
+    &-14x16 {
+        @include font-base(14, 16);
+    }
+
+    &-15x18 {
+        @include font-base(15, 18);
+    }
+
+    &-16x18 {
+        @include font-base(16, 18);
+    }
+        
+    &-18x21 {
+        @include font-base(18, 21); 
+    }
+
+    &-20x24 {
+        @include font-base(20, 24);
+    }
+
+    &-22x25 {
+        @include font-base(22, 25);
+    }
+
+    &-24x28 {
+        @include font-base(24, 28);
+    }
+
+    &-28x32 {
+        @include font-base(28, 32);
+    }
+
+    &-30x36 {
+        @include font-base(30, 36);
+    }
+
+    &-32x36 {
+        @include font-base(32, 36);
+    }
+
+    &-36x40 {
+        @include font-base(36, 40);
+    }
+
+    &-40x48 {
+        @include font-base(40, 48);
+    }
+}
+
 @mixin style-font-weight() {
     &-100 {
         font-weight: 100;

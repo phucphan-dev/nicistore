@@ -1,6 +1,6 @@
 html,
 body {
-    font-family: 'Be Vietnam Pro', sans-serif;
+    font-family: 'Jost', sans-serif;
     font-size: 16px;
     overflow-x: hidden;
 }
@@ -23,6 +23,11 @@ p {
 
 a {
     text-decoration: none;
+}
+
+img,
+svg {
+    vertical-align: middle;
 }
 
 [role='button'],
