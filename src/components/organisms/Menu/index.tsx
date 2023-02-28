@@ -10,7 +10,7 @@ const Menu: React.FC<MenuProps> = () => (
   <div className="o-menu">
     <ul className="o-menu_list">
       <li className="o-menu_item">
-        <a href="https://klbtheme.com/clotya/"><Typography.Text modifiers={['15x18']}>Home</Typography.Text></a>
+        <a className="o-menu_link" href="https://klbtheme.com/clotya/"><Typography.Text modifiers={['15x18', 'black', 'uppercase', '500']}>Home</Typography.Text></a>
         <ul className="o-menu_submenu">
           <li className="o-menu_item"><a href="https://klbtheme.com/clotya/"><Typography.Text modifiers={['15x18']}>Home 1</Typography.Text></a></li>
           <li className="o-menu_item"><a href="https://klbtheme.com/clotya/home-2/"><Typography.Text modifiers={['15x18']}>Home 2</Typography.Text></a></li>
@@ -21,7 +21,7 @@ const Menu: React.FC<MenuProps> = () => (
         </ul>
       </li>
       <li className="o-menu_item">
-        <a href="https://klbtheme.com/clotya/shop/">Shop</a>
+        <a className="o-menu_link" href="https://klbtheme.com/clotya/shop/"><Typography.Text modifiers={['15x18', 'black', 'uppercase', '500']}>Shop</Typography.Text></a>
         <ul className="o-menu_submenu">
           <li className="o-menu_item">
             <a href="https://klbtheme.com/clotya/shop/">Shop Lists</a>
@@ -73,11 +73,11 @@ const Menu: React.FC<MenuProps> = () => (
           </li>
         </ul>
       </li>
-      <li className="o-menu_item"><a href="https://klbtheme.com/clotya/shop/?filter_cat=63">Women</a></li>
-      <li className="o-menu_item"><a href="https://klbtheme.com/clotya/shop/?filter_cat=42">Men</a></li>
-      <li className="o-menu_item"><a href="https://klbtheme.com/clotya/shop/?filter_cat=44">Outerwear</a></li>
-      <li className="o-menu_item"><a href="https://klbtheme.com/clotya/blog/">Blog</a></li>
-      <li className="o-menu_item"><a href="https://klbtheme.com/clotya/contact/">Contact</a></li>
+      <li className="o-menu_item"><a href="https://klbtheme.com/clotya/shop/?filter_cat=63"><Typography.Text modifiers={['15x18', 'black', 'uppercase', '500']}>Women</Typography.Text></a></li>
+      <li className="o-menu_item"><a href="https://klbtheme.com/clotya/shop/?filter_cat=42"><Typography.Text modifiers={['15x18', 'black', 'uppercase', '500']}>Men</Typography.Text></a></li>
+      <li className="o-menu_item"><a href="https://klbtheme.com/clotya/shop/?filter_cat=44"><Typography.Text modifiers={['15x18', 'black', 'uppercase', '500']}>Outerwear</Typography.Text></a></li>
+      <li className="o-menu_item"><a href="https://klbtheme.com/clotya/blog/"><Typography.Text modifiers={['15x18', 'black', 'uppercase', '500']}>Blog</Typography.Text></a></li>
+      <li className="o-menu_item"><a href="https://klbtheme.com/clotya/contact/"><Typography.Text modifiers={['15x18', 'black', 'uppercase', '500']}>Contact</Typography.Text></a></li>
     </ul>
   </div>
 );
