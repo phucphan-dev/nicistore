@@ -28,7 +28,9 @@ type TextStyle =
 
 type ColorStyle =
   | 'white'
-  | 'black';
+  | 'black'
+  | 'ashGrey'
+  | 'carminePink';
 
 type LetterSpacing = 'ls-md' | 'ls-lg' | 'ls-xl';
 

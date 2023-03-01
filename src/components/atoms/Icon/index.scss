@@ -4,6 +4,11 @@
     background-size: contain;
     display: block;
 
+    &-12 {
+        height: rem(12);
+        width: rem(12);
+    }
+
     &-16 {
         height: rem(16);
         width: rem(16);
@@ -29,8 +34,23 @@
         width: rem(40);
     }
   
-   
     &-search {
         background-image: url('~assets/icons/ic_search.svg');
+    }
+   
+    &-cart {
+        background-image: url('~assets/icons/ic_cart.svg');
+    }
+   
+    &-expand {
+        background-image: url('~assets/icons/ic_expand.svg');
+    }
+   
+    &-love {
+        background-image: url('~assets/icons/ic_love.svg');
+    }
+   
+    &-star {
+        background-image: url('~assets/icons/ic_star.svg');
     }
 }
