@@ -1,0 +1,46 @@
+.o-header {
+    background-color: $white;
+
+    &_wrapper {
+        display: flex;
+        position: relative;
+        justify-content: space-between;
+    }
+
+    &_left {
+        display: flex;
+        align-items: center;
+        height: rem(84);
+    }
+
+    &_logo {
+        width: rem(96);
+    }
+
+    &_menu {
+        margin-left: rem(40);
+
+        @include tablet-down {
+            position: absolute;
+            margin-left: 0;
+            width: 90%;
+            height: 100vh;
+            top: 0;
+            left: rem(-16);
+            background-color: $white;
+            z-index: 2;
+            overflow-y: auto;
+        }
+    }
+
+    &_right {
+        display: flex;
+        align-items: center;
+
+        &_button {
+            display: flex;
+            align-items: center;
+            margin-left: rem(16);
+        }
+    }
+}

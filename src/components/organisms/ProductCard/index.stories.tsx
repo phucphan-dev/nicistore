@@ -3,6 +3,8 @@ import React from 'react';
 
 import ProductCard from '.';
 
+import nc000001 from 'assets/images/NC000001.jpg';
+
 export default {
   title: 'Components/organisms/ProductCard',
   component: ProductCard,
@@ -10,10 +12,10 @@ export default {
 } as Meta;
 
 export const normal: Story = () => (
-  <div style={{ width: '30%' }}>
+  <div style={{ width: '20%', padding: '25px' }}>
     <ProductCard
       code="C00001_00001"
-      images={['https://klbtheme.com/clotya/wp-content/uploads/2022/04/overshirt3-500x750.jpg']}
+      images={[nc000001]}
       promo={12}
       name="Check Overshirt With Pocket Detail"
       price={112}

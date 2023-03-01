@@ -7,6 +7,7 @@ body {
 
 * {
     box-sizing: border-box;
+    transition: $transition;
     -webkit-tap-highlight-color: transparent; //issue click in mobile flash background highligh
 }
 

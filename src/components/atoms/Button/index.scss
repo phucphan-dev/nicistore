@@ -84,8 +84,26 @@
     &-only-icon {
         width: auto;
         
-        #{$root}_icon {
-            margin-right: 0;
+        #{$root} {
+            &_icon {
+                margin-right: 0;
+            }
+
+            &_badge {
+                position: absolute;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                top: -2px;
+                right: -4px;
+                font-size: rem(10);
+                z-index: 1;
+                width: rem(14);
+                height: rem(14);
+                border-radius: 50%;
+                background-color: $fire-engine-red;
+                color: $white;
+            }
         }
 
         &#{$root} {
