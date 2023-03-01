@@ -1,0 +1,16 @@
+.a-text {
+    @include style-font-base();
+    @include style-color();
+    @include style-general();
+    @include style-font-weight();
+}
+
+.a-heading {
+    $root: &;
+    margin: 0;
+    
+    @include style-font-base();
+    @include style-font-weight();
+    @include style-general();
+    @include style-color();
+}

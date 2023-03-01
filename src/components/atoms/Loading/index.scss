@@ -1,0 +1,75 @@
+.a-loading {
+    $root: &;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-bottom: rem(10);
+    margin-top: rem(10);
+
+    &-small {
+        margin: 0;
+    }
+
+    .a-icon {
+        height: rem(30);
+        width: rem(30);
+    }
+
+    &-fullScreen {
+        height: 100vh;
+        left: 0;
+        margin: 0;
+        position: fixed;
+        top: 0;
+        width: 100vw;
+
+        .a-icon {
+            height: rem(50);
+            width: rem(50);
+        }
+    }
+
+    &-filled {
+        background-color: $white;
+    }
+
+    &_wrapper {
+        align-items: center;
+        background-color: transparent;
+        display: flex;
+        justify-content: center;
+
+        .a-text {
+            margin-left: rem(8);
+        }
+    }
+
+    &_tail {
+        animation: tail 1s infinite linear;
+        background-image: linear-gradient($white, $white), conic-gradient($white, $carmine-pink);
+        background-origin: border-box;
+        background-clip: content-box, border-box;
+        border: double 0.25em transparent;
+        border-radius: 100%;
+        height: rem(32);
+        overflow: hidden;
+        position: relative;
+        width: rem(32);
+
+        &-small {
+            width: rem(24);
+            height: rem(24);
+        }
+    }
+
+    &-white {
+        #{$root}_tail {
+            background-image: linear-gradient($carmine-pink, $carmine-pink), conic-gradient($carmine-pink, $white);
+        }
+    }
+}
+
+@keyframes tail {
+    to { transform: rotate(1turn); }
+}
+  

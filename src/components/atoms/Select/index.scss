@@ -1,0 +1,136 @@
+.m-select {
+    $root: &;
+    position: relative;
+    z-index: 3;
+
+    &_header {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: flex-end;
+        font-weight: 500;
+        font-size: rem(14);
+        color: $davys-grey;
+        background: $white;
+        cursor: pointer;
+        height: rem(36);
+
+        &_content {
+            display: flex;
+            align-items: center;
+            width: calc(100% - 26px);
+            height: 100%;
+            flex-grow: 1;
+            padding: rem(7.2) rem(4) rem(7.2) rem(12);
+            text-transform: capitalize;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+
+            span {
+                @include text-overflow(1);
+            }
+
+            &.placeholder {
+                font-weight: 400;
+                color: $black;
+                opacity: 0.5;
+            }
+        }
+    }
+
+    &_search {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        border: 0;
+        padding: rem(7.2) rem(12);
+        color: $davys-grey;
+        background: transparent;
+        font-size: rem(14);
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    &_arrow {
+        position: relative;
+        width: rem(36);
+        height: rem(36);
+        margin-right: rem(10);
+        flex-shrink: 0;
+
+        &::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background: url('~assets/icons/ic_arrow_down.svg') no-repeat;
+            background-size: rem(16);
+            background-position: center;
+            transition: $transition;
+        }
+
+        &.opened {
+            &::after {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    &_wrapper {
+        position: absolute;
+        width: 100%;
+    }
+
+    &_list {
+        padding: 0;
+        margin: 0;
+        background: $white;
+        color: $davys-grey;
+        font-size: rem(14);
+        font-weight: 500;
+        max-height: rem(300);
+        overflow-y: auto;
+    }
+
+    &_item {
+        list-style: none;
+        cursor: pointer;
+        white-space: normal;
+        padding: rem(12);
+
+        &:first-child,
+        &:last-child {
+            margin-top: rem(4);
+        }
+
+        &:hover {
+            background-color: $white-smoke;
+        }
+
+        &.none {
+            text-align: center;
+            color: #ccc;
+        }
+    }
+
+    &-nobackground {
+        #{$root} {
+            &_header {
+                background: transparent;
+            }
+
+            &_arrow {
+                width: rem(16);
+                height: rem(16);
+            }
+        }
+    }
+}
