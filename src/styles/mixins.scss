@@ -183,6 +183,10 @@
     &-justify {
         text-align: justify;
     }
+
+    &-lineThrough {
+        text-decoration: line-through;
+    }
 }
 
 @mixin reset-button {
@@ -207,6 +211,8 @@
 $colors-design: (
     'white': $white,
     'black': $black,
+    'ashGrey': $ash-grey,
+    'carminePink': $carmine-pink,
 );
 
 @mixin style-color {

@@ -3,12 +3,16 @@ import React from 'react';
 import mapModifiers from 'utils/functions';
 
 export const iconList = {
+  cart: 'cart',
+  expand: 'expand',
+  love: 'love',
   search: 'search',
+  star: 'star',
 };
 
 export type IconName = keyof typeof iconList;
 
-export type IconSize = '16' | '20' | '24' | '32' | '40';
+export type IconSize = '12' | '16' | '20' | '24' | '32' | '40';
 interface IconProps {
   iconName: IconName;
   size?: IconSize;

@@ -1,0 +1,102 @@
+.o-productCard {
+    $root: &;
+
+    &:hover {
+        #{$root}_actions {
+            right: rem(10);
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    &_thumbnail {
+        position: relative;
+    }
+
+    &_badge {
+        position: absolute;
+        top: rem(10);
+        left: rem(10);
+        z-index: 1;
+    }
+
+    &_actions {
+        position: absolute;
+        top: rem(10);
+        right: rem(-20);
+        opacity: 0;
+        visibility: hidden;
+        transition: $transition;
+        padding: rem(4);
+        z-index: 1;
+
+        &_item {
+            margin-top: rem(8);
+
+            &:first-child {
+                margin-top: 0;
+            }
+        }
+    }
+
+    &_content {
+        margin-top: rem(24);
+
+        &_switcher {
+            display: flex;
+            align-items: center;
+            margin-top: rem(12);
+        }
+
+        &_star {
+            display: flex;
+
+            * {
+                margin-left: rem(4);
+
+                &:first-child {
+                    margin-left: 0;
+                }
+            }
+        }
+
+        &_review {
+            margin-left: rem(8);
+        }
+    }
+
+    &_price {
+        display: flex;
+        align-items: center;
+        margin-top: rem(8);
+
+        &_sale {
+            margin-left: rem(8);
+        }
+    }
+
+    &_inventory {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: rem(4);
+
+        &_progress {
+            position: relative;
+            width: 100%;
+            height: rem(6);
+            border-radius: rem(3);
+            background-color: $anti-flash-white;
+            margin-top: rem(12);
+        }
+
+        &_status {
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: rem(3);
+            height: 100%;
+            background-color: $carmine-pink;
+        }
+    }
+}

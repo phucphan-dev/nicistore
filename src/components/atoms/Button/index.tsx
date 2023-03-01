@@ -6,13 +6,14 @@ import Loading from '../Loading';
 import Icon, { IconName, IconSize } from 'components/atoms/Icon';
 import mapModifiers from 'utils/functions';
 
-type Variant = 'primary' | 'secondary' | 'dark' | 'info';
+type Variant = 'primary' | 'secondary' | 'dark' | 'info' | 'circle';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;
   iconName?: IconName;
   iconSize?: IconSize;
   children?: React.ReactNode;
+  circle?: boolean;
   sizes?: 'h24' | 'h34' | 'h36' | 'h42' | 'h44' | 'h48' | 'h56';
   loading?: boolean;
   handleClick?: () => void;
