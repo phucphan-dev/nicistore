@@ -8,6 +8,11 @@ export const iconList = {
   love: 'love',
   search: 'search',
   star: 'star',
+  user: 'user',
+  close: 'close',
+  hambuger: 'hambuger',
+  arrowRight: 'arrowRight',
+  arrowRightWhite: 'arrowRightWhite',
 };
 
 export type IconName = keyof typeof iconList;

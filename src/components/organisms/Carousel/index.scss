@@ -1,0 +1,119 @@
+.o-carousel {
+    $root: &;
+
+    &_prevArrow {
+        left: rem(-32);
+
+        @include desktop-up {
+            left: rem(-52);
+        }
+
+        &.slick-arrow-banner {
+            left: rem(16);
+            @include mobile-down {
+                display: none;
+            }
+        }
+
+        &::before {
+            background: transparent url('~assets/icons/ic_arrow_left.svg')
+                no-repeat center/24px auto;
+        }
+    }
+
+    &_nextArrow {
+        right: rem(-32);
+
+        @include desktop-up {
+            right: rem(-52);
+        }
+
+        &.slick-arrow-banner {
+            right: rem(16);
+            @include mobile-down {
+                display: none;
+            }
+        }
+
+        &::before {
+            background: transparent url('~assets/icons/ic_arrow_right.svg')
+                no-repeat center/24px auto;
+        }
+    }
+
+    .slick-slide {
+        margin-bottom: -5px;
+        outline: none;
+
+        div {
+            &:focus {
+                outline: 0;
+            }
+        }
+    }
+
+    .slick-dots {
+        display: flex !important;
+
+        li {
+            margin: 0 rem(2);
+        }
+    }
+
+    .slick-arrow {
+        border-radius: 50%;
+        height: rem(32);
+        width: rem(32);
+        z-index: $z-1;
+
+        &::before {
+            content: '';
+            display: block;
+            height: 100%;
+            opacity: 1;
+            width: 100%;
+        }
+
+        &.slick-disabled {
+            cursor: initial;
+            opacity: 0.5;
+        }
+    }
+
+    &_dots {
+        bottom: 0;
+        margin-top: rem(24);
+        position: relative;
+        justify-content: center;
+
+        &-banner {
+            bottom: rem(30);
+            width: fit-content;
+            z-index: 2;
+            transform: translateX(-50%);
+            left: 50%;
+
+            @include mobile-down {
+                bottom: rem(8);
+            }
+      
+            li {
+                height: rem(8);
+                width: rem(8);
+                border-radius: rem(4);
+                background-color: $white;
+                opacity: 0.4;
+
+                &.slick-active {
+                    background-color: $white;
+                    opacity: 1;
+                    width: rem(23);
+                }
+
+                button {
+                    opacity: 0;
+                }
+            }
+        }
+    }
+}

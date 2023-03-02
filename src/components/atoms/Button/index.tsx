@@ -16,6 +16,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   circle?: boolean;
   sizes?: 'h24' | 'h34' | 'h36' | 'h42' | 'h44' | 'h48' | 'h56';
   loading?: boolean;
+  badge?: number;
   handleClick?: () => void;
 }
 
@@ -24,6 +25,7 @@ const Button: React.FC<ButtonProps> = ({
   children,
   sizes,
   iconName,
+  badge,
   iconSize = '16',
   type = 'button',
   loading,
@@ -40,6 +42,7 @@ const Button: React.FC<ButtonProps> = ({
             iconName && (
               <div className="a-button_icon">
                 <Icon iconName={iconName} size={iconSize} />
+                {badge && <span className="a-button_badge">{badge}</span>}
               </div>
             )
           }

@@ -2,88 +2,52 @@ import React from 'react';
 
 import Typography from 'components/atoms/Typography';
 
+interface MenuData {
+  id: string;
+  text: string;
+  link: string;
+}
+export interface MenuItem extends MenuData {
+  childrens?: MenuItem[];
+}
 interface MenuProps {
-  children?: React.ReactNode;
+  menu: MenuItem[];
 }
 
-const Menu: React.FC<MenuProps> = () => (
+const Menu: React.FC<MenuProps> = ({ menu }) => (
   <div className="o-menu">
     <ul className="o-menu_list">
-      <li className="o-menu_item">
-        <a className="o-menu_link" href="https://klbtheme.com/clotya/"><Typography.Text modifiers={['15x18', 'black', 'uppercase', '500']}>Home</Typography.Text></a>
-        <ul className="o-menu_submenu">
-          <li className="o-menu_item"><a href="https://klbtheme.com/clotya/"><Typography.Text modifiers={['15x18']}>Home 1</Typography.Text></a></li>
-          <li className="o-menu_item"><a href="https://klbtheme.com/clotya/home-2/"><Typography.Text modifiers={['15x18']}>Home 2</Typography.Text></a></li>
-          <li className="o-menu_item"><a href="https://klbtheme.com/clotya/home-3/"><Typography.Text modifiers={['15x18']}>Home 3</Typography.Text></a></li>
-          <li className="o-menu_item"><a href="https://klbtheme.com/clotya/home-4/"><Typography.Text modifiers={['15x18']}>Home 4</Typography.Text></a></li>
-          <li className="o-menu_item"><a href="https://klbtheme.com/clotya/home-5/"><Typography.Text modifiers={['15x18']}>Home 5</Typography.Text></a></li>
-          <li className="o-menu_item"><a href="https://klbtheme.com/clotya/home-6/"><Typography.Text modifiers={['15x18']}>Home 6</Typography.Text></a></li>
-        </ul>
-      </li>
-      <li className="o-menu_item">
-        <a className="o-menu_link" href="https://klbtheme.com/clotya/shop/"><Typography.Text modifiers={['15x18', 'black', 'uppercase', '500']}>Shop</Typography.Text></a>
-        <ul className="o-menu_submenu">
-          <li className="o-menu_item">
-            <a href="https://klbtheme.com/clotya/shop/">Shop Lists</a>
+      {menu.map((item) => (
+        <li className="o-menu_item" key={item.id}>
+          <a className="o-menu_link" href={item.link}>
+            <Typography.Text modifiers={['15x18', 'black', 'uppercase']}>{item.text}</Typography.Text>
+          </a>
+          {item.childrens && (
             <ul className="o-menu_submenu">
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/shop/">Shop Default</a></li>
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/shop/?opt=right-sidebar">Shop Right Sidebar</a></li>
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/shop/?column=5&amp;opt=wide">Shop Wide</a></li>
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/shop/?column=5&amp;opt=full-width">Filters Area</a></li>
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/shop/?shop_view=list_view">List Left Sidebar</a></li>
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/shop/?ft=load-more">Load More Button</a></li>
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/shop/?ft=infinite">Infinite Scrolling</a></li>
+              {item.childrens.map((child) => (
+                <li className="o-menu_submenu_item" key={child.id}>
+                  <a className="o-menu_submenu_link" href={child.link}>
+                    <Typography.Text modifiers={['15x18']}>{child.text}</Typography.Text>
+                  </a>
+                  {child.childrens && (
+                    <ul className="o-menu_subchildmenu">
+                      {child.childrens.map((childSub) => (
+                        <li className="o-menu_subchildmenu_item" key={childSub.id}>
+                          <a href={childSub.link}>
+                            <Typography.Text modifiers={['15x18']}>{childSub.text}</Typography.Text>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              ))}
             </ul>
-          </li>
-          <li className="o-menu_item">
-            <a href="https://klbtheme.com/clotya/product/basic-colored-sweatpants-with-elastic-hems/">Product Detail</a>
-            <ul className="o-menu_submenu">
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/product/basic-colored-sweatpants-with-elastic-hems/">Product Variable</a></li>
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/product/basic-high-neck-puff-jacket/">Product Default</a></li>
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/product/brown-mountain-graphic-sweatshirt/">Product Grouped</a></li>
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/product/cotton-and-linen-basic-shirt/">Product External</a></li>
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/product/corduroy-bucket-hat/">Product Downloadable</a></li>
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/product/ripstop-cargo-trousers-with-pockets/">Produt With Video</a></li>
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/product/basic-colored-sweatpants-with-elastic-hems/?ft=recentfalse">Without Recently Viewed</a></li>
-            </ul>
-          </li>
-          <li className="o-menu_item">
-            <a href="#">Shop Pages</a>
-            <ul className="o-menu_submenu">
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/cart/">Cart</a></li>
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/checkout/">Checkout</a></li>
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/my-account/">My account</a></li>
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/wishlist/">Wishlist</a></li>
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/order-tracking/">Order Tracking</a></li>
-              <li className="o-menu_item"><a href="https://klbtheme.com/furnob/shop/?orderby=popularity">Best Selling Products</a></li>
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/terms-and-conditions/">Terms and Conditions</a></li>
-            </ul>
-          </li>
-          <li className="o-menu_item">
-            <a href="#">Shop Layouts</a>
-            <ul className="o-menu_submenu">
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/shop/?column=2">Two Columns</a></li>
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/shop/?column=3">Three Columns</a></li>
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/shop/?column=3&amp;opt=wide">Three Columns Wide</a></li>
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/shop/?column=4">Four Columns</a></li>
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/shop/?column=4&amp;opt=wide">Four Columns Wide</a></li>
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/shop/?column=5&amp;opt=wide">Five Columns Wide</a></li>
-              <li className="o-menu_item"><a href="https://klbtheme.com/clotya/shop/?column=6&amp;opt=wide">Six Columns Wide</a></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li className="o-menu_item"><a href="https://klbtheme.com/clotya/shop/?filter_cat=63"><Typography.Text modifiers={['15x18', 'black', 'uppercase', '500']}>Women</Typography.Text></a></li>
-      <li className="o-menu_item"><a href="https://klbtheme.com/clotya/shop/?filter_cat=42"><Typography.Text modifiers={['15x18', 'black', 'uppercase', '500']}>Men</Typography.Text></a></li>
-      <li className="o-menu_item"><a href="https://klbtheme.com/clotya/shop/?filter_cat=44"><Typography.Text modifiers={['15x18', 'black', 'uppercase', '500']}>Outerwear</Typography.Text></a></li>
-      <li className="o-menu_item"><a href="https://klbtheme.com/clotya/blog/"><Typography.Text modifiers={['15x18', 'black', 'uppercase', '500']}>Blog</Typography.Text></a></li>
-      <li className="o-menu_item"><a href="https://klbtheme.com/clotya/contact/"><Typography.Text modifiers={['15x18', 'black', 'uppercase', '500']}>Contact</Typography.Text></a></li>
+          )}
+        </li>
+      ))}
     </ul>
   </div>
 );
-
-Menu.defaultProps = {
-  children: undefined,
-};
 
 export default Menu;
