@@ -30,7 +30,8 @@ type ColorStyle =
   | 'white'
   | 'black'
   | 'ashGrey'
-  | 'carminePink';
+  | 'carminePink'
+  | 'sonicSilver';
 
 type LetterSpacing = 'ls-md' | 'ls-lg' | 'ls-xl';
 
@@ -40,7 +41,7 @@ type GeneralTextStyle =
   | ColorStyle
   | LetterSpacing;
 
-type Sizes = '10x12' | '12x14' | '13x16' | '14x16' | '15x18' | '16x18' | '18x21' | '20x24' | '22x25' | '24x28' | '28x32' | '30x36' | '32x36' | '36x40' | '40x48';
+type Sizes = '10x12' | '12x14' | '13x16' | '14x16' | '15x18' | '16x18' | '18x21' | '20x24' | '22x25' | '24x28' | '28x32' | '30x36' | '32x36' | '36x40' | '40x48' | '48x54' | '76x80';
 
 type TextStyleAll = (GeneralTextStyle | Sizes | ColorStyle)[];
 

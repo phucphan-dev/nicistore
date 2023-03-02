@@ -1,14 +1,14 @@
 import { Story, Meta } from '@storybook/react';
 import React from 'react';
 
-import Example from '.';
+import Section from '.';
 
 export default {
-  title: 'Components/templates/Example',
-  component: Example,
+  title: 'Components/organisms/Section',
+  component: Section,
   argTypes: {},
 } as Meta;
 
 export const normal: Story = () => (
-  <Example />
+  <Section />
 );

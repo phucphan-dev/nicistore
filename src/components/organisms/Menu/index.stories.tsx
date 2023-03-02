@@ -3,6 +3,8 @@ import React from 'react';
 
 import Menu from '.';
 
+import menuDummy from 'assets/dummy/menu';
+
 export default {
   title: 'Components/organisms/Menu',
   component: Menu,
@@ -17,6 +19,6 @@ export const normal: Story = () => (
     background: '#ccc'
   }}
   >
-    <Menu />
+    <Menu menu={menuDummy} />
   </div>
 );

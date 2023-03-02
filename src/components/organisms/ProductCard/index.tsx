@@ -7,7 +7,7 @@ import Image from 'components/atoms/Image';
 import Typography from 'components/atoms/Typography';
 import mapModifiers from 'utils/functions';
 
-interface ProductCardProps {
+export interface ProductCardProps {
   code: string;
   images: string[];
   promo?: number;
