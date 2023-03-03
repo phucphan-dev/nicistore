@@ -1,12 +1,13 @@
 html,
 body {
-    font-family: 'Be Vietnam Pro', sans-serif;
+    font-family: 'Jost', sans-serif;
     font-size: 16px;
     overflow-x: hidden;
 }
 
 * {
     box-sizing: border-box;
+    transition: $transition;
     -webkit-tap-highlight-color: transparent; //issue click in mobile flash background highligh
 }
 
@@ -23,6 +24,12 @@ p {
 
 a {
     text-decoration: none;
+    color: $black;
+}
+
+img,
+svg {
+    vertical-align: middle;
 }
 
 [role='button'],
@@ -39,9 +46,11 @@ input {
 }
 
 ul,
+li,
 ol {
     margin: 0;
     padding: 0;
+    list-style: none;
 }
 
 .hidden-animation {

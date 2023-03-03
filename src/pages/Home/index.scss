@@ -1,0 +1,16 @@
+.p-home {
+    &_topSeller {
+        margin-bottom: rem(32);
+
+        &_description {
+            max-width: 50%;
+            margin: rem(16) auto 0;
+            @include desktop-down {
+                max-width: 80%;
+            }
+            @include mobile-down {
+                max-width: 90%;
+            }
+        }
+    }
+}

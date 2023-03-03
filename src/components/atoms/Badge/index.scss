@@ -1,0 +1,23 @@
+.a-badge {
+    $root: &;
+    display: inline-block;
+
+    &_content {
+        display: inline-block;
+        padding: rem(4) rem(8);
+        font-size: rem(12);
+        font-weight: 700;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: rem(4);
+        background-color: $white;
+    }
+
+    &-onsale {
+        #{$root}_content {
+            color: $mint;
+        }
+    }
+}

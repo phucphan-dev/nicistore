@@ -1,0 +1,134 @@
+.a-button {
+    $root: &;
+    @include reset-button();
+    cursor: pointer;
+
+    position: relative;
+    display: inline-flex;
+    width: 100%;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    font-size: rem(15);
+    line-height: inherit;
+    padding: rem(8) rem(16);
+    border-radius: rem(2);
+
+    .a-loading_tail {
+        width: rem(26);
+        height: rem(26);
+    }
+
+    &-h24 {
+        height: rem(24);
+    }
+
+    &-h34 {
+        height: rem(34);
+    }
+
+    &-h36 {
+        height: rem(36);
+    }
+
+    &-h42 {
+        height: rem(42);
+    }
+
+    &-h44 {
+        height: rem(44);
+    }
+
+    &-h48 {
+        height: rem(48);
+    }
+
+    &-h56 {
+        height: rem(56);
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    &-primary {
+        background-color: $carmine-pink;
+        color: $white;
+    }
+
+    &-secondary {
+        background-color: $anti-flash-white;
+        color: $black;
+        border: 1px solid $gainsboro;
+    }
+
+    &-dark {
+        background-color: $black;
+        color: $white;
+        border: 1px solid $white;
+    }
+
+    &-info {
+        background-color: $ash-grey;
+        color: $white;
+    }
+
+    &_icon {
+        margin-right: rem(8);
+    }
+
+    &-only-icon {
+        width: auto;
+        
+        #{$root} {
+            &_icon {
+                margin-right: 0;
+            }
+
+            &_badge {
+                position: absolute;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                top: -2px;
+                right: -4px;
+                font-size: rem(10);
+                z-index: 1;
+                width: rem(14);
+                height: rem(14);
+                border-radius: 50%;
+                background-color: $fire-engine-red;
+                color: $white;
+            }
+        }
+
+        &#{$root} {
+            padding: 0;
+
+            &-h24 {
+                width: rem(24);
+            }
+
+            &-h34 {
+                width: rem(34);
+            }
+
+            &-h36 {
+                width: rem(36);
+            }
+
+            &-h56 {
+                width: rem(56);
+            }
+        }
+    }
+
+    &-circle {
+        border-radius: 50%;
+        background-color: $white;
+    }
+}

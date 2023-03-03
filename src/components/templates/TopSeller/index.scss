@@ -1,0 +1,71 @@
+.t-topSeller {
+    display: flex;
+    @include desktop-down {
+        flex-wrap: wrap;
+    }
+
+    &_product {
+        width: 25%;
+        flex-shrink: 0;
+        padding-left: rem(12);
+        padding-right: rem(12);
+        @include desktop-down {
+            width: 50%;
+        }
+
+        @include mobile-down {
+            width: 100%;
+            margin-top: rem(24);
+        }
+    }
+
+    &_collection {
+        position: relative;
+        flex-grow: 1;
+        padding-left: rem(12);
+        padding-right: rem(12);
+
+        @include desktop-down {
+            order: 3;
+            margin-top: rem(24);
+        }
+    }
+
+    &_content {
+        position: absolute;
+        transform: translateY(-50%);
+        top: 50%;
+        left: 0;
+        width: 100%;
+        padding-left: rem(32);
+        padding-right: rem(32);
+    }
+
+    &_title {
+        margin-top: rem(12);
+        @include mobile-down {
+            margin-top: rem(8);
+        }
+    }
+
+    &_description {
+        margin-top: rem(20);
+        @include mobile-down {
+            margin-top: rem(12);
+        }
+    }
+
+    &_link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: rem(24);
+        @include mobile-down {
+            margin-top: rem(16);
+        }
+    }
+
+    &_icon {
+        margin-left: rem(8);
+    }
+}

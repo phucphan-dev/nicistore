@@ -1,0 +1,76 @@
+.a-icon {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: block;
+
+    &-12 {
+        height: rem(12);
+        width: rem(12);
+    }
+
+    &-16 {
+        height: rem(16);
+        width: rem(16);
+    }
+
+    &-24 {
+        height: rem(24);
+        width: rem(24);
+    }
+
+    &-20 {
+        height: rem(20);
+        width: rem(20);
+    }
+
+    &-32 {
+        height: rem(32);
+        width: rem(32);
+    }
+
+    &-40 {
+        height: rem(40);
+        width: rem(40);
+    }
+  
+    &-search {
+        background-image: url('~assets/icons/ic_search.svg');
+    }
+   
+    &-cart {
+        background-image: url('~assets/icons/ic_cart.svg');
+    }
+   
+    &-expand {
+        background-image: url('~assets/icons/ic_expand.svg');
+    }
+   
+    &-love {
+        background-image: url('~assets/icons/ic_love.svg');
+    }
+   
+    &-star {
+        background-image: url('~assets/icons/ic_star.svg');
+    }
+   
+    &-user {
+        background-image: url('~assets/icons/ic_user.svg');
+    }
+   
+    &-close {
+        background-image: url('~assets/icons/ic_close.svg');
+    }
+   
+    &-hambuger {
+        background-image: url('~assets/icons/ic_hambuger.svg');
+    }
+   
+    &-arrowRight {
+        background-image: url('~assets/icons/ic_arrow_right_alt.svg');
+    }
+   
+    &-arrowRightWhite {
+        background-image: url('~assets/icons/ic_arrow_right_alt_white.svg');
+    }
+}

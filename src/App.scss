@@ -1,5 +1,9 @@
 @import 'styles/common';
 
+// Libraries
+@import '~slick-carousel/slick/slick-theme.css';
+@import '~slick-carousel/slick/slick.css';
+
 // Components
 @import 'components/atoms/*/index.scss';
 @import 'components/molecules/*/index.scss';

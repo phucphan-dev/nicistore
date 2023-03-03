@@ -1,0 +1,56 @@
+.m-radio {
+    cursor: pointer;
+    $root: &;
+    @include adjust-flex(flex-start,center);
+ 
+    &_input {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        display: none;
+    
+        &:checked {
+            
+            + #{$root}_holder {
+                border: 0;
+                background: url('~assets/icons/ic_checkbox.svg') no-repeat center / cover;
+            }
+        }
+    }
+
+
+    &_holder {
+        width: rem(24);
+        height: rem(24);
+        border-radius: 50%;
+        border: 1px solid $battleship-grey;
+        position: relative;
+        flex-shrink: 0;
+
+        @include mobile-down {
+            width: rem(20);
+            height: rem(20);
+        }
+    }
+
+    &_label {
+        padding-left: rem(12);
+        @include font-base(18, 24);
+        letter-spacing: 0.0015em;
+        color: $black;
+
+        @include mobile-down {
+            @include font-base(16, 20);
+        }
+    }
+
+    &-required {
+        #{$root}_holder {
+            border-color: $fire-engine-red;
+        }
+
+        #{$root}_label {
+            color: $fire-engine-red; 
+        }
+    }
+}

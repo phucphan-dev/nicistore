@@ -1,14 +1,14 @@
 import { Story, Meta } from '@storybook/react';
 import React from 'react';
 
-import Example from '.';
+import Header from '.';
 
 export default {
-  title: 'Components/atoms/Example',
-  component: Example,
+  title: 'Components/organisms/Header',
+  component: Header,
   argTypes: {},
 } as Meta;
 
 export const normal: Story = () => (
-  <Example />
+  <div style={{ height: '100vh', background: '#ccc' }}><Header /></div>
 );

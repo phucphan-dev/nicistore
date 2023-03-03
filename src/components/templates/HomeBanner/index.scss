@@ -1,0 +1,70 @@
+.t-homeBanner {
+    width: 100%;
+    @include max-desktop {
+        padding-left: rem(100);
+        padding-right: rem(100);
+    }
+
+    &_item {
+        position: relative;
+
+        @include mobile-down {
+            min-height: rem(300);
+
+            .a-image {
+                height: 100%;
+                position: absolute;
+
+                span {
+                    height: 100% !important;
+
+                    img {
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                }
+            }
+        }
+    }
+
+    &_content {
+        position: absolute;
+        transform: translateY(-50%);
+        top: 50%;
+        left: rem(72);
+        max-width: 50%;
+
+        @include mobile-down {
+            left: rem(16);
+            max-width: 100%;
+            padding-right: rem(16);
+        }
+    }
+
+    &_title {
+        margin-top: rem(12);
+        @include mobile-down {
+            margin-top: rem(8);
+        }
+    }
+
+    &_description {
+        margin-top: rem(20);
+        @include mobile-down {
+            margin-top: rem(12);
+        }
+    }
+
+    &_link {
+        display: flex;
+        align-items: center;
+        margin-top: rem(24);
+        @include mobile-down {
+            margin-top: rem(16);
+        }
+    }
+
+    &_icon {
+        margin-left: rem(8);
+    }
+}

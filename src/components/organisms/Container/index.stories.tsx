@@ -1,14 +1,14 @@
 import { Story, Meta } from '@storybook/react';
 import React from 'react';
 
-import Example from '.';
+import Container from '.';
 
 export default {
-  title: 'Components/organisms/Example',
-  component: Example,
+  title: 'Components/organisms/Container',
+  component: Container,
   argTypes: {},
 } as Meta;
 
 export const normal: Story = () => (
-  <Example />
+  <Container />
 );
