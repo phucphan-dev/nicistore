@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/nici-closet/static/css/main.5360c690.css",
-    "main.js": "/nici-closet/static/js/main.e65ef049.js",
+    "main.js": "/nici-closet/static/js/main.9e09de45.js",
     "static/js/787.aedbec2c.chunk.js": "/nici-closet/static/js/787.aedbec2c.chunk.js",
     "static/media/logo.svg": "/nici-closet/static/media/logo.c439476454efbd0af69e467ae023086f.svg",
     "static/media/slick.svg": "/nici-closet/static/media/slick.2630a3e3eab21c607e21.svg",
@@ -26,11 +26,11 @@
     "static/media/ic_star.svg": "/nici-closet/static/media/ic_star.0de1563052c3095649c9.svg",
     "static/media/ic_arrow_down.svg": "/nici-closet/static/media/ic_arrow_down.dd3112097f1db89fd8fb.svg",
     "main.5360c690.css.map": "/nici-closet/static/css/main.5360c690.css.map",
-    "main.e65ef049.js.map": "/nici-closet/static/js/main.e65ef049.js.map",
+    "main.9e09de45.js.map": "/nici-closet/static/js/main.9e09de45.js.map",
     "787.aedbec2c.chunk.js.map": "/nici-closet/static/js/787.aedbec2c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.5360c690.css",
-    "static/js/main.e65ef049.js"
+    "static/js/main.9e09de45.js"
   ]
 }
