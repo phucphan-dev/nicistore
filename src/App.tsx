@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from 'pages/Home';
 
 const App: React.FC = () => (
-  <BrowserRouter>
+  <BrowserRouter basename="/nici-closet">
     <Routes>
       <Route path="/" element={<Home />} />
     </Routes>
