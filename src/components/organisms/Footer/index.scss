@@ -1,0 +1,41 @@
+.o-footer {
+    padding-top: rem(60);
+    padding-bottom: rem(60);
+
+    @include mobile-down {
+        padding-top: rem(40);
+        padding-bottom: rem(40);
+    }
+
+    &_brandInfo {
+        max-width: rem(310);
+    }
+
+    &_logo {
+        max-width: rem(148);
+    }
+
+    &_intro {
+        margin-top: rem(16);
+        margin-bottom: rem(16);
+    }
+
+    &_menu {
+        margin-top: rem(16);
+
+        &_item {
+            margin-top: rem(8);
+
+            &:first-child {
+                margin-top: rem(0);
+            }
+        }
+    }
+
+    &_divider {
+        margin-top: rem(60);
+        margin-bottom: rem(40);
+        height: 1px;
+        background-color: $battleship-grey;
+    }
+}

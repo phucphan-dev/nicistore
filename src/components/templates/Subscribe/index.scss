@@ -1,0 +1,48 @@
+.t-subscribe {
+    background-color: $black;
+    padding-top: rem(80);
+    padding-bottom: rem(80);
+
+    &_wrapper {
+        display: flex;
+        justify-content: space-between;
+
+        @include tablet-down {
+            display: block;
+        }
+    }
+
+    &_left,
+    &_right {
+        width: 40%;
+
+        @include tablet-down {
+            width: 100%;
+        }
+    }
+
+    &_right {
+        @include tablet-down {
+            margin-top: rem(48);
+        }
+    }
+
+    &_description {
+        opacity: 0.6;
+        margin-top: rem(8);
+        margin-bottom: rem(16);
+    }
+
+    &_input {
+        display: flex;
+        align-items: center;
+
+        .a-input {
+            flex-grow: 1;
+        }
+    }
+
+    &_button {
+        width: rem(128);
+    }
+}
