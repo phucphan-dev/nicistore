@@ -1,4 +1,10 @@
 .t-featuredProduct {
+    padding-bottom: rem(80);
+
+    @include mobile-down {
+        padding-bottom: rem(40);
+    }
+
     &_description {
         max-width: 60%;
         margin: rem(16) auto 0;

@@ -34,6 +34,7 @@ const FeaturedProduct: React.FC<FeaturedProductProps> = ({ products }) => {
         breakpoint: 567,
         settings: {
           slidesToShow: 1,
+          slidesToScroll: 1,
           arrows: false,
         },
       },
