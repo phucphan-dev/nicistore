@@ -111,11 +111,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
             ))}
           </div>
           {reviewCount && (
-            <span className="o-productCard_content_review">
+            <Typography.Text modifiers={['16x18']}>
               {reviewCount}
               {' '}
               review
-            </span>
+            </Typography.Text>
           )}
         </div>
         {available && solded && (

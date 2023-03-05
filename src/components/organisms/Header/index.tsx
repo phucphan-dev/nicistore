@@ -17,7 +17,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = () => {
   const [open, setOpen] = useState(false);
   return (
-    <div className="o-header">
+    <header className="o-header">
       <Container>
         <div className="o-header_wrapper">
           <div className="o-header_hambuger">
@@ -50,7 +50,7 @@ const Header: React.FC<HeaderProps> = () => {
           </div>
         </div>
       </Container>
-    </div>
+    </header>
   );
 };
 

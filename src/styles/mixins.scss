@@ -74,14 +74,24 @@
 
     &-13x16 {
         @include font-base(13, 16);
+
+        @include mobile-down {
+            @include font-base(10, 12);
+        }
     }
 
     &-14x16 {
         @include font-base(14, 16);
+        @include mobile-down {
+            @include font-base(12, 14);
+        }
     }
 
     &-15x18 {
         @include font-base(15, 18);
+        @include mobile-down {
+            @include font-base(12, 14);
+        }
     }
 
     &-16x18 {
@@ -94,42 +104,72 @@
         
     &-18x21 {
         @include font-base(18, 21); 
+        @include mobile-down {
+            @include font-base(15, 18);
+        }
     }
 
     &-20x24 {
         @include font-base(20, 24);
+        @include mobile-down {
+            @include font-base(16, 18);
+        }
     }
 
     &-22x25 {
         @include font-base(22, 25);
+        @include mobile-down {
+            @include font-base(18, 21);
+        }
     }
 
     &-24x28 {
         @include font-base(24, 28);
+        @include mobile-down {
+            @include font-base(20, 24);
+        }
     }
 
     &-28x32 {
         @include font-base(28, 32);
+        @include mobile-down {
+            @include font-base(22, 25);
+        }
     }
 
     &-30x36 {
         @include font-base(30, 36);
+        @include mobile-down {
+            @include font-base(24, 26);
+        }
     }
 
     &-32x36 {
         @include font-base(32, 36);
+        @include mobile-down {
+            @include font-base(26, 30);
+        }
     }
 
     &-36x40 {
         @include font-base(36, 40);
+        @include mobile-down {
+            @include font-base(30, 34);
+        }
     }
 
     &-40x48 {
         @include font-base(40, 48);
+        @include mobile-down {
+            @include font-base(32, 36);
+        }
     }
 
     &-48x54 {
         @include font-base(48, 54);
+        @include mobile-down {
+            @include font-base(40, 46);
+        }
     }
 
     &-76x80 {
@@ -238,6 +278,7 @@ $colors-design: (
     'ashGrey': $ash-grey,
     'carminePink': $carmine-pink,
     'sonicSilver': $sonic-silver,
+    'ferrariRed': $ferrari-red,
 );
 
 @mixin style-color {

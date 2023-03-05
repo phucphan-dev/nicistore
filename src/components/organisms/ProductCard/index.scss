@@ -50,6 +50,7 @@
 
         &_star {
             display: flex;
+            margin-right: rem(8);
 
             * {
                 margin-left: rem(4);
@@ -58,10 +59,6 @@
                     margin-left: 0;
                 }
             }
-        }
-
-        &_review {
-            margin-left: rem(8);
         }
     }
 

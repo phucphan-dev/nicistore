@@ -1,0 +1,87 @@
+.t-homeCategory {
+    $root: &;
+    display: flex;
+    margin-left: rem(-16);
+    margin-right: rem(-16);
+
+    @include tablet-down {
+        display: block;
+    }
+
+    &_left,
+    &_right {
+        padding-left: rem(16);
+        padding-right: rem(16);
+    }
+
+    &_left {
+        flex: 1 0 49%;
+    }
+
+    &_right {
+        flex: 1 0 51%;
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: rem(-16);
+        margin-right: rem(-16);
+
+        #{$root} {
+            &_item {
+                padding-left: rem(16);
+                padding-right: rem(16);
+                flex: 1 0 50%;
+
+                &:first-child {
+                    flex: 2 0 100%;
+                    margin-bottom: rem(42);
+
+                    @include tablet-down {
+                        margin-bottom: rem(16);
+                    }
+                }
+            }
+        }
+
+        @include tablet-down {
+            margin-top: rem(16);
+        }
+    }
+
+    &_item {
+        position: relative;
+    }
+
+    &_content {
+        position: absolute;
+        width: 70%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        padding: rem(40);
+
+        @include tablet-down {
+            padding: rem(20) rem(30);
+        }
+    }
+
+    &_name {
+        margin-top: rem(8);
+    }
+
+    &_description {
+        margin-top: rem(8);
+        opacity: 0.6;
+    }
+
+    &_items {
+        margin-top: rem(30);
+        @include tablet-down {
+            margin-top: rem(20);
+        }
+    }
+
+    &_itemLink {
+        height: rem(24);
+        margin-top: rem(4);
+    }
+}

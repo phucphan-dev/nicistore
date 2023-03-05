@@ -1,0 +1,9 @@
+.o-widgetSection {
+    background-color: $seashell;
+    border-radius: rem(4);
+    padding: rem(20) rem(30);
+
+    @include desktop-down {
+        padding: rem(20);
+    }
+}

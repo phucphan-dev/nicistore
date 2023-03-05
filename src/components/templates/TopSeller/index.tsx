@@ -15,6 +15,15 @@ interface TopSellerProps {
 
 const TopSeller: React.FC<TopSellerProps> = ({ first, second, collection }) => (
   <Container>
+    <Typography.Heading type="h3" modifiers={['center', '30x36', '500']}>Best Seller Products</Typography.Heading>
+    <div className="t-topSeller_description">
+      <Typography.Text modifiers={['center', 'sonicSilver', '16x18']}>
+        Lorem ipsum dolor sit amet, consectetur
+        adipiscing elit, sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua. Quis ipsum suspendisse
+        ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
+      </Typography.Text>
+    </div>
     <div className="t-topSeller">
       <div className="t-topSeller_product">
         <ProductCard {...first} />
