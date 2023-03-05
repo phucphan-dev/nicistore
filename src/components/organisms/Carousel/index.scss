@@ -2,10 +2,10 @@
     $root: &;
 
     &_prevArrow {
-        left: rem(-32);
+        left: rem(-24);
 
         @include desktop-up {
-            left: rem(-52);
+            left: rem(-36);
         }
 
         &.slick-arrow-banner {
@@ -22,10 +22,10 @@
     }
 
     &_nextArrow {
-        right: rem(-32);
+        right: rem(-24);
 
         @include desktop-up {
-            right: rem(-52);
+            right: rem(-36);
         }
 
         &.slick-arrow-banner {
@@ -56,7 +56,7 @@
         display: flex !important;
 
         li {
-            margin: 0 rem(2);
+            margin: 0 rem(4);
         }
     }
 
@@ -112,6 +112,34 @@
 
                 button {
                     opacity: 0;
+                }
+            }
+        }
+
+        &-bottom {
+            justify-content: center;
+            bottom: rem(-40);
+
+            li {
+                margin: 0 rem(2);
+                width: rem(8);
+                height: rem(8);
+                background-color: $black;
+                border-radius: 50%;
+                opacity: 0.3;
+
+                &.slick-active {
+                    opacity: 1;
+                }
+
+                button {
+                    padding: 0;
+                    width: rem(8);
+                    height: rem(8);
+
+                    &::before {
+                        content: unset;
+                    }
                 }
             }
         }

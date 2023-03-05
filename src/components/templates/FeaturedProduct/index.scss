@@ -1,0 +1,18 @@
+.t-featuredProduct {
+    &_description {
+        max-width: 60%;
+        margin: rem(16) auto 0;
+        margin-bottom: rem(32);
+        @include desktop-down {
+            max-width: 80%;
+        }
+        @include mobile-down {
+            max-width: 90%;
+        }
+    }
+
+    &_item {
+        padding-left: rem(12);
+        padding-right: rem(12);
+    }
+}

@@ -1,7 +1,22 @@
 .t-topSeller {
     display: flex;
+    margin-left: rem(-12);
+    margin-right: rem(-12);
+    
     @include desktop-down {
         flex-wrap: wrap;
+    }
+
+    &_description {
+        max-width: 50%;
+        margin: rem(16) auto 0;
+        margin-bottom: rem(32);
+        @include desktop-down {
+            max-width: 80%;
+        }
+        @include mobile-down {
+            max-width: 90%;
+        }
     }
 
     &_product {

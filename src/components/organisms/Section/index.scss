@@ -1,4 +1,9 @@
 .o-section {
     margin-top: rem(50);
     margin-bottom: rem(30);
+
+    &-nospace {
+        margin-top: 0;
+        margin-left: 0;
+    }
 }
