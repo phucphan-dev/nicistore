@@ -19,7 +19,7 @@ const Footer: React.FC<FooterProps> = () => (
         <Col lg={4}>
           <div className="o-footer_brandInfo">
             <div className="o-footer_logo">
-              <Image imgSrc={logo} alt="Logo" />
+              <Image imgSrc={logo} alt="Logo" ratio="75x46" />
             </div>
             <div className="o-footer_intro">
               <Typography.Text modifiers={['12x14']}>

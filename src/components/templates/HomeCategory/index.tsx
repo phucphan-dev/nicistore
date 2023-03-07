@@ -10,6 +10,7 @@ export interface HomeCategoryData {
   description?: string;
   totalProduct: number;
   thumbnail: string;
+  ratio: RatioImage;
   items?: { name: string, href: string }[];
 }
 
@@ -20,7 +21,7 @@ interface HomeCategoryProps {
 const HomeCategory: React.FC<HomeCategoryProps> = ({ categories }) => {
   const renderItem = (item: HomeCategoryData, index?: number) => (
     <div className="t-homeCategory_item" key={index ? item.name + index.toString() : undefined}>
-      <Image imgSrc={item.thumbnail} alt={item.name} />
+      <Image imgSrc={item.thumbnail} alt={item.name} ratio={item.ratio} />
       <div className="t-homeCategory_content">
         <div className="t-homeCategory_total">
           <Typography.Text modifiers={['13x16']}>
