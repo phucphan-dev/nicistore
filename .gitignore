@@ -4,6 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
+gh-pages
+gh-pages.pub
 
 # testing
 /coverage
