@@ -18,7 +18,7 @@ jobs:
         npm install
         npm run-script build
     - name: Build and Deploy
-      uses: phucphandev/github-pages-deploy-action@releases/v3
+      uses: phucphan-dev/nici-closet@releases/v1
       with:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         BASE_BRANCH: master
