@@ -1,26 +1,18 @@
-name: Deploy NiCiStore to GitHub Pages
+name: Build and Publish to GitHub Pages
 
 on:
   push:
     branches:
-      - develop
+      - "develop"
 jobs:
-  build:
-
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.build-publish.outputs.page_url }}
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout
-      uses: actions/checkout@v1
-
-    - name: Build
-      run: |
-        npm install
-        npm run-script build
-    - name: Build and Deploy
+    - id: build-publish
       uses: bitovi/github-actions-react-to-ghp@v1.2.0
       with:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        BASE_BRANCH: develop
-        BRANCH: gh-pages
-        FOLDER: build
+        path: build
+        build_command: npm run build
