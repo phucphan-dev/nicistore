@@ -24,7 +24,7 @@ const Header: React.FC<HeaderProps> = () => {
             <Button iconName="hambuger" iconSize="32" handleClick={() => setOpen(true)} />
           </div>
           <div className="o-header_left">
-            <div className="o-header_logo"><Image imgSrc={logo} alt="Nici Logo" /></div>
+            <div className="o-header_logo"><Image imgSrc={logo} alt="Nici Logo" ratio="75x46" /></div>
             <div className={mapModifiers('o-header_menu', open && 'opened')}>
               <div className="o-header_menu_logo">
                 <Image imgSrc={logo} alt="Nici Logo" />

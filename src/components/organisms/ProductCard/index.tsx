@@ -77,7 +77,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               </div>
             </>
           )}
-          <Image imgSrc={images[imgActive]} alt={`product-${code}-${imgActive}`} />
+          <Image imgSrc={images[imgActive]} alt={`product-${code}-${imgActive}`} ratio="1x1" />
         </div>
       </div>
       <div className="o-productCard_content">

@@ -17,7 +17,6 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ banners }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
-    // autoplay: true,
     prevArrow: <PrevArrow extendClassname="slick-arrow-banner" />,
     nextArrow: <NextArrow extendClassname="slick-arrow-banner" />,
     cssEase: 'ease-in-out',
@@ -28,7 +27,7 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ banners }) => {
       <Carousel settings={settings}>
         {banners.map((banner, index) => (
           <div className="t-homeBanner_item" key={`t-homeBanner-${index.toString()}`}>
-            <Image imgSrc={banner.thumbnail} alt={banner.subtitle} />
+            <Image imgSrc={banner.thumbnail} alt={banner.subtitle} ratio="1531x541" />
             <div className="t-homeBanner_content">
               <div className="t-homeBanner_subtitle">
                 <Typography.Heading type="h4" modifiers={['uppercase', '12x14']}>{banner.subtitle}</Typography.Heading>
