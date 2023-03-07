@@ -72,11 +72,27 @@
         }
     }
 
+    &-12x17 {
+        @include font-base(12, 17);
+
+        @include mobile-down {
+            @include font-base(10, 15);
+        }
+    }
+
     &-13x16 {
         @include font-base(13, 16);
 
         @include mobile-down {
             @include font-base(10, 12);
+        }
+    }
+
+    &-13x19 {
+        @include font-base(13, 19);
+
+        @include mobile-down {
+            @include font-base(10, 15);
         }
     }
 
@@ -251,6 +267,10 @@
     &-lineThrough {
         text-decoration: line-through;
     }
+
+    &-nowrap {
+        white-space: nowrap;
+    }
 }
 
 @mixin reset-button {
@@ -279,6 +299,7 @@ $colors-design: (
     'carminePink': $carmine-pink,
     'sonicSilver': $sonic-silver,
     'ferrariRed': $ferrari-red,
+    'black3': $black-3,
 );
 
 @mixin style-color {

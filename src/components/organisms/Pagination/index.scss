@@ -1,0 +1,105 @@
+.o-pagination {
+    @include adjust-flex;
+
+    .main {
+        display: flex;
+    }
+
+    .page {
+        height: rem(36);
+        width: rem(36);
+        background: $white;
+        box-sizing: border-box;
+        cursor: pointer;
+        list-style-type: none;
+        margin: 0 rem(1);
+        min-width: rem(32);
+        overflow: hidden;
+        transition: $transition;
+        isolation: isolate;
+        border: 1px solid $black;
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        @include tablet-down {
+            height: rem(30);
+            width: rem(30);
+        }
+
+        .link-page {
+            @include adjust-flex;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            @include font-base(14, 21);
+            font-weight: 600;
+            color: $black;
+            outline: none;
+
+            @include tablet-down {
+                @include font-base(12, 16);
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .a-icon {
+                @include tablet-down {
+                    width: rem(12);
+                    height: rem(12);
+                }
+            }
+        }
+    }
+
+    .arrow-icon {
+        height: rem(36);
+        width: rem(36);
+        box-sizing: border-box;
+        cursor: pointer;
+        @include adjust-flex;
+
+        @include tablet-down {
+            height: rem(30);
+            width: rem(30);
+        }
+    }
+
+    .arrow-icon-prev {
+        margin-right: rem(15);
+
+        @include tablet-down {
+            margin-right: rem(10);
+        }
+    }
+
+    .arrow-icon-next {
+        margin-left: rem(15);
+
+        @include tablet-down {
+            margin-left: rem(10);
+        }
+    }
+
+    .arrow-icon-disabled {
+        display: none;
+    }
+
+    .disabled {
+        opacity: 0.4;
+        pointer-events: none;
+    }
+
+    .active-page {
+        background: $black;
+
+        .link-page {
+            color: $white;
+        }
+    }
+}
