@@ -8,7 +8,7 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.build-publish.outputs.page_url }}
+      url: https://nicistore.online/
     runs-on: ubuntu-latest
     steps:
     - id: build-publish
