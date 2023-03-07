@@ -93,3 +93,35 @@ export function scrollStop(callback: (value: any) => void, time = 2000) {
     false,
   );
 }
+
+export const handleScrollCenter = (
+ref: React.RefObject<HTMLDivElement | null>,
+  classNameEleActive: string
+) => {
+  const eleScroll = ref.current;
+  const eleActive = document.querySelector(classNameEleActive);
+  if (!eleActive || !eleScroll) return;
+  // get width element scroll
+  const widthEleScroll = eleScroll.getBoundingClientRect().width;
+  // get distance element scroll compared to y window
+  const xEleScroll = eleScroll.getBoundingClientRect().x;
+  // get width element active
+  const widthEleActive = eleActive.getBoundingClientRect().width;
+  // get distance element active compared to y window
+  const xEleActive = eleActive.getBoundingClientRect().x;
+  // get position sroll bar
+  const positionScroll = eleScroll.scrollLeft;
+  const scrollX = xEleActive - xEleScroll
+    + widthEleActive / 2 + positionScroll - widthEleScroll / 2;
+  eleScroll.scroll({
+    left: scrollX,
+    behavior: 'smooth',
+  });
+};
+
+export const renderValue = (val?: number, isPrice?: boolean, prefix?: string) => {
+  const converted = val?.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  if (prefix) return `${converted} ${prefix}`;
+  if (isPrice) return converted;
+  return val;
+};

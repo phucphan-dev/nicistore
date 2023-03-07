@@ -1,0 +1,72 @@
+.o-inputRange {
+    &_head {
+        @include adjust-flex(space-between, center);
+        margin-bottom: rem(30);
+
+        &_rangeNumber {
+            @include font-base(16, 24);
+            color: $sonic-silver;
+
+            span {
+                color: $black;
+            }
+        }
+
+        button {
+            outline: none;
+            border-color: transparent;
+            width: rem(57.25);
+            height: rem(34);
+            @include font-base(11, 14);
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+    }
+
+    &_wrapper {
+        position: relative;
+    }
+
+    &_inputMin,
+    &_inputMax {
+        pointer-events: none;
+        position: absolute;
+        height: 0;
+        width: 100%;
+        margin: 0;
+        outline: none;
+        appearance: none;
+        top: rem(1);
+
+        &::-webkit-slider-thumb {
+            appearance: none;
+            width: rem(14);
+            height: rem(14);
+            border-radius: 50%;
+            background-color: $carmine-pink;
+            cursor: pointer;
+            pointer-events: all;
+            position: relative;
+        }
+    }
+
+    &_slider {
+        position: relative;
+        width: 100%;
+        margin: auto;
+        height: rem(2);
+
+        &-track {
+            position: absolute;
+            background: $snow;
+            inset: 0;
+        }
+
+        &-range {
+            background: $carmine-pink;
+            position: absolute;
+            height: 100%;
+            transition: all 0s ease-in-out;
+        }
+    }
+}

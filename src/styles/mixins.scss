@@ -22,7 +22,7 @@
 }
 
 @mixin scroll-bars(
-    $size: 12, $thumb-color: $green-ryb, $track-color: $bg-white-smoke, $border-radius-thumb: 5, $border-thumb: 2
+    $size: 12, $thumb-color: $ash-grey, $track-color: $bg-white-smoke, $border-radius-thumb: 5, $border-thumb: 2
 ) {
 
     // For Internet Explorer
@@ -38,7 +38,7 @@
     }
 
     &::-webkit-scrollbar-thumb {
-        // background: $thumb-color;
+        background: $thumb-color;
         // border: rem($border-thumb) solid $track-color;
         border-radius: rem($border-radius-thumb);
     }

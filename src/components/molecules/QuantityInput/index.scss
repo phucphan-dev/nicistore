@@ -1,0 +1,46 @@
+.m-quantity {
+    border: 1px solid #ddd;
+    @include adjust-flex;
+
+    &_input {
+        height: rem(44.8);
+        width: 100%;
+        outline: none;
+        border: 0;
+        text-align: center;
+    }
+
+    &_plus,
+    &_minus {
+        flex: 0 0 rem(32);
+        position: relative;
+        height: rem(44.8);
+        outline: none;
+        border: 0;
+        background: none;
+
+        &::after {
+            content: '';
+            position: absolute;
+            width: rem(10);
+            height: rem(2);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #000;
+        }
+    }
+
+    &_plus {
+        &::before {
+            content: '';
+            position: absolute;
+            width: rem(2);
+            height: rem(10);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #000;
+        }
+    }
+}

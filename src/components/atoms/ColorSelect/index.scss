@@ -1,0 +1,48 @@
+.a-colorSelect {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    [type='radio'] {
+        -webkit-appearance: none;
+        width: rem(26);
+        height: rem(26);
+        border-radius: 50%;
+        outline: none;
+        position: relative;
+        margin: 0;
+        cursor: pointer;
+    }
+
+    [type='radio']:checked::before {
+        content: '';
+        position: absolute;
+        display: block;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: rem(3) solid $carmine-pink;
+        border-radius: 50%;
+        margin: 0;
+        width: 120%;
+        height: 120%;
+    }
+
+    [type='radio']:hover {
+        opacity: 0.7;
+    }
+
+    &_item {
+        &:not(&:first-child) {
+            margin-left: rem(12);
+        }
+
+        &-black {
+            background-color: $black;
+        }
+    
+        &-cadmiumGreen {
+            background-color: $cadmium-green;
+        }
+    }
+}
