@@ -1,10 +1,12 @@
 .m-quantity {
-    border: 1px solid #ddd;
+    border: 1px solid $gainsboro;
     @include adjust-flex;
+    width: rem(108);
 
     &_input {
-        height: rem(44.8);
-        width: 100%;
+        height: rem(46);
+        flex-grow: 1;
+        width: rem(42);
         outline: none;
         border: 0;
         text-align: center;
@@ -12,9 +14,10 @@
 
     &_plus,
     &_minus {
-        flex: 0 0 rem(32);
+        width: rem(32);
+        flex-shrink: 0;
         position: relative;
-        height: rem(44.8);
+        height: rem(46);
         outline: none;
         border: 0;
         background: none;
@@ -27,7 +30,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: #000;
+            background-color: $black;
         }
     }
 
@@ -40,7 +43,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: #000;
+            background-color: $black;
         }
     }
 }

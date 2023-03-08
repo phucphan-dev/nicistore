@@ -1,34 +1,41 @@
-import React from 'react';
+import React, { useId } from 'react';
 
-import mapModifiers from 'utils/functions';
+import Typography from '../Typography';
 
-export type Colors =
-  | 'black'
-  | 'cadmiumGreen';
-
-interface ColorSelectProps {
-  listColor: Colors[];
-  nameListColor: string;
-  handleSelectColor?: (e: string) => void;
+interface ColorSelectProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  type: 'radio' | 'checkbox';
+  color: string;
+  label?: string;
 }
 
-const ColorSelect: React.FC<ColorSelectProps> = ({
-  listColor,
-  nameListColor,
-  handleSelectColor,
-}) => (
-  <div className="a-colorSelect">
-    {listColor.map((item, index) => (
-      <input
-        key={`a-colorSelect-${index.toString()}`}
-        className={mapModifiers('a-colorSelect_item', item)}
-        name={nameListColor}
-        type="radio"
-        id={`item-${index.toString()}`}
-        onClick={() => handleSelectColor && handleSelectColor(item)}
-      />
-    ))}
-  </div>
+const ColorSelect = React.forwardRef<HTMLInputElement, ColorSelectProps>(
+  ({
+    type, color, label, ...inputProps
+  }, ref) => {
+    const id = useId();
+
+    return (
+      <label htmlFor={id} className="a-colorSelect">
+        <input
+          {...inputProps}
+          type={type}
+          ref={ref}
+          id={id}
+          className="a-colorSelect_input"
+          style={{ backgroundColor: color }}
+        />
+        {label && (
+          <span className="a-colorSelect_label">
+            <Typography.Text modifiers={['14x16']}>{label}</Typography.Text>
+          </span>
+        )}
+      </label>
+    );
+  }
 );
+
+ColorSelect.defaultProps = {
+  type: 'radio'
+};
 
 export default ColorSelect;

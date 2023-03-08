@@ -11,8 +11,6 @@ export default {
 
 export const normal: Story = () => (
   <div style={{ padding: '10px' }}>
-    <div style={{ width: 107.6 }}>
-      <QuantityInput />
-    </div>
+    <QuantityInput />
   </div>
 );

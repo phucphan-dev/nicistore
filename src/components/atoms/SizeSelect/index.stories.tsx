@@ -10,10 +10,10 @@ export default {
 } as Meta;
 
 export const normal: Story = () => (
-  <div style={{ height: '100vh', margin: '10px' }}>
-    <SizeSelect
-      listSize={['XS', 'M', 'L']}
-      nameListSize="sizeGroup"
-    />
+  <div style={{ padding: '20px', display: 'flex', gap: '16px' }}>
+    <SizeSelect sizeName="S" type="radio" name="test" />
+    <SizeSelect sizeName="M" type="radio" name="test" />
+    <SizeSelect sizeName="L" type="radio" name="test" />
+    <SizeSelect sizeName="XL" type="radio" name="test" />
   </div>
 );

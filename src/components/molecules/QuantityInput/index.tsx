@@ -1,42 +1,40 @@
-import React, {
-  ChangeEvent, useState, KeyboardEvent, useCallback
-} from 'react';
+import React, { useState } from 'react';
 
 interface QuantityInputProps {
-  children?: React.ReactNode;
+  initQuantity?: number;
+  handleChange?: (quantity: number) => void;
 }
 
-const QuantityInput: React.FC<QuantityInputProps> = () => {
-  const [quantity, setQuantity] = useState<number>(0);
-  const onChangeQuantity = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const regexIsNumber = /^[0-9]+$/;
-    if (e.currentTarget.value && regexIsNumber.test(e.currentTarget.value)) {
-      if (Number(e.currentTarget.value) >= Number.MAX_SAFE_INTEGER + 1) return;
-      setQuantity(Number(e.currentTarget.value));
-    }
-  }, []);
+const QuantityInput: React.FC<QuantityInputProps> = ({ initQuantity, handleChange }) => {
+  const [quantity, setQuantity] = useState<string>(initQuantity?.toString() || '0');
 
-  const onKeydown = useCallback((e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.code === 'Backspace' && quantity < 10) {
-      setQuantity(0);
+  const handleChangeQuantity = (value: string) => {
+    setQuantity(value);
+    if (handleChange) {
+      handleChange(Number(value));
     }
-  }, [quantity]);
+  };
 
   return (
     <div className="m-quantity">
-      <button type="button" className="m-quantity_minus" onClick={() => setQuantity((prev) => (prev > 0 ? prev - 1 : 0))}>
+      <button
+        type="button"
+        className="m-quantity_minus"
+        onClick={() => handleChangeQuantity(Number(quantity) > 0 ? String(Number(quantity) - 1) : '0')}
+      >
         <span />
       </button>
-      <input className="m-quantity_input" defaultValue={0} value={quantity} onChange={onChangeQuantity} onKeyDown={onKeydown} />
-      <button type="button" className="m-quantity_plus" onClick={() => setQuantity((prev) => prev + 1)}>
+      <input
+        type="number"
+        className="m-quantity_input"
+        value={quantity}
+        onChange={(e) => handleChangeQuantity(e.currentTarget.value.charAt(0) === '0' ? e.currentTarget.value.slice(1) : e.currentTarget.value)}
+      />
+      <button type="button" className="m-quantity_plus" onClick={() => handleChangeQuantity(String(Number(quantity) + 1))}>
         <span />
       </button>
     </div>
   );
-};
-
-QuantityInput.defaultProps = {
-  children: undefined,
 };
 
 export default QuantityInput;

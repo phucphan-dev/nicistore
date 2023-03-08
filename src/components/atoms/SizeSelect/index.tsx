@@ -1,39 +1,32 @@
-import React from 'react';
+import React, { useId } from 'react';
 
-export type Sizes =
-  | 'XS'
-  | 'S'
-  | 'M'
-  | 'L';
+import Typography from '../Typography';
 
-interface SizeSelectProps {
-  listSize: Sizes[];
-  nameListSize: string;
-  onClickSelectSize?: (e: string) => void;
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+  sizeName: string;
 }
 
-const SizeSelect: React.FC<SizeSelectProps> = ({
-  listSize,
-  nameListSize,
-  onClickSelectSize,
-}) => (
-  <div className="a-sizeSelect">
-    {listSize.map((item, index) => (
-      <div
-        key={`a-sizeSelect-${index.toString()}`}
-        className="a-sizeSelect_item"
-      >
+const SizeSelect = React.forwardRef<HTMLInputElement, Props>(
+  ({
+    sizeName, ...inputProps
+  }, ref) => {
+    const id = useId();
+
+    return (
+      <label htmlFor={id} className="a-sizeSelect">
         <input
-          key={`a-sizeSelect-${index.toString()}`}
-          name={nameListSize}
-          type="radio"
-          id={`item-${index.toString()}`}
-          onClick={() => onClickSelectSize && onClickSelectSize(item)}
+          {...inputProps}
+          ref={ref}
+          id={id}
+          className="a-sizeSelect_input"
+          hidden
         />
-        <span className="a-sizeSelect_item_title">{item}</span>
-      </div>
-    ))}
-  </div>
+        <span className="a-sizeSelect_label">
+          <Typography.Text modifiers={['14x16', '500']}>{sizeName}</Typography.Text>
+        </span>
+      </label>
+    );
+  }
 );
 
 export default SizeSelect;
