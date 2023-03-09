@@ -1,0 +1,21 @@
+.t-filterProduct {
+    &_section {
+        margin-top: rem(40);
+
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+
+    &_content {
+        margin-top: rem(20);
+    }
+
+    &_color,
+    &_size {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: rem(8);
+    }
+}

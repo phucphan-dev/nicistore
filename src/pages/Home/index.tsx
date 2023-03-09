@@ -5,19 +5,15 @@ import {
 } from 'assets/dummy/homepage';
 import Typography from 'components/atoms/Typography';
 import DiscountCode from 'components/molecules/DiscountCode';
-import Footer from 'components/organisms/Footer';
-import Header from 'components/organisms/Header';
 import Section from 'components/organisms/Section';
 import WidgetSection from 'components/organisms/WidgetSection';
 import FeaturedProduct from 'components/templates/FeaturedProduct';
 import HomeBanner from 'components/templates/HomeBanner';
 import HomeCategory from 'components/templates/HomeCategory';
-import Subscribe from 'components/templates/Subscribe';
 import TopSeller from 'components/templates/TopSeller';
 
 const Home: React.FC = () => (
   <>
-    <Header />
     <Section noSpace><HomeBanner banners={bannerDummy} /></Section>
     <Section><TopSeller {...topSellerDummy} /></Section>
     <Section>
@@ -35,8 +31,6 @@ const Home: React.FC = () => (
     </Section>
     <Section><HomeCategory categories={categoriesDummy} /></Section>
     <Section><FeaturedProduct products={featuredProducts} /></Section>
-    <Section><Subscribe /></Section>
-    <Footer />
   </>
 );
 

@@ -1,13 +1,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/require-default-props */
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useId } from 'react';
 
 import Typography from '../Typography';
 
 import mapModifiers from 'utils/functions';
 
 interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  id: string;
   name: string;
   error?: string;
   modifiers?: '12x18' | '16x28';
@@ -16,28 +15,29 @@ interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   ({
-    id, name, error, children, modifiers, disableLabel, ...props
-  }, ref) => (
-    <div className="a-checkbox">
-      <div className="a-checkbox_main">
+    name, error, children, modifiers, disableLabel, required, ...props
+  }, ref) => {
+    const id = useId();
+    return (
+      <label htmlFor={id} className={mapModifiers('a-checkbox', required && 'required')}>
         <input
-          className="a-checkbox_main_input"
+          className="a-checkbox_input"
           type="checkbox"
           id={id}
           ref={ref}
           name={name}
+          hidden
           {...props}
         />
-        <label
-          className={mapModifiers('a-checkbox_main_label', modifiers)}
-          htmlFor={disableLabel ? 'disableLabel' : id}
-        >
-          {children || ''}
-        </label>
-      </div>
-      {error && <Typography.Text>{error}</Typography.Text>}
-    </div>
-  ),
+        <span className="a-checkbox_holder" />
+        {children && (
+          <span className="a-checkbox_label">
+            <Typography.Text modifiers={['14x16']}>{children}</Typography.Text>
+          </span>
+        )}
+      </label>
+    );
+  },
 );
 
 Checkbox.defaultProps = {

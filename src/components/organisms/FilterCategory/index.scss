@@ -1,0 +1,37 @@
+.o-filterCategory {
+    $root: &;
+
+    &_item {
+        position: relative;
+        margin-top: rem(12);
+
+        &-active {
+            #{$root}_childrens {
+                height: auto;
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+
+    &_icon {
+        position: absolute;
+        width: rem(21);
+        height: rem(21);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: rem(-2.5);
+        right: rem(8);
+        cursor: pointer;
+    }
+
+    &_childrens {
+        height: 0;
+        overflow: hidden;
+        transition: $transition;
+        visibility: hidden;
+        opacity: 0;
+        margin-left: rem(24);
+    }
+}

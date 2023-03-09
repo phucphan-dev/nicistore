@@ -31,7 +31,15 @@
     &-272x289 {
         @include aspect-ratio(272, 289);
     }
-
+    
+    &-605x480 {
+        @include aspect-ratio(605, 480);
+    }
+    
+    &-921x329 {
+        @include aspect-ratio(921, 329);
+    }
+    
     &-1531x541 {
         @include aspect-ratio(1531, 541);
     }

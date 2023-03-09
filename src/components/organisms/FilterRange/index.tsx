@@ -2,22 +2,29 @@ import React, {
   useCallback, useEffect, useRef, useState
 } from 'react';
 
+import Button from 'components/atoms/Button';
+import { renderPrice } from 'utils/functions';
+
 interface InputResult { min: number; max: number; }
-interface InputRangeProps {
+interface FilterRangeProps {
+  label: string;
+  unit: string;
   minValue: number;
   maxValue: number;
-  handleChange: (val: InputResult) => void;
+  handleFilter: (val: InputResult) => void;
   defaultValue?: InputResult;
 }
 
-const InputRange: React.FC<InputRangeProps> = ({
+const FilterRange: React.FC<FilterRangeProps> = ({
+  label,
+  unit,
   minValue,
   maxValue,
   defaultValue,
-  handleChange,
+  handleFilter,
 }) => {
-  const [minValueChange, setMinValueChange] = useState(defaultValue?.min || 0);
-  const [maxValueChange, setMaxValueChange] = useState(defaultValue?.max || 0);
+  const [minValueChange, setMinValueChange] = useState(defaultValue?.min || minValue);
+  const [maxValueChange, setMaxValueChange] = useState(defaultValue?.max || maxValue);
   const rangeRef = useRef<HTMLDivElement>(null);
 
   const getPercent = useCallback(
@@ -32,14 +39,39 @@ const InputRange: React.FC<InputRangeProps> = ({
       rangeRef.current.style.left = `${minPercent}%`;
       rangeRef.current.style.width = `${maxPercent - minPercent}%`;
     }
-    handleChange({
-      min: Math.min(minValueChange, maxValueChange),
-      max: Math.max(minValueChange, maxValueChange)
-    });
-  }, [maxValueChange, minValueChange, getPercent, handleChange]);
+  }, [maxValueChange, minValueChange, getPercent]);
 
   return (
     <div className="o-inputRange">
+      <div className="o-inputRange_head">
+        <div className="o-inputRange_head_rangeNumber">
+          {label}
+          :
+          {' '}
+          <span>
+            {renderPrice(Math.min(minValueChange, maxValueChange), true)}
+          </span>
+          &nbsp;
+          -
+          &nbsp;
+          <span>
+            {renderPrice(Math.max(minValueChange, maxValueChange), true)}
+            {' '}
+            {unit}
+          </span>
+        </div>
+        <div className="o-inputRange_head_button">
+          <Button
+            variant="secondary"
+            onClick={() => handleFilter({
+              min: Math.min(minValueChange, maxValueChange),
+              max: Math.max(minValueChange, maxValueChange)
+            })}
+          >
+            Filter
+          </Button>
+        </div>
+      </div>
       <div className="o-inputRange_wrapper">
         <div className="o-inputRange_slider">
           <div className="o-inputRange_slider-track" />
@@ -66,4 +98,4 @@ const InputRange: React.FC<InputRangeProps> = ({
   );
 };
 
-export default InputRange;
+export default FilterRange;

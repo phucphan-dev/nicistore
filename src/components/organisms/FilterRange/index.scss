@@ -4,7 +4,7 @@
         margin-bottom: rem(30);
 
         &_rangeNumber {
-            @include font-base(16, 24);
+            @include font-base(14, 16);
             color: $sonic-silver;
 
             span {
