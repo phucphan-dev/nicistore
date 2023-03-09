@@ -98,14 +98,14 @@ export const colorsDummy: ColorFilter[] = [
 
 export const sizeDummy: SizeFilter[] = [
   {
-    code: 'S',
-    label: 'S',
-    count: 2
-  },
-  {
     code: 'XS',
     label: 'XS',
     count: 5
+  },
+  {
+    code: 'S',
+    label: 'S',
+    count: 2
   },
   {
     code: 'M',
@@ -124,4 +124,14 @@ export const sizeDummy: SizeFilter[] = [
   },
 ];
 
+export const productStatusDummy: OptionType[] = [
+  {
+    value: 'instock',
+    label: 'In Stock'
+  },
+  {
+    value: 'onsale',
+    label: 'On Sale'
+  },
+];
 export default categoriesDummy;

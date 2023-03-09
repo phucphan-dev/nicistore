@@ -5,33 +5,6 @@ const menuDummy: MenuItem[] = [
     id: 'home',
     text: 'Home',
     link: '#',
-    childrens: [
-      {
-        id: 'home1',
-        text: 'Home 1',
-        link: '#',
-      },
-      {
-        id: 'home2',
-        text: 'Home 2',
-        link: '#',
-      },
-      {
-        id: 'home3',
-        text: 'Home 3',
-        link: '#',
-      },
-      {
-        id: 'home4',
-        text: 'Home 4',
-        link: '#',
-      },
-      {
-        id: 'home5',
-        text: 'Home 5',
-        link: '#',
-      },
-    ]
   },
   {
     id: 'shop',
@@ -41,7 +14,7 @@ const menuDummy: MenuItem[] = [
       {
         id: 'shoplist',
         text: 'Shop List',
-        link: '#',
+        link: '/products',
         childrens: [
           {
             id: 'shoplist1',

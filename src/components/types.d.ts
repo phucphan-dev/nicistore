@@ -22,4 +22,9 @@ interface SizeFilter {
   count: number;
 }
 
-type RatioImage = '1531x541' | '75x46' | '1x1' | '272x289' | '34x17' | '257x274';
+interface OptionType {
+  value: any;
+  label: string;
+}
+
+type RatioImage = '1531x541' | '75x46' | '1x1' | '272x289' | '34x17' | '257x274' | '605x480' | '921x329';

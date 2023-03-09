@@ -49,17 +49,15 @@ const FilterRange: React.FC<FilterRangeProps> = ({
           :
           {' '}
           <span>
-            {unit}
-            {' '}
             {renderPrice(Math.min(minValueChange, maxValueChange), true)}
           </span>
           &nbsp;
-          —
+          -
           &nbsp;
           <span>
-            {unit}
-            {' '}
             {renderPrice(Math.max(minValueChange, maxValueChange), true)}
+            {' '}
+            {unit}
           </span>
         </div>
         <div className="o-inputRange_head_button">

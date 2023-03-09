@@ -1,6 +1,6 @@
 .t-filterProduct {
     &_section {
-        margin-top: rem(20);
+        margin-top: rem(40);
 
         &:first-child {
             margin-top: 0;
@@ -11,7 +11,8 @@
         margin-top: rem(20);
     }
 
-    &_color {
+    &_color,
+    &_size {
         display: flex;
         align-items: center;
         justify-content: space-between;

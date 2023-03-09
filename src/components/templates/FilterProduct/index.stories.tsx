@@ -10,7 +10,7 @@ export default {
 } as Meta;
 
 export const normal: Story = () => (
-  <div style={{ padding: '50px' }}>
+  <div style={{ width: '30%', padding: '50px' }}>
     <FilterProduct />
   </div>
 );

@@ -17,6 +17,7 @@ export const iconList = {
   minus: 'minus',
   arrowBlackNext: 'arrowBlackNext',
   arrowBlackPrev: 'arrowBlackPrev',
+  filter: 'filter',
 };
 
 export type IconName = keyof typeof iconList;
