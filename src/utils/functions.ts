@@ -95,7 +95,7 @@ export function scrollStop(callback: (value: any) => void, time = 2000) {
 }
 
 export const handleScrollCenter = (
-ref: React.RefObject<HTMLDivElement | null>,
+  ref: React.RefObject<HTMLDivElement | null>,
   classNameEleActive: string
 ) => {
   const eleScroll = ref.current;
@@ -119,7 +119,7 @@ ref: React.RefObject<HTMLDivElement | null>,
   });
 };
 
-export const renderValue = (val?: number, isPrice?: boolean, prefix?: string) => {
+export const renderPrice = (val?: number, isPrice?: boolean, prefix?: string) => {
   const converted = val?.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   if (prefix) return `${converted} ${prefix}`;
   if (isPrice) return converted;

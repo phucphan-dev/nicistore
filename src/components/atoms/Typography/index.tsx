@@ -33,7 +33,8 @@ type ColorStyle =
   | 'carminePink'
   | 'sonicSilver'
   | 'ferrariRed'
-  | 'black3';
+  | 'black3'
+  | 'cadetGrey';
 
 type LetterSpacing = 'ls-md' | 'ls-lg' | 'ls-xl';
 

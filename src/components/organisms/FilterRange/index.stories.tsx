@@ -12,10 +12,12 @@ export default {
 export const Multi: Story = () => (
   <div style={{ padding: 20, background: '#ccc' }}>
     <InputRange
+      label="Price"
+      unit="VND"
       minValue={0}
       maxValue={100000}
       // eslint-disable-next-line no-console
-      handleChange={(val) => console.log(val)}
+      handleFilter={(val) => console.log(val)}
       defaultValue={{
         min: 30000,
         max: 60000,
