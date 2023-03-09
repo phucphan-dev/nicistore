@@ -52,6 +52,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
+/* stylelint-disable-next-line selector-no-qualifying-type */
 input[type=number] {
     -moz-appearance: textfield;
 }
