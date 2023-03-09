@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-prop-types */
 import React, { useState } from 'react';
 
 import Badge from 'components/atoms/Badge';
@@ -14,7 +15,7 @@ export interface ProductCardProps {
   name: string;
   price: number;
   unit: string;
-  starCount: number;
+  starCount?: number;
   reviewCount?: number;
   available?: number;
   solded?: number;
@@ -86,7 +87,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
         <div className="o-productCard_price">
           <div className="o-productCard_price_original">
-            <Typography.Text modifiers={['14x16', 'ashGrey', 'lineThrough']}>
+            <Typography.Text modifiers={promo ? ['14x16', 'ashGrey', 'lineThrough'] : ['16x18', '700']}>
               {unit}
               {price.toFixed(2)}
             </Typography.Text>
@@ -101,15 +102,17 @@ const ProductCard: React.FC<ProductCardProps> = ({
           )}
         </div>
         <div className="o-productCard_content_switcher">
-          <div className="o-productCard_content_star">
-            {Array(starCount).fill(0).map((_, index) => (
-              <Icon
-                key={`${code}-promo-${index.toString()}`}
-                iconName="star"
-                size="12"
-              />
-            ))}
-          </div>
+          {starCount && (
+            <div className="o-productCard_content_star">
+              {Array(starCount).fill(0).map((_, index) => (
+                <Icon
+                  key={`${code}-promo-${index.toString()}`}
+                  iconName="star"
+                  size="12"
+                />
+              ))}
+            </div>
+          )}
           {reviewCount && (
             <Typography.Text modifiers={['16x18']}>
               {reviewCount}
@@ -142,6 +145,35 @@ const ProductCard: React.FC<ProductCardProps> = ({
     </div>
   );
 };
+
+export const ProductRecentViews: React.FC<ProductCardProps> = ({
+  images, promo, name, price, unit,
+}) => (
+  <div className="o-productRecentViews">
+    <div className="o-productRecentViews_image">
+      <Image imgSrc={images[0]} alt="Product Recent View" />
+    </div>
+    <div className="o-productRecentViews_content">
+      <Typography.Heading type="h4" modifiers={['14x16', '400']}>{name}</Typography.Heading>
+      <div className="o-productRecentViews_price">
+        <div className="o-productRecentViews_price_original">
+          <Typography.Text modifiers={promo ? ['12x14', 'black3', 'lineThrough'] : ['13x16', '500', 'black']}>
+            {unit}
+            {price.toFixed(2)}
+          </Typography.Text>
+        </div>
+        {promo && (
+          <div className="o-productRecentViews_price_sale">
+            <Typography.Text modifiers={['13x19', '500', 'black']}>
+              {unit}
+              {(price * (100 - promo) / 100).toFixed(2)}
+            </Typography.Text>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+);
 
 ProductCard.defaultProps = {
   promo: undefined,

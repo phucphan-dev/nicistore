@@ -97,3 +97,25 @@
         }
     }
 }
+
+.o-productRecentViews {
+    @include adjust-flex(flex-start, flex-start);
+
+    &_image {
+        max-width: rem(50);
+    }
+
+    &_content {
+        padding-left: rem(15);
+    }
+
+    &_price {
+        display: flex;
+        align-items: center;
+        margin-top: rem(8);
+    
+        &_sale {
+            margin-left: rem(8);
+        }
+    }
+}

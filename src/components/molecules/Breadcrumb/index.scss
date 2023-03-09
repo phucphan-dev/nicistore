@@ -1,0 +1,45 @@
+.m-breadcrumb {
+    &_wrapper {
+        @include adjust-flex(flex-start, center);
+        overflow-x: auto;
+        @include scroll-bars(5);
+    }
+
+    &_item {
+        $root: &;
+        list-style-type: none;
+
+        @include adjust-flex;
+
+        &_wrap {
+            @include adjust-flex(flex-start, center);
+        }
+
+        &_title {
+            &::after {
+                content: '';
+                display: block;
+                width: 0;
+                height: rem(2);
+                background-color: $black-3;
+                transition: all 0.2s linear;
+            }
+
+            &:hover {
+                .a-text {
+                    color: $black;
+                }
+
+                &::after {
+                    width: 100%;
+                }
+            }
+        }
+
+        &_divider {
+            color: $black-3;
+            margin-left: rem(5);
+            margin-right: rem(5);
+        }
+    }
+}

@@ -14,7 +14,9 @@ export const iconList = {
   arrowRight: 'arrowRight',
   arrowRightWhite: 'arrowRightWhite',
   plus: 'plus',
-  minus: 'minus'
+  minus: 'minus',
+  arrowBlackNext: 'arrowBlackNext',
+  arrowBlackPrev: 'arrowBlackPrev',
 };
 
 export type IconName = keyof typeof iconList;
