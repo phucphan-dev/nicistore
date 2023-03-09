@@ -1,53 +1,45 @@
 import { Story, Meta } from '@storybook/react';
-import React, { useState } from 'react';
+import React from 'react';
 
-import { Tab, TabPanel, Tabs } from '.';
+import Tabs from '.';
 
 export default {
   title: 'Components/organisms/Tabs',
   component: Tabs,
-  argTypes: {},
+  argTypes: {
+    modifiers: {
+      control: {
+        type: 'select',
+        options: ['underline', 'center', 'none'],
+      },
+      defaultValue: 'none'
+    }
+  },
 } as Meta;
 
 const dummyData = [
   {
-    label: 'Content 1',
+    label: 'Label 1',
     content: 'Content 1',
   },
   {
-    label: 'Content 2',
+    label: 'Label 2',
     content: 'Content 2',
   },
   {
-    label: 'Content 3',
+    label: 'Label 3',
     content: 'Content 3',
   },
 ];
 
-export const Normal: Story = () => {
-  const [indexActive, setIndexActive] = useState(0);
-
-  return (
-    <div>
-      <Tabs variableMutate={indexActive}>
-        {
-            dummyData.map((item, index) => (
-              <Tab
-                key={`tab-${index.toString()}`}
-                label={item.label}
-                active={index === indexActive}
-                handleClick={() => setIndexActive(index)}
-              />
-            ))
-          }
-      </Tabs>
+export const Normal: Story = ({ modifiers }) => (
+  <div>
+    <Tabs tabs={dummyData.map((item) => item.label)} modifiers={modifiers}>
       {
-          dummyData.map((item, index) => (
-            <TabPanel key={`tab-panel-${index.toString()}`} active={index === indexActive}>
-              {item.content}
-            </TabPanel>
-          ))
-        }
-    </div>
-  );
-};
+        dummyData.map((item, index) => (
+          <div key={`content-${index.toString()}`}>{item.content}</div>
+        ))
+      }
+    </Tabs>
+  </div>
+);

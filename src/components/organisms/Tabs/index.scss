@@ -2,31 +2,28 @@
     $root: &;
 
     &_labels {
-        border-radius: rem(8);
         overflow: auto hidden;
         position: relative;
         display: flex;
         align-items: center;
-        padding-bottom: rem(20);
+        padding-bottom: rem(15);
 
         @include scroll-bars(8);
 
         @include tablet-down {
-            padding-bottom: rem(14);
+            padding-bottom: rem(12);
         }
+    }
 
-        &::after {
-            content: '';
-            height: 1px;
-            width: 100%;
-            background-color: $platinum;
-            position: absolute;
-            bottom: 0;
-            left: 0;
+    &-underline {
+        #{$root}_labels {
+            border-bottom: 1px solid $platinum;
+        }
+    }
 
-            @include tablet-down {
-                background: transparent;
-            }
+    &-center {
+        #{$root}_labels {
+            justify-content: center;
         }
     }
 
@@ -35,6 +32,7 @@
         font-weight: 500;
         text-transform: capitalize;
         white-space: nowrap;
+        transition: $transition;
         @include font-base(20, 30);
 
         @include tablet-down {

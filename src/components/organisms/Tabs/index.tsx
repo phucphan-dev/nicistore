@@ -1,54 +1,39 @@
-import React, { useRef, useLayoutEffect } from 'react';
+import React, { useState, Children } from 'react';
 
-import mapModifiers, { handleScrollCenter } from 'utils/functions';
+import mapModifiers from 'utils/functions';
 
-interface TabPanelProps {
-  active?: boolean;
-  children?: React.ReactNode;
-}
-
-interface TabProps {
-  label?: string;
-  active?: boolean;
-  handleClick?: () => void;
-}
-
+type Modifiers = 'underline' | 'center';
 interface TabsProps {
-  variableMutate?: number | string;
-  classTabsActive?: string;
-  modifiers?: 'underlineActive';
+  tabs: React.ReactNode[];
+  modifiers?: Modifiers[];
   children?: React.ReactNode;
+  handleIndex?: (index: number) => void;
 }
 
-export const TabPanel: React.FC<TabPanelProps> = ({ active, children }) => (
-  <div className={mapModifiers('o-tabs_panel', active && 'active')}>{children}</div>
-);
-
-export const Tab: React.FC<TabProps> = ({
-  active, label, handleClick,
-}) => (
-  <div onClick={handleClick} className={mapModifiers('o-tabs_tab', active && 'active')}>
-    <span className="o-tabs_label">{label}</span>
-  </div>
-);
-
-export const Tabs: React.FC<TabsProps> = ({
-  children, variableMutate, classTabsActive, modifiers,
+const Tabs: React.FC<TabsProps> = ({
+  children, tabs, modifiers, handleIndex
 }) => {
-  const ref = useRef<HTMLDivElement | null>(null);
-
-  useLayoutEffect(() => {
-    handleScrollCenter(ref, classTabsActive || '.o-tabs_tab-active');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [variableMutate]);
-
+  const [active, setActive] = useState(0);
   return (
     <div className={mapModifiers('o-tabs', modifiers)}>
-      <div ref={ref} className="o-tabs_labels">
-        {children}
+      <div className="o-tabs_labels">
+        {tabs.map((item, idx) => (
+          <div
+            onClick={() => {
+              setActive(idx);
+              if (handleIndex) {
+                handleIndex(idx);
+              }
+            }}
+            className={mapModifiers('o-tabs_tab', active === idx && 'active')}
+          >
+            <div className="o-tabs_label">{item}</div>
+          </div>
+        ))}
       </div>
+      {Children.toArray(children).map((item, idx) => <div className={mapModifiers('o-tabs_panel', active === idx && 'active')}>{item}</div>)}
     </div>
   );
 };
 
-export default React.memo(Tabs);
+export default Tabs;
