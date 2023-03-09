@@ -13,6 +13,8 @@ export const iconList = {
   hambuger: 'hambuger',
   arrowRight: 'arrowRight',
   arrowRightWhite: 'arrowRightWhite',
+  plus: 'plus',
+  minus: 'minus'
 };
 
 export type IconName = keyof typeof iconList;

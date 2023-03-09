@@ -7,7 +7,6 @@ body {
 
 * {
     box-sizing: border-box;
-    transition: $transition;
     -webkit-tap-highlight-color: transparent; //issue click in mobile flash background highligh
 }
 
@@ -43,6 +42,18 @@ button {
 
 input {
     word-break: normal;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
 }
 
 ul,

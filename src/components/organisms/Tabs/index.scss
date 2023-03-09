@@ -1,0 +1,80 @@
+.o-tabs {
+    $root: &;
+
+    &_labels {
+        border-radius: rem(8);
+        overflow: auto hidden;
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding-bottom: rem(20);
+
+        @include scroll-bars(8);
+
+        @include tablet-down {
+            padding-bottom: rem(14);
+        }
+
+        &::after {
+            content: '';
+            height: 1px;
+            width: 100%;
+            background-color: $platinum;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+
+            @include tablet-down {
+                background: transparent;
+            }
+        }
+    }
+
+    &_label {
+        color: $ash-grey-3b3;
+        font-weight: 500;
+        text-transform: capitalize;
+        white-space: nowrap;
+        @include font-base(20, 30);
+
+        @include tablet-down {
+            @include font-base(15, 20);
+        }
+    }
+
+    &_tab {
+        background: transparent;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.2s linear;
+
+        &:not(&:first-child) {
+            margin-left: rem(30);
+        }
+
+        &:not(&-active):hover {
+            #{$root}_label {
+                color: $black;
+            }
+        }
+
+        &-active {
+            #{$root}_label {
+                color: $black;
+            }
+        }
+    }
+
+    &_panel {
+        display: none;
+
+        &-active {
+            display: block;
+            margin-top: rem(20);
+
+            @include tablet-down {
+                margin-top: rem(14);
+            }
+        }
+    }
+}

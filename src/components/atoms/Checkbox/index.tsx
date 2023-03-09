@@ -33,7 +33,6 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           htmlFor={disableLabel ? 'disableLabel' : id}
         >
           {children || ''}
-
         </label>
       </div>
       {error && <Typography.Text>{error}</Typography.Text>}

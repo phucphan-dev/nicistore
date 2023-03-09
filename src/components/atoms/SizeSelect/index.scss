@@ -1,0 +1,18 @@
+.a-sizeSelect {
+    $root: &;
+    min-width: rem(78);
+    border: 1px solid $gainsboro;
+    background-color: $white;
+    padding: rem(8);
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    transition: $transition;
+
+    &:hover,
+    &:has(input:checked) {
+        background-color: $carmine-pink;
+        border-color: $carmine-pink;
+        color: $white;
+    }
+}
