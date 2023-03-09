@@ -163,13 +163,13 @@ export const ProductRecentViews: React.FC<ProductCardProps> = ({
           </Typography.Text>
         </div>
         {promo && (
-        <div className="o-productRecentViews_price_sale">
-          <Typography.Text modifiers={['13x19', '500', 'black']}>
-            {unit}
-            {(price * (100 - promo) / 100).toFixed(2)}
-          </Typography.Text>
-        </div>
-          )}
+          <div className="o-productRecentViews_price_sale">
+            <Typography.Text modifiers={['13x19', '500', 'black']}>
+              {unit}
+              {(price * (100 - promo) / 100).toFixed(2)}
+            </Typography.Text>
+          </div>
+        )}
       </div>
     </div>
   </div>
