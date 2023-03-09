@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, {
   useCallback, useEffect, useRef, useState
 } from 'react';
@@ -33,7 +32,11 @@ const InputRange: React.FC<InputRangeProps> = ({
       rangeRef.current.style.left = `${minPercent}%`;
       rangeRef.current.style.width = `${maxPercent - minPercent}%`;
     }
-  }, [maxValueChange, minValueChange, getPercent]);
+    handleChange({
+      min: Math.min(minValueChange, maxValueChange),
+      max: Math.max(minValueChange, maxValueChange)
+    });
+  }, [maxValueChange, minValueChange, getPercent, handleChange]);
 
   return (
     <div className="o-inputRange">
@@ -48,15 +51,7 @@ const InputRange: React.FC<InputRangeProps> = ({
           max={maxValue}
           value={minValueChange}
           className="o-inputRange_inputMin"
-          onChange={(e) => {
-            const value = Number(e.target.value);
-            if (value > maxValueChange) setMaxValueChange(value);
-            else setMinValueChange(value);
-            handleChange({
-              min: Math.min(value, maxValueChange),
-              max: Math.max(maxValueChange, value)
-            });
-          }}
+          onChange={(e) => setMinValueChange(Number(e.target.value))}
         />
         <input
           type="range"
@@ -64,15 +59,7 @@ const InputRange: React.FC<InputRangeProps> = ({
           max={maxValue}
           value={maxValueChange}
           className="o-inputRange_inputMax"
-          onChange={(e) => {
-            const value = Number(e.target.value);
-            if (value < minValueChange) setMinValueChange(value);
-            else setMaxValueChange(value);
-            handleChange({
-              min: Math.min(value, maxValueChange),
-              max: Math.max(maxValueChange, value)
-            });
-          }}
+          onChange={(e) => setMaxValueChange(Number(e.target.value))}
         />
       </div>
     </div>
