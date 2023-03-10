@@ -7,7 +7,7 @@ import Home from 'pages/Home';
 import Products from 'pages/Products';
 
 const App: React.FC = () => (
-  <BrowserRouter>
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />

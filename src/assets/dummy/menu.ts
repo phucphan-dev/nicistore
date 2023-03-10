@@ -4,7 +4,7 @@ const menuDummy: MenuItem[] = [
   {
     id: 'home',
     text: 'Home',
-    link: '#',
+    link: '/',
   },
   {
     id: 'shop',
