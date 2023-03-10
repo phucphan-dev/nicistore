@@ -23,7 +23,7 @@ const Products: React.FC = () => {
               <div className="p-products_sidebar_title">
                 <Typography.Heading type="h3" modifiers={['14x16', '500']}>Filter Product</Typography.Heading>
                 <div className="p-products_sidebar_close">
-                  <Button iconName="close" iconSize="20" handleClick={() => setOpen(false)} />
+                  <Button iconName="close" variant="whiteBorder" iconSize="16" handleClick={() => setOpen(false)} />
                 </div>
               </div>
               <FilterProduct />

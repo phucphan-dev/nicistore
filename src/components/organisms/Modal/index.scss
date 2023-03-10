@@ -1,0 +1,76 @@
+.o-modal {
+    &_wrapper {
+        position: relative;
+    }
+
+    &_close {
+        position: absolute;
+        top: rem(24);
+        right: rem(24);
+    }
+}
+
+.ReactModal__Overlay {
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: all 500ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.ReactModal__Overlay--before-close {
+    opacity: 0;
+    transform: translateX(-100px);
+}
+
+.ReactModal__Overlay {
+    background: rgba($eerie-black, 0.3);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    position: fixed;
+    transform: translateY(-100%);
+    transition: all 500ms ease-in-out;
+    z-index: $z-modal;
+
+    &::after {
+        background: rgba($eerie-black, 0.3);
+        content: '';
+        display: block;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 102;
+    }
+
+    &--open {
+        overflow: hidden;
+    }
+
+    &--after-open {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    &--before-close {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+}
+
+.o-popup_overlay {
+    &-popupImage {
+        z-index: 0;
+    
+        &::after {
+            z-index: 0;
+        }
+    }
+}

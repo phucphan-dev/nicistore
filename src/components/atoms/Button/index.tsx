@@ -6,7 +6,7 @@ import Loading from '../Loading';
 import Icon, { IconName, IconSize } from 'components/atoms/Icon';
 import mapModifiers from 'utils/functions';
 
-type Variant = 'primary' | 'secondary' | 'dark' | 'info' | 'circle';
+type Variant = 'primary' | 'secondary' | 'dark' | 'info' | 'circle' | 'whiteBorder';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;

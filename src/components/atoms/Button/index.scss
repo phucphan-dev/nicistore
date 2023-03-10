@@ -131,4 +131,11 @@
         border-radius: 50%;
         background-color: $white;
     }
+
+    &-whiteBorder {
+        border-radius: 50%;
+        background-color: $white;
+        padding: rem(10) !important;
+        border: 1px solid $platinum;
+    }
 }

@@ -9,9 +9,10 @@ import mapModifiers from 'utils/functions';
 interface ImagePreviewProps {
   imgSrc: string;
   alt: string;
+  isZoom?: boolean;
 }
 
-const ImagePreview: React.FC<ImagePreviewProps> = ({ imgSrc, alt }) => {
+const ImagePreview: React.FC<ImagePreviewProps> = ({ imgSrc, alt, isZoom }) => {
   const { width: wWidth, height: wHeight } = useWindowDimensions();
   const [zoom, setZoom] = useState(false);
   const [position, setPosition] = useState('0% 0%');
@@ -35,19 +36,23 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({ imgSrc, alt }) => {
           <Image imgSrc={imgSrc} alt={alt} ratio="1x1" />
         </div>
       </figure>
-      <div className="o-imagePreview_expanded" onClick={() => setZoom(true)}>
-        <Icon iconName="expand" size="20" />
-      </div>
-      <div className={mapModifiers('o-imagePreview_previewer', zoom && 'active')} style={{ width: `${wWidth}px`, height: `${wHeight}px` }}>
-        <TransformWrapper>
-          <TransformComponent>
-            <img src={imgSrc} alt={alt} />
-          </TransformComponent>
-        </TransformWrapper>
-        <div className="o-imagePreview_close" onClick={() => setZoom(false)}>
-          <Icon iconName="close" size="20" />
-        </div>
-      </div>
+      {isZoom && (
+        <>
+          <div className="o-imagePreview_expanded" onClick={() => setZoom(true)}>
+            <Icon iconName="expand" size="20" />
+          </div>
+          <div className={mapModifiers('o-imagePreview_previewer', zoom && 'active')} style={{ width: `${wWidth}px`, height: `${wHeight}px` }}>
+            <TransformWrapper>
+              <TransformComponent>
+                <img src={imgSrc} alt={alt} />
+              </TransformComponent>
+            </TransformWrapper>
+            <div className="o-imagePreview_close" onClick={() => setZoom(false)}>
+              <Icon iconName="close" size="20" />
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
