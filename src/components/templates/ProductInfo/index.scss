@@ -1,0 +1,153 @@
+.t-productInfo {
+    &_carousel {
+        position: relative;
+    }
+
+    &_dots {
+        display: flex;
+        margin-top: rem(14);
+        margin-bottom: rem(32);
+    }
+
+    &_dot {
+        flex: 1;
+        margin-left: rem(4);
+        margin-right: rem(4);
+        max-width: rem(90);
+        cursor: pointer;
+        border-radius: rem(2);
+        overflow: hidden;
+        transition: $transition;
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &-active {
+            border: 1px solid $black;
+        }
+    }
+
+    &_expanded,
+    &_close {
+        position: absolute;
+        padding: rem(12);
+        border-radius: 50%;
+        background-color: $white;
+        cursor: pointer;
+    }
+
+    &_expanded {
+        bottom: rem(8);
+        left: rem(8);
+    }
+
+    &_close {
+        top: rem(24);
+        right: rem(24);
+    }
+
+    &_previewer {
+        position: fixed;
+        left: 0;
+        display: none;
+        top: -100%;
+        transition: $transition;
+        background-color: $black;
+        z-index: $z-modal;
+
+        &-active {
+            display: block;
+            top: 0;
+        }
+
+        .react-transform-wrapper,
+        .react-transform-component {
+            width: 100%;
+            height: 100%;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+    }
+
+    &_review {
+        display: flex;
+        align-items: center;
+        margin-top: rem(8);
+    }
+
+    &_price {
+        margin-top: rem(24);
+    }
+
+    &_description {
+        margin-top: rem(24);
+    }
+
+    &_colors {
+        margin-top: rem(24);
+
+        &_list {
+            margin-top: rem(4);
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+    }
+
+    &_color {
+        margin-right: rem(12);
+        margin-top: rem(12);
+    }
+
+    &_sizes {
+        margin-top: rem(24);
+
+        &_list {
+            margin-top: rem(4);
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+    }
+
+    &_size {
+        margin-right: rem(12);
+        margin-top: rem(12);
+    }
+
+    &_quantity {
+        display: flex;
+        align-items: center;
+        margin-top: rem(30);
+    }
+
+    &_addTo {
+        margin-left: rem(4);
+        flex-grow: 1;
+    }
+
+    &_controls {
+        display: flex;
+        margin-top: rem(16);
+        margin-bottom: rem(24);
+
+        button {
+            width: auto;
+            padding-left: 0;
+        }
+    }
+
+    &_tags {
+        padding-top: rem(16);
+        border-top: 1px solid $platinum;
+
+        &_line {
+            margin-top: rem(4);
+        }
+    }
+}

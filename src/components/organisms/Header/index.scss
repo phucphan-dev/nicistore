@@ -2,6 +2,7 @@
     position: relative;
     background-color: $white;
     z-index: $z-header;
+    border-bottom: 1px solid $platinum;
 
     &_wrapper {
         display: flex;

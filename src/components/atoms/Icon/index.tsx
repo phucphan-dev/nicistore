@@ -18,6 +18,7 @@ export const iconList = {
   arrowBlackNext: 'arrowBlackNext',
   arrowBlackPrev: 'arrowBlackPrev',
   filter: 'filter',
+  share: 'share',
 };
 
 export type IconName = keyof typeof iconList;

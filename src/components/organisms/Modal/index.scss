@@ -1,4 +1,7 @@
 .o-modal {
+    position: relative;
+    z-index: $z-modal;
+
     &_wrapper {
         position: relative;
     }
@@ -47,7 +50,6 @@
         position: absolute;
         top: 0;
         width: 100%;
-        z-index: 102;
     }
 
     &--open {

@@ -13,49 +13,4 @@
             }
         }
     }
-
-    &_expanded,
-    &_close {
-        position: absolute;
-        padding: rem(12);
-        border-radius: 50%;
-        background-color: $white;
-        cursor: pointer;
-    }
-
-    &_expanded {
-        bottom: rem(8);
-        left: rem(8);
-    }
-
-    &_close {
-        top: rem(8);
-        right: rem(8);
-    }
-
-    &_previewer {
-        position: fixed;
-        left: 0;
-        display: none;
-        top: -100%;
-        transition: $transition;
-        background-color: $black;
-
-        &-active {
-            display: block;
-            top: 0;
-        }
-
-        .react-transform-wrapper,
-        .react-transform-component {
-            width: 100%;
-            height: 100%;
-
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-            }
-        }
-    }
 }

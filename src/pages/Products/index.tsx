@@ -10,6 +10,7 @@ import Container from 'components/organisms/Container';
 import Pagination from 'components/organisms/Pagination';
 import ProductCard from 'components/organisms/ProductCard';
 import FilterProduct from 'components/templates/FilterProduct';
+import FooterProduct from 'components/templates/FooterProduct';
 import mapModifiers from 'utils/functions';
 
 const Products: React.FC = () => {
@@ -78,6 +79,9 @@ const Products: React.FC = () => {
             </div>
           </Col>
         </Row>
+        <div className="p-products_related">
+          <FooterProduct title="Recently View products" products={featuredProducts.slice(0, 4)} />
+        </div>
       </Container>
     </div>
   );
