@@ -41,7 +41,7 @@ const menuDummy: MenuItem[] = [
       {
         id: 'productdetail',
         text: 'Product Detail',
-        link: '#',
+        link: '/#/product-detail',
         childrens: [
           {
             id: 'productdetail1',

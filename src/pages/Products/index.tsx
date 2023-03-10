@@ -10,6 +10,7 @@ import Container from 'components/organisms/Container';
 import Pagination from 'components/organisms/Pagination';
 import ProductCard from 'components/organisms/ProductCard';
 import FilterProduct from 'components/templates/FilterProduct';
+import FooterProduct from 'components/templates/FooterProduct';
 import mapModifiers from 'utils/functions';
 
 const Products: React.FC = () => {
@@ -23,7 +24,7 @@ const Products: React.FC = () => {
               <div className="p-products_sidebar_title">
                 <Typography.Heading type="h3" modifiers={['14x16', '500']}>Filter Product</Typography.Heading>
                 <div className="p-products_sidebar_close">
-                  <Button iconName="close" iconSize="20" handleClick={() => setOpen(false)} />
+                  <Button iconName="close" variant="whiteBorder" iconSize="16" handleClick={() => setOpen(false)} />
                 </div>
               </div>
               <FilterProduct />
@@ -78,6 +79,9 @@ const Products: React.FC = () => {
             </div>
           </Col>
         </Row>
+        <div className="p-products_related">
+          <FooterProduct title="Recently View products" products={featuredProducts.slice(0, 4)} />
+        </div>
       </Container>
     </div>
   );

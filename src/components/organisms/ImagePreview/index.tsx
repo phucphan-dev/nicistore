@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
-import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
-import Icon from 'components/atoms/Icon';
 import Image from 'components/atoms/Image';
-import useWindowDimensions from 'hooks/useWindowDemensions';
-import mapModifiers from 'utils/functions';
 
 interface ImagePreviewProps {
   imgSrc: string;
@@ -12,8 +8,6 @@ interface ImagePreviewProps {
 }
 
 const ImagePreview: React.FC<ImagePreviewProps> = ({ imgSrc, alt }) => {
-  const { width: wWidth, height: wHeight } = useWindowDimensions();
-  const [zoom, setZoom] = useState(false);
   const [position, setPosition] = useState('0% 0%');
   const handleMouseMove = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     const {
@@ -35,19 +29,6 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({ imgSrc, alt }) => {
           <Image imgSrc={imgSrc} alt={alt} ratio="1x1" />
         </div>
       </figure>
-      <div className="o-imagePreview_expanded" onClick={() => setZoom(true)}>
-        <Icon iconName="expand" size="20" />
-      </div>
-      <div className={mapModifiers('o-imagePreview_previewer', zoom && 'active')} style={{ width: `${wWidth}px`, height: `${wHeight}px` }}>
-        <TransformWrapper>
-          <TransformComponent>
-            <img src={imgSrc} alt={alt} />
-          </TransformComponent>
-        </TransformWrapper>
-        <div className="o-imagePreview_close" onClick={() => setZoom(false)}>
-          <Icon iconName="close" size="20" />
-        </div>
-      </div>
     </div>
   );
 };

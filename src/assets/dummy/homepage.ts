@@ -145,7 +145,7 @@ export const featuredProducts = [
   },
   {
     code: 'C00001_00001',
-    images: [nc000001],
+    images: [nc000002],
     promo: 12,
     name: 'Check Overshirt With Pocket Detail',
     price: 112,
@@ -169,7 +169,7 @@ export const featuredProducts = [
   },
   {
     code: 'C00001_00001',
-    images: [nc000001],
+    images: [nc000002],
     promo: 12,
     name: 'Check Overshirt With Pocket Detail',
     price: 112,
@@ -193,7 +193,7 @@ export const featuredProducts = [
   },
   {
     code: 'C00001_00001',
-    images: [nc000001],
+    images: [nc000002],
     promo: 12,
     name: 'Check Overshirt With Pocket Detail',
     price: 112,

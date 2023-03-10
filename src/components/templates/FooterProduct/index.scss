@@ -1,0 +1,11 @@
+.t-footerProduct {
+    &_title {
+        padding-bottom: rem(16);
+        border-bottom: 1px solid $platinum;
+        margin-bottom: rem(2);
+    }
+
+    &_item {
+        margin-top: rem(30);
+    }
+}

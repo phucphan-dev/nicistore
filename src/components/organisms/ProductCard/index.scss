@@ -47,29 +47,10 @@
             align-items: center;
             margin-top: rem(12);
         }
-
-        &_star {
-            display: flex;
-            margin-right: rem(8);
-
-            * {
-                margin-left: rem(4);
-
-                &:first-child {
-                    margin-left: 0;
-                }
-            }
-        }
     }
 
     &_price {
-        display: flex;
-        align-items: center;
         margin-top: rem(8);
-
-        &_sale {
-            margin-left: rem(8);
-        }
     }
 
     &_inventory {

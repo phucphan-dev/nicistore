@@ -3,9 +3,10 @@ import React, { useState } from 'react';
 
 import Badge from 'components/atoms/Badge';
 import Button from 'components/atoms/Button';
-import Icon from 'components/atoms/Icon';
 import Image from 'components/atoms/Image';
 import Typography from 'components/atoms/Typography';
+import PriceSale from 'components/molecules/PriceSale';
+import StarCount from 'components/molecules/StarCount';
 import mapModifiers from 'utils/functions';
 
 export interface ProductCardProps {
@@ -86,33 +87,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
           <Typography.Heading type="h3" modifiers={['15x18']}>{name}</Typography.Heading>
         </div>
         <div className="o-productCard_price">
-          <div className="o-productCard_price_original">
-            <Typography.Text modifiers={promo ? ['14x16', 'ashGrey', 'lineThrough'] : ['16x18', '700']}>
-              {unit}
-              {price.toFixed(2)}
-            </Typography.Text>
-          </div>
-          {promo && (
-            <div className="o-productCard_price_sale">
-              <Typography.Text modifiers={['16x18', '700']}>
-                {unit}
-                {(price * (100 - promo) / 100).toFixed(2)}
-              </Typography.Text>
-            </div>
-          )}
+          <PriceSale unit={unit} promo={promo} price={price} />
         </div>
         <div className="o-productCard_content_switcher">
-          {starCount && (
-            <div className="o-productCard_content_star">
-              {Array(starCount).fill(0).map((_, index) => (
-                <Icon
-                  key={`${code}-promo-${index.toString()}`}
-                  iconName="star"
-                  size="12"
-                />
-              ))}
-            </div>
-          )}
+          {starCount && <StarCount count={starCount} />}
           {reviewCount && (
             <Typography.Text modifiers={['16x18']}>
               {reviewCount}
