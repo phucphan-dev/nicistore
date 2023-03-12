@@ -1,7 +1,16 @@
-.m-select {
+.a-select {
     $root: &;
     position: relative;
     z-index: 3;
+
+    &-bordered {
+        #{$root} {
+            &_header {
+                border: 1px solid $platinum;
+                height: rem(42);
+            }
+        }
+    }
 
     &_header {
         position: relative;
@@ -22,7 +31,7 @@
             width: calc(100% - 26px);
             height: 100%;
             flex-grow: 1;
-            padding: rem(7.2) rem(4) rem(7.2) rem(12);
+            padding: rem(7) rem(4) rem(7) rem(12);
             text-transform: capitalize;
             overflow: hidden;
             white-space: nowrap;

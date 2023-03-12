@@ -1,0 +1,41 @@
+.p-checkout {
+    &_line {
+        margin-top: rem(16);
+    }
+
+    &_total {
+        padding: rem(40);
+        border: 1px solid $platinum;
+        border-radius: rem(2);
+        @include mobile-down {
+            padding: rem(20);
+        }
+    }
+
+    &_summary {
+        display: flex;
+        justify-content: space-between;
+        margin-top: rem(20);
+    }
+
+    &_price {
+        margin-left: rem(32);
+        flex-shrink: 0;
+    }
+
+    &_divider {
+        height: 1px;
+        background-color: $platinum;
+        margin-top: rem(20);
+    }
+
+    &_button {
+        margin-top: rem(60);
+    }
+
+    &_info {
+        @include tablet-down {
+            margin-top: rem(32);
+        }
+    }
+}
