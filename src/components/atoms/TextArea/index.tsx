@@ -1,5 +1,7 @@
 import React, { forwardRef } from 'react';
 
+import Typography from '../Typography';
+
 import mapModifiers from 'utils/functions';
 
 export interface TextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -8,13 +10,19 @@ export interface TextAreaProps extends React.TextareaHTMLAttributes<HTMLTextArea
 }
 
 const TextAreaRef: React.ForwardRefRenderFunction<HTMLTextAreaElement, TextAreaProps> = ({
-  error, placeholder, rows, ...innerProps
+  label, error, placeholder, rows, id, required, ...innerProps
 }, ref) => (
   <div className={mapModifiers(
     'a-textarea',
     error && 'error',
   )}
   >
+    {label && (
+      <label htmlFor={id} className="a-input_label">
+        <Typography.Text type="span" modifiers={['14x16']}>{label}</Typography.Text>
+        {required && <Typography.Text type="span" modifiers={['14x16', 'ferrariRed']}>*</Typography.Text>}
+      </label>
+    )}
     <div className="a-textarea_wrap">
       <textarea
         {...innerProps}

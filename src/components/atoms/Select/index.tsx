@@ -1,9 +1,12 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useRef, useState, useEffect } from 'react';
+
+import Typography from '../Typography';
 
 import useClickOutside from 'hooks/useClickOutside';
 import mapModifiers from 'utils/functions';
 
-type Modifiers = 'nobackground';
+type Modifiers = 'nobackground' | 'bordered';
 export interface OptionType {
   id: string;
   label: string;
@@ -11,17 +14,19 @@ export interface OptionType {
 }
 
 interface SelectProps {
-  modifier?: Modifiers;
+  label?: string;
+  modifier?: Modifiers[];
   name: string;
   placeholder: string;
   value?: OptionType;
   options: OptionType[];
   isSearch?: boolean;
+  required?: boolean;
   handleSelect?: (option: OptionType) => void;
 }
 
 const Select: React.FC<SelectProps> = ({
-  modifier,
+  modifier, label, required,
   name, placeholder, value, options, isSearch, handleSelect,
 }) => {
   const pulldownRef = useRef<HTMLDivElement>(null);
@@ -48,27 +53,33 @@ const Select: React.FC<SelectProps> = ({
   }, [options]);
 
   return (
-    <div className={mapModifiers('m-select', modifier)} ref={pulldownRef}>
-      <div className="m-select_header" onClick={toggling}>
-        {!txtSearch && <div className={`m-select_header_content${value ? '' : ' placeholder'}`}><span>{value ? value.label : placeholder}</span></div>}
+    <div className={mapModifiers('a-select', modifier)} ref={pulldownRef}>
+      {label && (
+        <label className="a-select_label">
+          <Typography.Text type="span" modifiers={['14x16']}>{label}</Typography.Text>
+          {required && <Typography.Text type="span" modifiers={['14x16', 'ferrariRed']}>*</Typography.Text>}
+        </label>
+      )}
+      <div className="a-select_header" onClick={toggling}>
+        {!txtSearch && <div className={`a-select_header_content${value ? '' : ' placeholder'}`}><span>{value ? value.label : placeholder}</span></div>}
         {isSearch && (
           <input
             name={name}
-            className="m-select_search"
+            className="a-select_search"
             value={txtSearch}
             onChange={(e) => setTxtSearch(e.currentTarget.value)}
           />
         )}
-        <span className={isOpen ? 'm-select_arrow opened' : 'm-select_arrow'} />
+        <span className={isOpen ? 'a-select_arrow opened' : 'a-select_arrow'} />
       </div>
       {isOpen && (
-        <div className="m-select_wrapper">
-          <ul className="m-select_list">
+        <div className="a-select_wrapper">
+          <ul className="a-select_list">
             {optionData.length ? optionData.map(
               (option) => (
                 <li
                   key={option.id}
-                  className="m-select_item"
+                  className="a-select_item"
                   onClick={() => {
                     if (handleSelect) {
                       handleSelect(option);
@@ -80,7 +91,7 @@ const Select: React.FC<SelectProps> = ({
                   {option.label}
                 </li>
               ),
-            ) : <li className="m-select_item none">No Option</li>}
+            ) : <li className="a-select_item none">No Option</li>}
           </ul>
         </div>
       )}

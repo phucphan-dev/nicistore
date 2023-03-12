@@ -2,14 +2,6 @@
     $root: &;
     position: relative;
 
-    &_label {
-        color: $white;
-        font-weight: 500;
-        margin-bottom: rem(8);
-        display: block;
-        @include font-base(16, 24);
-    }
-
     &_ele {
         width: 100%;
         font-family: inherit;
