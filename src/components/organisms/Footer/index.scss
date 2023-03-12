@@ -8,7 +8,9 @@
     }
 
     &_brandInfo {
-        max-width: rem(310);
+        @include tablet-up {
+            max-width: rem(310);
+        }
     }
 
     &_logo {
@@ -18,6 +20,12 @@
     &_intro {
         margin-top: rem(16);
         margin-bottom: rem(16);
+    }
+
+    &_title {
+        @include tablet-down {
+            margin-top: rem(24);
+        }
     }
 
     &_menu {

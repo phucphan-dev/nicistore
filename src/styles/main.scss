@@ -3,14 +3,18 @@ body {
     font-family: 'Jost', sans-serif;
     font-size: 16px;
     overflow-x: hidden;
+    color: $black;
 }
 
 * {
+    
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent; //issue click in mobile flash background highligh
 }
 
 button {
+    font-family: 'Jost', sans-serif;
+
     &:focus {
         outline: none;
     }
@@ -41,6 +45,7 @@ button {
 }
 
 input {
+    font-family: 'Jost', sans-serif;
     word-break: normal;
 }
 

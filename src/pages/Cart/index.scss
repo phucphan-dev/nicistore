@@ -1,0 +1,68 @@
+.p-cart {
+    &_td,
+    &_th {
+        padding: rem(12) rem(16);
+    }
+
+    &_th {
+        opacity: 0.4;
+    }
+
+    &_td {
+        text-align: center;
+    }
+
+    table,
+    th,
+    td {
+        border-bottom: 1px solid $platinum;
+        border-collapse: collapse;
+    }
+
+    &_coupon {
+        width: 60%;
+        display: flex;
+        align-items: center;
+        margin-top: rem(24);
+
+        @include mobile-down {
+            width: 100%;
+        }
+
+        &_input {
+            flex-grow: 1;
+        }
+
+        &_button {
+            width: auto;
+            margin-left: rem(4);
+        }
+    }
+
+    &_total {
+        border: 1px solid $platinum;
+        padding: rem(30);
+        border-radius: rem(3);
+
+        @include tablet-down {
+            margin-top: rem(40);
+        }
+
+        &_button {
+            margin-top: rem(40);
+        }
+    }
+
+    &_divider {
+        margin-top: rem(15);
+        margin-bottom: rem(30);
+        height: 1px;
+        background-color: $platinum;
+    }
+
+    &_line {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
