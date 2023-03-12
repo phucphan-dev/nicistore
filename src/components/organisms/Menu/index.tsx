@@ -12,9 +12,10 @@ export interface MenuItem extends MenuData {
 }
 interface MenuProps {
   menu: MenuItem[];
+  handleSelect?: () => void;
 }
 
-const Menu: React.FC<MenuProps> = ({ menu }) => (
+const Menu: React.FC<MenuProps> = ({ menu, handleSelect }) => (
   <div className="o-menu">
     <ul className="o-menu_list">
       {menu.map((item) => (
@@ -26,14 +27,14 @@ const Menu: React.FC<MenuProps> = ({ menu }) => (
             <ul className="o-menu_submenu">
               {item.childrens.map((child) => (
                 <li className="o-menu_submenu_item" key={child.id}>
-                  <a className="o-menu_submenu_link" href={child.link}>
+                  <a className="o-menu_submenu_link" href={child.link} onClick={handleSelect}>
                     <Typography.Text modifiers={['15x18']}>{child.text}</Typography.Text>
                   </a>
                   {child.childrens && (
                     <ul className="o-menu_subchildmenu">
                       {child.childrens.map((childSub) => (
                         <li className="o-menu_subchildmenu_item" key={childSub.id}>
-                          <a href={childSub.link}>
+                          <a href={childSub.link} onClick={handleSelect}>
                             <Typography.Text modifiers={['15x18']}>{childSub.text}</Typography.Text>
                           </a>
                         </li>

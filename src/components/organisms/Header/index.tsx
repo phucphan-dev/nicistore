@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Container from '../Container';
 import Menu from '../Menu';
@@ -15,6 +16,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = () => {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   return (
     <header className="o-header">
@@ -27,10 +29,10 @@ const Header: React.FC<HeaderProps> = () => {
             <div className="o-header_logo"><Image imgSrc={logo} alt="Nici Logo" ratio="75x46" /></div>
             <div className={mapModifiers('o-header_menu', open && 'opened')}>
               <div className="o-header_menu_logo">
-                <Image imgSrc={logo} alt="Nici Logo" />
+                <Image imgSrc={logo} alt="Nici Logo" ratio="75x46" />
                 <Button iconName="close" iconSize="24" handleClick={() => setOpen(false)} />
               </div>
-              <Menu menu={menuDummy} />
+              <Menu menu={menuDummy} handleSelect={() => setOpen(false)} />
             </div>
           </div>
           <div className="o-header_right">
@@ -45,7 +47,7 @@ const Header: React.FC<HeaderProps> = () => {
             </div>
             <div className="o-header_right_button">
               <Typography.Text modifiers={['12x14', 'ashGrey']}>$190.00</Typography.Text>
-              <Button iconName="cart" iconSize="24" badge={2} />
+              <Button iconName="cart" iconSize="24" badge={2} handleClick={() => navigate('/cart')} />
             </div>
           </div>
         </div>

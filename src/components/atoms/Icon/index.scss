@@ -4,6 +4,11 @@
     background-size: contain;
     display: block;
 
+    &-6 {
+        height: rem(6);
+        width: rem(6);
+    }
+
     &-12 {
         height: rem(12);
         width: rem(12);
@@ -88,5 +93,9 @@
 
     &-share {
         background-image: url('~assets/icons/ic_share.svg');
+    }
+
+    &-closeWhite {
+        background-image: url('~assets/icons/ic_close_white.svg');
     }
 }

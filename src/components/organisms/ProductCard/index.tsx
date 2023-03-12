@@ -129,7 +129,7 @@ export const ProductRecentViews: React.FC<ProductCardProps> = ({
 }) => (
   <div className="o-productRecentViews">
     <div className="o-productRecentViews_image">
-      <Image imgSrc={images[0]} alt="Product Recent View" />
+      <Image imgSrc={images[0]} alt="Product Recent View" ratio="1x1" />
     </div>
     <div className="o-productRecentViews_content">
       <Typography.Heading type="h4" modifiers={['14x16', '400']}>{name}</Typography.Heading>

@@ -1,4 +1,5 @@
 .a-input {
+    $root: &;
     position: relative;
 
     &_label {
@@ -26,5 +27,12 @@
         color: $fire-engine-red;
         margin-top: rem(6);
         @include font-base(12, 17);
+    }
+
+    &-bordered {
+        #{$root}_ele {
+            height: rem(42);
+            border: 1px solid $platinum;
+        }
     }
 }

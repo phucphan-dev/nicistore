@@ -1,0 +1,33 @@
+.o-productCartItem {
+    display: flex;
+    position: relative;
+
+    &_image {
+        width: rem(60);
+        flex-shrink: 0;
+    }
+
+    &_content {
+        flex-grow: 1;
+        margin-left: rem(32);
+        text-align: left;
+    }
+
+    &_color {
+        margin-top: rem(4);
+    }
+
+    &_remove {
+        position: absolute;
+        top: rem(-4);
+        left: rem(-4);
+        width: rem(10);
+        height: rem(10);
+        border-radius: 50%;
+        background-color: $ferrari-red;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+}
