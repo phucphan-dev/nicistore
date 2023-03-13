@@ -9,6 +9,10 @@
         border: 1px solid $platinum;
     }
 
+    @include mobile-down {
+        padding: rem(24);
+    }
+
     &_tabs {
         display: flex;
         justify-content: center;
