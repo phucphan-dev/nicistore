@@ -5,12 +5,19 @@
     &_image {
         width: rem(60);
         flex-shrink: 0;
+
+        @include mobile-down {
+            display: none;
+        }
     }
 
     &_content {
         flex-grow: 1;
         margin-left: rem(32);
         text-align: left;
+        @include mobile-down {
+            margin-left: rem(8);
+        }
     }
 
     &_color {

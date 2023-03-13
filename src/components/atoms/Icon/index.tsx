@@ -20,6 +20,11 @@ export const iconList = {
   filter: 'filter',
   share: 'share',
   closeWhite: 'closeWhite',
+  facebook: 'facebook',
+  instagram: 'instagram',
+  tiktok: 'tiktok',
+  phone: 'phone',
+  gmail: 'gmail',
 };
 
 export type IconName = keyof typeof iconList;

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Button from 'components/atoms/Button';
 import Checkbox from 'components/atoms/Checkbox';
@@ -10,6 +11,7 @@ import Section from 'components/organisms/Section';
 import mapModifiers from 'utils/functions';
 
 const Authenticate: React.FC = () => {
+  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   return (
     <Section>
@@ -38,7 +40,7 @@ const Authenticate: React.FC = () => {
               <Checkbox name="isRemember">Remember me</Checkbox>
             </div>
             <div className="p-authenticate_button">
-              <Button variant="primary" sizes="h42">Log in</Button>
+              <Button variant="primary" sizes="h42" handleClick={() => navigate('/account')}>Log in</Button>
             </div>
             <div className="p-authenticate_forgot">
               <Link><Typography.Text modifiers={['14x16', 'ferrariRed']}>Forgot password?</Typography.Text></Link>

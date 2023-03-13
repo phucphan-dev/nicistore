@@ -43,6 +43,10 @@
     &-1531x541 {
         @include aspect-ratio(1531, 541);
     }
+    
+    &-96x23 {
+        @include aspect-ratio(96, 23);
+    }
 
     span,
     img {
