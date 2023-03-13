@@ -29,6 +29,7 @@
     &_content {
         width: 200%;
         display: flex;
+        align-items: flex-start;
     }
 
     &_login,
@@ -52,5 +53,9 @@
 
     &_button {
         margin-top: rem(32);
+    }
+
+    &_forgot {
+        margin-top: rem(16);
     }
 }
