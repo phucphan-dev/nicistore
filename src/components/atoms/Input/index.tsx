@@ -19,7 +19,7 @@ const Input: React.FC<InputProps> = ({
     {(labelHtml || label) && (
       <label htmlFor={id} className="a-input_label">
         <Typography.Text type="span" modifiers={['14x16']}>{labelHtml || label}</Typography.Text>
-        {required && <Typography.Text type="span" modifiers={['14x16', 'ferrariRed']}>*</Typography.Text>}
+        {required && <Typography.Text type="span" modifiers={['14x16', 'ferrariRed']}> *</Typography.Text>}
       </label>
     )}
     <input id={id} className="a-input_ele" {...props} />
