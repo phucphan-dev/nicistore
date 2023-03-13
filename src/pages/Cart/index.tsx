@@ -22,7 +22,7 @@ const Cart: React.FC = () => {
               <table className="p-cart_table">
                 <tr className="p-cart_t">
                   <th><div className="p-cart_th"><Typography.Text>Product</Typography.Text></div></th>
-                  <th><div className="p-cart_th"><Typography.Text>Price</Typography.Text></div></th>
+                  <th><div className="p-cart_th price"><Typography.Text>Price</Typography.Text></div></th>
                   <th><div className="p-cart_th"><Typography.Text>Quantity</Typography.Text></div></th>
                   <th><div className="p-cart_th"><Typography.Text>Subtotal</Typography.Text></div></th>
                 </tr>
@@ -38,7 +38,7 @@ const Cart: React.FC = () => {
                       />
                     </div>
                   </td>
-                  <td><div className="p-cart_td"><Typography.Text>$19</Typography.Text></div></td>
+                  <td><div className="p-cart_td price"><Typography.Text>$19</Typography.Text></div></td>
                   <td><div className="p-cart_td"><QuantityInput initQuantity={1} /></div></td>
                   <td><div className="p-cart_td"><Typography.Text>$19</Typography.Text></div></td>
                 </tr>
@@ -54,7 +54,7 @@ const Cart: React.FC = () => {
                       />
                     </div>
                   </td>
-                  <td><div className="p-cart_td"><Typography.Text>$19</Typography.Text></div></td>
+                  <td><div className="p-cart_td price"><Typography.Text>$19</Typography.Text></div></td>
                   <td><div className="p-cart_td"><QuantityInput initQuantity={1} /></div></td>
                   <td><div className="p-cart_td"><Typography.Text>$19</Typography.Text></div></td>
                 </tr>

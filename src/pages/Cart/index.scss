@@ -2,6 +2,12 @@
     &_td,
     &_th {
         padding: rem(12) rem(16);
+
+        &.price {
+            @include mobile-down {
+                display: none;
+            }
+        }
     }
 
     &_th {
