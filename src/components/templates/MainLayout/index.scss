@@ -1,0 +1,24 @@
+.search-panel {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    padding-top: rem(114);
+    background-color: $white;
+    z-index: $z-search;
+    transition: $transition;
+
+    &-opened {
+        top: 0;
+    }
+
+    &_head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &_input {
+        margin-top: rem(16);
+        margin-bottom: rem(16);
+    }
+}

@@ -12,10 +12,10 @@ import Typography from 'components/atoms/Typography';
 import mapModifiers from 'utils/functions';
 
 interface HeaderProps {
-  children?: React.ReactNode;
+  handleSearch?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = () => {
+const Header: React.FC<HeaderProps> = ({ handleSearch }) => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   return (
@@ -40,7 +40,7 @@ const Header: React.FC<HeaderProps> = () => {
               <Button iconName="user" iconSize="24" handleClick={() => navigate('/authenticate')} />
             </div>
             <div className="o-header_right_button hide-mobile">
-              <Button iconName="search" iconSize="24" />
+              <Button iconName="search" iconSize="24" handleClick={handleSearch} />
             </div>
             <div className="o-header_right_button hide-mobile">
               <Button iconName="love" iconSize="24" badge={1} />
@@ -54,10 +54,6 @@ const Header: React.FC<HeaderProps> = () => {
       </Container>
     </header>
   );
-};
-
-Header.defaultProps = {
-  children: undefined,
 };
 
 export default Header;

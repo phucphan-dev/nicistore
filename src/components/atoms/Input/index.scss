@@ -27,4 +27,24 @@
             border: 1px solid $platinum;
         }
     }
+
+    &-search {
+        border-bottom: 1px solid $platinum;
+
+        &::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            transform: translateY(-50%);
+            top: 50%;
+            width: rem(24);
+            height: rem(24);
+            background: url('~assets/icons/ic_search.svg') no-repeat;
+            background-size: contain;
+            background-position: center;
+        }
+        #{$root}_ele {
+            padding-left: 0;
+        }
+    }
 }

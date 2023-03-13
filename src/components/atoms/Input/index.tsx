@@ -10,12 +10,13 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: string;
   labelHtml?: React.ReactNode;
   bordered?: boolean;
+  search?: boolean;
 }
 
 const Input: React.FC<InputProps> = ({
-  id, label, error, labelHtml, bordered, required, ...props
+  id, label, error, labelHtml, bordered, required, search, ...props
 }) => (
-  <div className={mapModifiers('a-input', bordered && 'bordered')}>
+  <div className={mapModifiers('a-input', bordered && 'bordered', search && 'search')}>
     {(labelHtml || label) && (
       <label htmlFor={id} className="a-input_label">
         <Typography.Text type="span" modifiers={['14x16']}>{labelHtml || label}</Typography.Text>
