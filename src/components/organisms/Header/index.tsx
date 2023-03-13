@@ -37,7 +37,7 @@ const Header: React.FC<HeaderProps> = () => {
           </div>
           <div className="o-header_right">
             <div className="o-header_right_button hide-mobile">
-              <Button iconName="user" iconSize="24" />
+              <Button iconName="user" iconSize="24" handleClick={() => navigate('/authenticate')} />
             </div>
             <div className="o-header_right_button hide-mobile">
               <Button iconName="search" iconSize="24" />
