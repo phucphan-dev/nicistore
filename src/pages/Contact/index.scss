@@ -1,0 +1,65 @@
+.p-contact {
+    &_flex {
+        display: flex;
+
+        @include tablet-down {
+            display: block;
+        }
+    }
+
+    &_content {
+        position: relative;
+        margin-top: rem(-160);
+        z-index: 2;
+        background-color: $white;
+        width: 70%;
+        padding: rem(60) rem(40);
+        @include tablet-down {
+            width: 100%;
+            margin-top: rem(-80);
+            padding: rem(40) rem(16);
+        }
+    }
+
+    &_description {
+        margin-top: rem(16);
+    }
+
+    &_form {
+        margin-top: rem(32);
+    }
+
+    &_field {
+        margin-top: rem(16);
+    }
+
+    &_button {
+        margin-top: rem(32);
+        max-width: rem(160);
+    }
+
+    &_info {
+        width: 30%;
+        padding-top: rem(60);
+        padding-left: rem(40);
+        @include tablet-down {
+            width: 100%;
+            padding-top: rem(24);
+            padding-left: rem(16);
+        }
+
+        &_line {
+            display: flex;
+            align-items: center;
+            margin-top: rem(16);
+
+            .a-icon {
+                flex-shrink: 0;
+            }
+
+            .a-link {
+                margin-left: rem(8);
+            }
+        }
+    }
+}

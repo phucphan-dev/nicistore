@@ -1,4 +1,4 @@
-type RatioImage = '1531x541' | '75x46' | '1x1' | '272x289' | '34x17' | '257x274' | '605x480' | '921x329';
+type RatioImage = '1531x541' | '75x46' | '1x1' | '272x289' | '34x17' | '257x274' | '605x480' | '921x329' | '96x23';
 interface CollectionData {
   subtitle?: string;
   title?: string;

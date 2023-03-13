@@ -139,7 +139,7 @@ const menuDummy: MenuItem[] = [
   {
     id: 'contact',
     text: 'Contact',
-    link: '#',
+    link: '/#/contact',
   },
 ];
 
