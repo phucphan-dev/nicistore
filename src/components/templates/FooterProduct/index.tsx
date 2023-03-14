@@ -16,7 +16,7 @@ const FooterProduct: React.FC<FooterProductProps> = ({ title, products }) => (
     </div>
     <Row>
       {products.map((item) => (
-        <Col lg={3} md={6} className="t-footerProduct_item" key={item.code}>
+        <Col lg={3} xs={6} className="t-footerProduct_item" key={item.code}>
           <ProductCard {...item} />
         </Col>
       ))}

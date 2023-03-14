@@ -1,0 +1,61 @@
+{
+  "code": "HOMEPAGE",
+  "name": "Trang chủ",
+  "blocks": {
+    "banner": {
+      "label": "Banner Trang chủ",
+      "elements" : {
+        "homeBanner": {
+          "type": "banner",
+          "label": "Banner"
+        }
+      }
+    },
+    "bestSeller": {
+      "label": "Sản phẩm bán chạy",
+      "elements": {
+        "title": {
+          "type": "text",
+          "label": "Tiêu đề"
+        },
+        "description": {
+          "type": "textarea",
+          "label": "Mô tả"
+        },
+        "imgColl": {
+          "type": "uploadImage",
+          "label": "Ảnh nền bộ sưu tập"
+        },
+        "nameColl": {
+          "type": "text",
+          "label": "Tên bộ sưu tập"
+        },
+        "titleColl": {
+          "type": "text",
+          "label": "Tiêu đề bộ sưu tập"
+        },
+        "descriptionColl": {
+          "type": "textarea",
+          "label": "Mô tả ngắn bộ sưu tập"
+        },
+        "buttonTextColl": {
+          "type": "text",
+          "label": "Nội dung nút"
+        }
+      }
+    },
+    "featuredProduct": {
+      "label": "Sản phẩm nổi bật",
+      "elemenets": {
+        "title": {
+          "type": "text",
+          "label": "Tiêu đề"
+        },
+        "description": {
+          "type": "textarea",
+          "label": "Mô tả"
+        }
+      }
+    }
+  }
+}

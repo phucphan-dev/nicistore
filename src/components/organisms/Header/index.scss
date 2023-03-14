@@ -1,8 +1,16 @@
 .o-header {
     position: relative;
+    width: 100%;
     background-color: $white;
     z-index: $z-header;
     border-bottom: 1px solid $platinum;
+    transition: $transition;
+
+    &-fixed {
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
 
     &_wrapper {
         display: flex;
@@ -54,6 +62,16 @@
             }
         }
 
+        &_account {
+            display: none;
+            @include tablet-down {
+                display: block;
+                @include tablet-down {
+                    padding: rem(12) rem(16);
+                }
+            }
+        }
+
         @include tablet-down {
             position: fixed;
             margin-left: 0;
@@ -80,7 +98,11 @@
             display: flex;
             align-items: center;
             margin-left: rem(16);
-
+            @include mobile-down {
+                .a-text {
+                    display: none;
+                }
+            }
 
             &.hide-mobile {
                 @include tablet-down {
