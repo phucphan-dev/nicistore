@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import Container from '../Container';
 import Menu from '../Menu';
@@ -8,6 +8,7 @@ import menuDummy from 'assets/dummy/menu';
 import logo from 'assets/images/logo.svg';
 import Button from 'components/atoms/Button';
 import Image from 'components/atoms/Image';
+import Link from 'components/atoms/Link';
 import Typography from 'components/atoms/Typography';
 import mapModifiers from 'utils/functions';
 
@@ -17,9 +18,27 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ handleSearch }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [open, setOpen] = useState(false);
+  const [fixed, setFixed] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 84) setFixed(true);
+      else setFixed(false);
+    };
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [location]);
+
   return (
-    <header className="o-header">
+    <header className={mapModifiers('o-header', fixed && 'fixed')}>
       <Container>
         <div className="o-header_wrapper">
           <div className="o-header_hambuger">
@@ -32,14 +51,17 @@ const Header: React.FC<HeaderProps> = ({ handleSearch }) => {
                 <Image imgSrc={logo} alt="Nici Logo" ratio="75x46" />
                 <Button iconName="close" iconSize="24" handleClick={() => setOpen(false)} />
               </div>
-              <Menu menu={menuDummy} handleSelect={() => setOpen(false)} />
+              <Menu menu={menuDummy} />
+              <div className="o-header_menu_account">
+                <Link href="/account"><Typography.Text modifiers={['15x18', 'black', 'uppercase']}>Tài khoản</Typography.Text></Link>
+              </div>
             </div>
           </div>
           <div className="o-header_right">
             <div className="o-header_right_button hide-mobile">
               <Button iconName="user" iconSize="24" handleClick={() => navigate('/authenticate')} />
             </div>
-            <div className="o-header_right_button hide-mobile">
+            <div className="o-header_right_button">
               <Button iconName="search" iconSize="24" handleClick={handleSearch} />
             </div>
             <div className="o-header_right_button hide-mobile">

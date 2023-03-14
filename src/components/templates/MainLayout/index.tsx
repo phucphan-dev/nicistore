@@ -21,7 +21,7 @@ const MainLayout: React.FC = () => {
     if (openSearch) {
       document.documentElement.style.overflow = 'hidden';
     } else {
-      document.documentElement.style.overflow = 'auto';
+      document.documentElement.style.overflow = 'unset';
     }
   }, [openSearch]);
   return (

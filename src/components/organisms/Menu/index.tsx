@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Link from 'components/atoms/Link';
 import Typography from 'components/atoms/Typography';
 
 interface MenuData {
@@ -12,10 +13,9 @@ export interface MenuItem extends MenuData {
 }
 interface MenuProps {
   menu: MenuItem[];
-  handleSelect?: () => void;
 }
 
-const Menu: React.FC<MenuProps> = ({ menu, handleSelect }) => (
+const Menu: React.FC<MenuProps> = ({ menu }) => (
   <div className="o-menu">
     <ul className="o-menu_list">
       {menu.map((item) => (
@@ -27,16 +27,16 @@ const Menu: React.FC<MenuProps> = ({ menu, handleSelect }) => (
             <ul className="o-menu_submenu">
               {item.childrens.map((child) => (
                 <li className="o-menu_submenu_item" key={child.id}>
-                  <a className="o-menu_submenu_link" href={child.link} onClick={handleSelect}>
+                  <Link customClassName="o-menu_submenu_link" href={child.link}>
                     <Typography.Text modifiers={['15x18']}>{child.text}</Typography.Text>
-                  </a>
+                  </Link>
                   {child.childrens && (
                     <ul className="o-menu_subchildmenu">
                       {child.childrens.map((childSub) => (
                         <li className="o-menu_subchildmenu_item" key={childSub.id}>
-                          <a href={childSub.link} onClick={handleSelect}>
+                          <Link href={childSub.link}>
                             <Typography.Text modifiers={['15x18']}>{childSub.text}</Typography.Text>
-                          </a>
+                          </Link>
                         </li>
                       ))}
                     </ul>

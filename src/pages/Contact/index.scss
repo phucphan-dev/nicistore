@@ -19,6 +19,10 @@
             margin-top: rem(-80);
             padding: rem(40) rem(16);
         }
+
+        @include mobile-down {
+            margin-top: rem(-40);
+        }
     }
 
     &_description {

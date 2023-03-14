@@ -30,7 +30,7 @@ const Footer: React.FC<FooterProps> = () => (
             <Typography.Text modifiers={['12x14']}>(+84) 388 192167 – nicistore@gmail.com</Typography.Text>
           </div>
         </Col>
-        <Col lg={2}>
+        <Col lg={2} xs={6}>
           <div className="o-footer_title">
             <Typography.Text modifiers={['16x18', '600']}>Information</Typography.Text>
           </div>
@@ -62,7 +62,7 @@ const Footer: React.FC<FooterProps> = () => (
             </div>
           </div>
         </Col>
-        <Col lg={2}>
+        <Col lg={2} xs={6}>
           <div className="o-footer_title">
             <Typography.Text modifiers={['16x18', '600']}>Account</Typography.Text>
           </div>
@@ -94,7 +94,7 @@ const Footer: React.FC<FooterProps> = () => (
             </div>
           </div>
         </Col>
-        <Col lg={2}>
+        <Col lg={2} xs={6}>
           <div className="o-footer_title">
             <Typography.Text modifiers={['16x18', '600']}>Shop</Typography.Text>
           </div>
@@ -126,7 +126,7 @@ const Footer: React.FC<FooterProps> = () => (
             </div>
           </div>
         </Col>
-        <Col lg={2}>
+        <Col lg={2} xs={6}>
           <div className="o-footer_title">
             <Typography.Text modifiers={['16x18', '600']}>Categories</Typography.Text>
           </div>

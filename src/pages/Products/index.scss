@@ -70,8 +70,8 @@
             }
 
             @include mobile-down {
-                padding: rem(16);
-                max-width: 90%;
+                padding: rem(24) rem(16);
+                max-width: 100%;
             }
         }
 
@@ -79,6 +79,18 @@
             margin-top: rem(16);
             @include mobile-down {
                 margin-top: rem(8);
+            }
+        }
+
+        @include mobile-down {
+            height: rem(200);
+
+            .a-image {
+                height: 100%;
+
+                img {
+                    object-fit: cover;
+                }
             }
         }
     }

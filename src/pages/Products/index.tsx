@@ -4,6 +4,7 @@ import { Col, Row } from 'react-bootstrap';
 import { featuredProducts } from 'assets/dummy/homepage';
 import Button from 'components/atoms/Button';
 import Image from 'components/atoms/Image';
+import Link from 'components/atoms/Link';
 import Select from 'components/atoms/Select';
 import Typography from 'components/atoms/Typography';
 import Container from 'components/organisms/Container';
@@ -69,7 +70,7 @@ const Products: React.FC = () => {
               <div className="p-products_list">
                 {[...featuredProducts, ...featuredProducts].map((item, index) => (
                   <div className="p-products_item" key={item.code + index.toString()}>
-                    <ProductCard {...item} />
+                    <Link href="/product-detail"><ProductCard {...item} /></Link>
                   </div>
                 ))}
               </div>

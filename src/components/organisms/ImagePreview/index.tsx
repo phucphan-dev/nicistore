@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import Image from 'components/atoms/Image';
+import useDeviceQueries from 'hooks/useDeviceQueries';
 
 interface ImagePreviewProps {
   imgSrc: string;
@@ -18,11 +19,13 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({ imgSrc, alt }) => {
     setPosition(`${x}% ${y}%`);
   };
 
+  const { isMobile } = useDeviceQueries();
+
   return (
     <div className="o-imagePreview">
       <figure
         className="o-imagePreview_figure"
-        onMouseMove={handleMouseMove}
+        onMouseMove={(e) => !isMobile && handleMouseMove(e)}
         style={{ backgroundImage: `url(${imgSrc})`, backgroundPosition: position }}
       >
         <div className="o-imagePreview_image">
