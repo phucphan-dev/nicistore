@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 import Subscribe from '../Subscribe';
 
@@ -10,13 +11,14 @@ import Container from 'components/organisms/Container';
 import Footer from 'components/organisms/Footer';
 import Header from 'components/organisms/Header';
 import Section from 'components/organisms/Section';
+import useInitialRender from 'hooks/useInitialRender';
 import useWindowDimensions from 'hooks/useWindowDemensions';
 import mapModifiers from 'utils/functions';
 
 const MainLayout: React.FC = () => {
   const { width, height } = useWindowDimensions();
   const [openSearch, setOpenSearch] = useState(false);
-
+  useInitialRender();
   useEffect(() => {
     if (openSearch) {
       document.documentElement.style.overflow = 'hidden';
@@ -49,6 +51,7 @@ const MainLayout: React.FC = () => {
           </Typography.Text>
         </Container>
       </div>
+      <ToastContainer autoClose={2000} style={{ fontSize: '12px' }} />
     </main>
   );
 };

@@ -1,6 +1,8 @@
 import axios, { AxiosRequestConfig, AxiosError, AxiosResponse } from 'axios';
 
-import { getAccessToken } from './storage';
+import { getAccessToken, setAccessToken, setRefreshToken } from './storage';
+
+import { refreshTokenService } from 'services/authenticate';
 
 const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL,
@@ -23,8 +25,30 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse): AxiosResponse => response,
-  async (error: AxiosError): Promise<AxiosError> => Promise.reject(
-    error.response && error.response.status === 422 ? (error.response.data as any).errors : error,
-  ),
+  async (error: AxiosError): Promise<AxiosError> => {
+    const status = error.response ? error.response.status : null;
+    const originalRequest = error.config;
+    const token = getAccessToken();
+    if (status === 401 && token) {
+      return new Promise((resolve, reject) => {
+        refreshTokenService(token)
+          .then((data) => {
+            if (originalRequest && originalRequest.headers) {
+              setAccessToken(data.accessToken);
+              setRefreshToken(data.refreshToken);
+            }
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    }
+    if (error.response) {
+      if (status === 422) {
+        return Promise.reject((error.response.data as { errors: ErrorResponse[] }).errors);
+      }
+    }
+    return Promise.reject(error);
+  },
 );
 export default axiosInstance;

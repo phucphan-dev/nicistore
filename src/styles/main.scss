@@ -1,6 +1,6 @@
 html,
 body {
-    font-family: 'Jost', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 16px;
     overflow-x: hidden;
     color: $black;
@@ -13,7 +13,7 @@ body {
 }
 
 button {
-    font-family: 'Jost', sans-serif;
+    font-family: 'Roboto', sans-serif;
 
     &:focus {
         outline: none;
@@ -45,7 +45,7 @@ button {
 }
 
 input {
-    font-family: 'Jost', sans-serif;
+    font-family: 'Roboto', sans-serif;
     word-break: normal;
 }
 

@@ -1,64 +1,301 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from 'react';
+import { yupResolver } from '@hookform/resolvers/yup';
+import React, { useCallback, useState } from 'react';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import Button from 'components/atoms/Button';
-import Checkbox from 'components/atoms/Checkbox';
+// import Checkbox from 'components/atoms/Checkbox';
 import Input from 'components/atoms/Input';
 import Link from 'components/atoms/Link';
 import Typography from 'components/atoms/Typography';
 import Section from 'components/organisms/Section';
+import { loginService, registerService, registerVerifyEmailService } from 'services/authenticate';
+import { LoginDataRequest, RegisterDataRequest } from 'services/authenticate/types';
+import { setAccessToken, setRefreshToken } from 'services/common/storage';
+import { getProfileAction } from 'store/authenticate';
+import { useAppDispatch } from 'store/hooks';
+import { ERROR_MAPPING } from 'utils/constants';
 import mapModifiers from 'utils/functions';
+import { loginSchema, registerSchema } from 'utils/schemas';
 
 const Authenticate: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [isLogin, setIsLogin] = useState(true);
+  const [verified, setVerified] = useState(false);
+
+  /* lOGIN */
+  const loginMethod = useForm<LoginDataRequest>({
+    resolver: yupResolver(loginSchema),
+  });
+
+  const { mutate: loginMutate, isLoading: loginLoading } = useMutation(
+    'loginAction',
+    loginService,
+    {
+      onSuccess: (data) => {
+        toast.success('Đăng nhập thành công!', { toastId: 'loginSuccess' });
+        setAccessToken(data.accessToken);
+        setRefreshToken(data.refreshToken);
+        dispatch(getProfileAction());
+        navigate('/');
+      },
+      onError: (errors: any) => {
+        if (errors.length > 0) {
+          errors.forEach((ele: ErrorResponse) => {
+            loginMethod.setError('password', { message: ERROR_MAPPING[ele.message] || 'Thông tin chưa đúng' });
+          });
+        } else {
+          toast.error('Đã có lỗi xảy ra!', { toastId: 'loginFail' });
+        }
+      }
+    }
+  );
+
+  const loginAction = async (data: LoginDataRequest) => {
+    loginMutate(data);
+  };
+
+  const handleLogin = async () => {
+    const isPassed = await loginMethod.trigger();
+    if (isPassed) {
+      const data = loginMethod.getValues();
+      loginMutate(data);
+    }
+  };
+
+  /* REGISTER */
+  const registerMethod = useForm<RegisterDataRequest & { verify_code: string }>({
+    resolver: yupResolver(registerSchema),
+  });
+
+  const { mutate: registerMutate, isLoading: registerLoading } = useMutation(
+    'registerAction',
+    registerService,
+    {
+      onSuccess: () => {
+        setVerified(true);
+      },
+      onError: (errors: any) => {
+        if (errors.length > 0) {
+          errors.forEach((ele: ErrorResponse) => {
+            registerMethod.setError(ele.field as any, { message: ERROR_MAPPING[ele.message] });
+          });
+        } else {
+          toast.error('Đã có lỗi xảy ra!', { toastId: 'registerFail' });
+        }
+      }
+    }
+  );
+
+  const { mutate: verifyEmailMutate, isLoading: verifyLoading } = useMutation(
+    'verifyEmailAction',
+    registerVerifyEmailService,
+    {
+      onSuccess: () => {
+        toast.success('Chúc mừng bạn đã đăng ký tài khoản thành công!', { toastId: 'verifySuccess' });
+        setVerified(false);
+        setIsLogin(true);
+      },
+      onError: (errors: any) => {
+        if (errors.length > 0) {
+          errors.forEach((ele: ErrorResponse) => {
+            registerMethod.setError(ele.field as any, { message: ERROR_MAPPING[ele.message] || 'Thông tin chưa đúng' });
+          });
+        } else {
+          toast.error('Đã có lỗi xảy ra!', { toastId: 'registerFail' });
+        }
+      }
+    }
+  );
+
+  const registerAction = useCallback(async (
+    data: RegisterDataRequest & { verify_code: string }
+  ) => {
+    if (verified) {
+      if (!data.verify_code) {
+        registerMethod.setError('verify_code', { message: 'Vui lòng nhập mã xác thực' });
+      }
+      verifyEmailMutate(data.verify_code);
+    } else {
+      registerMutate(data);
+    }
+  }, [registerMethod, registerMutate, verified, verifyEmailMutate]);
+
+  const handleRegister = async () => {
+    const isPassed = await registerMethod.trigger();
+    if (isPassed) {
+      const data = registerMethod.getValues();
+      registerMutate(data);
+    }
+  };
+
   return (
     <Section>
       <div className="p-authenticate">
         <div className="p-authenticate_tabs">
           <div className={mapModifiers('p-authenticate_btnLogin', isLogin && 'active')}>
             <Button handleClick={() => setIsLogin(true)}>
-              <Typography.Text modifiers={['18x21', '700']}>LOGIN</Typography.Text>
+              <Typography.Text modifiers={['18x21', '700', 'uppercase']}>Đăng nhập</Typography.Text>
             </Button>
           </div>
           <div className={mapModifiers('p-authenticate_btnRegister', !isLogin && 'active')}>
             <Button handleClick={() => setIsLogin(false)}>
-              <Typography.Text modifiers={['18x21', '700']}>REGISTER</Typography.Text>
+              <Typography.Text modifiers={['18x21', '700', 'uppercase']}>Đăng ký</Typography.Text>
             </Button>
           </div>
         </div>
         <div className="p-authenticate_content">
           <div className={mapModifiers('p-authenticate_login', isLogin && 'active')}>
-            <div className="p-authenticate_field">
-              <Input required label="Username or email address" type="text" bordered />
-            </div>
-            <div className="p-authenticate_field">
-              <Input required label="Password" type="password" bordered />
-            </div>
-            <div className="p-authenticate_field">
-              <Checkbox name="isRemember">Remember me</Checkbox>
-            </div>
-            <div className="p-authenticate_button">
-              <Button variant="primary" sizes="h42" handleClick={() => navigate('/account')}>Log in</Button>
-            </div>
+            <FormProvider {...loginMethod}>
+              <div className="p-authenticate_field">
+                <Controller
+                  name="email"
+                  control={loginMethod.control}
+                  render={({
+                    field: { onChange, value },
+                    fieldState: { error },
+                  }) => (
+                    <Input required label="Email" type="text" value={value} bordered onChange={onChange} error={error?.message} />
+                  )}
+                />
+              </div>
+              <div className="p-authenticate_field">
+                <Controller
+                  name="password"
+                  control={loginMethod.control}
+                  render={({
+                    field: { onChange, value },
+                    fieldState: { error },
+                  }) => (
+                    <Input
+                      required
+                      label="Mật khẩu"
+                      type="password"
+                      value={value}
+                      bordered
+                      onChange={onChange}
+                      error={error?.message}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          handleLogin();
+                        }
+                      }}
+                    />
+                  )}
+                />
+              </div>
+              {/* <div className="p-authenticate_field">
+              <Checkbox name="isRemember">Ghi nhớ</Checkbox>
+            </div> */}
+              <div className="p-authenticate_button">
+                <Button type="submit" variant="primary" loading={loginLoading} sizes="h42" handleClick={loginMethod.handleSubmit(loginAction)}>
+                  <Typography.Text modifiers={['15x18', '500', 'uppercase']}>Đăng nhập</Typography.Text>
+                </Button>
+              </div>
+            </FormProvider>
             <div className="p-authenticate_forgot">
-              <Link><Typography.Text modifiers={['14x16', 'ferrariRed']}>Forgot password?</Typography.Text></Link>
+              <Link><Typography.Text modifiers={['14x16', 'ferrariRed']}>Quên mật khẩu?</Typography.Text></Link>
             </div>
           </div>
           <div className={mapModifiers('p-authenticate_register', !isLogin && 'active')}>
-            <div className="p-authenticate_field">
-              <Input required label="Username" type="text" bordered />
-            </div>
-            <div className="p-authenticate_field">
-              <Input required label="Email" type="text" bordered />
-            </div>
-            <div className="p-authenticate_field">
-              <Input required label="Password" type="password" bordered />
-            </div>
-            <div className="p-authenticate_button">
-              <Button variant="primary" sizes="h42">Register</Button>
-            </div>
+            <FormProvider {...registerMethod}>
+              {verified ? (
+                <div className="p-authenticate_field">
+                  <div className="p-authenticate_message">
+                    <Typography.Text modifiers={['12x14', 'cadetGrey', 'center']}>
+                      Chúng tôi đã gửi một mã xác thực đến Email:
+                      {' '}
+                      <Typography.Text type="span" modifiers={['ferrariRed', '500']}>{registerMethod.getValues('email')}</Typography.Text>
+                      <br />
+                      Vui lòng nhập mã xác thực để kích hoạt tài khoản.
+                    </Typography.Text>
+                  </div>
+                  <Controller
+                    name="verify_code"
+                    control={registerMethod.control}
+                    render={({
+                      field: { onChange, value },
+                      fieldState: { error },
+                    }) => (
+                      <Input prefix="NICI-" required label="Mã xác thực" type="number" value={value} bordered onChange={onChange} error={error?.message} />
+                    )}
+                  />
+                </div>
+              ) : (
+                <>
+                  <div className="p-authenticate_field">
+                    <Controller
+                      name="full_name"
+                      control={registerMethod.control}
+                      render={({
+                        field: { onChange, value },
+                        fieldState: { error },
+                      }) => (
+                        <Input required label="Họ và tên" type="text" value={value} bordered onChange={onChange} error={error?.message} />
+                      )}
+                    />
+                  </div>
+                  <div className="p-authenticate_field">
+                    <Controller
+                      name="phone"
+                      control={registerMethod.control}
+                      render={({
+                        field: { onChange, value },
+                        fieldState: { error },
+                      }) => (
+                        <Input required label="Số điện thoại" type="text" value={value} bordered onChange={onChange} error={error?.message} />
+                      )}
+                    />
+                  </div>
+                  <div className="p-authenticate_field">
+                    <Controller
+                      name="email"
+                      control={registerMethod.control}
+                      render={({
+                        field: { onChange, value },
+                        fieldState: { error },
+                      }) => (
+                        <Input required label="Email" type="text" value={value} bordered onChange={onChange} error={error?.message} />
+                      )}
+                    />
+                  </div>
+                  <div className="p-authenticate_field">
+                    <Controller
+                      name="password"
+                      control={registerMethod.control}
+                      render={({
+                        field: { onChange, value },
+                        fieldState: { error },
+                      }) => (
+                        <Input
+                          required
+                          label="Mật khẩu"
+                          type="password"
+                          value={value}
+                          bordered
+                          onChange={onChange}
+                          error={error?.message}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              handleRegister();
+                            }
+                          }}
+                        />
+                      )}
+                    />
+                  </div>
+                </>
+              )}
+              <div className="p-authenticate_button">
+                <Button type="submit" loading={registerLoading || verifyLoading} variant="primary" sizes="h42" handleClick={registerMethod.handleSubmit(registerAction)}>
+                  <Typography.Text modifiers={['15x18', '500', 'uppercase']}>{verified ? 'Xác thực' : 'Đăng ký'}</Typography.Text>
+                </Button>
+              </div>
+            </FormProvider>
           </div>
         </div>
       </div>

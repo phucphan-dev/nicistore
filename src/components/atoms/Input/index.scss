@@ -10,8 +10,8 @@
         background-color: $white;
         border-radius: rem(2);
         font-weight: 500;
-        padding: rem(12) rem(14);
         height: rem(48);
+        padding: rem(12) rem(14);
         @include font-base(14, 20);
     }
 
@@ -21,10 +21,24 @@
         @include font-base(12, 17);
     }
 
-    &-bordered {
+    &_flex {
+        margin-top: rem(4);
+        display: flex;
+        align-items: center;
+        padding: rem(12) rem(14);
         #{$root}_ele {
+            padding: 0;
+        }
+    }
+
+    &-bordered {
+        #{$root}_flex {
             height: rem(42);
             border: 1px solid $platinum;
+        }
+
+        #{$root}_ele {
+            height: rem(38);
         }
     }
 
