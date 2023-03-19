@@ -10,7 +10,7 @@
     }
 
     @include mobile-down {
-        padding: rem(24);
+        padding: rem(16);
     }
 
     &_tabs {
@@ -53,6 +53,10 @@
 
     &_field {
         margin-top: rem(24);
+    }
+
+    &_message {
+        margin-bottom: rem(24);
     }
 
     &_button {
