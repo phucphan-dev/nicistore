@@ -125,3 +125,10 @@ export const renderPrice = (val?: number, isPrice?: boolean, prefix?: string) =>
   if (isPrice) return converted;
   return val;
 };
+
+export const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
+};

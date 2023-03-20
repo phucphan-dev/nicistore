@@ -1,6 +1,8 @@
 import axios, { AxiosRequestConfig, AxiosError, AxiosResponse } from 'axios';
 
-import { getAccessToken, setAccessToken, setRefreshToken } from './storage';
+import {
+  getAccessToken, removeAccessToken, removeRefreshToken, setAccessToken, setRefreshToken
+} from './storage';
 
 import { refreshTokenService } from 'services/authenticate';
 
@@ -30,7 +32,7 @@ axiosInstance.interceptors.response.use(
     const originalRequest = error.config;
     const token = getAccessToken();
     if (status === 401 && token) {
-      return new Promise((resolve, reject) => {
+      return new Promise((_, reject) => {
         refreshTokenService(token)
           .then((data) => {
             if (originalRequest && originalRequest.headers) {
@@ -39,6 +41,8 @@ axiosInstance.interceptors.response.use(
             }
           })
           .catch((err) => {
+            removeAccessToken();
+            removeRefreshToken();
             reject(err);
           });
       });

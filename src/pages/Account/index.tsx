@@ -1,25 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+import ShippingAddress from './ShippingAddress';
 
 import Button from 'components/atoms/Button';
 import Input from 'components/atoms/Input';
 import Typography from 'components/atoms/Typography';
 import Container from 'components/organisms/Container';
 import Section from 'components/organisms/Section';
+import { logoutService } from 'services/authenticate';
+import { removeAccessToken, removeRefreshToken } from 'services/common/storage';
+import { useAppSelector } from 'store/hooks';
 import mapModifiers from 'utils/functions';
 
 const menu = [
   {
     id: 1,
-    text: 'Account Detail'
+    text: 'Thông tin tài khoản'
   },
   {
     id: 2,
-    text: 'Orders'
+    text: 'Đơn hàng'
   },
   {
     id: 3,
-    text: 'Address'
+    text: 'Địa chỉ'
   },
 ];
 
@@ -56,7 +64,31 @@ const AccountDetail: React.FC = () => (
 );
 
 const Account: React.FC = () => {
+  const navigate = useNavigate();
   const [active, setActive] = useState(1);
+  const profile = useAppSelector((state) => state.auth.profile);
+
+  useEffect(() => {
+    if (!profile) {
+      navigate('/authenticate');
+    }
+  }, [navigate, profile]);
+
+  const { mutate: logoutMutate } = useMutation(
+    'logoutAction',
+    logoutService,
+    {
+      onSuccess: () => {
+        removeAccessToken();
+        removeRefreshToken();
+        navigate('/authenticate');
+      },
+      onError: () => {
+        toast.error('Đã có lỗi xảy ra!', { toastId: 'logoutFail' });
+      }
+    }
+  );
+
   return (
     <Section>
       <div className="p-account">
@@ -66,11 +98,11 @@ const Account: React.FC = () => {
               <div className="p-account_menu">
                 <div className="p-account_menu_head">
                   <Typography.Text>
-                    Wellcome back,
+                    Xin chào,
                     {' '}
                     <br />
                     {' '}
-                    <Typography.Text type="span" modifiers={['700']}>phuc.phan</Typography.Text>
+                    <Typography.Text type="span" modifiers={['700']}>{profile?.fullName}</Typography.Text>
                   </Typography.Text>
                 </div>
                 {menu.map((item) => (
@@ -82,8 +114,8 @@ const Account: React.FC = () => {
                     <Typography.Text>{item.text}</Typography.Text>
                   </div>
                 ))}
-                <div className="p-account_menu_item">
-                  <Typography.Text>Logout</Typography.Text>
+                <div className="p-account_menu_item" onClick={() => logoutMutate()}>
+                  <Typography.Text>Đăng xuất</Typography.Text>
                 </div>
               </div>
             </Col>
@@ -95,7 +127,7 @@ const Account: React.FC = () => {
                   case 2:
                     return 'Not yet';
                   case 3:
-                    return 'Not yet';
+                    return <ShippingAddress />;
                   default:
                     return null;
                 }

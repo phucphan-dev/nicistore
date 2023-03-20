@@ -10,7 +10,6 @@ import Button from 'components/atoms/Button';
 import Image from 'components/atoms/Image';
 import Link from 'components/atoms/Link';
 import Typography from 'components/atoms/Typography';
-import { useAppSelector } from 'store/hooks';
 import mapModifiers from 'utils/functions';
 
 interface HeaderProps {
@@ -20,7 +19,6 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ handleSearch }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const profile = useAppSelector((state) => state.auth.profile);
   const [open, setOpen] = useState(false);
   const [fixed, setFixed] = useState(false);
   useEffect(() => {
@@ -61,7 +59,7 @@ const Header: React.FC<HeaderProps> = ({ handleSearch }) => {
           </div>
           <div className="o-header_right">
             <div className="o-header_right_button hide-mobile">
-              <Button iconName="user" iconSize="24" handleClick={() => navigate(profile ? '/account' : '/authenticate')} />
+              <Button iconName="user" iconSize="24" handleClick={() => navigate('/account')} />
             </div>
             <div className="o-header_right_button">
               <Button iconName="search" iconSize="24" handleClick={handleSearch} />

@@ -57,24 +57,33 @@
 
     &-primary {
         background-color: $carmine-pink;
-        color: $white;
+
+        .a-text {
+            color: $white;
+        }
     }
 
     &-secondary {
         background-color: $anti-flash-white;
-        color: $black;
         border: 1px solid $gainsboro;
+
+        .a-text {
+            color: $black;
+        }
     }
 
     &-dark {
         background-color: $black;
-        color: $white;
         border: 1px solid $white;
+        color: $white;
     }
 
     &-info {
         background-color: $ash-grey;
-        color: $white;
+
+        .a-text {
+            color: $white;
+        }
     }
 
     &_icon {

@@ -14,7 +14,10 @@
             &:hover,
             &-active {
                 background-color: $carmine-pink;
-                color: $white;
+
+                .a-text {
+                    color: $white;
+                }
             }
         }
     }

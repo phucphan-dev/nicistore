@@ -29,8 +29,8 @@ export const normal: Story = ({ variant }) => (
       name="test"
       placeholder="Select.."
       modifier={variant}
-      value={{ id: '1', value: '1', label: '1' }}
-      options={[{ id: '1', value: '1', label: '1' }, { id: '2', value: '2', label: '2' }, { id: '3', value: '3', label: '3' }]}
+      value={{ value: '1', label: '1' }}
+      options={[{ value: '1', label: '1' }, { value: '2', label: '2' }, { value: '3', label: '3' }]}
       isSearch
     />
   </div>

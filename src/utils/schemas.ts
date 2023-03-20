@@ -13,3 +13,12 @@ export const registerSchema = yup.object({
   email: yup.string().required('Vui lòng nhập lại địa chỉ email').email('Email không hợp lệ'),
   password: yup.string().required('Vui lòng nhập mật khẩu').min(6, 'Mật khẩu phải chứa ít nhất 6 kí tự'),
 });
+
+export const shippingAddressSchema = yup.object({
+  phone: yup.string().required('Vui lòng nhập số điện thoại').matches(phoneRegExp, 'Số điện thoại không hợp lệ'),
+  address: yup.string().required('Vui lòng nhập địa chỉ'),
+  name: yup.string().required('Vui lòng nhập tên'),
+  cityId: yup.number().required('Vui lòng chọn tỉnh / thành phố'),
+  districtId: yup.number().required('Vui lòng chọn quận / huyện'),
+  wardId: yup.number().required('Vui lòng chọn phường / xã'),
+});

@@ -18,7 +18,7 @@ export interface LoginDataResponse {
 export interface UserProfileData {
   id: number
   email: string
-  full_name: string
+  fullName: string
   phone: string
   active: string
   createdAt: string

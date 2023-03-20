@@ -30,6 +30,11 @@ export const removeAccessToken = (): void => {
   window.localStorage.removeItem(LOCALSTORAGE.NICI_TOKEN);
 };
 
+export const removeRefreshToken = (): void => {
+  accessToken = null;
+  window.localStorage.removeItem(LOCALSTORAGE.NICI_REFRESH_TOKEN);
+};
+
 export const setLocalStorage = (name: string, value: string) => {
   window.localStorage.setItem(name, value);
 };

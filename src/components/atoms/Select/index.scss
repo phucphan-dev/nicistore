@@ -1,13 +1,16 @@
 .a-select {
     $root: &;
     position: relative;
-    z-index: 3;
 
     &-bordered {
         #{$root} {
             &_header {
                 border: 1px solid $platinum;
                 height: rem(42);
+            }
+
+            &_wrapper {
+                border: 1px solid $platinum;
             }
         }
     }
@@ -24,6 +27,7 @@
         background: $white;
         cursor: pointer;
         height: rem(36);
+        margin-top: rem(4);
 
         &_content {
             display: flex;
@@ -96,6 +100,7 @@
     &_wrapper {
         position: absolute;
         width: 100%;
+        z-index: 3;
     }
 
     &_list {
@@ -141,5 +146,11 @@
                 height: rem(16);
             }
         }
+    }
+
+    &_error {
+        color: $fire-engine-red;
+        margin-top: rem(6);
+        @include font-base(12, 17);
     }
 }

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
@@ -16,7 +16,7 @@ import { loginService, registerService, registerVerifyEmailService } from 'servi
 import { LoginDataRequest, RegisterDataRequest } from 'services/authenticate/types';
 import { setAccessToken, setRefreshToken } from 'services/common/storage';
 import { getProfileAction } from 'store/authenticate';
-import { useAppDispatch } from 'store/hooks';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { ERROR_MAPPING } from 'utils/constants';
 import mapModifiers from 'utils/functions';
 import { loginSchema, registerSchema } from 'utils/schemas';
@@ -26,6 +26,7 @@ const Authenticate: React.FC = () => {
   const dispatch = useAppDispatch();
   const [isLogin, setIsLogin] = useState(true);
   const [verified, setVerified] = useState(false);
+  const profile = useAppSelector((state) => state.auth.profile);
 
   /* lOGIN */
   const loginMethod = useForm<LoginDataRequest>({
@@ -132,6 +133,12 @@ const Authenticate: React.FC = () => {
       registerMutate(data);
     }
   };
+
+  useEffect(() => {
+    if (profile) {
+      navigate('/account');
+    }
+  }, [navigate, profile]);
 
   return (
     <Section>

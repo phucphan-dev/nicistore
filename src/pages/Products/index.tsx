@@ -62,8 +62,8 @@ const Products: React.FC = () => {
                     name="test"
                     placeholder="Select.."
                     modifier={['nobackground']}
-                    value={{ id: '1', value: '16', label: '16 Items' }}
-                    options={[{ id: '1', value: '16', label: '16 Items' }, { id: '1', value: '20', label: '20 Items' }, { id: '1', value: '24', label: '24 Items' }]}
+                    value={{ value: '16', label: '16 Items' }}
+                    options={[{ value: '16', label: '16 Items' }, { value: '20', label: '20 Items' }, { value: '24', label: '24 Items' }]}
                   />
                 </div>
               </div>

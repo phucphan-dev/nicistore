@@ -51,7 +51,7 @@ const MainLayout: React.FC = () => {
           </Typography.Text>
         </Container>
       </div>
-      <ToastContainer autoClose={2000} style={{ fontSize: '12px' }} />
+      <ToastContainer autoClose={1000} style={{ fontSize: '12px' }} />
     </main>
   );
 };
