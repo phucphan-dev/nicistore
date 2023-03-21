@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { toast } from 'react-toastify';
@@ -11,14 +11,32 @@ import Select from 'components/atoms/Select';
 import Typography from 'components/atoms/Typography';
 import useDidMount from 'hooks/useDidMount';
 import { getLocationCitiesService, getLocationDistrictsService, getLocationWardsService } from 'services/location';
-import { createShippingAddressService } from 'services/shippingAddress';
-import { ShippingAddressDataRequest } from 'services/shippingAddress/types';
+import {
+  createShippingAddressService, deleteShippingAddressService,
+  editShippingAddressService, getAllShippingAddressService
+} from 'services/shippingAddress';
+import { ShippingAddressData, ShippingAddressDataRequest } from 'services/shippingAddress/types';
 import { ERROR_MAPPING } from 'utils/constants';
+import { scrollToTop } from 'utils/functions';
 import { shippingAddressSchema } from 'utils/schemas';
 
-const ShippingAddress: React.FC = () => {
+type Props = {
+  defaultValues?: ShippingAddressData;
+  handleSuccess: () => void;
+  handleCancel: () => void;
+};
+
+const ShippingAddress: React.FC<Props> = ({ defaultValues, handleSuccess, handleCancel }) => {
   const shippingAddressMethod = useForm<ShippingAddressDataRequest>({
     resolver: yupResolver(shippingAddressSchema),
+    defaultValues: defaultValues ? {
+      cityId: defaultValues.city.id,
+      districtId: defaultValues.district.id,
+      wardId: defaultValues.ward.id,
+      name: defaultValues.name,
+      phone: defaultValues.phone,
+      address: defaultValues.address
+    } : undefined
   });
 
   const watchCity = shippingAddressMethod.watch('cityId');
@@ -44,7 +62,29 @@ const ShippingAddress: React.FC = () => {
     createShippingAddressService,
     {
       onSuccess: () => {
-        // TODO
+        handleSuccess();
+      },
+      onError: (errors: any) => {
+        if (errors.length > 0) {
+          errors.forEach((ele: ErrorResponse) => {
+            shippingAddressMethod.setError(
+              ele.field as any,
+              { message: ERROR_MAPPING[ele.message] }
+            );
+          });
+        } else {
+          toast.error('Đã có lỗi xảy ra!', { toastId: 'createFail' });
+        }
+      }
+    }
+  );
+
+  const { mutate: editMutate, isLoading: editLoading } = useMutation(
+    'editShippingAddressAction',
+    editShippingAddressService,
+    {
+      onSuccess: () => {
+        handleSuccess();
       },
       onError: (errors: any) => {
         if (errors.length > 0) {
@@ -62,7 +102,8 @@ const ShippingAddress: React.FC = () => {
   );
 
   const onSubmit = (data: ShippingAddressDataRequest) => {
-    createMutate(data);
+    if (defaultValues) editMutate({ ...data, id: defaultValues.id });
+    else createMutate(data);
   };
 
   useDidMount(() => {
@@ -71,13 +112,10 @@ const ShippingAddress: React.FC = () => {
 
   useEffect(() => {
     getDistrictsMutate(watchCity);
-    shippingAddressMethod.setValue('districtId', 0);
-    shippingAddressMethod.setValue('wardId', 0);
   }, [getDistrictsMutate, shippingAddressMethod, watchCity]);
 
   useEffect(() => {
     getWardsMutate(watchDistrict);
-    shippingAddressMethod.setValue('wardId', 0);
   }, [getWardsMutate, shippingAddressMethod, watchDistrict]);
 
   return (
@@ -188,14 +226,143 @@ const ShippingAddress: React.FC = () => {
         <Button
           variant="primary"
           sizes="h42"
-          loading={isLoading}
+          loading={isLoading || editLoading}
           handleClick={shippingAddressMethod.handleSubmit(onSubmit)}
         >
-          <Typography.Text modifiers={['15x18']}>Save changes</Typography.Text>
+          <Typography.Text modifiers={['15x18']}>Lưu</Typography.Text>
+        </Button>
+        <Button
+          variant="secondary"
+          sizes="h42"
+          loading={isLoading || editLoading}
+          handleClick={handleCancel}
+        >
+          <Typography.Text modifiers={['15x18']}>Hủy bỏ</Typography.Text>
         </Button>
       </div>
     </FormProvider>
   );
 };
 
-export default ShippingAddress;
+const ShippingAddressList: React.FC = () => {
+  const [showForm, setShowForm] = useState(false);
+  const [editData, setEditData] = useState<ShippingAddressData>();
+  const {
+    mutate: getAllAddressMutate, data: shippingAddress,
+    isLoading: getAllLoading
+  } = useMutation(
+    'getAllShippingAddressAction',
+    getAllShippingAddressService,
+  );
+  const {
+    mutate: deleteMutate
+  } = useMutation(
+    'deleteShippingAddressAction',
+    deleteShippingAddressService,
+    {
+      onSuccess: () => {
+        getAllAddressMutate();
+      }
+    }
+  );
+
+  useDidMount(() => {
+    getAllAddressMutate();
+  });
+  return (
+    <div className="p-account_shipping">
+      {showForm ? (
+        <ShippingAddress
+          defaultValues={editData}
+          handleSuccess={() => {
+            setShowForm(false);
+            setEditData(undefined);
+            getAllAddressMutate();
+            scrollToTop();
+          }}
+          handleCancel={() => {
+            setShowForm(false);
+            setEditData(undefined);
+            scrollToTop();
+          }}
+        />
+      ) : (
+        <>
+          <div className="p-account_shipping_list">
+            {shippingAddress?.data.map((item) => (
+              <div className="p-account_shipping_item" key={item.id}>
+                <div className="p-account_shipping_wrapper">
+                  <Typography.Text>
+                    Tên:
+                    {' '}
+                    <strong>
+                      {' '}
+                      {item.name}
+                    </strong>
+                  </Typography.Text>
+                  <div className="p-account_shipping_line">
+                    <Typography.Text>
+                      SĐT:
+                      {' '}
+                      <strong>{item.phone}</strong>
+                    </Typography.Text>
+                  </div>
+                  <div className="p-account_shipping_line">
+                    <Typography.Text>
+                      Địa chỉ:
+                      {' '}
+                      <strong>
+                        {item.address}
+                        ,
+                        {' '}
+                        {item.ward.name}
+                        ,
+                        {' '}
+                        {item.district.name}
+                        ,
+                        {' '}
+                        {item.city.name}
+                      </strong>
+                    </Typography.Text>
+                  </div>
+                  <div className="p-account_shipping_edit">
+                    <Button
+                      iconName="edit"
+                      iconSize="16"
+                      variant="whiteBorder"
+                      handleClick={() => {
+                        setShowForm(true);
+                        setEditData(item);
+                      }}
+                    />
+                  </div>
+                  <div className="p-account_shipping_delete">
+                    <Button
+                      iconName="delete"
+                      iconSize="16"
+                      variant="whiteBorder"
+                      handleClick={() => {
+                        deleteMutate([item.id]);
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="p-account_shipping_button">
+            <Button
+              variant="primary"
+              sizes="h42"
+              handleClick={() => setShowForm(true)}
+            >
+              <Typography.Text modifiers={['15x18']}>Thêm mới</Typography.Text>
+            </Button>
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
+export default ShippingAddressList;
