@@ -25,6 +25,8 @@ export const iconList = {
   tiktok: 'tiktok',
   phone: 'phone',
   gmail: 'gmail',
+  edit: 'edit',
+  delete: 'delete',
 };
 
 export type IconName = keyof typeof iconList;

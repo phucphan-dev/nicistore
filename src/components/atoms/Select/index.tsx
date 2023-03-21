@@ -7,11 +7,6 @@ import useClickOutside from 'hooks/useClickOutside';
 import mapModifiers from 'utils/functions';
 
 type Modifiers = 'nobackground' | 'bordered';
-export interface OptionType {
-  id: string;
-  label: string;
-  value: string;
-}
 
 interface SelectProps {
   label?: string;
@@ -22,12 +17,13 @@ interface SelectProps {
   options: OptionType[];
   isSearch?: boolean;
   required?: boolean;
+  error?: string;
   handleSelect?: (option: OptionType) => void;
 }
 
 const Select: React.FC<SelectProps> = ({
   modifier, label, required,
-  name, placeholder, value, options, isSearch, handleSelect,
+  name, placeholder, value, options, isSearch, handleSelect, error
 }) => {
   const pulldownRef = useRef<HTMLDivElement>(null);
   const [optionData, setOptionData] = useState<OptionType[]>([]);
@@ -57,7 +53,7 @@ const Select: React.FC<SelectProps> = ({
       {label && (
         <label className="a-select_label">
           <Typography.Text type="span" modifiers={['14x16']}>{label}</Typography.Text>
-          {required && <Typography.Text type="span" modifiers={['14x16', 'ferrariRed']}>*</Typography.Text>}
+          {required && <Typography.Text type="span" modifiers={['14x16', 'ferrariRed']}> *</Typography.Text>}
         </label>
       )}
       <div className="a-select_header" onClick={toggling}>
@@ -72,13 +68,14 @@ const Select: React.FC<SelectProps> = ({
         )}
         <span className={isOpen ? 'a-select_arrow opened' : 'a-select_arrow'} />
       </div>
+      {error && <div className="a-select_error">{error}</div>}
       {isOpen && (
         <div className="a-select_wrapper">
           <ul className="a-select_list">
             {optionData.length ? optionData.map(
               (option) => (
                 <li
-                  key={option.id}
+                  key={option.value}
                   className="a-select_item"
                   onClick={() => {
                     if (handleSelect) {

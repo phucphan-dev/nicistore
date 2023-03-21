@@ -28,5 +28,5 @@ export const getProfileService = async (): Promise<UserProfileData> => {
 };
 
 export const logoutService = async (): Promise<void> => {
-  await axiosInstance.get('customers/auth/logout');
+  await axiosInstance.post('customers/auth/logout');
 };

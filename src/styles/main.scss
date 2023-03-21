@@ -3,13 +3,13 @@ body {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     overflow-x: hidden;
-    color: $black;
 }
 
 * {
     
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent; //issue click in mobile flash background highligh
+    color: $black;
 }
 
 button {
