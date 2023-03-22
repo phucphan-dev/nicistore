@@ -6,6 +6,7 @@ import Subscribe from '../Subscribe';
 
 import Button from 'components/atoms/Button';
 import Input from 'components/atoms/Input';
+import Loading from 'components/atoms/Loading';
 import Typography from 'components/atoms/Typography';
 import Container from 'components/organisms/Container';
 import Footer from 'components/organisms/Footer';
@@ -18,7 +19,7 @@ import mapModifiers from 'utils/functions';
 const MainLayout: React.FC = () => {
   const { width, height } = useWindowDimensions();
   const [openSearch, setOpenSearch] = useState(false);
-  useInitialRender();
+  const loading = useInitialRender();
   useEffect(() => {
     if (openSearch) {
       document.documentElement.style.overflow = 'hidden';
@@ -28,6 +29,7 @@ const MainLayout: React.FC = () => {
   }, [openSearch]);
   return (
     <main id="main">
+      {loading && <Loading isShow variant="fullScreen" isFill />}
       <Header handleSearch={() => setOpenSearch(true)} />
       <Outlet />
       <Section>

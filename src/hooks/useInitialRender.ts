@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import useDidMount from './useDidMount';
@@ -11,6 +11,7 @@ import { scrollToTop } from 'utils/functions';
 const useInitialRender = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     scrollToTop();
@@ -19,9 +20,12 @@ const useInitialRender = () => {
   useDidMount(async () => {
     const token = getAccessToken();
     if (token) {
-      dispatch(getProfileAction());
+      setLoading(true);
+      await dispatch(getProfileAction()).unwrap();
+      setLoading(false);
     }
   });
+  return loading;
 };
 
 export default useInitialRender;
