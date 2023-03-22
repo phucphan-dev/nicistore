@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 
 import Button from 'components/atoms/Button';
 import Input from 'components/atoms/Input';
+import Loading from 'components/atoms/Loading';
 import Select from 'components/atoms/Select';
 import Typography from 'components/atoms/Typography';
 import useDidMount from 'hooks/useDidMount';
@@ -289,6 +290,7 @@ const ShippingAddressList: React.FC = () => {
       ) : (
         <>
           <div className="p-account_shipping_list">
+            {getAllLoading && <Loading isShow />}
             {shippingAddress?.data.map((item) => (
               <div className="p-account_shipping_item" key={item.id}>
                 <div className="p-account_shipping_wrapper">
