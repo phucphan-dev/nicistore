@@ -1,5 +1,5 @@
 export interface RegisterDataRequest {
-  full_name: string;
+  fullName: string;
   phone: string;
   email: string;
   password: string;
@@ -23,4 +23,14 @@ export interface UserProfileData {
   active: string
   createdAt: string
   updatedAt: string
+}
+
+export interface UpdateProfileDataRequest {
+  fullName: string
+  phone: string
+}
+
+export interface ChangePasswordDataRequest {
+  password: string
+  oldPassword: string
 }

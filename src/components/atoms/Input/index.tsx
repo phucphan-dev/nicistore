@@ -24,9 +24,9 @@ const Input: React.FC<InputProps> = ({
         {required && <Typography.Text type="span" modifiers={['14x16', 'ferrariRed']}> *</Typography.Text>}
       </label>
     )}
-    <div className="a-input_flex">
-      <Typography.Text modifiers={['14x16', '500']}>{prefix}</Typography.Text>
-      <input id={id} className="a-input_ele" {...props} />
+    <div className={mapModifiers('a-input_ele', prefix && 'prefix')}>
+      {prefix && <Typography.Text modifiers={['14x16', '500']}>{prefix}</Typography.Text>}
+      <input id={id} {...props} />
     </div>
     {
       error && (

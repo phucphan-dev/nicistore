@@ -30,6 +30,10 @@
                 margin-top: 0;
             }
         }
+
+        &.heading {
+            margin-top: rem(80);
+        }
     }
 
     &_button {

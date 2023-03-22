@@ -4,10 +4,9 @@ import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
+import Profile from './Profile';
 import ShippingAddressList from './ShippingAddress';
 
-import Button from 'components/atoms/Button';
-import Input from 'components/atoms/Input';
 import Typography from 'components/atoms/Typography';
 import Container from 'components/organisms/Container';
 import Section from 'components/organisms/Section';
@@ -30,38 +29,6 @@ const menu = [
     text: 'Địa chỉ'
   },
 ];
-
-const AccountDetail: React.FC = () => (
-  <>
-    <div className="p-account_field">
-      <Input required label="First name" type="text" bordered />
-    </div>
-    <div className="p-account_field">
-      <Input required label="Last name" type="text" bordered />
-    </div>
-    <div className="p-account_field">
-      <Input required label="Display name" type="text" bordered />
-    </div>
-    <div className="p-account_field">
-      <Input required label="Email address" type="text" bordered />
-    </div>
-    <div className="p-account_field">
-      <Typography.Text modifiers={['600', '18x21']}>Password change</Typography.Text>
-    </div>
-    <div className="p-account_field">
-      <Input required label="Current password" type="password" bordered />
-    </div>
-    <div className="p-account_field">
-      <Input required label="New password" type="password" bordered />
-    </div>
-    <div className="p-account_field">
-      <Input required label="Confirm new password" type="password" bordered />
-    </div>
-    <div className="p-account_button">
-      <Button variant="primary" sizes="h42">Save changes</Button>
-    </div>
-  </>
-);
 
 const Account: React.FC = () => {
   const navigate = useNavigate();
@@ -123,7 +90,7 @@ const Account: React.FC = () => {
               {(() => {
                 switch (active) {
                   case 1:
-                    return <AccountDetail />;
+                    return <Profile />;
                   case 2:
                     return 'Not yet';
                   case 3:

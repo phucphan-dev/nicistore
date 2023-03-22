@@ -236,7 +236,7 @@ const Authenticate: React.FC = () => {
                 <>
                   <div className="p-authenticate_field">
                     <Controller
-                      name="full_name"
+                      name="fullName"
                       control={registerMethod.control}
                       render={({
                         field: { onChange, value },

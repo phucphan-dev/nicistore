@@ -3,16 +3,30 @@
     position: relative;
 
     &_ele {
-        width: 100%;
-        font-family: inherit;
-        outline: 0;
-        border: 0;
+        margin-top: rem(4);
         background-color: $white;
-        border-radius: rem(2);
-        font-weight: 500;
-        height: rem(48);
-        padding: rem(12) rem(14);
+        border-radius: rem(2) 0 0 rem(2);
         @include font-base(14, 20);
+        
+        input {
+            width: 100%;
+            outline: 0;
+            border: 0;
+            font-weight: 500;
+            height: rem(48);
+            padding: rem(12) rem(14);
+        }
+
+        &-prefix {
+            margin-top: rem(4);
+            display: flex;
+            align-items: center;
+            padding: rem(12) rem(14);
+
+            input {
+                padding: 0;
+            }
+        }
     }
 
     &_error {
@@ -21,24 +35,13 @@
         @include font-base(12, 17);
     }
 
-    &_flex {
-        margin-top: rem(4);
-        display: flex;
-        align-items: center;
-        padding: rem(12) rem(14);
-        #{$root}_ele {
-            padding: 0;
-        }
-    }
-
     &-bordered {
-        #{$root}_flex {
-            height: rem(42);
-            border: 1px solid $platinum;
-        }
-
         #{$root}_ele {
-            height: rem(38);
+            border: 1px solid $platinum;
+
+            input {
+                height: rem(42);
+            }
         }
     }
 

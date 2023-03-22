@@ -45,10 +45,10 @@ const Header: React.FC<HeaderProps> = ({ handleSearch }) => {
             <Button iconName="hambuger" iconSize="32" handleClick={() => setOpen(true)} />
           </div>
           <div className="o-header_left">
-            <div className="o-header_logo"><Image imgSrc={logo} alt="Nici Logo" ratio="75x46" /></div>
+            <div className="o-header_logo"><Link href="/"><Image imgSrc={logo} alt="Nici Logo" ratio="75x46" /></Link></div>
             <div className={mapModifiers('o-header_menu', open && 'opened')}>
               <div className="o-header_menu_logo">
-                <Image imgSrc={logo} alt="Nici Logo" ratio="75x46" />
+                <Link href="/"><Image imgSrc={logo} alt="Nici Logo" ratio="75x46" /></Link>
                 <Button iconName="close" iconSize="24" handleClick={() => setOpen(false)} />
               </div>
               <Menu menu={menuDummy} />
