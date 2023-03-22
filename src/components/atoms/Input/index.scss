@@ -2,8 +2,11 @@
     $root: &;
     position: relative;
 
+    &_label {
+        margin-bottom: rem(4); 
+    }
+
     &_ele {
-        margin-top: rem(4);
         background-color: $white;
         border-radius: rem(2) 0 0 rem(2);
         @include font-base(14, 20);

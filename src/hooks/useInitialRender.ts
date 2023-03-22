@@ -21,7 +21,7 @@ const useInitialRender = () => {
     const token = getAccessToken();
     if (token) {
       setLoading(true);
-      await dispatch(getProfileAction()).unwrap();
+      await dispatch(getProfileAction()).unwrap().finally(() => setLoading(false));
       setLoading(false);
     }
   });
