@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
@@ -14,10 +14,12 @@ import Header from 'components/organisms/Header';
 import Section from 'components/organisms/Section';
 import useInitialRender from 'hooks/useInitialRender';
 import useWindowDimensions from 'hooks/useWindowDemensions';
-import mapModifiers from 'utils/functions';
+import { useAppSelector } from 'store/hooks';
+import mapModifiers, { groupMenusFromCategories } from 'utils/functions';
 
 const MainLayout: React.FC = () => {
   const { width, height } = useWindowDimensions();
+  const categories = useAppSelector((state) => state.product.categories);
   const [openSearch, setOpenSearch] = useState(false);
   const loading = useInitialRender();
   useEffect(() => {
@@ -27,10 +29,19 @@ const MainLayout: React.FC = () => {
       document.documentElement.style.overflow = 'unset';
     }
   }, [openSearch]);
+  const menus = useMemo(() => [{
+    id: 'home',
+    text: 'Trang chủ',
+    link: '/',
+  }, ...groupMenusFromCategories(categories), {
+    id: 'contact',
+    text: 'Liên hệ',
+    link: '/#/contact',
+  }], [categories]);
   return (
     <main id="main">
       {loading && <Loading isShow variant="fullScreen" isFill />}
-      <Header handleSearch={() => setOpenSearch(true)} />
+      <Header menus={menus} handleSearch={() => setOpenSearch(true)} />
       <Outlet />
       <Section>
         <Subscribe />

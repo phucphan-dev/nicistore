@@ -1,3 +1,6 @@
+import { MenuItem } from 'components/organisms/Menu';
+import { ProductCategoryData } from 'services/product/types';
+
 function mapModifiers(
   baseClassName: string,
   ...modifiers: (string | string[] | false | undefined)[]
@@ -131,4 +134,41 @@ export const scrollToTop = () => {
     top: 0,
     behavior: 'smooth',
   });
+};
+
+export const groupMenusFromCategories = (menus?: ProductCategoryData[]) => {
+  if (!menus) {
+    return [];
+  }
+  const recursiveMenus = (
+    menuList: ProductCategoryData[],
+    parentId: number,
+  ): MenuItem[] => {
+    const menusGrouped: MenuItem[] = [];
+    menuList.forEach((menu) => {
+      if (menu.parentId === parentId) {
+        const subMenus = recursiveMenus(menuList, menu.id);
+        menusGrouped.push(
+          subMenus.length > 0
+            ? {
+              id: menu.id.toString(),
+              text: menu.name,
+              link: menu.slug,
+              childrens: subMenus,
+            }
+            : {
+              id: menu.id.toString(),
+              text: menu.name,
+              link: menu.slug,
+            },
+        );
+      }
+    });
+    return menusGrouped;
+  };
+  if (menus.length > 0) {
+    const firstLevelParentId = menus.find((menu) => !menu.parentId)!.parentId;
+    return recursiveMenus(menus, firstLevelParentId);
+  }
+  return [];
 };

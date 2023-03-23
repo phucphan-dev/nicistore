@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import Container from '../Container';
-import Menu from '../Menu';
+import Menu, { MenuItem } from '../Menu';
 
-import menuDummy from 'assets/dummy/menu';
 import logo from 'assets/images/logo.svg';
 import Button from 'components/atoms/Button';
 import Image from 'components/atoms/Image';
@@ -13,10 +12,11 @@ import Typography from 'components/atoms/Typography';
 import mapModifiers from 'utils/functions';
 
 interface HeaderProps {
+  menus: MenuItem[];
   handleSearch?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ handleSearch }) => {
+const Header: React.FC<HeaderProps> = ({ menus, handleSearch }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [open, setOpen] = useState(false);
@@ -51,7 +51,7 @@ const Header: React.FC<HeaderProps> = ({ handleSearch }) => {
                 <Link href="/"><Image imgSrc={logo} alt="Nici Logo" ratio="75x46" /></Link>
                 <Button iconName="close" iconSize="24" handleClick={() => setOpen(false)} />
               </div>
-              <Menu menu={menuDummy} />
+              <Menu menu={menus} />
               <div className="o-header_menu_account">
                 <Link href="/account"><Typography.Text modifiers={['15x18', 'black', 'uppercase']}>Tài khoản</Typography.Text></Link>
               </div>
