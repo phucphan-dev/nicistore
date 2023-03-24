@@ -4,6 +4,7 @@ import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
+import Order from './Order';
 import Profile from './Profile';
 import ShippingAddressList from './ShippingAddress';
 
@@ -92,7 +93,7 @@ const Account: React.FC = () => {
                   case 1:
                     return <Profile />;
                   case 2:
-                    return 'Not yet';
+                    return <Order />;
                   case 3:
                     return <ShippingAddressList />;
                   default:

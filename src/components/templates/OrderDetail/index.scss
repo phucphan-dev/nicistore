@@ -1,0 +1,24 @@
+.t-orderDetail {
+    table {
+        width: 100%;
+        margin-top: rem(24);
+        margin-bottom: rem(24);
+        border: 1px solid $platinum;
+    }
+
+    table,
+    th,
+    td {
+        border-bottom: 1px solid $platinum;
+        border-left: 1px solid $platinum;
+        border-collapse: collapse;
+    }
+
+    td {
+        padding: rem(12) rem(8);
+    }
+
+    &_line {
+        margin-top: rem(8);
+    }
+}
