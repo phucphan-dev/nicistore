@@ -12,17 +12,8 @@ export interface ShippingAddressData {
   customerId: number
   address: string
   phone: string
-  name: any
-  city: {
-    id: number
-    name: string
-  }
-  district: {
-    id: number
-    name: string
-  }
-  ward: {
-    id: number
-    name: string
-  }
+  name: string
+  city: APartOfLocation
+  district: APartOfLocation
+  ward: APartOfLocation
 }

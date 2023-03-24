@@ -24,3 +24,14 @@ type APIPaginationResponse<T> = {
   meta: PaginationMeta;
   links: PaginationLinks;
 };
+
+type APartOfLocation = {
+  id: number
+  name: string
+};
+
+type ProductProperty = {
+  id: number
+  name: string
+  code: string
+};

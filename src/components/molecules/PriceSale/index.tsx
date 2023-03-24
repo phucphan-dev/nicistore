@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Typography from 'components/atoms/Typography';
+import { renderPrice } from 'utils/functions';
 
 interface PriceSaleProps {
   promo?: number;
@@ -12,15 +13,13 @@ const PriceSale: React.FC<PriceSaleProps> = ({ promo, price, unit }) => (
   <div className="m-priceSale">
     <div className="m-priceSale_original">
       <Typography.Text modifiers={promo ? ['14x16', 'ashGrey', 'lineThrough'] : ['16x18', '700']}>
-        {price.toFixed(2)}
-        {unit}
+        {renderPrice(price, true, unit)}
       </Typography.Text>
     </div>
     {promo && (
       <div className="m-priceSale_sale">
         <Typography.Text modifiers={['16x18', '700']}>
-          {(price * (100 - promo) / 100).toFixed(2)}
-          {unit}
+          {renderPrice(price * (100 - promo) / 100, true, unit)}
         </Typography.Text>
       </div>
     )}

@@ -172,3 +172,10 @@ export const groupMenusFromCategories = (menus?: ProductCategoryData[]) => {
   }
   return [];
 };
+
+export const getDayString = (date: Date) => `${date.getDate() < 10
+  ? `0${date.getDate().toString()}` : date.getDate().toString()}/${date.getMonth() + 1 < 10
+    ? `0${(date.getMonth() + 1).toString()}` : (date.getMonth() + 1)}/${date.getFullYear()} ${date.getHours() < 10
+      ? `0${date.getHours().toString()}` : date.getHours().toString()}:${date.getMinutes() < 10
+        ? `0${date.getMinutes().toString()}` : date.getMinutes().toString()}:${date.getSeconds() < 10
+          ? `0${date.getSeconds().toString()}` : date.getSeconds().toString()}`;
