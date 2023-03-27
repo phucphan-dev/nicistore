@@ -68,7 +68,7 @@ const FilterRange: React.FC<FilterRangeProps> = ({
               max: Math.max(minValueChange, maxValueChange)
             })}
           >
-            Filter
+            Lọc
           </Button>
         </div>
       </div>

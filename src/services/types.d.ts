@@ -35,3 +35,31 @@ type ProductProperty = {
   name: string
   code: string
 };
+
+type ColorSize = {
+  color: ProductProperty
+  size: ProductProperty
+};
+
+type Category = {
+  id: number
+  name: string
+  slug: string
+};
+
+type BaseFilterParams = {
+  locale?: string;
+  keyword?: string;
+  limit?: number;
+  page?: number;
+};
+
+type SortBy = 'createdAt' | 'price' | 'displayOrder';
+type SortType = 'ASC' | 'DESC';
+
+type Gallery = {
+  id: string
+  alt: string
+  path: string
+  title: string;
+};

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useRef, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
@@ -83,20 +84,18 @@ const ProductInfo: React.FC<ProductInfo> = ({
               <Typography.Text modifiers={['16x18']}>
                 {reviewCount}
                 {' '}
-                reviews
+                Đánh giá
               </Typography.Text>
             )}
           </div>
           <div className="t-productInfo_price">
             <PriceSale unit={unit} price={price} promo={promo} />
           </div>
-          <div className="t-productInfo_description">
-            <Typography.Text modifiers={['14x16']}>{description}</Typography.Text>
-          </div>
+          <div className="t-productInfo_description" dangerouslySetInnerHTML={{ __html: description }} />
           {colors && (
             <div className="t-productInfo_colors">
               <Typography.Text modifiers={['14x16', '400']}>
-                Color:
+                Màu sắc:
                 {' '}
                 {color}
               </Typography.Text>
@@ -118,7 +117,7 @@ const ProductInfo: React.FC<ProductInfo> = ({
           {sizes && (
             <div className="t-productInfo_sizes">
               <Typography.Text modifiers={['14x16', '400']}>
-                Size:
+                Kích thước:
                 {' '}
                 {size}
               </Typography.Text>
@@ -140,12 +139,12 @@ const ProductInfo: React.FC<ProductInfo> = ({
           <div className="t-productInfo_quantity">
             <QuantityInput initQuantity={1} />
             <div className="t-productInfo_addTo">
-              <Button variant="dark" sizes="h48">Add to cart</Button>
+              <Button variant="dark" sizes="h48">Thêm vào giỏ hàng</Button>
             </div>
           </div>
           <div className="t-productInfo_controls">
-            <Button iconName="love" iconSize="16">Add to Wishlist</Button>
-            <Button iconName="share" iconSize="16">Share this Product</Button>
+            <Button iconName="love" iconSize="16">Yêu thích</Button>
+            <Button iconName="share" iconSize="16">Chia sẻ</Button>
           </div>
           <div className="t-productInfo_tags">
             {sku && (
@@ -156,7 +155,7 @@ const ProductInfo: React.FC<ProductInfo> = ({
             )}
             {categories && (
               <div className="t-productInfo_tags_line">
-                <Typography.Text type="span" modifiers={['ashGrey']}>Categories: </Typography.Text>
+                <Typography.Text type="span" modifiers={['ashGrey']}>Danh mục: </Typography.Text>
                 {categories.map((item, idx) => (
                   <Link key={item}>
                     <Typography.Text type="span" modifiers={['14x16', '700']}>
@@ -168,7 +167,7 @@ const ProductInfo: React.FC<ProductInfo> = ({
             )}
             {tags && (
               <div className="t-productInfo_tags_line">
-                <Typography.Text type="span" modifiers={['ashGrey']}>Tags: </Typography.Text>
+                <Typography.Text type="span" modifiers={['ashGrey']}>Thẻ: </Typography.Text>
                 {tags.map((item, idx) => (
                   <Typography.Text key={item} type="span">
                     {idx === tags.length - 1 ? item : `${item}, `}

@@ -1,36 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Checkbox from 'components/atoms/Checkbox';
 import Typography from 'components/atoms/Typography';
 import mapModifiers from 'utils/functions';
 
 interface FilterCategoryProps {
-  initParams?: string[];
+  initCode?: string;
   categories: CategoryData[];
-  handleChange?: (code: string[]) => void;
+  handleChange?: (code?: string) => void;
 }
 
 const FilterCategory: React.FC<FilterCategoryProps> = ({
-  initParams,
-  categories, handleChange
+  initCode, categories, handleChange
 }) => {
-  const [selected, setSelected] = useState<string[]>(initParams || []);
+  const [selected, setSelected] = useState(initCode);
   const [active, setActive] = useState<string[]>([]);
   const onChangeSelected = (
     e: React.ChangeEvent<HTMLInputElement>,
     code: string,
   ) => {
     if (e.currentTarget.checked) {
-      const result = [...selected, code];
-      setSelected(result);
+      setSelected(code);
       if (handleChange) {
-        handleChange(result);
-      }
-    } else {
-      const result = selected.filter((item) => item !== code);
-      setSelected(result);
-      if (handleChange) {
-        handleChange(result);
+        handleChange(code);
       }
     }
   };
@@ -39,6 +31,16 @@ const FilterCategory: React.FC<FilterCategoryProps> = ({
     if (active.includes(code)) setActive(active.filter((item) => item !== code));
     else setActive([...active, code]);
   };
+
+  useEffect(() => {
+    const activeInit = categories.find((
+      item
+    ) => item.childrens?.some((it) => it.code === initCode));
+    if (activeInit) {
+      setActive([activeInit.code]);
+    }
+    setSelected(initCode);
+  }, [categories, initCode]);
 
   return (
     <div className="o-filterCategory">
@@ -49,7 +51,7 @@ const FilterCategory: React.FC<FilterCategoryProps> = ({
         >
           <Checkbox
             name={item.code}
-            checked={selected.includes(item.code)}
+            checked={selected === item.code}
             onChange={(e) => onChangeSelected(e, item.code)}
           >
             {item.name}
@@ -66,6 +68,7 @@ const FilterCategory: React.FC<FilterCategoryProps> = ({
                   <div className="o-filterCategory_item" key={child.code}>
                     <Checkbox
                       name={child.code}
+                      checked={selected === child.code}
                       onChange={(e) => onChangeSelected(e, child.code)}
                     >
                       {child.name}
