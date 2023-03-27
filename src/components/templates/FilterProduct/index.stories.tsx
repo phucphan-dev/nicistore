@@ -3,6 +3,8 @@ import React from 'react';
 
 import FilterProduct from '.';
 
+import categoriesDummy, { colorsDummy, sizeDummy } from 'assets/dummy/filters';
+
 export default {
   title: 'Components/templates/FilterProduct',
   component: FilterProduct,
@@ -11,6 +13,6 @@ export default {
 
 export const normal: Story = () => (
   <div style={{ width: '30%', padding: '50px' }}>
-    <FilterProduct />
+    <FilterProduct categories={categoriesDummy} colors={colorsDummy} sizes={sizeDummy} />
   </div>
 );

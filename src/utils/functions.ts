@@ -173,9 +173,47 @@ export const groupMenusFromCategories = (menus?: ProductCategoryData[]) => {
   return [];
 };
 
+export const groupMenusCategoriesFilter = (menus?: ProductCategoryData[]) => {
+  if (!menus) {
+    return [];
+  }
+  const recursiveMenus = (
+    menuList: ProductCategoryData[],
+    parentId: number,
+  ): CategoryData[] => {
+    const menusGrouped: CategoryData[] = [];
+    menuList.forEach((menu) => {
+      if (menu.parentId === parentId) {
+        const subMenus = recursiveMenus(menuList, menu.id);
+        menusGrouped.push(
+          subMenus.length > 0
+            ? {
+              code: menu.slug,
+              name: menu.name,
+              childrens: subMenus,
+            }
+            : {
+              code: menu.slug,
+              name: menu.name,
+            },
+        );
+      }
+    });
+    return menusGrouped;
+  };
+  if (menus.length > 0) {
+    const firstLevelParentId = menus.find((menu) => !menu.parentId)!.parentId;
+    return recursiveMenus(menus, firstLevelParentId);
+  }
+  return [];
+};
+
 export const getDayString = (date: Date) => `${date.getDate() < 10
   ? `0${date.getDate().toString()}` : date.getDate().toString()}/${date.getMonth() + 1 < 10
     ? `0${(date.getMonth() + 1).toString()}` : (date.getMonth() + 1)}/${date.getFullYear()} ${date.getHours() < 10
       ? `0${date.getHours().toString()}` : date.getHours().toString()}:${date.getMinutes() < 10
         ? `0${date.getMinutes().toString()}` : date.getMinutes().toString()}:${date.getSeconds() < 10
           ? `0${date.getSeconds().toString()}` : date.getSeconds().toString()}`;
+
+export const roundingPrice = (price: number) => (price % 1000 >= 500
+  ? ((Math.floor(price / 1000) + 1) * 1000) : Math.floor(price / 1000) * 1000);

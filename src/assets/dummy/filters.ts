@@ -127,11 +127,30 @@ export const sizeDummy: SizeFilter[] = [
 export const productStatusDummy: OptionType[] = [
   {
     value: 'instock',
-    label: 'In Stock'
+    label: 'Còn hàng'
   },
   {
     value: 'onsale',
-    label: 'On Sale'
+    label: 'Giảm giá'
+  },
+];
+
+export const sortOptionDummy: OptionType[] = [
+  {
+    label: 'Giá cao đến thấp',
+    value: 'priceDecrease'
+  },
+  {
+    label: 'Giá thấp đến cao',
+    value: 'priceIncrease'
+  },
+  {
+    label: 'Mới nhất',
+    value: 'newest'
+  },
+  {
+    label: 'Cũ nhất',
+    value: 'oldest'
   },
 ];
 export default categoriesDummy;

@@ -9,7 +9,8 @@ import PriceSale from 'components/molecules/PriceSale';
 import StarCount from 'components/molecules/StarCount';
 import mapModifiers from 'utils/functions';
 
-export interface ProductCardProps {
+export interface ProductInfoData {
+  slug?: string;
   code: string;
   images: string[];
   promo?: number;
@@ -20,6 +21,8 @@ export interface ProductCardProps {
   reviewCount?: number;
   available?: number;
   solded?: number;
+}
+export interface ProductCardProps extends ProductInfoData {
   handleViewDetail?: (code: string) => void;
   handleLove?: (code: string) => void;
   handleQuickView?: (code: string) => void;
@@ -34,7 +37,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <div className="o-productCard">
       <div className="o-productCard_thumbnail">
-        <div className="o-productCard_badge"><Badge isOnSale content={`${promo}%`} /></div>
+        {!!promo && promo > 0 && <div className="o-productCard_badge"><Badge isOnSale content={`${promo}%`} /></div>}
         <div className="o-productCard_actions">
           <div className="o-productCard_actions_item">
             <Button

@@ -1,21 +1,100 @@
-import React, { useState } from 'react';
+/* eslint-disable no-nested-ternary */
+import React, { useEffect, useMemo, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { useQuery } from 'react-query';
+import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 
+import { sortOptionDummy } from 'assets/dummy/filters';
 import { featuredProducts } from 'assets/dummy/homepage';
 import Button from 'components/atoms/Button';
 import Image from 'components/atoms/Image';
 import Link from 'components/atoms/Link';
+import Loading from 'components/atoms/Loading';
 import Select from 'components/atoms/Select';
 import Typography from 'components/atoms/Typography';
 import Container from 'components/organisms/Container';
 import Pagination from 'components/organisms/Pagination';
-import ProductCard from 'components/organisms/ProductCard';
+import ProductCard, { ProductInfoData } from 'components/organisms/ProductCard';
 import FilterProduct from 'components/templates/FilterProduct';
 import FooterProduct from 'components/templates/FooterProduct';
-import mapModifiers from 'utils/functions';
+import { getAllProductService } from 'services/product';
+import { FilterSortParams } from 'services/product/types';
+import { useAppSelector } from 'store/hooks';
+import mapModifiers, { groupMenusCategoriesFilter } from 'utils/functions';
 
 const Products: React.FC = () => {
+  const { pathname } = useLocation();
+  const { category } = useParams<{ category: string }>();
+  const categories = useAppSelector((state) => state.product.categories);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageParam = Number(searchParams.get('page'));
+
   const [open, setOpen] = useState(false);
+  const [sorter, setSorter] = useState<OptionType>();
+  const [page, setPage] = useState(pageParam || 1);
+
+  const sorterParams: FilterSortParams | undefined = useMemo(() => {
+    if (!sorter) {
+      return undefined;
+    }
+    switch (sorter?.value) {
+      case 'priceDecrease':
+        return {
+          sortBy: 'price',
+          sortType: 'DESC'
+        };
+      case 'priceIncrease':
+        return {
+          sortBy: 'price',
+          sortType: 'ASC'
+        };
+      case 'newest':
+        return {
+          sortBy: 'createdAt',
+          sortType: 'DESC'
+        };
+      default:
+        return {
+          sortBy: 'createdAt',
+          sortType: 'ASC'
+        };
+    }
+  }, [sorter]);
+
+  const { data, isLoading } = useQuery(
+    ['getAllProduct', category, sorterParams, page],
+    () => getAllProductService({
+      categoryIds: categories?.find(
+        (item) => item.slug === category
+      )?.id.toString(),
+      ...sorterParams,
+      limit: 1,
+      page
+    }),
+    { enabled: !!categories }
+  );
+
+  const productsMemo: ProductInfoData[] = useMemo(() => (data
+    ? data.data.map((item) => ({
+      slug: item.slug,
+      code: item.code,
+      images: [item.thumbnail],
+      promo: item.salePercent,
+      name: item.name,
+      price: item.price,
+      unit: 'VNĐ',
+      starCount: 5,
+      reviewCount: Math.floor(Math.random() * 10),
+      available: item.stock,
+      solded: 21,
+    })) : []), [data]);
+
+  useEffect(() => {
+    if (!pageParam) {
+      setPage(1);
+    }
+  }, [pageParam, pathname]);
+
   return (
     <div className="p-products">
       <Container>
@@ -28,7 +107,11 @@ const Products: React.FC = () => {
                   <Button iconName="close" variant="whiteBorder" iconSize="16" handleClick={() => setOpen(false)} />
                 </div>
               </div>
-              <FilterProduct />
+              <FilterProduct
+                categories={groupMenusCategoriesFilter(categories)}
+                colors={[]}
+                sizes={[]}
+              />
             </div>
           </Col>
           <Col lg={9}>
@@ -53,35 +136,45 @@ const Products: React.FC = () => {
               <div className="p-products_controls">
                 <div className="p-products_controls-left">
                   <Button iconName="filter" iconSize="24" handleClick={() => setOpen(true)}>
-                    <Typography.Text>Filter</Typography.Text>
+                    <Typography.Text>Bộ lọc</Typography.Text>
                   </Button>
                 </div>
                 <div className="p-products_controls-right">
-                  <Typography.Text>Show: </Typography.Text>
+                  <Typography.Text>Sắp xếp: </Typography.Text>
                   <Select
-                    name="test"
+                    name="sort"
                     placeholder="Select.."
-                    modifier={['nobackground']}
-                    value={{ value: '16', label: '16 Items' }}
-                    options={[{ value: '16', label: '16 Items' }, { value: '20', label: '20 Items' }, { value: '24', label: '24 Items' }]}
+                    modifier={['bordered']}
+                    options={sortOptionDummy}
+                    value={sorter}
+                    handleSelect={(option) => setSorter(option)}
                   />
                 </div>
               </div>
-              <div className="p-products_list">
-                {[...featuredProducts, ...featuredProducts].map((item, index) => (
-                  <div className="p-products_item" key={item.code + index.toString()}>
-                    <Link href="/product-detail"><ProductCard {...item} /></Link>
-                  </div>
-                ))}
-              </div>
+              {isLoading ? <Loading isShow /> : productsMemo.length > 0 ? (
+                <div className="p-products_list">
+                  {productsMemo.map((item, index) => (
+                    <div className="p-products_item" key={item.code + index.toString()}>
+                      <Link href={`/${category}/${item.slug}`}><ProductCard {...item} /></Link>
+                    </div>
+                  ))}
+                </div>
+              ) : <Typography.Text modifiers={['700', 'center']}>Đang cập nhật sản phẩm</Typography.Text>}
               <div className="p-products_pagination">
-                <Pagination totalPage={5} />
+                <Pagination
+                  totalPage={data?.meta.totalPages || 0}
+                  pageCurrent={page}
+                  handleChangePage={(val) => {
+                    setPage(val);
+                    setSearchParams({ page: val.toString() });
+                  }}
+                />
               </div>
             </div>
           </Col>
         </Row>
         <div className="p-products_related">
-          <FooterProduct title="Recently View products" products={featuredProducts.slice(0, 4)} />
+          <FooterProduct title="Đã xem gần đây" products={featuredProducts.slice(0, 4)} />
         </div>
       </Container>
     </div>

@@ -111,6 +111,17 @@
             align-items: center;
         }
 
+        &-right {
+            .a-select {
+                margin-left: rem(16);
+                width: rem(140);
+
+                &_header {
+                    height: rem(32);
+                }
+            }
+        }
+
         &-left {
             margin-left: rem(-16);
             @include tablet-up {
@@ -137,15 +148,18 @@
 
     &_item {
         flex: 1 0 25%;
+        max-width: 25%;
         padding: rem(15);
 
         @include desktop-down {
             flex-basis: 33.333333%;
+            max-width: 33.333333%;
         }
 
         @include tablet-down {
             flex-basis: 50%;
             padding: rem(15) rem(8);
+            max-width: 50%;
         }
     }
 
