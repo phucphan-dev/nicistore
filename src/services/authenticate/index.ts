@@ -10,8 +10,8 @@ export const registerService = async (data: RegisterDataRequest): Promise<void> 
   await axiosInstance.post('customers/auth/register', data);
 };
 
-export const registerVerifyEmailService = async (verify_code: string): Promise<void> => {
-  await axiosInstance.post('customers/auth/verify', { verify_code });
+export const registerVerifyEmailService = async (verifyCode: string): Promise<void> => {
+  await axiosInstance.post('customers/auth/verify', { verifyCode });
 };
 
 export const loginService = async (data: LoginDataRequest): Promise<LoginDataResponse> => {
