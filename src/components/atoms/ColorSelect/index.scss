@@ -34,6 +34,7 @@
         position: relative;
         margin: 0;
         cursor: pointer;
+        box-shadow: 0 0 15px rgba(12, 26, 75, 0.2);
 
         &::before {
             content: '';
@@ -50,5 +51,11 @@
     &_label {
         display: inline-block;
         margin-left: rem(10);
+    }
+
+    &-white {
+        [type='checkbox']:checked::before {
+            background-image: url('~assets/icons/ic_checkmark_black.svg');
+        }
     }
 }

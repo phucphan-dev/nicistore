@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { productStatusDummy } from 'assets/dummy/filters';
@@ -8,15 +8,32 @@ import Typography from 'components/atoms/Typography';
 import FilterCategory from 'components/organisms/FilterCategory';
 import FilterRange from 'components/organisms/FilterRange';
 
+export interface FilterProductProperties {
+  sizeIds?: string[];
+  colorIds?: string[];
+  fromPrice?: number;
+  toPrice?: number;
+  stock?: boolean;
+  hasSale?: boolean;
+}
 interface FilterProductProps {
   categories: CategoryData[];
   colors: ColorFilter[];
   sizes: SizeFilter[];
+  handleFilter?: (params: FilterProductProperties) => void;
 }
 
-const FilterProduct: React.FC<FilterProductProps> = ({ categories, colors, sizes }) => {
+const FilterProduct: React.FC<FilterProductProps> = ({
+  categories, colors, sizes, handleFilter
+}) => {
   const navigation = useNavigate();
   const { category } = useParams<{ category: string }>();
+  const [filter, setFilter] = useState<FilterProductProperties>({});
+  useEffect(() => {
+    if (handleFilter) {
+      handleFilter(filter);
+    }
+  }, [filter, handleFilter]);
   return (
     <div className="t-filterProduct">
       <div className="t-filterProduct_section">
@@ -32,8 +49,10 @@ const FilterProduct: React.FC<FilterProductProps> = ({ categories, colors, sizes
             label="Giá"
             unit="VND"
             minValue={0}
-            maxValue={20000000}
-            handleFilter={(value) => console.log({ value })}
+            maxValue={2000000}
+            handleFilter={(value) => setFilter(
+              { ...filter, fromPrice: value.min, toPrice: value.max }
+            )}
           />
         </div>
       </div>
@@ -46,13 +65,22 @@ const FilterProduct: React.FC<FilterProductProps> = ({ categories, colors, sizes
                 type="checkbox"
                 color={item.color}
                 label={item.label}
-                onChange={(e) => e.currentTarget.checked && console.log(item.code)}
+                onChange={(e) => setFilter(
+                  {
+                    ...filter,
+                    colorIds: e.currentTarget.checked
+                      ? [...(filter.colorIds || []), item.code]
+                      : filter.colorIds?.filter((it) => it !== item.code)
+                  }
+                )}
               />
-              <Typography.Text modifiers={['13x16', 'cadetGrey']}>
-                (
-                {item.count}
-                )
-              </Typography.Text>
+              {item.count && (
+                <Typography.Text modifiers={['13x16', 'cadetGrey']}>
+                  (
+                  {item.count}
+                  )
+                </Typography.Text>
+              )}
             </div>
           )))}
         </div>
@@ -62,12 +90,26 @@ const FilterProduct: React.FC<FilterProductProps> = ({ categories, colors, sizes
         <div className="t-filterProduct_content">
           {sizes.map(((item) => (
             <div className="t-filterProduct_size" key={item.code}>
-              <Checkbox name={item.code}>{item.label}</Checkbox>
-              <Typography.Text modifiers={['13x16', 'cadetGrey']}>
-                (
-                {item.count}
-                )
-              </Typography.Text>
+              <Checkbox
+                name={item.code}
+                onChange={(e) => setFilter(
+                  {
+                    ...filter,
+                    sizeIds: e.currentTarget.checked
+                      ? [...(filter.sizeIds || []), item.code]
+                      : filter.sizeIds?.filter((it) => it !== item.code)
+                  }
+                )}
+              >
+                {item.label}
+              </Checkbox>
+              {item.count && (
+                <Typography.Text modifiers={['13x16', 'cadetGrey']}>
+                  (
+                  {item.count}
+                  )
+                </Typography.Text>
+              )}
             </div>
           )))}
         </div>
@@ -77,7 +119,12 @@ const FilterProduct: React.FC<FilterProductProps> = ({ categories, colors, sizes
         <div className="t-filterProduct_content">
           {productStatusDummy.map(((item) => (
             <div className="t-filterProduct_size" key={item.value}>
-              <Checkbox name={item.value}>{item.label}</Checkbox>
+              <Checkbox
+                name={item.value}
+                onChange={(e) => setFilter({ ...filter, [item.value]: e.currentTarget.checked })}
+              >
+                {item.label}
+              </Checkbox>
             </div>
           )))}
         </div>

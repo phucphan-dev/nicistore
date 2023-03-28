@@ -2,6 +2,8 @@ import React, { useId } from 'react';
 
 import Typography from '../Typography';
 
+import mapModifiers from 'utils/functions';
+
 interface ColorSelectProps extends React.InputHTMLAttributes<HTMLInputElement> {
   type: 'radio' | 'checkbox';
   color: string;
@@ -15,7 +17,13 @@ const ColorSelect = React.forwardRef<HTMLInputElement, ColorSelectProps>(
     const id = useId();
 
     return (
-      <label htmlFor={id} className="a-colorSelect">
+      <label
+        htmlFor={id}
+        className={mapModifiers(
+          'a-colorSelect',
+          ['#fff', '#ffffff', 'white'].includes(color) && 'white'
+        )}
+      >
         <input
           {...inputProps}
           type={type}

@@ -38,7 +38,7 @@ export const topSellerDummy = {
     solded: 21,
   },
   second: {
-    code: 'C00001_00001',
+    code: 'C00001_00002',
     images: [nc000002],
     promo: 12,
     name: 'Check Overshirt With Pocket Detail',
@@ -144,7 +144,7 @@ export const featuredProducts = [
     solded: 21,
   },
   {
-    code: 'C00001_00001',
+    code: 'C00001_00002',
     images: [nc000002],
     promo: 12,
     name: 'Check Overshirt With Pocket Detail',
@@ -156,7 +156,7 @@ export const featuredProducts = [
     solded: 21,
   },
   {
-    code: 'C00001_00001',
+    code: 'C00001_00003',
     images: [nc000001],
     promo: 12,
     name: 'Check Overshirt With Pocket Detail',
@@ -168,7 +168,7 @@ export const featuredProducts = [
     solded: 21,
   },
   {
-    code: 'C00001_00001',
+    code: 'C00001_00004',
     images: [nc000002],
     promo: 12,
     name: 'Check Overshirt With Pocket Detail',
@@ -180,7 +180,7 @@ export const featuredProducts = [
     solded: 21,
   },
   {
-    code: 'C00001_00001',
+    code: 'C00001_00005',
     images: [nc000001],
     promo: 12,
     name: 'Check Overshirt With Pocket Detail',
@@ -192,7 +192,7 @@ export const featuredProducts = [
     solded: 21,
   },
   {
-    code: 'C00001_00001',
+    code: 'C00001_00006',
     images: [nc000002],
     promo: 12,
     name: 'Check Overshirt With Pocket Detail',

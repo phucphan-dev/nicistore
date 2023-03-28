@@ -2,7 +2,7 @@ import React, {
   useCallback, useEffect, useRef, useState
 } from 'react';
 
-import Button from 'components/atoms/Button';
+import useDebounce from 'hooks/useDebounce';
 import { renderPrice } from 'utils/functions';
 
 interface InputResult { min: number; max: number; }
@@ -26,6 +26,11 @@ const FilterRange: React.FC<FilterRangeProps> = ({
   const [minValueChange, setMinValueChange] = useState(defaultValue?.min || minValue);
   const [maxValueChange, setMaxValueChange] = useState(defaultValue?.max || maxValue);
   const rangeRef = useRef<HTMLDivElement>(null);
+
+  useDebounce(() => handleFilter({
+    min: Math.min(minValueChange, maxValueChange),
+    max: Math.max(minValueChange, maxValueChange)
+  }), 1000, [minValueChange, maxValueChange]);
 
   const getPercent = useCallback(
     (value: number) => ((value - minValue) / (maxValue - minValue)) * 100,
@@ -59,17 +64,6 @@ const FilterRange: React.FC<FilterRangeProps> = ({
             {' '}
             {unit}
           </span>
-        </div>
-        <div className="o-inputRange_head_button">
-          <Button
-            variant="secondary"
-            onClick={() => handleFilter({
-              min: Math.min(minValueChange, maxValueChange),
-              max: Math.max(minValueChange, maxValueChange)
-            })}
-          >
-            Lọc
-          </Button>
         </div>
       </div>
       <div className="o-inputRange_wrapper">

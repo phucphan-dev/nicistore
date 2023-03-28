@@ -25,13 +25,13 @@ const App: React.FC = () => {
   return (
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        <HashRouter>
+        <BrowserRouter>
           <Routes>
             <Route element={<MainLayout />}>
               {routes.map((route) => <Route {...route} />)}
             </Route>
           </Routes>
-        </HashRouter>
+        </BrowserRouter>
       </QueryClientProvider>
     </Provider>
   );

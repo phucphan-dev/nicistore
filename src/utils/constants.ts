@@ -8,4 +8,5 @@ export const ERROR_MAPPING: { [key: string]: string } = {
 export const LOCALSTORAGE = {
   NICI_TOKEN: 'NICI_TOKEN',
   NICI_REFRESH_TOKEN: 'NICI_REFRESH_TOKEN',
+  NICI_CART: 'NICI_CART',
 };

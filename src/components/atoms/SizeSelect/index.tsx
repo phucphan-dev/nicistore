@@ -22,7 +22,7 @@ const SizeSelect = React.forwardRef<HTMLInputElement, Props>(
           hidden
         />
         <span className="a-sizeSelect_label">
-          <Typography.Text modifiers={['14x16', '500', 'white']}>{sizeName}</Typography.Text>
+          <Typography.Text modifiers={['14x16', '500']}>{sizeName}</Typography.Text>
         </span>
       </label>
     );
