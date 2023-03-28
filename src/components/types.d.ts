@@ -35,6 +35,7 @@ interface BreadcrumbTypes {
 
 interface ProductInfo {
   id: number;
+  slug: string;
   code: string;
   images: string[];
   name: string;
@@ -48,4 +49,14 @@ interface ProductInfo {
   sku?: string;
   categories?: string[];
   tags?: string[];
+}
+
+interface CartItem {
+  image: string;
+  link: string;
+  name: string;
+  color: ProductProperty;
+  size: ProductProperty;
+  quantity: number;
+  price: number;
 }

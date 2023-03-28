@@ -8,7 +8,6 @@ import Breadcrumb from 'components/molecules/Breadcrumb';
 import Container from 'components/organisms/Container';
 import Tabs from 'components/organisms/Tabs';
 import FooterProduct from 'components/templates/FooterProduct';
-// eslint-disable-next-line import/no-named-as-default
 import ProductInfo from 'components/templates/ProductInfo';
 import { getProductDetailService } from 'services/product';
 
@@ -27,6 +26,7 @@ const ProductDetail: React.FC = () => {
 
   const productDetail: ProductInfo | undefined = useMemo(() => (data ? ({
     id: data.id,
+    slug: `${data.categories.map((item) => `/${item.slug}`).join()}/${data.slug}`,
     code: data.code,
     images: data.galleries.map((item) => item.path),
     name: data.name,

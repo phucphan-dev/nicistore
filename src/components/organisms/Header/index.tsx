@@ -20,25 +20,13 @@ const Header: React.FC<HeaderProps> = ({ menus, handleSearch }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [open, setOpen] = useState(false);
-  const [fixed, setFixed] = useState(false);
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 84) setFixed(true);
-      else setFixed(false);
-    };
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
   useEffect(() => {
     setOpen(false);
   }, [location]);
 
   return (
-    <header className={mapModifiers('o-header', fixed && 'fixed')}>
+    <header className="o-header">
       <Container>
         <div className="o-header_wrapper">
           <div className="o-header_hambuger">
