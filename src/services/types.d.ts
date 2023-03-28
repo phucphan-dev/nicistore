@@ -63,3 +63,10 @@ type Gallery = {
   path: string
   title: string;
 };
+
+type SeoData = {
+  image: string
+  title: string
+  description: string
+  keywords: string
+};

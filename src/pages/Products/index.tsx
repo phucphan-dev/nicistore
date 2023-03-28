@@ -1,5 +1,7 @@
 /* eslint-disable no-nested-ternary */
-import React, { useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback, useEffect, useMemo, useState
+} from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useQuery } from 'react-query';
 import { useLocation, useParams, useSearchParams } from 'react-router-dom';
@@ -15,10 +17,10 @@ import Typography from 'components/atoms/Typography';
 import Container from 'components/organisms/Container';
 import Pagination from 'components/organisms/Pagination';
 import ProductCard, { ProductInfoData } from 'components/organisms/ProductCard';
-import FilterProduct from 'components/templates/FilterProduct';
+import FilterProduct, { FilterProductProperties } from 'components/templates/FilterProduct';
 import FooterProduct from 'components/templates/FooterProduct';
-import { getAllProductService } from 'services/product';
-import { FilterSortParams } from 'services/product/types';
+import { getAllProductService, getProductCategoryDetailService } from 'services/product';
+import { FilterSortParams, PropertiesProductFilter } from 'services/product/types';
 import { useAppSelector } from 'store/hooks';
 import mapModifiers, { groupMenusCategoriesFilter } from 'utils/functions';
 
@@ -32,6 +34,7 @@ const Products: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [sorter, setSorter] = useState<OptionType>();
   const [page, setPage] = useState(pageParam || 1);
+  const [propertiesFilter, setPropertiesFilter] = useState<PropertiesProductFilter>({});
 
   const sorterParams: FilterSortParams | undefined = useMemo(() => {
     if (!sorter) {
@@ -61,15 +64,27 @@ const Products: React.FC = () => {
     }
   }, [sorter]);
 
+  const { data: categoryDetail, isLoading: getCategoryLoading } = useQuery(
+    ['getProductCategoryDetail', category],
+    () => {
+      if (category) {
+        return getProductCategoryDetailService(category);
+      }
+      return undefined;
+    },
+    { enabled: !!category }
+  );
+
   const { data, isLoading } = useQuery(
-    ['getAllProduct', category, sorterParams, page],
+    ['getAllProduct', category, sorterParams, page, propertiesFilter],
     () => getAllProductService({
       categoryIds: categories?.find(
         (item) => item.slug === category
       )?.id.toString(),
       ...sorterParams,
-      limit: 1,
-      page
+      limit: 12,
+      page,
+      ...propertiesFilter
     }),
     { enabled: !!categories }
   );
@@ -89,10 +104,17 @@ const Products: React.FC = () => {
       solded: 21,
     })) : []), [data]);
 
+  const handleFilterProperties = useCallback((
+    filter: FilterProductProperties
+  ) => setPropertiesFilter(
+    { ...filter, colorIds: filter.colorIds?.join(','), sizeIds: filter.sizeIds?.join(',') }
+  ), []);
+
   useEffect(() => {
     if (!pageParam) {
       setPage(1);
     }
+    setOpen(false);
   }, [pageParam, pathname]);
 
   return (
@@ -102,15 +124,18 @@ const Products: React.FC = () => {
           <Col lg={3}>
             <div className={mapModifiers('p-products_sidebar', open && 'open')}>
               <div className="p-products_sidebar_title">
-                <Typography.Heading type="h3" modifiers={['14x16', '500']}>Filter Product</Typography.Heading>
+                <Typography.Heading type="h3" modifiers={['14x16', '500']}>Bộ lọc</Typography.Heading>
                 <div className="p-products_sidebar_close">
                   <Button iconName="close" variant="whiteBorder" iconSize="16" handleClick={() => setOpen(false)} />
                 </div>
               </div>
               <FilterProduct
                 categories={groupMenusCategoriesFilter(categories)}
-                colors={[]}
-                sizes={[]}
+                colors={categoryDetail ? categoryDetail?.colors.map((item) => (
+                  { code: item.colorId.toString(), color: item.code, label: item.name })) : []}
+                sizes={categoryDetail ? categoryDetail?.sizes.map((item) => (
+                  { code: item.sizeId.toString(), color: item.code, label: item.name })) : []}
+                handleFilter={handleFilterProperties}
               />
             </div>
           </Col>
@@ -143,7 +168,7 @@ const Products: React.FC = () => {
                   <Typography.Text>Sắp xếp: </Typography.Text>
                   <Select
                     name="sort"
-                    placeholder="Select.."
+                    placeholder="Chọn.."
                     modifier={['bordered']}
                     options={sortOptionDummy}
                     value={sorter}
@@ -151,7 +176,7 @@ const Products: React.FC = () => {
                   />
                 </div>
               </div>
-              {isLoading ? <Loading isShow /> : productsMemo.length > 0 ? (
+              {isLoading || getCategoryLoading ? <Loading isShow /> : productsMemo.length > 0 ? (
                 <div className="p-products_list">
                   {productsMemo.map((item, index) => (
                     <div className="p-products_item" key={item.code + index.toString()}>

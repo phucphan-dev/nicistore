@@ -34,6 +34,7 @@ interface BreadcrumbTypes {
 }
 
 interface ProductInfo {
+  id: number;
   code: string;
   images: string[];
   name: string;
@@ -43,8 +44,7 @@ interface ProductInfo {
   unit: string;
   starCount?: number;
   reviewCount?: number;
-  colors?: ColorFilter[];
-  sizes?: SizeFilter[];
+  colorSize?: ColorSize[];
   sku?: string;
   categories?: string[];
   tags?: string[];

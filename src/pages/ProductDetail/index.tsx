@@ -8,6 +8,7 @@ import Breadcrumb from 'components/molecules/Breadcrumb';
 import Container from 'components/organisms/Container';
 import Tabs from 'components/organisms/Tabs';
 import FooterProduct from 'components/templates/FooterProduct';
+// eslint-disable-next-line import/no-named-as-default
 import ProductInfo from 'components/templates/ProductInfo';
 import { getProductDetailService } from 'services/product';
 
@@ -23,7 +24,9 @@ const ProductDetail: React.FC = () => {
       return undefined;
     }
   );
+
   const productDetail: ProductInfo | undefined = useMemo(() => (data ? ({
+    id: data.id,
     code: data.code,
     images: data.galleries.map((item) => item.path),
     name: data.name,
@@ -33,21 +36,9 @@ const ProductDetail: React.FC = () => {
     unit: 'VNĐ',
     starCount: 5,
     reviewCount: 2,
-    colors: data.colors.map((item) => ({
-      code: item.id.toString(),
-      label: item.name,
-      color: item.code
-    })),
-    sizes: data.sizes.map((item) => ({
-      code: item.id.toString(),
-      label: item.name,
-      color: item.code
-    })),
+    colorSize: data.colorSize,
     categories: data.categories.map((item) => item.name),
   }) : undefined), [data]);
-  if (!productDetail) {
-    return null;
-  }
   const breadcrumbs: BreadcrumbTypes[] = [
     {
       slug: '/',
@@ -59,6 +50,9 @@ const ProductDetail: React.FC = () => {
       text: data?.name || ''
     }
   ];
+  if (!productDetail) {
+    return null;
+  }
   return (
     <div className="p-productDetail">
       <Container>

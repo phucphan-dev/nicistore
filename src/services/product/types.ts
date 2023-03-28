@@ -9,6 +9,42 @@ export interface ProductCategoryData {
   displayOrder: number
 }
 
+export interface ProductCategoryColor {
+  colorId: number
+  name: string
+  code: string
+}
+
+export interface ProductCategorySize {
+  sizeId: number
+  name: string
+  code: string
+}
+
+export interface ProductCategoryDetail {
+  id: number
+  parentId: any
+  status: number
+  createdAt: string
+  updatedAt: string
+  name: string
+  slug: string
+  products: {
+    id: number
+    thumbnail: string
+    code: string
+    price: number
+    salePrice: number
+    stock: number
+    name: string
+    slug: string
+    shortDescription: string
+  }[]
+  sizes: ProductCategorySize[]
+  colors: ProductCategoryColor[]
+  seoData: SeoData
+}
+
 export interface ProductListItemData {
   id: number
   code: string
@@ -31,7 +67,17 @@ export interface FilterSortParams {
   sortType?: SortType;
 }
 
-export interface FilterProductParams extends BaseFilterParams, FilterSortParams {
+export interface PropertiesProductFilter {
+  sizeIds?: string;
+  colorIds?: string;
+  fromPrice?: number;
+  toPrice?: number;
+  stock?: boolean;
+  hasSale?: boolean;
+}
+
+export interface FilterProductParams extends BaseFilterParams,
+  FilterSortParams, PropertiesProductFilter {
   categoryIds?: string;
   featured?: boolean;
   isBestSeller?: boolean;

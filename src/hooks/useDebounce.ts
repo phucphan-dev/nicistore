@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 
-const useDebounce = (callback: Function, timeout: number, deps: Array<string>): void => {
+const useDebounce = (callback: Function, timeout: number, deps: Array<any>): void => {
   const timeoutId = useRef<number | null>();
 
   useEffect(() => {

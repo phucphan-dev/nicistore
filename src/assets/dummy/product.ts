@@ -4,6 +4,7 @@ import nc000001 from 'assets/images/NC000001.jpg';
 import nc000002 from 'assets/images/NC000002.jpg';
 
 const productDummy = {
+  id: 1,
   code: 'test',
   images: [nc000001, nc000002],
   name: 'Basic Colored Sweatpants With Elastic Hems',

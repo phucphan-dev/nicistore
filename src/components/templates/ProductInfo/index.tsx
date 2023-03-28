@@ -1,8 +1,12 @@
 /* eslint-disable react/no-danger */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  useEffect, useMemo, useRef, useState
+} from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { useMutation } from 'react-query';
 import ReactSlick from 'react-slick';
+import { toast } from 'react-toastify';
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 
 import Button from 'components/atoms/Button';
@@ -18,7 +22,21 @@ import StarCount from 'components/molecules/StarCount';
 import Carousel, { NextArrow, PrevArrow } from 'components/organisms/Carousel';
 import ImagePreview from 'components/organisms/ImagePreview';
 import useWindowDimensions from 'hooks/useWindowDemensions';
+import { addToCartService } from 'services/cart';
 import mapModifiers from 'utils/functions';
+
+type Color = {
+  id: number;
+  label: string;
+  color: string;
+};
+
+type ColorWithSize = {
+  [key: string]: {
+    color: Color;
+    size: ProductProperty[]
+  }
+};
 
 const settings = {
   dots: false,
@@ -32,6 +50,7 @@ const settings = {
 };
 
 const ProductInfo: React.FC<ProductInfo> = ({
+  id,
   code,
   images,
   name,
@@ -41,8 +60,7 @@ const ProductInfo: React.FC<ProductInfo> = ({
   unit,
   starCount,
   reviewCount,
-  colors,
-  sizes,
+  colorSize,
   sku,
   categories,
   tags,
@@ -51,8 +69,72 @@ const ProductInfo: React.FC<ProductInfo> = ({
   const carouselRef = useRef<ReactSlick>(null);
   const [active, setActive] = useState(0);
   const [zoom, setZoom] = useState(false);
-  const [color, setColor] = useState(colors ? colors[0].label : '');
-  const [size, setSize] = useState(sizes ? sizes[0].label : '');
+  const [color, setColor] = useState<Color>();
+  const [size, setSize] = useState<ProductProperty>();
+  const [quantity, setQuantity] = useState(1);
+
+  const colorWithSize: ColorWithSize | undefined = useMemo(() => (colorSize && colorSize.length > 0
+    ? colorSize.reduce((prev: any, curr) => ({
+      ...prev,
+      [curr.color.id.toString()]: prev[curr.color.id] ? {
+        ...prev[curr.color.id],
+        size: [...prev[curr.color.id].size, curr.size]
+      }
+        : {
+          color: {
+            id: curr.color.id,
+            label: curr.color.name,
+            color: curr.color.code
+          },
+          size: [curr.size]
+        }
+    }), {}) : undefined), [colorSize]);
+
+  const sizeMemo: ProductProperty[] = useMemo(
+    () => (
+      color && colorWithSize ? colorWithSize[color.id.toString()].size : []),
+    [color, colorWithSize]
+  );
+
+  const { mutate: addToCartMutate, isLoading } = useMutation(
+    'addToCartAction',
+    addToCartService,
+    {
+      onSuccess: () => {
+        toast.success('Thêm vào giỏ thành công!', { toastId: 'addToCartSuccess' });
+      },
+      onError: () => {
+        toast.error('Đã có lỗi xảy ra!', { toastId: 'loginFail' });
+      }
+    }
+  );
+
+  const handleAddToCart = () => {
+    if (!color) {
+      toast.error('Vui lòng chọn màu sắc', { toastId: 'selectColor' });
+    } else if (!size) {
+      toast.error('Vui lòng chọn kích thước', { toastId: 'selectColor' });
+    } else if (quantity < 1) {
+      toast.error('Số lượng phải lớn hơn 0', { toastId: 'selectColor' });
+    } else {
+      addToCartMutate([{
+        productId: id, sizeId: size.id, colorId: color.id, quantity
+      }]);
+    }
+  };
+
+  useEffect(() => {
+    if (color && colorWithSize) {
+      setSize(colorWithSize[color.id.toString()].size[0]);
+    }
+  }, [color, colorWithSize]);
+
+  useEffect(() => {
+    if (colorWithSize) {
+      setColor(colorWithSize[Object.keys(colorWithSize)[0]].color);
+    }
+  }, [colorWithSize]);
+
   useEffect(() => {
     carouselRef.current?.slickGoTo(active);
   }, [active]);
@@ -92,54 +174,57 @@ const ProductInfo: React.FC<ProductInfo> = ({
             <PriceSale unit={unit} price={price} promo={promo} />
           </div>
           <div className="t-productInfo_description" dangerouslySetInnerHTML={{ __html: description }} />
-          {colors && (
-            <div className="t-productInfo_colors">
-              <Typography.Text modifiers={['14x16', '400']}>
-                Màu sắc:
-                {' '}
-                {color}
-              </Typography.Text>
-              <div className="t-productInfo_colors_list">
-                {colors.map((item) => (
-                  <div className="t-productInfo_color" key={item.code}>
-                    <ColorSelect
-                      name={`${code}color`}
-                      checked={color === item.label}
-                      type="radio"
-                      color={item.color}
-                      onChange={() => setColor(item.label)}
-                    />
-                  </div>
-                ))}
+          {colorWithSize && (
+            <>
+              <div className="t-productInfo_colors">
+                <Typography.Text modifiers={['14x16', '400']}>
+                  Màu sắc:
+                  {' '}
+                  <strong>{color?.label}</strong>
+                </Typography.Text>
+                <div className="t-productInfo_colors_list">
+                  {Object.keys(colorWithSize).map((key) => {
+                    const item = colorWithSize[key];
+                    return (
+                      <div className="t-productInfo_color" key={`${item.color.id}-${item.color.color}`}>
+                        <ColorSelect
+                          name={`${code}color`}
+                          checked={color?.id === item.color.id}
+                          type="radio"
+                          color={item.color.color}
+                          onChange={() => setColor(item.color)}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          )}
-          {sizes && (
-            <div className="t-productInfo_sizes">
-              <Typography.Text modifiers={['14x16', '400']}>
-                Kích thước:
-                {' '}
-                {size}
-              </Typography.Text>
-              <div className="t-productInfo_sizes_list">
-                {sizes.map((item) => (
-                  <div className="t-productInfo_size" key={item.code}>
-                    <SizeSelect
-                      name={`${code}size`}
-                      type="radio"
-                      checked={size === item.label}
-                      sizeName={item.label}
-                      onChange={() => setSize(item.label)}
-                    />
-                  </div>
-                ))}
+              <div className="t-productInfo_sizes">
+                <Typography.Text modifiers={['14x16', '400']}>
+                  Kích thước:
+                  {' '}
+                  {size?.name}
+                </Typography.Text>
+                <div className="t-productInfo_sizes_list">
+                  {sizeMemo.map((item) => (
+                    <div className="t-productInfo_size" key={item.code}>
+                      <SizeSelect
+                        name={`${code}size`}
+                        type="radio"
+                        checked={size?.id === item.id}
+                        sizeName={item.name}
+                        onChange={() => setSize(item)}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            </>
           )}
           <div className="t-productInfo_quantity">
-            <QuantityInput initQuantity={1} />
+            <QuantityInput initQuantity={quantity} handleChange={(value) => setQuantity(value)} />
             <div className="t-productInfo_addTo">
-              <Button variant="dark" sizes="h48">Thêm vào giỏ hàng</Button>
+              <Button variant="dark" sizes="h48" handleClick={handleAddToCart} loading={isLoading}>Thêm vào giỏ hàng</Button>
             </div>
           </div>
           <div className="t-productInfo_controls">
