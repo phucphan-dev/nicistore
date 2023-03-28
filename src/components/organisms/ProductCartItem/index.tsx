@@ -40,7 +40,7 @@ const ProductCartItem: React.FC<ProductCartItemProps> = ({
       </div>
     </div>
     <div className="o-productCartItem_remove">
-      <Icon iconName="closeWhite" size="6" />
+      <Icon iconName="closeWhite" size="8" />
     </div>
   </div>
 );

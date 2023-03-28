@@ -23,6 +23,8 @@ import Carousel, { NextArrow, PrevArrow } from 'components/organisms/Carousel';
 import ImagePreview from 'components/organisms/ImagePreview';
 import useWindowDimensions from 'hooks/useWindowDemensions';
 import { addToCartService } from 'services/cart';
+import { useAppSelector } from 'store/hooks';
+import { LOCALSTORAGE } from 'utils/constants';
 import mapModifiers from 'utils/functions';
 
 type Color = {
@@ -51,6 +53,7 @@ const settings = {
 
 const ProductInfo: React.FC<ProductInfo> = ({
   id,
+  slug,
   code,
   images,
   name,
@@ -65,6 +68,7 @@ const ProductInfo: React.FC<ProductInfo> = ({
   categories,
   tags,
 }) => {
+  const profile = useAppSelector((state) => state.auth.profile);
   const { width: wWidth, height: wHeight } = useWindowDimensions();
   const carouselRef = useRef<ReactSlick>(null);
   const [active, setActive] = useState(0);
@@ -116,10 +120,22 @@ const ProductInfo: React.FC<ProductInfo> = ({
       toast.error('Vui lòng chọn kích thước', { toastId: 'selectColor' });
     } else if (quantity < 1) {
       toast.error('Số lượng phải lớn hơn 0', { toastId: 'selectColor' });
-    } else {
+    } else if (profile) {
       addToCartMutate([{
         productId: id, sizeId: size.id, colorId: color.id, quantity
       }]);
+    } else {
+      const cartLocal = localStorage.getItem(LOCALSTORAGE.NICI_CART);
+      const cartData = cartLocal ? JSON.parse(cartLocal) as CartItem[] : [];
+      localStorage.setItem(LOCALSTORAGE.NICI_CART, JSON.stringify([...cartData, {
+        image: images[0],
+        link: slug,
+        name,
+        color: { id: color.id, name: color.label, code: color.color },
+        size,
+        quantity,
+        price
+      }]));
     }
   };
 
