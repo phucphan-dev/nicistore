@@ -69,7 +69,7 @@ const Authenticate: React.FC = () => {
   };
 
   /* REGISTER */
-  const registerMethod = useForm<RegisterDataRequest & { verify_code: string }>({
+  const registerMethod = useForm<RegisterDataRequest & { verifyCode: string }>({
     resolver: yupResolver(registerSchema),
   });
 
@@ -114,13 +114,13 @@ const Authenticate: React.FC = () => {
   );
 
   const registerAction = useCallback(async (
-    data: RegisterDataRequest & { verify_code: string }
+    data: RegisterDataRequest & { verifyCode: string }
   ) => {
     if (verified) {
-      if (!data.verify_code) {
-        registerMethod.setError('verify_code', { message: 'Vui lòng nhập mã xác thực' });
+      if (!data.verifyCode) {
+        registerMethod.setError('verifyCode', { message: 'Vui lòng nhập mã xác thực' });
       }
-      verifyEmailMutate(data.verify_code);
+      verifyEmailMutate(data.verifyCode);
     } else {
       registerMutate(data);
     }
@@ -222,13 +222,13 @@ const Authenticate: React.FC = () => {
                     </Typography.Text>
                   </div>
                   <Controller
-                    name="verify_code"
+                    name="verifyCode"
                     control={registerMethod.control}
                     render={({
                       field: { onChange, value },
                       fieldState: { error },
                     }) => (
-                      <Input prefix="NICI-" required label="Mã xác thực" type="number" value={value} bordered onChange={onChange} error={error?.message} />
+                      <Input prefix="NICI-" required label="Mã xác thực" type="text" value={value} bordered onChange={onChange} error={error?.message} />
                     )}
                   />
                 </div>
