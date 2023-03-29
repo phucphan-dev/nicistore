@@ -52,6 +52,8 @@ interface ProductInfo {
 }
 
 interface CartItem {
+  id: number;
+  productId: number;
   image: string;
   link: string;
   name: string;

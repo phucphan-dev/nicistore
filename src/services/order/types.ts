@@ -27,4 +27,26 @@ export interface OrderData {
     salePercent: number
     finalPrice: number
   }[]
+  totalPrice: number
+  totalFinalPrice: number
+}
+
+interface OrderProductItem {
+  productId: number
+  sizeId: number
+  colorId: number
+  quantity: number
+}
+
+export interface CreateOrderDataRequest {
+  shippingAddressId: number
+  cityId: number
+  districtId: number
+  wardId: number
+  address: string
+  name: string
+  phone: string
+  email: string
+  note: string
+  items: OrderProductItem[]
 }

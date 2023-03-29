@@ -27,6 +27,7 @@ export const iconList = {
   gmail: 'gmail',
   edit: 'edit',
   delete: 'delete',
+  location: 'location',
 };
 
 export type IconName = keyof typeof iconList;

@@ -128,6 +128,8 @@ const ProductInfo: React.FC<ProductInfo> = ({
       const cartLocal = localStorage.getItem(LOCALSTORAGE.NICI_CART);
       const cartData = cartLocal ? JSON.parse(cartLocal) as CartItem[] : [];
       localStorage.setItem(LOCALSTORAGE.NICI_CART, JSON.stringify([...cartData, {
+        id: Number(cartData[cartData.length - 1].id) + 1,
+        productId: id,
         image: images[0],
         link: slug,
         name,

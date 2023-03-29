@@ -29,15 +29,12 @@ const MainLayout: React.FC = () => {
       document.documentElement.style.overflow = 'unset';
     }
   }, [openSearch]);
-  const menus = useMemo(() => [{
-    id: 'home',
-    text: 'Trang chủ',
-    link: '/',
-  }, ...groupMenusFromCategories(categories), {
-    id: 'contact',
-    text: 'Liên hệ',
-    link: '/#/contact',
-  }], [categories]);
+  const menus = useMemo(() => [
+    ...groupMenusFromCategories(categories), {
+      id: 'contact',
+      text: 'Liên hệ',
+      link: '/#/contact',
+    }], [categories]);
   return (
     <main id="main">
       {loading && <Loading isShow variant="fullScreen" isFill />}

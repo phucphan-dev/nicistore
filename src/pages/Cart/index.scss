@@ -4,6 +4,7 @@
         padding: rem(12) rem(16);
 
         &.price {
+            white-space: nowrap;
             @include mobile-down {
                 display: none;
             }
@@ -12,6 +13,10 @@
 
     &_th {
         opacity: 0.4;
+
+        &.checkAll {
+            opacity: 1;
+        }
     }
 
     &_td {

@@ -18,7 +18,7 @@ import {
 } from 'services/shippingAddress';
 import { ShippingAddressData, ShippingAddressDataRequest } from 'services/shippingAddress/types';
 import { ERROR_MAPPING } from 'utils/constants';
-import { scrollToTop } from 'utils/functions';
+import mapModifiers, { scrollToTop } from 'utils/functions';
 import { shippingAddressSchema } from 'utils/schemas';
 
 type Props = {
@@ -245,9 +245,10 @@ const ShippingAddress: React.FC<Props> = ({ defaultValues, handleSuccess, handle
   );
 };
 
-const ShippingAddressList: React.FC = () => {
+const ShippingAddressList: React.FC<{ isModal?: boolean }> = ({ isModal }) => {
   const [showForm, setShowForm] = useState(false);
   const [editData, setEditData] = useState<ShippingAddressData>();
+  const [select, setSelect] = useState<number>();
   const {
     mutate: getAllAddressMutate, data: shippingAddress,
     isLoading: getAllLoading
@@ -292,7 +293,7 @@ const ShippingAddressList: React.FC = () => {
           <div className="p-account_shipping_list">
             {getAllLoading && <Loading isShow />}
             {shippingAddress?.data.map((item) => (
-              <div className="p-account_shipping_item" key={item.id}>
+              <div className={mapModifiers('p-account_shipping_item', select === item.id && 'active')} key={item.id} onClick={() => isModal && setSelect(item.id)}>
                 <div className="p-account_shipping_wrapper">
                   <Typography.Text>
                     Tên:
@@ -354,12 +355,21 @@ const ShippingAddressList: React.FC = () => {
           </div>
           <div className="p-account_shipping_button">
             <Button
-              variant="primary"
+              variant={isModal ? 'secondary' : 'primary'}
               sizes="h42"
               handleClick={() => setShowForm(true)}
             >
               <Typography.Text modifiers={['15x18']}>Thêm mới</Typography.Text>
             </Button>
+            {isModal && (
+              <Button
+                variant="primary"
+                sizes="h42"
+                handleClick={() => setShowForm(true)}
+              >
+                <Typography.Text modifiers={['15x18']}>Chọn</Typography.Text>
+              </Button>
+            )}
           </div>
         </>
       )}

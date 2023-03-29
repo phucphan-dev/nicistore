@@ -7,7 +7,9 @@ import Select from 'components/atoms/Select';
 import TextArea from 'components/atoms/TextArea';
 import Typography from 'components/atoms/Typography';
 import Container from 'components/organisms/Container';
+import CustomModal from 'components/organisms/Modal';
 import Section from 'components/organisms/Section';
+import ShippingAddressList from 'pages/Account/ShippingAddress';
 
 const Checkout: React.FC = () => (
   <Section>
@@ -15,33 +17,33 @@ const Checkout: React.FC = () => (
       <Container>
         <Row>
           <Col lg={8} className="p-checkout_address">
-            <Typography.Heading type="h3" modifiers={['18x21']}>Billing details</Typography.Heading>
-            <div className="p-checkout_line">
-              <Input required label="First name" bordered />
+            <div className="p-checkout_address_title">
+              <Typography.Heading type="h3" modifiers={['18x21']}>Địa chỉ giao hàng</Typography.Heading>
+              <Button iconName="location" iconSize="20"><Typography.Text modifiers={['16x18', '500']}>Chọn địa chỉ đã lưu</Typography.Text></Button>
             </div>
             <div className="p-checkout_line">
-              <Input required label="Last name" bordered />
+              <Input required label="Họ và tên" bordered />
             </div>
             <div className="p-checkout_line">
-              <Select name="country" placeholder="Please select" required label="Country" options={[]} modifier={['bordered']} />
+              <Select name="city" placeholder="Vui lòng chọn" required label="Tỉnh / Thành Phố" options={[]} modifier={['bordered']} />
             </div>
             <div className="p-checkout_line">
-              <Select name="city" placeholder="Please select" required label="City" options={[]} modifier={['bordered']} />
+              <Select name="district" placeholder="Vui lòng chọn" required label="Quận / Huyện" options={[]} modifier={['bordered']} />
             </div>
             <div className="p-checkout_line">
-              <Select name="ward" placeholder="Please select" required label="Ward" options={[]} modifier={['bordered']} />
+              <Select name="ward" placeholder="Vui lòng chọn" required label="Phường / Xã" options={[]} modifier={['bordered']} />
             </div>
             <div className="p-checkout_line">
-              <Select name="address" placeholder="Please select" required label="Address" options={[]} modifier={['bordered']} />
+              <Input required label="Địa chỉ" type="text" bordered />
             </div>
             <div className="p-checkout_line">
-              <Input required label="Phone" bordered />
+              <Input required label="Số điện thoại" bordered />
             </div>
             <div className="p-checkout_line">
               <Input required label="Email" bordered />
             </div>
             <div className="p-checkout_line">
-              <TextArea label="Note" rows={6} />
+              <TextArea label="Ghi chú" rows={6} />
             </div>
           </Col>
           <Col lg={4} className="p-checkout_info">
@@ -141,6 +143,9 @@ const Checkout: React.FC = () => (
         </Row>
       </Container>
     </div>
+    <CustomModal isOpen variant="shipping" showIconClose>
+      <ShippingAddressList isModal />
+    </CustomModal>
   </Section>
 );
 

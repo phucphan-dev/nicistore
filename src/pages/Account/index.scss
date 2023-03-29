@@ -57,6 +57,12 @@
             flex: 50%;
             padding: rem(8);
             max-width: 50%;
+
+            &-active {
+                .p-account_shipping_wrapper {
+                    border: 1px solid $carmine-pink;
+                }
+            }
         }
 
         &_wrapper {
@@ -72,7 +78,11 @@
 
         &_button {
             margin-top: rem(16);
-            max-width: rem(120);
+
+            .a-button {
+                max-width: rem(120);
+                margin-right: rem(16);
+            }
         }
 
         &_edit {

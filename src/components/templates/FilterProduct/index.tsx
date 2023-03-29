@@ -49,7 +49,7 @@ const FilterProduct: React.FC<FilterProductProps> = ({
             label="Giá"
             unit="VND"
             minValue={0}
-            maxValue={2000000}
+            maxValue={1000000}
             handleFilter={(value) => setFilter(
               { ...filter, fromPrice: value.min, toPrice: value.max }
             )}

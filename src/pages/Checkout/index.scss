@@ -1,4 +1,16 @@
 .p-checkout {
+    &_address {
+        &_title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            button {
+                width: auto;
+            }
+        }
+    }
+
     &_line {
         margin-top: rem(16);
     }

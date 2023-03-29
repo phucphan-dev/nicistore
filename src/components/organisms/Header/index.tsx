@@ -9,6 +9,7 @@ import Button from 'components/atoms/Button';
 import Image from 'components/atoms/Image';
 import Link from 'components/atoms/Link';
 import Typography from 'components/atoms/Typography';
+import { useAppSelector } from 'store/hooks';
 import mapModifiers from 'utils/functions';
 
 interface HeaderProps {
@@ -19,6 +20,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ menus, handleSearch }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const cartDetail = useAppSelector((state) => state.cart);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -53,11 +55,10 @@ const Header: React.FC<HeaderProps> = ({ menus, handleSearch }) => {
               <Button iconName="search" iconSize="24" handleClick={handleSearch} />
             </div>
             <div className="o-header_right_button hide-mobile">
-              <Button iconName="love" iconSize="24" badge={1} />
+              <Button iconName="love" iconSize="24" badge={0} />
             </div>
             <div className="o-header_right_button">
-              <Typography.Text modifiers={['12x14', 'ashGrey']}>$190.00</Typography.Text>
-              <Button iconName="cart" iconSize="24" badge={2} handleClick={() => navigate('/cart')} />
+              <Button iconName="cart" iconSize="24" badge={cartDetail.items.length} handleClick={() => navigate('/cart')} />
             </div>
           </div>
         </div>

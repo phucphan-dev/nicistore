@@ -68,7 +68,9 @@ const orderDummy: OrderData = {
       salePercent: 10,
       finalPrice: 108000,
     }
-  ]
+  ],
+  totalPrice: 0,
+  totalFinalPrice: 0
 };
 
 export default orderDummy;

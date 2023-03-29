@@ -9,7 +9,7 @@ import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 import { sortOptionDummy } from 'assets/dummy/filters';
 import { featuredProducts } from 'assets/dummy/homepage';
 import Button from 'components/atoms/Button';
-import Image from 'components/atoms/Image';
+// import Image from 'components/atoms/Image';
 import Link from 'components/atoms/Link';
 import Loading from 'components/atoms/Loading';
 import Select from 'components/atoms/Select';
@@ -141,7 +141,7 @@ const Products: React.FC = () => {
           </Col>
           <Col lg={9}>
             <div className="p-products_content">
-              <div className="p-products_banner">
+              {/* <div className="p-products_banner">
                 <Image
                   imgSrc="https://k4j3j2s7.rocketcdn.me/clotya/wp-content/uploads/2022/05/banner-26.jpg"
                   alt="Product Banner"
@@ -157,7 +157,7 @@ const Products: React.FC = () => {
                     </Typography.Text>
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div className="p-products_controls">
                 <div className="p-products_controls-left">
                   <Button iconName="filter" iconSize="24" handleClick={() => setOpen(true)}>

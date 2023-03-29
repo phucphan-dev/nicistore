@@ -11,10 +11,11 @@ interface ProductCartItemProps {
   href: string;
   color?: string;
   size?: string;
+  handleDelete?: () => void;
 }
 
 const ProductCartItem: React.FC<ProductCartItemProps> = ({
-  image, name, href, color, size
+  image, name, href, color, size, handleDelete
 }) => (
   <div className="o-productCartItem">
     <div className="o-productCartItem_image">
@@ -39,7 +40,7 @@ const ProductCartItem: React.FC<ProductCartItemProps> = ({
         )}
       </div>
     </div>
-    <div className="o-productCartItem_remove">
+    <div className="o-productCartItem_remove" onClick={handleDelete}>
       <Icon iconName="closeWhite" size="8" />
     </div>
   </div>
