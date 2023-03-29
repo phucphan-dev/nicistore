@@ -8,6 +8,7 @@ import Breadcrumb from 'components/molecules/Breadcrumb';
 import Container from 'components/organisms/Container';
 import Tabs from 'components/organisms/Tabs';
 import FooterProduct from 'components/templates/FooterProduct';
+// eslint-disable-next-line import/no-named-as-default
 import ProductInfo from 'components/templates/ProductInfo';
 import { getProductDetailService } from 'services/product';
 

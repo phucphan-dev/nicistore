@@ -42,7 +42,7 @@ const Button: React.FC<ButtonProps> = ({
             iconName && (
               <div className="a-button_icon">
                 <Icon iconName={iconName} size={iconSize} />
-                {badge && <span className="a-button_badge">{badge}</span>}
+                {!!badge && badge > 0 && <span className="a-button_badge">{badge}</span>}
               </div>
             )
           }

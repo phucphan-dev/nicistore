@@ -14,10 +14,11 @@ import Typography from 'components/atoms/Typography';
 import Section from 'components/organisms/Section';
 import { loginService, registerService, registerVerifyEmailService } from 'services/authenticate';
 import { LoginDataRequest, RegisterDataRequest } from 'services/authenticate/types';
+import { addToCartService } from 'services/cart';
 import { setAccessToken, setRefreshToken } from 'services/common/storage';
 import { getProfileAction } from 'store/authenticate';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { ERROR_MAPPING } from 'utils/constants';
+import { ERROR_MAPPING, LOCALSTORAGE } from 'utils/constants';
 import mapModifiers from 'utils/functions';
 import { loginSchema, registerSchema } from 'utils/schemas';
 
@@ -33,6 +34,19 @@ const Authenticate: React.FC = () => {
     resolver: yupResolver(loginSchema),
   });
 
+  const { mutate: addToCartMutate, isLoading: syncCartLoading } = useMutation(
+    'syncToCartAction',
+    addToCartService,
+    {
+      onSuccess: () => {
+        localStorage.removeItem(LOCALSTORAGE.NICI_CART);
+      },
+      onSettled: () => {
+        navigate('/');
+      }
+    }
+  );
+
   const { mutate: loginMutate, isLoading: loginLoading } = useMutation(
     'loginAction',
     loginService,
@@ -42,7 +56,18 @@ const Authenticate: React.FC = () => {
         setAccessToken(data.accessToken);
         setRefreshToken(data.refreshToken);
         dispatch(getProfileAction());
-        navigate('/');
+        const cartLocal = localStorage.getItem(LOCALSTORAGE.NICI_CART);
+        const cartData = cartLocal ? JSON.parse(cartLocal) as CartItem[] : [];
+        if (cartData.length > 0) {
+          addToCartMutate(cartData.map((item) => ({
+            productId: item.productId,
+            sizeId: item.size.id,
+            colorId: item.color.id,
+            quantity: item.quantity
+          })));
+        } else {
+          navigate('/');
+        }
       },
       onError: (errors: any) => {
         if (errors.length > 0) {
@@ -199,7 +224,7 @@ const Authenticate: React.FC = () => {
               <Checkbox name="isRemember">Ghi nhớ</Checkbox>
             </div> */}
               <div className="p-authenticate_button">
-                <Button type="submit" variant="primary" loading={loginLoading} sizes="h42" handleClick={loginMethod.handleSubmit(loginAction)}>
+                <Button type="submit" variant="primary" loading={loginLoading || syncCartLoading} sizes="h42" handleClick={loginMethod.handleSubmit(loginAction)}>
                   <Typography.Text modifiers={['15x18', '500', 'uppercase']}>Đăng nhập</Typography.Text>
                 </Button>
               </div>

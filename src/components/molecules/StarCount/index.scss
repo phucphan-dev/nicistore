@@ -1,12 +1,4 @@
 .m-starCount {
     display: flex;
     margin-right: rem(8);
-
-    * {
-        margin-left: rem(4);
-
-        &:first-child {
-            margin-left: 0;
-        }
-    }
 }

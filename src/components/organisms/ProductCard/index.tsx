@@ -95,14 +95,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <div className="o-productCard_content_switcher">
           {starCount && <StarCount count={starCount} />}
           {reviewCount && (
-            <Typography.Text modifiers={['16x18']}>
+            <Typography.Text modifiers={['12x14']}>
               {reviewCount}
               {' '}
               review
             </Typography.Text>
           )}
         </div>
-        {available && solded && (
+        {!!available && !!solded && (
           <>
             <div className="o-productCard_inventory_progress">
               <div

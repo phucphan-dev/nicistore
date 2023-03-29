@@ -34,7 +34,8 @@ type ColorStyle =
   | 'sonicSilver'
   | 'ferrariRed'
   | 'black3'
-  | 'cadetGrey';
+  | 'cadetGrey'
+  | 'mayGreen';
 
 type LetterSpacing = 'ls-md' | 'ls-lg' | 'ls-xl';
 

@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import Button from 'components/atoms/Button';
 import mapModifiers from 'utils/functions';
 
-export type VariantModal = 'default' | 'notification' | 'maxWith428';
+export type VariantModal = 'default' | 'notification' | 'maxWith428' | 'shipping';
 
 interface ModalProps {
   isOpen: boolean;
