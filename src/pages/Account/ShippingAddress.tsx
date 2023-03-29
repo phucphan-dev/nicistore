@@ -245,10 +245,17 @@ const ShippingAddress: React.FC<Props> = ({ defaultValues, handleSuccess, handle
   );
 };
 
-const ShippingAddressList: React.FC<{ isModal?: boolean }> = ({ isModal }) => {
+type ShippingAddressListProps = {
+  isModal?: boolean;
+  handleSelectAddress?: (data: ShippingAddressData) => void
+};
+
+const ShippingAddressList: React.FC<ShippingAddressListProps> = (
+  { isModal, handleSelectAddress }
+) => {
   const [showForm, setShowForm] = useState(false);
   const [editData, setEditData] = useState<ShippingAddressData>();
-  const [select, setSelect] = useState<number>();
+  const [select, setSelect] = useState<number>(-1);
   const {
     mutate: getAllAddressMutate, data: shippingAddress,
     isLoading: getAllLoading
@@ -292,8 +299,12 @@ const ShippingAddressList: React.FC<{ isModal?: boolean }> = ({ isModal }) => {
         <>
           <div className="p-account_shipping_list">
             {getAllLoading && <Loading isShow />}
-            {shippingAddress?.data.map((item) => (
-              <div className={mapModifiers('p-account_shipping_item', select === item.id && 'active')} key={item.id} onClick={() => isModal && setSelect(item.id)}>
+            {shippingAddress?.data.map((item, idx) => (
+              <div
+                className={mapModifiers('p-account_shipping_item', select === idx && 'active')}
+                key={item.id}
+                onClick={() => isModal && setSelect(idx)}
+              >
                 <div className="p-account_shipping_wrapper">
                   <Typography.Text>
                     Tên:
@@ -365,7 +376,8 @@ const ShippingAddressList: React.FC<{ isModal?: boolean }> = ({ isModal }) => {
               <Button
                 variant="primary"
                 sizes="h42"
-                handleClick={() => setShowForm(true)}
+                handleClick={() => handleSelectAddress && shippingAddress && select > -1
+                  && handleSelectAddress(shippingAddress.data[select])}
               >
                 <Typography.Text modifiers={['15x18']}>Chọn</Typography.Text>
               </Button>

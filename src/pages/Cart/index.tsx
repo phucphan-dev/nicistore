@@ -95,107 +95,111 @@ const Cart: React.FC = () => {
     <Section>
       <div className="p-cart">
         <Container>
-          <Row>
-            <Col lg={8}>
-              <table className="p-cart_table">
-                <tr className="p-cart_t">
-                  <th>
-                    <div className="p-cart_th checkAll">
-                      <Checkbox
-                        name="checkAll"
-                        checked={checkList.length === cartDetail.length}
-                        onChange={(e) => (e.currentTarget.checked
-                          ? setCheckList(cartDetail.map((item) => item.id)) : setCheckList([]))}
-                      />
-                    </div>
+          {cartDetail.length === 0
+            ? <Typography.Text modifiers={['center']}>Không có sản phẩm nào trong giỏ hàng</Typography.Text>
+            : (
+              <Row>
+                <Col lg={8}>
+                  <table className="p-cart_table">
+                    <tr className="p-cart_t">
+                      <th>
+                        <div className="p-cart_th checkAll">
+                          <Checkbox
+                            name="checkAll"
+                            checked={checkList.length === cartDetail.length}
+                            onChange={(e) => (e.currentTarget.checked
+                              ? setCheckList(cartDetail.map((item) => item.id)) : setCheckList([]))}
+                          />
+                        </div>
 
-                  </th>
-                  <th><div className="p-cart_th"><Typography.Text>Product</Typography.Text></div></th>
-                  <th><div className="p-cart_th price"><Typography.Text>Price</Typography.Text></div></th>
-                  <th><div className="p-cart_th"><Typography.Text>Quantity</Typography.Text></div></th>
-                  <th><div className="p-cart_th"><Typography.Text>Subtotal</Typography.Text></div></th>
-                </tr>
-                {cartDetail.map((item) => (
-                  <tr className="p-cart_t" key={item.name + item.link}>
-                    <td>
-                      <div className="p-cart_td">
-                        <Checkbox
-                          name={String(item.id)}
-                          checked={checkList.includes(item.id)}
-                          onChange={(e) => handleSelectItem(item.id, e.currentTarget.checked)}
-                        />
-                      </div>
-                    </td>
-                    <td>
-                      <div className="p-cart_td">
-                        <ProductCartItem
-                          image={item.image}
-                          href={item.link}
-                          name={item.name}
-                          color={item.color.name}
-                          size={item.size.name}
-                          handleDelete={() => handleDelete(item.id)}
-                        />
-                      </div>
-                    </td>
-                    <td>
-                      <div className="p-cart_td price">
-                        <Typography.Text>
-                          {renderPrice(item.price, true, 'VNĐ')}
-                        </Typography.Text>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="p-cart_td">
-                        <QuantityInput
-                          initQuantity={item.quantity}
-                          handleChange={(value) => handleChangeQuantity(item, value)}
-                        />
-                      </div>
-                    </td>
-                    <td>
-                      <div className="p-cart_td price">
-                        <Typography.Text>
-                          {renderPrice(item.price, true, 'VNĐ')}
-                        </Typography.Text>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </table>
-              <div className="p-cart_coupon">
-                <div className="p-cart_coupon_input">
-                  <Input placeholder="Coupon Code" bordered />
-                </div>
-                <div className="p-cart_coupon_button">
-                  <Button variant="secondary" sizes="h42">Sử dụng mã giảm giá</Button>
-                </div>
-              </div>
-            </Col>
-            <Col lg={4}>
-              <div className="p-cart_total">
-                <Typography.Heading type="h2" modifiers={['16x18', '400']}>Thông tin giỏ hàng</Typography.Heading>
-                <div className="p-cart_divider" />
-                <div className="p-cart_line">
-                  <Typography.Text modifiers={['14x16', '400']}>Tổng sản phẩm</Typography.Text>
-                  <Typography.Text modifiers={['14x16', '400']}>{renderPrice(totalCost, true, 'VNĐ')}</Typography.Text>
-                </div>
-                <div className="p-cart_divider" />
-                <div className="p-cart_line">
-                  <Typography.Text modifiers={['14x16', '400']}>Giảm giá</Typography.Text>
-                  <Typography.Text modifiers={['14x16', '400']}>0 VNĐ</Typography.Text>
-                </div>
-                <div className="p-cart_divider" />
-                <div className="p-cart_line">
-                  <Typography.Text modifiers={['16x18', '700']}>Tổng đơn hàng</Typography.Text>
-                  <Typography.Text modifiers={['20x24', '700']}>{renderPrice(totalCost, true, 'VNĐ')}</Typography.Text>
-                </div>
-                <div className="p-cart_total_button">
-                  <Button variant="primary" sizes="h48" disabled={checkList.length === 0} handleClick={processCheckout}>Tiến hành đặt hàng</Button>
-                </div>
-              </div>
-            </Col>
-          </Row>
+                      </th>
+                      <th><div className="p-cart_th"><Typography.Text>Product</Typography.Text></div></th>
+                      <th><div className="p-cart_th price"><Typography.Text>Price</Typography.Text></div></th>
+                      <th><div className="p-cart_th"><Typography.Text>Quantity</Typography.Text></div></th>
+                      <th><div className="p-cart_th"><Typography.Text>Subtotal</Typography.Text></div></th>
+                    </tr>
+                    {cartDetail.map((item) => (
+                      <tr className="p-cart_t" key={item.name + item.link}>
+                        <td>
+                          <div className="p-cart_td">
+                            <Checkbox
+                              name={String(item.id)}
+                              checked={checkList.includes(item.id)}
+                              onChange={(e) => handleSelectItem(item.id, e.currentTarget.checked)}
+                            />
+                          </div>
+                        </td>
+                        <td>
+                          <div className="p-cart_td">
+                            <ProductCartItem
+                              image={item.image}
+                              href={item.link}
+                              name={item.name}
+                              color={item.color.name}
+                              size={item.size.name}
+                              handleDelete={() => handleDelete(item.id)}
+                            />
+                          </div>
+                        </td>
+                        <td>
+                          <div className="p-cart_td price">
+                            <Typography.Text>
+                              {renderPrice(item.price, true, 'VNĐ')}
+                            </Typography.Text>
+                          </div>
+                        </td>
+                        <td>
+                          <div className="p-cart_td">
+                            <QuantityInput
+                              initQuantity={item.quantity}
+                              handleChange={(value) => handleChangeQuantity(item, value)}
+                            />
+                          </div>
+                        </td>
+                        <td>
+                          <div className="p-cart_td price">
+                            <Typography.Text>
+                              {renderPrice(item.price, true, 'VNĐ')}
+                            </Typography.Text>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </table>
+                  <div className="p-cart_coupon">
+                    <div className="p-cart_coupon_input">
+                      <Input placeholder="Coupon Code" bordered />
+                    </div>
+                    <div className="p-cart_coupon_button">
+                      <Button variant="secondary" sizes="h42">Sử dụng mã giảm giá</Button>
+                    </div>
+                  </div>
+                </Col>
+                <Col lg={4}>
+                  <div className="p-cart_total">
+                    <Typography.Heading type="h2" modifiers={['16x18', '400']}>Thông tin giỏ hàng</Typography.Heading>
+                    <div className="p-cart_divider" />
+                    <div className="p-cart_line">
+                      <Typography.Text modifiers={['14x16', '400']}>Tổng sản phẩm</Typography.Text>
+                      <Typography.Text modifiers={['14x16', '400']}>{renderPrice(totalCost, true, 'VNĐ')}</Typography.Text>
+                    </div>
+                    <div className="p-cart_divider" />
+                    <div className="p-cart_line">
+                      <Typography.Text modifiers={['14x16', '400']}>Giảm giá</Typography.Text>
+                      <Typography.Text modifiers={['14x16', '400']}>0 VNĐ</Typography.Text>
+                    </div>
+                    <div className="p-cart_divider" />
+                    <div className="p-cart_line">
+                      <Typography.Text modifiers={['16x18', '700']}>Tổng đơn hàng</Typography.Text>
+                      <Typography.Text modifiers={['20x24', '700']}>{renderPrice(totalCost, true, 'VNĐ')}</Typography.Text>
+                    </div>
+                    <div className="p-cart_total_button">
+                      <Button variant="primary" sizes="h48" disabled={checkList.length === 0} handleClick={processCheckout}>Tiến hành đặt hàng</Button>
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+            )}
         </Container>
       </div>
     </Section>

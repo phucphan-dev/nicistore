@@ -43,11 +43,109 @@
 
     &_button {
         margin-top: rem(60);
+
+        &.continue {
+            max-width: rem(240);
+            margin-left: auto;
+            margin-right: auto;
+        }
     }
 
     &_info {
         @include tablet-down {
             margin-top: rem(32);
         }
+    }
+
+    &_success {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: rem(24);
+
+        &-icon {
+            display: inline-block;
+            width: 8em;
+            height: 8em;
+            font-size: rem(16);
+            border-radius: 50%;
+            border: rem(8) solid lighten($may-green, 20%);
+            background-color: $white;
+            position: relative;
+            overflow: hidden;
+            transform-origin: center;
+            animation: showSuccess 1s ease-in-out;
+            animation-delay: 500;
+            transform: scale(1);
+
+            &_tip,
+            &_long {
+                display: block;
+                position: absolute;
+                height: 8px;
+                background-color: lighten($may-green, 20%);
+                border-radius: 10px;
+            }
+          
+            &_tip {
+                width: 4em;
+                top: 4.3em;
+                left: 1.4em;
+                transform: rotate(45deg);
+                animation: tipInPlace 0.5s ease-in-out;
+                animation-fill-mode: forwards;
+                animation-delay: 700;
+                visibility: hidden;
+            }
+          
+            &_long {
+                width: 4em;
+                transform: rotate(-45deg);
+                top: 3.7em;
+                left: 2.75em;
+                animation: longInPlace 0.5s ease-in-out;
+                animation-fill-mode: forwards;
+                visibility: hidden;
+                animation-delay: 800;
+            }
+        }   
+    }
+}
+@keyframes showSuccess {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+@keyframes tipInPlace {
+    from {
+        width: 0;
+        top: 0;
+        left: -1.6em;
+    }
+
+    to {
+        width: 2.4em;
+        top: 4.3em;
+        left: 1.4em;
+        visibility: visible;
+    }
+}
+  
+@keyframes longInPlace {
+    from {
+        width: 0;
+        top: 5.1em;
+        left: 3.2em;
+    }
+
+    to {
+        width: 4em;
+        top: 3.7em;
+        left: 2.75em;
+        visibility: visible;
     }
 }

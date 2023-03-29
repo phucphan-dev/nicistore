@@ -23,7 +23,8 @@ import Carousel, { NextArrow, PrevArrow } from 'components/organisms/Carousel';
 import ImagePreview from 'components/organisms/ImagePreview';
 import useWindowDimensions from 'hooks/useWindowDemensions';
 import { addToCartService } from 'services/cart';
-import { useAppSelector } from 'store/hooks';
+import { addToCart } from 'store/cart';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { LOCALSTORAGE } from 'utils/constants';
 import mapModifiers from 'utils/functions';
 
@@ -68,6 +69,7 @@ const ProductInfo: React.FC<ProductInfo> = ({
   categories,
   tags,
 }) => {
+  const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.auth.profile);
   const { width: wWidth, height: wHeight } = useWindowDimensions();
   const carouselRef = useRef<ReactSlick>(null);
@@ -120,15 +122,11 @@ const ProductInfo: React.FC<ProductInfo> = ({
       toast.error('Vui lòng chọn kích thước', { toastId: 'selectColor' });
     } else if (quantity < 1) {
       toast.error('Số lượng phải lớn hơn 0', { toastId: 'selectColor' });
-    } else if (profile) {
-      addToCartMutate([{
-        productId: id, sizeId: size.id, colorId: color.id, quantity
-      }]);
     } else {
       const cartLocal = localStorage.getItem(LOCALSTORAGE.NICI_CART);
       const cartData = cartLocal ? JSON.parse(cartLocal) as CartItem[] : [];
-      localStorage.setItem(LOCALSTORAGE.NICI_CART, JSON.stringify([...cartData, {
-        id: Number(cartData[cartData.length - 1].id) + 1,
+      dispatch(addToCart({
+        id: cartData.length > 0 ? Number(cartData[cartData.length - 1].id) + 1 : 1,
         productId: id,
         image: images[0],
         link: slug,
@@ -137,7 +135,24 @@ const ProductInfo: React.FC<ProductInfo> = ({
         size,
         quantity,
         price
-      }]));
+      }));
+      if (profile) {
+        addToCartMutate([{
+          productId: id, sizeId: size.id, colorId: color.id, quantity
+        }]);
+      } else {
+        localStorage.setItem(LOCALSTORAGE.NICI_CART, JSON.stringify([...cartData, {
+          id: cartData.length > 0 ? Number(cartData[cartData.length - 1].id) + 1 : 1,
+          productId: id,
+          image: images[0],
+          link: slug,
+          name,
+          color: { id: color.id, name: color.label, code: color.color },
+          size,
+          quantity,
+          price
+        }]));
+      }
     }
   };
 

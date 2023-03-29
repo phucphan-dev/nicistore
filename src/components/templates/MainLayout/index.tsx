@@ -33,7 +33,7 @@ const MainLayout: React.FC = () => {
     ...groupMenusFromCategories(categories), {
       id: 'contact',
       text: 'Liên hệ',
-      link: '/#/contact',
+      link: 'contact',
     }], [categories]);
   return (
     <main id="main">

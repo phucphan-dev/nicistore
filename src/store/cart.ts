@@ -34,6 +34,9 @@ export const cartSlice = createSlice({
     loadCartLocal: ($state, action: PayloadAction<CartItem[]>) => {
       $state.items = action.payload;
     },
+    addToCart: ($state, action: PayloadAction<CartItem>) => {
+      $state.items = [...$state.items, action.payload];
+    },
     updateItemCartLocal: ($state, action: PayloadAction<CartItem>) => {
       const findIndex = $state.items.findIndex((item) => item.id === action.payload.id);
       if (findIndex > -1) {
@@ -47,6 +50,11 @@ export const cartSlice = createSlice({
     },
     processCheckoutAction: ($state, action: PayloadAction<number[]>) => {
       $state.checkoutId = action.payload;
+    },
+    deleteCheckoutId: ($state) => {
+      const ids = $state.checkoutId;
+      $state.items = $state.items.filter((item) => !ids.includes(item.id));
+      $state.checkoutId = [];
     }
   },
   extraReducers(builder) {
@@ -67,6 +75,7 @@ export const cartSlice = createSlice({
   },
 });
 export const {
-  loadCartLocal, updateItemCartLocal, deleteItemCartLocal, processCheckoutAction
+  loadCartLocal, addToCart, updateItemCartLocal,
+  deleteItemCartLocal, processCheckoutAction, deleteCheckoutId
 } = cartSlice.actions;
 export default cartSlice.reducer;

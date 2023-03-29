@@ -39,7 +39,7 @@ interface OrderProductItem {
 }
 
 export interface CreateOrderDataRequest {
-  shippingAddressId: number
+  shippingAddressId?: number
   cityId: number
   districtId: number
   wardId: number
