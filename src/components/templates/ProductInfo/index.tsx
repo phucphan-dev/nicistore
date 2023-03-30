@@ -105,14 +105,6 @@ const ProductInfo: React.FC<ProductInfo> = ({
   const { mutate: addToCartMutate, isLoading } = useMutation(
     'addToCartAction',
     addToCartService,
-    {
-      onSuccess: () => {
-        toast.success('Thêm vào giỏ thành công!', { toastId: 'addToCartSuccess' });
-      },
-      onError: () => {
-        toast.error('Đã có lỗi xảy ra!', { toastId: 'loginFail' });
-      }
-    }
   );
 
   const handleAddToCart = () => {
@@ -136,22 +128,11 @@ const ProductInfo: React.FC<ProductInfo> = ({
         quantity,
         price
       }));
+      toast.success('Thêm vào giỏ thành công!', { toastId: 'addToCartSuccess' });
       if (profile) {
         addToCartMutate([{
           productId: id, sizeId: size.id, colorId: color.id, quantity
         }]);
-      } else {
-        localStorage.setItem(LOCALSTORAGE.NICI_CART, JSON.stringify([...cartData, {
-          id: cartData.length > 0 ? Number(cartData[cartData.length - 1].id) + 1 : 1,
-          productId: id,
-          image: images[0],
-          link: slug,
-          name,
-          color: { id: color.id, name: color.label, code: color.color },
-          size,
-          quantity,
-          price
-        }]));
       }
     }
   };

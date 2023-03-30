@@ -24,9 +24,9 @@ import { renderPrice } from 'utils/functions';
 const Cart: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [checkList, setCheckList] = useState<number[]>([]);
   const profile = useAppSelector((state) => state.auth.profile);
   const cartDetail = useAppSelector((state) => state.cart.items);
+  const [checkList, setCheckList] = useState<number[]>(cartDetail.map((item) => item.id));
 
   const handleSelectItem = (id: number, checked: boolean) => {
     if (checked) {
@@ -55,17 +55,24 @@ const Cart: React.FC = () => {
     + (curr.price * curr.quantity), 0), [cartDetail, checkList]);
 
   const handleChangeQuantity = (cartItem: CartItem, quantity: number) => {
-    dispatch(updateItemCartLocal({ ...cartItem, quantity }));
-    if (profile) {
-      updateItemCartMutate({
-        id: cartItem.id,
-        params: {
-          productId: cartItem.productId,
-          sizeId: cartItem.size.id,
-          colorId: cartItem.color.id,
-          quantity
-        }
-      });
+    if (quantity === 0) {
+      dispatch(deleteItemCartLocal(cartItem.id));
+      if (profile) {
+        removeItemCartMutate([cartItem.id]);
+      }
+    } else {
+      dispatch(updateItemCartLocal({ ...cartItem, quantity }));
+      if (profile) {
+        updateItemCartMutate({
+          id: cartItem.id,
+          params: {
+            productId: cartItem.productId,
+            sizeId: cartItem.size.id,
+            colorId: cartItem.color.id,
+            quantity
+          }
+        });
+      }
     }
   };
 
@@ -116,7 +123,7 @@ const Cart: React.FC = () => {
                       <th><div className="p-cart_th"><Typography.Text>Product</Typography.Text></div></th>
                       <th><div className="p-cart_th price"><Typography.Text>Price</Typography.Text></div></th>
                       <th><div className="p-cart_th"><Typography.Text>Quantity</Typography.Text></div></th>
-                      <th><div className="p-cart_th"><Typography.Text>Subtotal</Typography.Text></div></th>
+                      <th><div className="p-cart_th price"><Typography.Text>Subtotal</Typography.Text></div></th>
                     </tr>
                     {cartDetail.map((item) => (
                       <tr className="p-cart_t" key={item.name + item.link}>
@@ -168,16 +175,16 @@ const Cart: React.FC = () => {
                   </table>
                   <div className="p-cart_coupon">
                     <div className="p-cart_coupon_input">
-                      <Input placeholder="Coupon Code" bordered />
+                      <Input placeholder="Mã giảm giá" bordered />
                     </div>
                     <div className="p-cart_coupon_button">
-                      <Button variant="secondary" sizes="h42">Sử dụng mã giảm giá</Button>
+                      <Button variant="secondary" sizes="h42">Áp dụng</Button>
                     </div>
                   </div>
                 </Col>
                 <Col lg={4}>
                   <div className="p-cart_total">
-                    <Typography.Heading type="h2" modifiers={['16x18', '400']}>Thông tin giỏ hàng</Typography.Heading>
+                    <Typography.Heading type="h2" modifiers={['16x18', '600']}>Chi tiết giỏ hàng</Typography.Heading>
                     <div className="p-cart_divider" />
                     <div className="p-cart_line">
                       <Typography.Text modifiers={['14x16', '400']}>Tổng sản phẩm</Typography.Text>

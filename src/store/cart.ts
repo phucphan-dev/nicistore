@@ -35,7 +35,19 @@ export const cartSlice = createSlice({
       $state.items = action.payload;
     },
     addToCart: ($state, action: PayloadAction<CartItem>) => {
-      $state.items = [...$state.items, action.payload];
+      const findIndex = $state.items.findIndex((
+        item
+      ) => item.productId === action.payload.productId);
+      if (findIndex === -1) {
+        $state.items = [...$state.items, action.payload];
+      } else {
+        const clone = $state.items;
+        clone[findIndex] = {
+          ...$state.items[findIndex],
+          quantity: $state.items[findIndex].quantity + action.payload.quantity
+        };
+        $state.items = clone;
+      }
     },
     updateItemCartLocal: ($state, action: PayloadAction<CartItem>) => {
       const findIndex = $state.items.findIndex((item) => item.id === action.payload.id);

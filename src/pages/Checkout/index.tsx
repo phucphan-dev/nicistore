@@ -159,9 +159,11 @@ const Checkout: React.FC = () => {
                 <Col lg={8} className="p-checkout_address">
                   <div className="p-checkout_address_title">
                     <Typography.Heading type="h3" modifiers={['18x21']}>Địa chỉ giao hàng</Typography.Heading>
-                    <Button iconName="location" iconSize="20" handleClick={() => setIsOpen(true)}>
-                      <Typography.Text modifiers={['16x18', '500']}>Chọn địa chỉ đã lưu</Typography.Text>
-                    </Button>
+                    {profile && (
+                      <Button iconName="location" iconSize="20" handleClick={() => setIsOpen(true)}>
+                        <Typography.Text modifiers={['16x18', '500']}>Chọn địa chỉ đã lưu</Typography.Text>
+                      </Button>
+                    )}
                   </div>
                   <div className="p-account_field">
                     <Controller
@@ -301,45 +303,43 @@ const Checkout: React.FC = () => {
                     {checkoutItems.map((item) => (
                       <div className="p-checkout_summary">
                         <div className="p-checkout_product">
-                          <Typography.Text modifiers={['13x16']}>
+                          <Typography.Text modifiers={['13x16', '700']}>
                             {item.name}
                             {' '}
-                            <Typography.Text modifiers={['13x16', '700']} type="span">
-                              x
-                              {' '}
-                              {item.quantity}
-                            </Typography.Text>
+                            x
+                            {' '}
+                            {item.quantity}
                           </Typography.Text>
                           <Typography.Text modifiers={['14x16']} type="span">
                             Color:
                             {' '}
-                            <Typography.Text modifiers={['600']} type="span">{item.color.name}</Typography.Text>
+                            {item.color.name}
                           </Typography.Text>
                           <Typography.Text modifiers={['14x16']} type="span">
                             , Size:
                             {' '}
-                            <Typography.Text modifiers={['600']} type="span">{item.size.name}</Typography.Text>
+                            {item.size.name}
                           </Typography.Text>
                         </div>
                         <div className="p-checkout_price">
-                          <Typography.Text modifiers={['15x18']}>{renderPrice(item.price * item.quantity, true, 'VNĐ')}</Typography.Text>
+                          <Typography.Text modifiers={['15x18', '600']}>{renderPrice(item.price * item.quantity, true, 'VNĐ')}</Typography.Text>
                         </div>
                       </div>
                     ))}
                     <div className="p-checkout_divider" />
                     <div className="p-checkout_summary">
-                      <Typography.Text modifiers={['13x16', '600']}>Tổng tiền sản phẩm</Typography.Text>
-                      <Typography.Text modifiers={['15x18']}>{renderPrice(totalCost, true, 'VNĐ')}</Typography.Text>
+                      <Typography.Text modifiers={['13x16']}>Tổng tiền sản phẩm</Typography.Text>
+                      <Typography.Text modifiers={['15x18', '600']}>{renderPrice(totalCost, true, 'VNĐ')}</Typography.Text>
                     </div>
                     <div className="p-checkout_divider" />
                     <div className="p-checkout_summary">
-                      <Typography.Text modifiers={['13x16', '600']}>Giảm giá</Typography.Text>
-                      <Typography.Text modifiers={['15x18']}>0 VNĐ</Typography.Text>
+                      <Typography.Text modifiers={['13x16']}>Giảm giá</Typography.Text>
+                      <Typography.Text modifiers={['15x18', '600']}>0 VNĐ</Typography.Text>
                     </div>
                     <div className="p-checkout_divider" />
                     <div className="p-checkout_summary">
-                      <Typography.Text modifiers={['13x16', '600']}>Tổng đơn hàng</Typography.Text>
-                      <Typography.Text modifiers={['15x18']}>{renderPrice(totalCost, true, 'VNĐ')}</Typography.Text>
+                      <Typography.Text modifiers={['13x16']}>Tổng đơn hàng</Typography.Text>
+                      <Typography.Text modifiers={['15x18', '600']}>{renderPrice(totalCost, true, 'VNĐ')}</Typography.Text>
                     </div>
                     <div className="p-checkout_button">
                       <Button
