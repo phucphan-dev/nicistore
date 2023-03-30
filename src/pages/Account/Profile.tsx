@@ -105,6 +105,7 @@ const Profile: React.FC = () => {
               fieldState: { error },
             }) => (
               <Input
+                name="fullName"
                 required
                 label="Họ và tên"
                 type="text"
@@ -125,6 +126,7 @@ const Profile: React.FC = () => {
               fieldState: { error },
             }) => (
               <Input
+                name="phone"
                 required
                 label="Số điện thoại"
                 type="text"
@@ -165,6 +167,7 @@ const Profile: React.FC = () => {
               fieldState: { error },
             }) => (
               <Input
+                name="oldPassword"
                 required
                 label="Mật khẩu hiện tại"
                 type="password"
@@ -185,6 +188,7 @@ const Profile: React.FC = () => {
               fieldState: { error },
             }) => (
               <Input
+                name="password"
                 required
                 label="Mật khẩu mới"
                 type="password"
@@ -205,6 +209,7 @@ const Profile: React.FC = () => {
               fieldState: { error },
             }) => (
               <Input
+                name="confirmPassword"
                 required
                 label="Nhập lại mật khẩu mới"
                 type="password"

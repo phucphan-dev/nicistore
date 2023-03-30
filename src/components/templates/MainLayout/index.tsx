@@ -50,14 +50,14 @@ const MainLayout: React.FC = () => {
       >
         <Container>
           <div className="search-panel_head">
-            <Typography.Text modifiers={['16x18']}>What are you looking for?</Typography.Text>
+            <Typography.Text modifiers={['16x18']}>Bạn đang tìm kiếm sản phẩm nào?</Typography.Text>
             <Button iconName="close" iconSize="20" handleClick={() => setOpenSearch(false)} />
           </div>
           <div className="search-panel_input">
             <Input placeholder="Search your favorite product" search />
           </div>
           <Typography.Text modifiers={['14x16', 'ashGrey']}>
-            Please type the word you want to search and press &quot;enter&quot;
+            Vui lòng nhập từ khoá bạn muốn tìm và nhấn &quot;enter&quot;
           </Typography.Text>
         </Container>
       </div>

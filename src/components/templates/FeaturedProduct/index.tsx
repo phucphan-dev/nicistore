@@ -43,7 +43,7 @@ const FeaturedProduct: React.FC<FeaturedProductProps> = ({ products }) => {
   return (
     <div className="t-featuredProduct">
       <Container>
-        <Typography.Heading type="h3" modifiers={['center', '30x36', '500']}>Featured Products</Typography.Heading>
+        <Typography.Heading type="h3" modifiers={['center', '30x36', '500']}>Sản phẩm nổi bật</Typography.Heading>
         <div className="t-featuredProduct_description">
           <Typography.Text modifiers={['center', 'sonicSilver', '16x18']}>
             Lorem ipsum dolor sit amet, consectetur

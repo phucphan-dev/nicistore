@@ -8,7 +8,7 @@ import Container from 'components/organisms/Container';
 export interface HomeCategoryData {
   name: string;
   description?: string;
-  totalProduct: number;
+  totalProduct?: number;
   thumbnail: string;
   ratio: RatioImage;
   items?: { name: string, href: string }[];
@@ -23,13 +23,15 @@ const HomeCategory: React.FC<HomeCategoryProps> = ({ categories }) => {
     <div className="t-homeCategory_item" key={index ? item.name + index.toString() : undefined}>
       <Image imgSrc={item.thumbnail} alt={item.name} ratio={item.ratio} />
       <div className="t-homeCategory_content">
-        <div className="t-homeCategory_total">
-          <Typography.Text modifiers={['13x16']}>
-            {item.totalProduct}
-            {' '}
-            Products
-          </Typography.Text>
-        </div>
+        {item.totalProduct && (
+          <div className="t-homeCategory_total">
+            <Typography.Text modifiers={['13x16']}>
+              {item.totalProduct}
+              {' '}
+              Products
+            </Typography.Text>
+          </div>
+        )}
         <div className="t-homeCategory_name">
           <Typography.Heading type="h2" modifiers={['28x32']}>
             {item.name}

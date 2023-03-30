@@ -129,7 +129,16 @@ const ShippingAddress: React.FC<Props> = ({ defaultValues, handleSuccess, handle
             field: { onChange, value },
             fieldState: { error },
           }) => (
-            <Input required label="Tên người nhận" type="text" value={value} bordered onChange={onChange} error={error?.message} />
+            <Input
+              name="name"
+              required
+              label="Tên người nhận"
+              type="text"
+              value={value}
+              bordered
+              onChange={onChange}
+              error={error?.message}
+            />
           )}
         />
       </div>
@@ -141,7 +150,16 @@ const ShippingAddress: React.FC<Props> = ({ defaultValues, handleSuccess, handle
             field: { onChange, value },
             fieldState: { error },
           }) => (
-            <Input required label="Số điện thoại" type="text" value={value} bordered onChange={onChange} error={error?.message} />
+            <Input
+              name="phone"
+              required
+              label="Số điện thoại"
+              type="text"
+              value={value}
+              bordered
+              onChange={onChange}
+              error={error?.message}
+            />
           )}
         />
       </div>
@@ -219,7 +237,16 @@ const ShippingAddress: React.FC<Props> = ({ defaultValues, handleSuccess, handle
             field: { onChange, value },
             fieldState: { error },
           }) => (
-            <Input required label="Địa chỉ" type="text" value={value} bordered onChange={onChange} error={error?.message} />
+            <Input
+              name="address"
+              required
+              label="Địa chỉ"
+              type="text"
+              value={value}
+              bordered
+              onChange={onChange}
+              error={error?.message}
+            />
           )}
         />
       </div>

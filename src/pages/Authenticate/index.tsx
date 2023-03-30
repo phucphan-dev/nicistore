@@ -191,7 +191,7 @@ const Authenticate: React.FC = () => {
                     field: { onChange, value },
                     fieldState: { error },
                   }) => (
-                    <Input required label="Email" type="text" value={value} bordered onChange={onChange} error={error?.message} />
+                    <Input name="email" required label="Email" type="text" value={value} bordered onChange={onChange} error={error?.message} />
                   )}
                 />
               </div>
@@ -204,6 +204,7 @@ const Authenticate: React.FC = () => {
                     fieldState: { error },
                   }) => (
                     <Input
+                      name="password"
                       required
                       label="Mật khẩu"
                       type="password"
@@ -267,7 +268,7 @@ const Authenticate: React.FC = () => {
                         field: { onChange, value },
                         fieldState: { error },
                       }) => (
-                        <Input required label="Họ và tên" type="text" value={value} bordered onChange={onChange} error={error?.message} />
+                        <Input name="fullName" required label="Họ và tên" type="text" value={value} bordered onChange={onChange} error={error?.message} />
                       )}
                     />
                   </div>
@@ -279,7 +280,7 @@ const Authenticate: React.FC = () => {
                         field: { onChange, value },
                         fieldState: { error },
                       }) => (
-                        <Input required label="Số điện thoại" type="text" value={value} bordered onChange={onChange} error={error?.message} />
+                        <Input name="phone" required label="Số điện thoại" type="text" value={value} bordered onChange={onChange} error={error?.message} />
                       )}
                     />
                   </div>
@@ -291,7 +292,7 @@ const Authenticate: React.FC = () => {
                         field: { onChange, value },
                         fieldState: { error },
                       }) => (
-                        <Input required label="Email" type="text" value={value} bordered onChange={onChange} error={error?.message} />
+                        <Input name="email" required label="Email" type="text" value={value} bordered onChange={onChange} error={error?.message} />
                       )}
                     />
                   </div>
@@ -304,6 +305,7 @@ const Authenticate: React.FC = () => {
                         fieldState: { error },
                       }) => (
                         <Input
+                          name="password"
                           required
                           label="Mật khẩu"
                           type="password"

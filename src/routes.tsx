@@ -7,6 +7,7 @@ import Contact from 'pages/Contact';
 import Home from 'pages/Home';
 import ProductDetail from 'pages/ProductDetail';
 import Products from 'pages/Products';
+import TrackingOrder from 'pages/TrackingOrder';
 
 const routes = [
   {
@@ -21,12 +22,12 @@ const routes = [
   },
   {
     key: 'product-categories',
-    path: '/:category',
+    path: ':category',
     element: <Products />
   },
   {
     key: 'product-detail',
-    path: '/:category/:product',
+    path: ':category/:product',
     element: <ProductDetail />
   },
   {
@@ -38,6 +39,11 @@ const routes = [
     key: 'checkout',
     path: '/checkout',
     element: <Checkout />
+  },
+  {
+    key: 'trackingOrder',
+    path: '/tracking-order',
+    element: <TrackingOrder />
   },
   {
     key: 'account',

@@ -27,7 +27,14 @@ const Footer: React.FC<FooterProps> = () => (
                 Risus commodo viverra maecenas accumsan lacus vel facilisis in termapol.
               </Typography.Text>
             </div>
-            <Typography.Text modifiers={['12x14']}>(+84) 388 192167 – nicistore@gmail.com</Typography.Text>
+            <Typography.Text modifiers={['12x14']}>
+              <a href="tel:+84989684624"><Typography.Text type="span" modifiers={['12x14']}>0989 684 624 - </Typography.Text></a>
+              <a href="tel:+84989157716"><Typography.Text type="span" modifiers={['12x14']}>0989 15 77 16</Typography.Text></a>
+            </Typography.Text>
+            <br />
+            <Typography.Text modifiers={['12x14']}>
+              nicistore@gmail.com
+            </Typography.Text>
           </div>
         </Col>
         <Col lg={2} xs={6}>
