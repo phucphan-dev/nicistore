@@ -133,7 +133,6 @@ const Home: React.FC = () => {
       </Section>
       <Section>
         <HomeCategory categories={menus} />
-
       </Section>
       <Section><FeaturedProduct products={featuredProducts} /></Section>
     </>

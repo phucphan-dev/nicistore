@@ -14,7 +14,8 @@ import { scrollToTop } from 'utils/functions';
 const useInitialRender = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [initTimeout, setInitTimeout] = useState(true);
 
   useEffect(() => {
     scrollToTop();
@@ -22,18 +23,21 @@ const useInitialRender = () => {
 
   useDidMount(async () => {
     const token = getAccessToken();
-    dispatch(getProductCategoriesAction());
+    await dispatch(getProductCategoriesAction()).unwrap();
     if (token) {
-      setLoading(true);
       await dispatch(getProfileAction()).unwrap()
         .then(() => dispatch(getCartDetailAction()))
         .finally(() => setLoading(false));
     } else {
       const cartLocal = localStorage.getItem(LOCALSTORAGE.NICI_CART);
       dispatch(loadCartLocal(cartLocal ? JSON.parse(cartLocal) : []));
+      setLoading(false);
     }
+    setTimeout(() => {
+      setInitTimeout(false);
+    }, 2000);
   });
-  return loading;
+  return !((!loading && !initTimeout));
 };
 
 export default useInitialRender;

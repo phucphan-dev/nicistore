@@ -1,5 +1,9 @@
 import React from 'react';
 
+import logoC from 'assets/images/logo_c.svg';
+import logoI from 'assets/images/logo_i.svg';
+import logoN from 'assets/images/logo_n.svg';
+import useWindowDimensions from 'hooks/useWindowDemensions';
 import mapModifiers from 'utils/functions';
 
 interface LoadingProps {
@@ -32,6 +36,18 @@ Loading.defaultProps = {
   isShow: false,
   isFill: false,
   size: 'default',
+};
+
+export const LoadingMain: React.FC = () => {
+  const { width, height } = useWindowDimensions();
+  return (
+    <div className="a-loadingMain" style={{ width: `${width}px`, height: `${height}px` }}>
+      <img src={logoN} alt="N" />
+      <img src={logoI} alt="i" />
+      <img src={logoC} alt="C" />
+      <img src={logoI} alt="i" />
+    </div>
+  );
 };
 
 export default Loading;

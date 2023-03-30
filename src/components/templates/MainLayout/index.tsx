@@ -6,7 +6,7 @@ import Subscribe from '../Subscribe';
 
 import Button from 'components/atoms/Button';
 import Input from 'components/atoms/Input';
-import Loading from 'components/atoms/Loading';
+import { LoadingMain } from 'components/atoms/Loading';
 import Typography from 'components/atoms/Typography';
 import Container from 'components/organisms/Container';
 import Footer from 'components/organisms/Footer';
@@ -23,12 +23,12 @@ const MainLayout: React.FC = () => {
   const [openSearch, setOpenSearch] = useState(false);
   const loading = useInitialRender();
   useEffect(() => {
-    if (openSearch) {
+    if (openSearch || loading) {
       document.documentElement.style.overflow = 'hidden';
     } else {
       document.documentElement.style.overflow = 'unset';
     }
-  }, [openSearch]);
+  }, [openSearch, loading]);
   const menus = useMemo(() => [
     ...groupMenusFromCategories(categories), {
       id: 'contact',
@@ -37,9 +37,11 @@ const MainLayout: React.FC = () => {
     }], [categories]);
   return (
     <main id="main">
-      {loading && <Loading isShow variant="fullScreen" isFill />}
+      {loading && <LoadingMain />}
       <Header menus={menus} handleSearch={() => setOpenSearch(true)} />
-      <Outlet />
+      <div className="main-content">
+        <Outlet />
+      </div>
       <Section>
         <Subscribe />
       </Section>

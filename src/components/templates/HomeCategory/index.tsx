@@ -61,6 +61,10 @@ const HomeCategory: React.FC<HomeCategoryProps> = ({ categories }) => {
       </div>
     </div>
   );
+
+  if (categories.length === 0) {
+    return null;
+  }
   return (
     <Container>
       <div className="t-homeCategory">

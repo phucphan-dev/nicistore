@@ -35,7 +35,8 @@ const FilterCategory: React.FC<FilterCategoryProps> = ({
   useEffect(() => {
     const activeInit = categories.find((
       item
-    ) => item.childrens?.some((it) => it.code === initCode));
+    ) => item.childrens?.some((it) => it.code === initCode
+      || it.childrens?.some((child) => child.code === initCode)));
     if (activeInit) {
       setActive([activeInit.code]);
     }

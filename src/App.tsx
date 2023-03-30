@@ -4,7 +4,7 @@ import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import {
-  BrowserRouter, HashRouter, Route, Routes
+  HashRouter, Route, Routes
 } from 'react-router-dom';
 
 import MainLayout from 'components/templates/MainLayout';
