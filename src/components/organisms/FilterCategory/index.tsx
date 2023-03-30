@@ -73,6 +73,21 @@ const FilterCategory: React.FC<FilterCategoryProps> = ({
                     >
                       {child.name}
                     </Checkbox>
+                    {child.childrens && (
+                      <div className="o-filterCategory_childrens">
+                        {child.childrens.map((child2) => (
+                          <div className="o-filterCategory_item" key={child2.code}>
+                            <Checkbox
+                              name={child2.code}
+                              checked={selected === child2.code}
+                              onChange={(e) => onChangeSelected(e, child2.code)}
+                            >
+                              {child2.name}
+                            </Checkbox>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
