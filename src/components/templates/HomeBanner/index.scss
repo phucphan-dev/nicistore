@@ -1,8 +1,82 @@
 .t-homeBanner {
+    $root: &;
     width: 100%;
+    padding-top: rem(84);
     @include max-desktop {
         padding-left: rem(100);
         padding-right: rem(100);
+    }
+
+    &.animated {
+        #{$root} {
+            &_background {
+                transform: scale(1);
+            }
+    
+            &_layer {
+                width: 0;
+            }
+        }
+
+        svg {
+            fill: $black;
+            top: 25%;
+            width: rem(150);
+            opacity: 0;
+        }
+    }
+
+    &_background {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        bottom: 0;
+        left: 0;
+        transform: scale(1.5);
+        transition: 2s;
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba($white, 0.3);
+        }
+    }
+
+    &_layer {
+        background-color: $black;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        transition: 1s;
+        z-index: 2;
+
+        &.hidden {
+            width: 0;
+        }
+    }
+
+    svg {
+        position: absolute;
+        width: rem(300);
+        max-width: 60%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: 1s;
+        z-index: 2;
+
+        &.hidden {
+            fill: $black;
+            top: 25%;
+            width: rem(150);
+            opacity: 0;
+        }
     }
 
     &_item {
@@ -50,16 +124,17 @@
     }
 
     &_description {
-        margin-top: rem(20);
+        margin-bottom: rem(12);
         @include mobile-down {
-            margin-top: rem(12);
+            margin-bottom: rem(8);
         }
     }
 
     &_link {
         display: flex;
         align-items: center;
-        margin-top: rem(24);
+        margin-top: rem(32);
+        max-width: rem(140);
         @include mobile-down {
             margin-top: rem(16);
         }

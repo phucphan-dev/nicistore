@@ -76,108 +76,42 @@
 }
   
 .a-loadingMain {
+    $root: &;
     position: fixed;
     width: 100vw;
     height: 100vh;
     background-color: $white;
     z-index: $z-loading;
 
-    img {
+    &_layer {
+        background-color: $black;
         position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        animation: rightToLeft 1s ease-in-out;
+    }
+
+    svg {
+        position: absolute;
+        width: rem(300);
+        max-width: 60%;
         top: 50%;
-        left: rem(-60);
+        left: 50%;
         transform: translate(-50%, -50%);
-
-        &:nth-child(1) {
-            animation: show1 2.5s infinite ease-in-out;
-            animation-delay: 0.4s;
-        }
-
-        &:nth-child(2) {
-            animation: show2 2.5s infinite ease-in-out;
-            animation-delay: 0.3s;
-        }
-
-        &:nth-child(3) {
-            animation: show3 2.5s infinite ease-in-out;
-            animation-delay: 0.2s;
-        }
-
-        &:nth-child(4) {
-            margin-left: rem(12);
-            animation: show4 2.5s infinite ease-in-out;
-        }
+        animation: changeColor 1s ease-in-out;
     }
+
 }
 
-@keyframes show1 {
-    0% {
-        left: rem(-60);
-    }
-
-    25% {
-        left: calc(50% - 72px);
-    }
-
-    50% {
-        left: calc(50% - 72px);
-    }
-
-    100% {
-        left: 110%;
-    }
+@keyframes rightToLeft {
+    to { width: 0; }
 }
 
-@keyframes show2 {
-    0% {
-        left: rem(-60);
-    }
-
-    25% {
-        left: calc(50% - 20px);
-    }
-
-    50% {
-        left: calc(50% - 20px);
-    }
-
-    100% {
-        left: 110%;
-    }
-}
-
-@keyframes show3 {
-    0% {
-        left: rem(-60);
-    }
-
-    25% {
-        left: calc(50% + 36px);
-    }
-
-    50% {
-        left: calc(50% + 36px);
-    }
-
-    100% {
-        left: 110%;
-    }
-}
-
-@keyframes show4 {
-    0% {
-        left: rem(-60);
-    }
-
-    25% {
-        left: calc(50% + 82px);
-    }
-
-    50% {
-        left: calc(50% + 82px);
-    }
-
-    100% {
-        left: 150%;
+@keyframes changeColor {
+    to { fill: $black;
+        top: 25%;
+        width: rem(150); 
     }
 }

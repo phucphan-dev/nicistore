@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useMemo } from 'react';
 import { useQuery } from 'react-query';
 
@@ -104,37 +105,37 @@ const Home: React.FC = () => {
     ];
   }, [categories]);
 
-  if (featuredLoading || bestSellerLoading) {
-    return <Loading isShow />;
-  }
-
   return (
     <>
       <Section noSpace><HomeBanner banners={bannerDummy} /></Section>
-      <Section>
-        <TopSeller
-          collection={topSellerDummy.collection}
-          first={bestSellerProducts[0]}
-          second={bestSellerProducts[1]}
-        />
-      </Section>
-      <Section>
-        <WidgetSection>
-          <Typography.Text modifiers={['20x24', 'ferrariRed', 'center']}>
-            Super discount for your
-            {' '}
-            <Typography.Text type="span" modifiers={['700']}>first purchase.</Typography.Text>
-            {' '}
-            <DiscountCode>FREE15FIRST</DiscountCode>
-            {' '}
-            <Typography.Text type="span" modifiers={['300', '16x18']}>Use discount code in checkout!</Typography.Text>
-          </Typography.Text>
-        </WidgetSection>
-      </Section>
-      <Section>
-        <HomeCategory categories={menus} />
-      </Section>
-      <Section><FeaturedProduct products={featuredProducts} /></Section>
+      {bestSellerLoading || featuredLoading ? <Loading isShow /> : (
+        <>
+          <Section>
+            <TopSeller
+              collection={topSellerDummy.collection}
+              first={bestSellerProducts[0]}
+              second={bestSellerProducts[1]}
+            />
+          </Section>
+          <Section>
+            <WidgetSection>
+              <Typography.Text modifiers={['20x24', 'ferrariRed', 'center']}>
+                Super discount for your
+                {' '}
+                <Typography.Text type="span" modifiers={['700']}>first purchase.</Typography.Text>
+                {' '}
+                <DiscountCode>FREE15FIRST</DiscountCode>
+                {' '}
+                <Typography.Text type="span" modifiers={['300', '16x18']}>Use discount code in checkout!</Typography.Text>
+              </Typography.Text>
+            </WidgetSection>
+          </Section>
+          <Section>
+            <HomeCategory categories={menus} />
+          </Section>
+          <Section><FeaturedProduct products={featuredProducts} /></Section>
+        </>
+      )}
     </>
   );
 };

@@ -15,7 +15,6 @@ const useInitialRender = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const [loading, setLoading] = useState(true);
-  const [initTimeout, setInitTimeout] = useState(true);
 
   useEffect(() => {
     scrollToTop();
@@ -33,11 +32,8 @@ const useInitialRender = () => {
       dispatch(loadCartLocal(cartLocal ? JSON.parse(cartLocal) : []));
       setLoading(false);
     }
-    setTimeout(() => {
-      setInitTimeout(false);
-    }, 2000);
   });
-  return !((!loading && !initTimeout));
+  return loading;
 };
 
 export default useInitialRender;

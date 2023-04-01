@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import Animate from '../Animate';
 import Container from '../Container';
 import Menu, { MenuItem } from '../Menu';
 
@@ -29,40 +30,44 @@ const Header: React.FC<HeaderProps> = ({ menus, handleSearch }) => {
 
   return (
     <header className="o-header">
-      <Container>
-        <div className="o-header_wrapper">
-          <div className="o-header_hambuger">
-            <Button iconName="hambuger" iconSize="32" handleClick={() => setOpen(true)} />
-          </div>
-          <div className="o-header_left">
-            <div className="o-header_logo"><Link href="/"><Image imgSrc={logo} alt="Nici Logo" ratio="75x46" /></Link></div>
-            <div className={mapModifiers('o-header_menu', open && 'opened')}>
-              <div className="o-header_menu_logo">
-                <Link href="/"><Image imgSrc={logo} alt="Nici Logo" ratio="75x46" /></Link>
-                <Button iconName="close" iconSize="24" handleClick={() => setOpen(false)} />
+      <Animate type="slideInDown">
+        <div className="o-header_content">
+          <Container>
+            <div className="o-header_wrapper">
+              <div className="o-header_hambuger">
+                <Button iconName="hambuger" iconSize="32" handleClick={() => setOpen(true)} />
               </div>
-              <Menu menu={menus} />
-              <div className="o-header_menu_account">
-                <Link href="/account"><Typography.Text modifiers={['15x18', 'black', 'uppercase']}>Tài khoản</Typography.Text></Link>
+              <div className="o-header_left">
+                <div className="o-header_logo"><Link href="/"><Image imgSrc={logo} alt="Nici Logo" ratio="75x46" /></Link></div>
+                <div className={mapModifiers('o-header_menu', open && 'opened')}>
+                  <div className="o-header_menu_logo">
+                    <Link href="/"><Image imgSrc={logo} alt="Nici Logo" ratio="75x46" /></Link>
+                    <Button iconName="close" iconSize="24" handleClick={() => setOpen(false)} />
+                  </div>
+                  <Menu menu={menus} />
+                  <div className="o-header_menu_account">
+                    <Link href="/account"><Typography.Text modifiers={['15x18', 'black', 'uppercase']}>Tài khoản</Typography.Text></Link>
+                  </div>
+                </div>
+              </div>
+              <div className="o-header_right">
+                <div className="o-header_right_button hide-mobile">
+                  <Button iconName="user" iconSize="24" handleClick={() => navigate('/account')} />
+                </div>
+                <div className="o-header_right_button">
+                  <Button iconName="search" iconSize="24" handleClick={handleSearch} />
+                </div>
+                <div className="o-header_right_button hide-mobile">
+                  <Button iconName="love" iconSize="24" badge={0} />
+                </div>
+                <div className="o-header_right_button">
+                  <Button iconName="cart" iconSize="24" badge={cartDetail.items.length} handleClick={() => navigate('/cart')} />
+                </div>
               </div>
             </div>
-          </div>
-          <div className="o-header_right">
-            <div className="o-header_right_button hide-mobile">
-              <Button iconName="user" iconSize="24" handleClick={() => navigate('/account')} />
-            </div>
-            <div className="o-header_right_button">
-              <Button iconName="search" iconSize="24" handleClick={handleSearch} />
-            </div>
-            <div className="o-header_right_button hide-mobile">
-              <Button iconName="love" iconSize="24" badge={0} />
-            </div>
-            <div className="o-header_right_button">
-              <Button iconName="cart" iconSize="24" badge={cartDetail.items.length} handleClick={() => navigate('/cart')} />
-            </div>
-          </div>
+          </Container>
         </div>
-      </Container>
+      </Animate>
     </header>
   );
 };

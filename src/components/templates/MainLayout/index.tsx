@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useMemo, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -6,7 +7,6 @@ import Subscribe from '../Subscribe';
 
 import Button from 'components/atoms/Button';
 import Input from 'components/atoms/Input';
-import { LoadingMain } from 'components/atoms/Loading';
 import Typography from 'components/atoms/Typography';
 import Container from 'components/organisms/Container';
 import Footer from 'components/organisms/Footer';
@@ -37,7 +37,6 @@ const MainLayout: React.FC = () => {
     }], [categories]);
   return (
     <main id="main">
-      {loading && <LoadingMain />}
       <Header menus={menus} handleSearch={() => setOpenSearch(true)} />
       <div className="main-content">
         <Outlet />

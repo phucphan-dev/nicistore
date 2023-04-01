@@ -66,6 +66,14 @@
     &-96x23 {
         @include aspect-ratio(96, 23);
     }
+    
+    &-16x9 {
+        @include aspect-ratio(16, 9);
+    }
+    
+    &-1366x684 {
+        @include aspect-ratio(1366, 684);
+    }
 
     span,
     img {

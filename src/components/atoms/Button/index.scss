@@ -148,4 +148,13 @@
         padding: rem(10) !important;
         border: 1px solid $platinum;
     }
+
+    &-iconRight {
+        flex-direction: row-reverse;
+
+        #{$root}_icon {
+            margin-left: rem(8);
+            margin-right: 0;
+        }
+    }
 }

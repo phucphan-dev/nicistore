@@ -1,10 +1,18 @@
 .o-header {
     position: fixed;
+    top: 0;
     width: 100%;
-    background-color: $white;
     z-index: $z-header;
-    border-bottom: 1px solid $platinum;
     transition: $transition;
+
+    .animate {
+        animation-delay: 2s;
+    }
+    
+    &_content {
+        background-color: $white;
+        border-bottom: 1px solid $platinum;
+    }
 
     &-fixed {
         position: fixed;

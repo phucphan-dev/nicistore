@@ -17,6 +17,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   sizes?: 'h24' | 'h34' | 'h36' | 'h42' | 'h44' | 'h48' | 'h56';
   loading?: boolean;
   badge?: number;
+  iconRight?: boolean;
   handleClick?: () => void;
 }
 
@@ -29,10 +30,11 @@ const Button: React.FC<ButtonProps> = ({
   iconSize = '16',
   type = 'button',
   loading,
+  iconRight,
   handleClick,
   ...props
 }) => (
-  <button {...props} type={type} className={mapModifiers('a-button', variant, sizes, !children && 'only-icon')} onClick={handleClick}>
+  <button {...props} type={type} className={mapModifiers('a-button', variant, sizes, !children && 'only-icon', iconRight && 'iconRight')} onClick={handleClick}>
     {loading ? (
       <Loading isShow />
     )

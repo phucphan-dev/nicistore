@@ -3,6 +3,8 @@ body {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     overflow-x: hidden;
+    background-color: $eggshell;
+    @include scroll-bars(8, $davys-grey, $eggshell, 5, 0);
 }
 
 * {
