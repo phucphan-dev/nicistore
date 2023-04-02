@@ -10,6 +10,7 @@
 }
   
 .animate {
+    height: 100%;
     -webkit-animation-duration: 1.25s;
     -webkit-animation-duration: var(--animate-duration);
     animation-duration: 1.25s;
@@ -475,6 +476,10 @@
     }
 
     // delay
+    &-s05 {
+        animation-delay: 0.5s;
+    }
+
     &-s1 {
         animation-delay: 1s;
     }
@@ -493,6 +498,10 @@
 
     &-s25 {
         animation-delay: 2.5s;
+    }
+
+    &-s3 {
+        animation-delay: 3s;
     }
 }
   

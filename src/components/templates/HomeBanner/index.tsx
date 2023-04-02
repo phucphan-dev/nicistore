@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 
 import banner from 'assets/images/banner.jpg';
 import Button from 'components/atoms/Button';
@@ -10,6 +10,7 @@ import Link from 'components/atoms/Link';
 import Typography from 'components/atoms/Typography';
 import Animate from 'components/organisms/Animate';
 import Carousel, { NextArrow, PrevArrow } from 'components/organisms/Carousel';
+import useIsMobile from 'hooks/useDeviceQueries';
 import useWindowDimensions from 'hooks/useWindowDemensions';
 
 interface HomeBannerProps {
@@ -18,6 +19,7 @@ interface HomeBannerProps {
 
 const HomeBanner: React.FC<HomeBannerProps> = ({ banners }) => {
   const { height } = useWindowDimensions();
+  const { isMobile } = useIsMobile();
   const ref = useRef<HTMLDivElement>(null);
   const settings = {
     dots: true,
@@ -30,6 +32,19 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ banners }) => {
     cssEase: 'ease-in-out',
     infinite: true,
   };
+  const scrollDown = useCallback(() => {
+    if (isMobile) {
+      window.scrollTo({
+        top: window.innerWidth * 3 / 2 - 84,
+        behavior: 'smooth',
+      });
+    } else {
+      window.scrollTo({
+        top: window.innerHeight - 84,
+        behavior: 'smooth',
+      });
+    }
+  }, [isMobile]);
   useEffect(() => {
     const timeout = setTimeout(() => {
       ref.current?.classList.add('animated');
@@ -37,7 +52,7 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ banners }) => {
     return () => clearTimeout(timeout);
   }, []);
   return (
-    <div className="t-homeBanner" ref={ref} style={{ minHeight: `${height}px` }}>
+    <div className="t-homeBanner" ref={ref} style={{ maxHeight: `${height - 84}px` }}>
       <div className="t-homeBanner_background"><Image imgSrc={banner} alt="banner" ratio="16x9" /></div>
       <div className="t-homeBanner_layer" />
       <svg width="300" height="181" viewBox="0 0 425 257" fill="white" xmlns="http://www.w3.org/2000/svg">
@@ -75,6 +90,13 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ banners }) => {
             </Link>
           </Animate>
         </div>
+      </div>
+      <div className="t-homeBanner_scrolldown" onClick={scrollDown}>
+        <Animate type="fadeInUp" noScroll extendClassName="animate-s3">
+          <div className="t-homeBanner_scrolldown_wrapper">
+            <Icon iconName="scrollDown" size="32" />
+          </div>
+        </Animate>
       </div>
       {/* <Carousel settings={settings}>
         {banners.map((banner, index) => (

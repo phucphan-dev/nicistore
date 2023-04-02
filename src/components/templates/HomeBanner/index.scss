@@ -1,10 +1,11 @@
 .t-homeBanner {
     $root: &;
     width: 100%;
-    padding-top: rem(84);
-    @include max-desktop {
-        padding-left: rem(100);
-        padding-right: rem(100);
+    position: relative;
+    @include aspect-ratio(16, 9);
+
+    @include mobile-down {
+        @include aspect-ratio(2, 3);
     }
 
     &.animated {
@@ -44,14 +45,18 @@
             left: 0;
             background-color: rgba($white, 0.3);
         }
+
+        .a-image {
+            max-height: 100%;
+        }
     }
 
     &_layer {
         background-color: $black;
         position: absolute;
         width: 100%;
-        height: 100%;
-        top: 0;
+        height: 100vh;
+        top: rem(-84);
         left: 0;
         transition: 1s;
         z-index: 2;
@@ -110,9 +115,10 @@
         max-width: 50%;
 
         @include mobile-down {
-            left: rem(16);
             max-width: 100%;
-            padding-right: rem(16);
+            left: 50%;
+            text-align: center;
+            transform: translate(-50%, -50%);
         }
     }
 
@@ -142,5 +148,94 @@
 
     &_icon {
         margin-left: rem(8);
+    }
+
+    &_best {
+        position: absolute !important;
+        right: 0;
+        bottom: 0;
+        width: 20%;
+        height: 35%;
+        background-color: $tuscany;
+
+        &_text {
+            position: absolute;
+            transform: rotate(-90deg);
+            top: rem(54);
+            left: rem(-16);
+        }
+
+        &_image {
+            position: absolute;
+            top: rem(32);
+            width: 60%;
+            height: calc(100% - 32px);
+            right: rem(24);
+
+            .a-image {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+
+    &_scrolldown {
+        position: absolute;
+        bottom: rem(48);
+        left: 50%;
+        transform: translateX(-50%);
+        width: rem(52);
+        height: rem(52);
+       
+        cursor: pointer;
+
+        &_wrapper {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 0 15px rgba(12, 26, 75, 0.2);
+        }
+
+        .a-icon {
+            animation: animateIconScroll 1s infinite ease-in-out;
+        }
+    }
+}
+
+@keyframes animateIconScroll {
+    0% {
+        opacity: 0;
+        transform: translateY(10%);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(-50%);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(10%);
+    }
+}
+@keyframes animateIconScroll {
+    0% {
+        opacity: 0;
+        transform: translateY(10%);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(-50%);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(10%);
     }
 }

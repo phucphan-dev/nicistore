@@ -28,6 +28,7 @@ export const iconList = {
   edit: 'edit',
   delete: 'delete',
   location: 'location',
+  scrollDown: 'scrollDown',
 };
 
 export type IconName = keyof typeof iconList;
