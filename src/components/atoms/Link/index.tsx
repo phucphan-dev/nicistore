@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Link as NavLink,
+  NavLink,
   LinkProps as RouterLinkProps,
 } from 'react-router-dom';
 
@@ -39,7 +39,6 @@ const Link: React.FC<LinkProps> = ({
       {...props}
       to={href || '#'}
       className={`a-link ${customClassName} ${activeClassName}`}
-      onClick={handleClick}
     >
       {children}
     </NavLink>

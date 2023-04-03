@@ -20,9 +20,9 @@ const Menu: React.FC<MenuProps> = ({ menu }) => (
     <ul className="o-menu_list">
       {menu.map((item) => (
         <li className="o-menu_item" key={item.id}>
-          <a className="o-menu_link" href={item.link}>
+          <Link customClassName="o-menu_link" href={`/${item.link}`}>
             <Typography.Text modifiers={['15x18', 'black', 'uppercase']}>{item.text}</Typography.Text>
-          </a>
+          </Link>
           {item.childrens && (
             <ul className="o-menu_submenu">
               {item.childrens.map((child) => (

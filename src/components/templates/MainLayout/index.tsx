@@ -29,12 +29,14 @@ const MainLayout: React.FC = () => {
       document.documentElement.style.overflow = 'unset';
     }
   }, [openSearch, loading]);
+
   const menus = useMemo(() => [
     ...groupMenusFromCategories(categories), {
       id: 'contact',
       text: 'Liên hệ',
       link: 'contact',
     }], [categories]);
+
   return (
     <main id="main">
       <Header menus={menus} handleSearch={() => setOpenSearch(true)} />

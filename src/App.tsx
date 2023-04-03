@@ -4,14 +4,18 @@ import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import {
-  HashRouter, Route, Routes
+  BrowserRouter, useRoutes
 } from 'react-router-dom';
 
-import MainLayout from 'components/templates/MainLayout';
 import routes from 'routes';
 import { store } from 'store';
 
 const App: React.FC = () => {
+  const element = useRoutes(routes);
+  return element;
+};
+
+const AppMain: React.FC = () => {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -25,16 +29,12 @@ const App: React.FC = () => {
   return (
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        <HashRouter>
-          <Routes>
-            <Route element={<MainLayout />}>
-              {routes.map((route) => <Route {...route} />)}
-            </Route>
-          </Routes>
-        </HashRouter>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </QueryClientProvider>
     </Provider>
   );
 };
 
-export default App;
+export default AppMain;
