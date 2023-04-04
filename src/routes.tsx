@@ -20,7 +20,7 @@ const routes: RouteObject[] = [
       { index: true, element: <Home /> },
       { path: '/authenticate', element: <Authenticate /> },
       { path: '/:category', element: <Products /> },
-      { path: '/san-pham/:product', element: <ProductDetail /> },
+      { path: '/:category/:product', element: <ProductDetail /> },
       { path: '/cart', element: <Cart /> },
       { path: '/checkout', element: <Checkout /> },
       { path: '/tracking-order', element: <TrackingOrder /> },

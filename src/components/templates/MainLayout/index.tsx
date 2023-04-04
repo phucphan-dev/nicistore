@@ -7,6 +7,7 @@ import Subscribe from '../Subscribe';
 
 import Button from 'components/atoms/Button';
 import Input from 'components/atoms/Input';
+import { LoadingMain } from 'components/atoms/Loading';
 import Typography from 'components/atoms/Typography';
 import Container from 'components/organisms/Container';
 import Footer from 'components/organisms/Footer';
@@ -39,6 +40,7 @@ const MainLayout: React.FC = () => {
 
   return (
     <main id="main">
+      <LoadingMain closed={!loading} />
       <Header menus={menus} handleSearch={() => setOpenSearch(true)} />
       <div className="main-content">
         <Outlet />

@@ -1,5 +1,16 @@
 .m-priceSale {
+    $root: &;
+
     &_sale {
         margin-top: rem(8);
+    }
+
+    &-horizontal {
+        display: flex;
+        align-items: center;
+        #{$root}_sale {
+            margin-left: rem(8);
+            margin-top: 0;
+        }
     }
 }

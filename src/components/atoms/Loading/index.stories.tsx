@@ -1,7 +1,7 @@
 import { Story, Meta } from '@storybook/react';
 import React from 'react';
 
-import Loading, { LoadingMain } from '.';
+import Loading from '.';
 
 export default {
   title: 'Components/atoms/Loading',
@@ -25,8 +25,4 @@ export default {
 
 export const normal: Story = ({ variant, isWhite }) => (
   <Loading isShow variant={variant} isWhite={isWhite} />
-);
-
-export const main: Story = () => (
-  <LoadingMain />
 );
