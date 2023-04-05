@@ -11,6 +11,12 @@
 */
 
 /*!
+  Copyright (c) 2018 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/
+
+/*!
  * Adapted from jQuery UI core
  *
  * http://jqueryui.com
@@ -25,8 +31,6 @@
 /*!
  * Scroll down to next block element
  */
-
-/*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
 
 /**
  * @license React
@@ -99,7 +103,7 @@
  */
 
 /**
- * @remix-run/router v1.5.0
+ * React Router DOM v6.3.0
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -110,18 +114,7 @@
  */
 
 /**
- * React Router DOM v6.10.0
- *
- * Copyright (c) Remix Software Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.md file in the root directory of this source tree.
- *
- * @license MIT
- */
-
-/**
- * React Router v6.10.0
+ * React Router v6.3.0
  *
  * Copyright (c) Remix Software Inc.
  *
