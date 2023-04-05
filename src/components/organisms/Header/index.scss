@@ -35,23 +35,24 @@
 
     &_logo {
         width: rem(96);
-        @include tablet-down {
-            position: absolute;
-            transform: translate(-50%, -50%);
-            top: 50%;
-            left: 50%;
-        }
-    }
-
-    &_hambuger {
-        @include tablet-up {
-            display: none;
-        }
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
     }
 
     &_menu {
-        margin-left: rem(40);
         transition: $transition;
+        box-shadow: 0 0 15px rgba(12, 26, 75, 0.2);
+        position: fixed;
+        margin-left: 0;
+        width: 0;
+        height: 100vh;
+        top: 0;
+        left: -110%;
+        background-color: $white;
+        z-index: 2;
+        overflow-y: auto;
 
         &_logo {
             height: rem(84);
@@ -64,10 +65,6 @@
             .a-image {
                 width: rem(80);
             }
-
-            @include tablet-up {
-                display: none;
-            }
         }
 
         &_account {
@@ -79,21 +76,12 @@
                 }
             }
         }
-
-        @include tablet-down {
-            position: fixed;
-            margin-left: 0;
-            width: 0;
-            height: 100vh;
-            top: 0;
-            left: -110%;
-            background-color: $white;
-            z-index: 2;
-            overflow-y: auto;
-
-            &-opened {
-                left: 0%;
-                width: 90vw;
+        
+        &-opened {
+            left: 0%;
+            width: 90vw;
+            @include tablet-up {
+                width: 25vw;
             }
         }
     }

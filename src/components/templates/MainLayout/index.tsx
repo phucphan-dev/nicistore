@@ -40,9 +40,9 @@ const MainLayout: React.FC = () => {
 
   return (
     <main id="main">
-      <LoadingMain closed={!loading} />
+      {/* <LoadingMain closed={!loading} /> */}
       <Header menus={menus} handleSearch={() => setOpenSearch(true)} />
-      <div className="main-content">
+      {/* <div className="main-content">
         <Outlet />
       </div>
       <Section>
@@ -66,7 +66,7 @@ const MainLayout: React.FC = () => {
           </Typography.Text>
         </Container>
       </div>
-      <ToastContainer autoClose={1000} style={{ fontSize: '12px' }} />
+      <ToastContainer autoClose={1000} style={{ fontSize: '12px' }} /> */}
     </main>
   );
 };

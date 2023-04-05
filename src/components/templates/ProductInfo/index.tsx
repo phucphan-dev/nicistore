@@ -28,19 +28,6 @@ import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { LOCALSTORAGE } from 'utils/constants';
 import mapModifiers from 'utils/functions';
 
-type Color = {
-  id: number;
-  label: string;
-  color: string;
-};
-
-type ColorWithSize = {
-  [key: string]: {
-    color: Color;
-    size: ProductProperty[]
-  }
-};
-
 const settings = {
   dots: false,
   slidesToShow: 1,

@@ -21,21 +21,21 @@ const Menu: React.FC<MenuProps> = ({ menu }) => (
       {menu.map((item) => (
         <li className="o-menu_item" key={item.id}>
           <Link customClassName="o-menu_link" href={`/${item.link}`}>
-            <Typography.Text modifiers={['15x18', 'black', 'uppercase']}>{item.text}</Typography.Text>
+            <Typography.Text modifiers={['16x18', 'black', 'uppercase']}>{item.text}</Typography.Text>
           </Link>
           {item.childrens && (
             <ul className="o-menu_submenu">
               {item.childrens.map((child) => (
                 <li className="o-menu_submenu_item" key={child.id}>
                   <Link customClassName="o-menu_submenu_link" href={`/${child.link}`}>
-                    <Typography.Text modifiers={['15x18']}>{child.text}</Typography.Text>
+                    <Typography.Text modifiers={['16x18']}>{child.text}</Typography.Text>
                   </Link>
                   {child.childrens && (
                     <ul className="o-menu_subchildmenu">
                       {child.childrens.map((childSub) => (
                         <li className="o-menu_subchildmenu_item" key={childSub.id}>
                           <Link href={`/${childSub.link}`}>
-                            <Typography.Text modifiers={['15x18']}>{childSub.text}</Typography.Text>
+                            <Typography.Text modifiers={['16x18']}>{childSub.text}</Typography.Text>
                           </Link>
                         </li>
                       ))}

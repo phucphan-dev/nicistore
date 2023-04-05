@@ -46,7 +46,7 @@ const Header: React.FC<HeaderProps> = ({ menus, handleSearch }) => {
                   </div>
                   <Menu menu={menus} />
                   <div className="o-header_menu_account">
-                    <Link href="/account"><Typography.Text modifiers={['15x18', 'black', 'uppercase']}>Tài khoản</Typography.Text></Link>
+                    <Link href="/account"><Typography.Text modifiers={['16x18', 'black', 'uppercase']}>Tài khoản</Typography.Text></Link>
                   </div>
                 </div>
               </div>

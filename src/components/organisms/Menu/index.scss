@@ -3,19 +3,13 @@
     $root: &;
 
     &_list {
-        display: flex;
         min-height: rem(84);
-
-        @include tablet-down {
-            display: block;
-        }
+        margin-top: rem(24);
+        display: block;
     }
 
     &_item {
         position: relative;
-        margin-left: rem(24);
-        display: flex;
-        align-items: center;
 
         &:first-child {
             margin-left: 0;
@@ -34,17 +28,14 @@
             }
             
         }
+        margin-left: 0;
+        display: block;
+        padding: rem(12) rem(16);
 
-        @include tablet-down {
-            margin-left: 0;
-            display: block;
-            padding: rem(12) rem(16);
-
-            &:hover {
-                #{$root}_submenu {
-                    height: auto;
-                    padding: rem(12) 0;
-                }
+        &:hover {
+            #{$root}_submenu {
+                height: auto;
+                padding: rem(12) 0;
             }
         }
 
@@ -74,12 +65,10 @@
                     z-index: 1;
                 }
         
-                @include tablet-down {
-                    display: block;
-        
-                    &::before {
-                        right: rem(14);
-                    }
+                display: block;
+    
+                &::before {
+                    right: rem(14);
                 }
             }
         }
@@ -90,108 +79,82 @@
     }
 
     &_submenu {
-        position: absolute;
         min-width: rem(240);
-        top: 100%;
-        left: rem(-30);
         margin: 0;
-        padding: rem(18) 0;
         list-style: none;
         background-color: $white;
         opacity: 0;
         visibility: hidden;
         -webkit-transition: all $transition cubic-bezier(0.28, 0.12, 0.22, 1);
         transition: all $transition cubic-bezier(0.28, 0.12, 0.22, 1);
-        border-top: 1px solid $battleship-grey;
         
         &:has(.o-menu_subchildmenu) {
-            display: flex;
-            width: 80%;
             left: 0;
             justify-content: space-around;
 
-            @include tablet-down {
-                display: block;
-                width: 100%;
-                
-                #{$root}_submenu_link {
-                    &:hover {
-                        &::before {
-                            transform: translateY(-50%) rotate(180deg);
-                        }
-                    }
-        
-                    &::before {
-                        content: '';
-                        position: absolute;
-                        width: rem(32);
-                        height: rem(32);
-                        background: url('~assets/icons/ic_arrow_down.svg') no-repeat;
-                        background-size: 16px;
-                        background-position: center;
-                        right: rem(14);
-                        transform: translateY(-50%);
-                        top: 50%;
-                        transition: $transition;
-                        z-index: 1;
-                    }
-                }
-            }
+            display: block;
+            width: 100%;
         }
 
-        @include tablet-down {
+        position: relative;
+        height: 0;
+        overflow: hidden;
+        border-top: 0;
+        padding: 0;
+
+        &_link {
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            font-size: 15px;
+            font-weight: 400;
+            white-space: nowrap;
+
+            padding: rem(8) 0;
             position: relative;
-            top: unset;
-            left: unset;
-            height: 0;
-            overflow: hidden;
-            border-top: 0;
-            padding: 0;
-
-            &_link {
-                display: flex;
-                -webkit-box-align: center;
-                -ms-flex-align: center;
-                align-items: center;
-                font-size: 15px;
-                font-weight: 400;
-                padding: rem(4) rem(30);
-                white-space: nowrap;
-
-                @include tablet-down {
-                    padding: rem(8) 0;
-                    position: relative;
-                }
-            }
         }
 
         #{$root}_submenu {
             &_item {
-                margin-left: rem(24);
-                margin-top: rem(12);
+                margin-left: rem(8);
+                margin-top: 0;
 
-                &:first-child {margin-top: 0;}
-
-                @include tablet-down {
-                    margin-left: rem(8);
-                    margin-top: 0;
-
-                    &:hover {
-                        #{$root}_subchildmenu {
-                            height: auto;
-                            opacity: 1;
-                            visibility: visible;
-                            padding: rem(12) 0;
-                        }
+                &:hover {
+                    #{$root}_subchildmenu {
+                        height: auto;
+                        opacity: 1;
+                        visibility: visible;
+                        padding: rem(12) 0;
                     }
                 }
 
                 &:has(.o-menu_subchildmenu) {
-                    margin-left: 0;
                     margin-top: 0;
 
-                    @include tablet-down {
-                        margin-left: rem(8);
+                    margin-left: rem(8);
+
+                    #{$root}_submenu_link {
+                        &:hover {
+                            &::before {
+                                transform: translateY(-50%) rotate(180deg);
+                            }
+                        }
+            
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            width: rem(32);
+                            height: rem(32);
+                            background: url('~assets/icons/ic_arrow_down.svg') no-repeat;
+                            background-size: 16px;
+                            background-position: center;
+                            right: rem(14);
+                            transform: translateY(-50%);
+                            top: 50%;
+                            transition: $transition;
+                            z-index: 1;
+                        }
                     }
                 }
             }
@@ -199,33 +162,22 @@
     }
 
     &_subchildmenu {
-        margin-top: rem(8);
-
         &_item {
-            margin-top: rem(12);
-            @include tablet-down {
-                margin-top: rem(8);
-            }
+            margin-top: rem(8);
 
             &:first-child {
-                margin-top: rem(18);
-
-                @include tablet-down {
-                    margin-top: 0;
-                }
+                margin-top: 0;
             }
         }
 
-        @include tablet-down {
-            height: 0;
-            overflow: hidden;
-            border-top: 0;
-            padding: 0;
-            margin-top: 0;
+        height: 0;
+        overflow: hidden;
+        border-top: 0;
+        padding: 0;
+        margin-top: 0;
 
-            &_item {
-                padding: rem(6);
-            }
+        &_item {
+            padding: rem(6);
         }
     }
 }

@@ -62,3 +62,16 @@ interface CartItem {
   quantity: number;
   price: number;
 }
+
+type Color = {
+  id: number;
+  label: string;
+  color: string;
+};
+
+type ColorWithSize = {
+  [key: string]: {
+    color: Color;
+    size: ProductProperty[]
+  }
+};

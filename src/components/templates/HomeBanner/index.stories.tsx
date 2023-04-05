@@ -12,11 +12,6 @@ export default {
 
 export const normal: Story = () => (
   <BrowserRouter>
-    <HomeBanner banners={[
-      {
-        thumbnail: 'https://klbtheme.com/clotya/wp-content/uploads/2022/05/slider-06.jpg'
-      }
-    ]}
-    />
+    <HomeBanner />
   </BrowserRouter>
 );

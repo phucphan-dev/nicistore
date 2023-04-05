@@ -8,22 +8,13 @@
         @include aspect-ratio(2, 3);
     }
 
-    &.animated {
-        #{$root} {
-            &_background {
-                transform: scale(1);
-            }
-        }
-    }
-
     &_background {
         position: absolute;
         width: 100%;
         height: 100%;
         bottom: 0;
         left: 0;
-        transform: scale(1.5);
-        transition: 2s;
+        animation: zoomIn 3s ease-in-out;
 
         .a-image {
             max-height: 100%;
@@ -77,19 +68,9 @@
         bottom: 0;
         left: 0;
         padding-top: rem(80);
-    }
 
-    &_title {
-        margin-top: rem(12);
-        @include mobile-down {
-            margin-top: rem(8);
-        }
-    }
-
-    &_description {
-        margin-bottom: rem(12);
-        @include mobile-down {
-            margin-bottom: rem(8);
+        .container {
+            position: relative;
         }
     }
 
@@ -136,20 +117,60 @@
         }
     }
 
-    &_scrolldown {
+    &_bottom {
         position: absolute;
-        bottom: rem(48);
-        left: 50%;
-        transform: translateX(-50%);
-        width: rem(52);
-        height: rem(52);
-       
+        bottom: 0;
+        left: 0;
+        width: 100%;
         cursor: pointer;
 
+        &_decor {
+            position: absolute;
+            background-color: rgba($black, 0.5);
+            width: 100%;
+            height: calc(100% + rem(24));
+            bottom: 1px;
+            left: rem(-24);
+            z-index: 1;
+            border-radius: rem(8) rem(8) 0 0;
+            backdrop-filter: blur(2px);
+        }
+
         &_wrapper {
+            position: relative;
+            height: rem(120);
+            width: 60%;
+        }
+
+        &_main {
             position: absolute;
             width: 100%;
             height: 100%;
+            bottom: 0;
+            left: 0;
+            z-index: 2;
+        }
+
+        &_content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            padding: rem(16) rem(24);
+            background-color: $white;
+            border-radius: rem(8) rem(8) 0 0;
+            box-shadow: 0 0 15px rgba(12, 26, 75, 0.2);
+        }
+
+        &_description {
+            margin-top: rem(12);
+        }
+
+        &_icon {
+            flex-shrink: 0;
+            margin-left: rem(24);
+            width: rem(52);
+            height: rem(52);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -178,5 +199,15 @@
     100% {
         opacity: 0;
         transform: translateY(10%);
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(1.5);
+    }
+
+    to {
+        transform: scale(1);
     }
 }
