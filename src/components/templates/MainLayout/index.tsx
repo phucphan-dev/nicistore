@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useMemo, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -40,12 +39,12 @@ const MainLayout: React.FC = () => {
 
   return (
     <main id="main">
-      {/* <LoadingMain closed={!loading} /> */}
+      <LoadingMain closed={!loading} />
       <Header menus={menus} handleSearch={() => setOpenSearch(true)} />
-      {/* <div className="main-content">
+      <div className="main-content">
         <Outlet />
       </div>
-      <Section>
+      <Section noSpace>
         <Subscribe />
       </Section>
       <Footer />
@@ -66,7 +65,7 @@ const MainLayout: React.FC = () => {
           </Typography.Text>
         </Container>
       </div>
-      <ToastContainer autoClose={1000} style={{ fontSize: '12px' }} /> */}
+      <ToastContainer autoClose={1000} style={{ fontSize: '12px' }} />
     </main>
   );
 };

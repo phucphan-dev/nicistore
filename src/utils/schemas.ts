@@ -43,3 +43,9 @@ export const orderSchema = yup.object({
   phone: yup.string().required('Vui lòng nhập số điện thoại').matches(phoneRegExp, 'Số điện thoại không hợp lệ'),
   email: yup.string().required('Vui lòng nhập lại địa chỉ email').email('Email không hợp lệ'),
 });
+
+export const buyForMeSchema = yup.object({
+  fullname: yup.string().required('Vui lòng nhập họ tên'),
+  phone: yup.string().required('Vui lòng nhập số điện thoại').matches(phoneRegExp, 'Số điện thoại không hợp lệ'),
+  email: yup.string().required('Vui lòng nhập lại địa chỉ email').email('Email không hợp lệ'),
+});

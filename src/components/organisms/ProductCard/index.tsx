@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Badge from 'components/atoms/Badge';
 import Button from 'components/atoms/Button';
 import Image from 'components/atoms/Image';
+import Link from 'components/atoms/Link';
 import Typography from 'components/atoms/Typography';
 import PriceSale from 'components/molecules/PriceSale';
 import StarCount from 'components/molecules/StarCount';
@@ -23,15 +24,14 @@ export interface ProductInfoData {
   solded?: number;
 }
 export interface ProductCardProps extends ProductInfoData {
-  handleViewDetail?: (code: string) => void;
   handleLove?: (code: string) => void;
   handleQuickView?: (code: string) => void;
   handleAddToCart?: (code: string) => void;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
-  code, images, promo, name, price, unit, starCount, reviewCount,
-  available, solded, handleAddToCart, handleViewDetail, handleLove, handleQuickView
+  slug, code, images, promo, name, price, unit, starCount, reviewCount,
+  available, solded, handleAddToCart, handleLove, handleQuickView
 }) => {
   const [imgActive, setImgActive] = useState(0);
   return (
@@ -67,28 +67,32 @@ const ProductCard: React.FC<ProductCardProps> = ({
             />
           </div>
         </div>
-        <div className="o-productCard_images" onClick={() => handleViewDetail && handleViewDetail(code)}>
-          {images.length > 1 && (
-            <>
-              <div className="o-productCard_slider">
-                {images.map((item, idx) => (
-                  <div key={item} className="o-productCard_slider-pane" onMouseEnter={() => setImgActive(idx)} />
-                ))}
-              </div>
-              <div className="o-productCard_indicator">
-                {images.map((item, idx) => (
-                  <div key={`${item}indicator`} className={mapModifiers('o-productCard_indicator-dot', idx === imgActive && 'active')} />
-                ))}
-              </div>
-            </>
-          )}
-          <Image imgSrc={images[imgActive]} alt={`product-${code}-${imgActive}`} ratio="1x1" />
-        </div>
+        <Link href={slug ? `/product-detail/${slug}` : '#'}>
+          <div className="o-productCard_images">
+            {images.length > 1 && (
+              <>
+                <div className="o-productCard_slider">
+                  {images.map((item, idx) => (
+                    <div key={item} className="o-productCard_slider-pane" onMouseEnter={() => setImgActive(idx)} />
+                  ))}
+                </div>
+                <div className="o-productCard_indicator">
+                  {images.map((item, idx) => (
+                    <div key={`${item}indicator`} className={mapModifiers('o-productCard_indicator-dot', idx === imgActive && 'active')} />
+                  ))}
+                </div>
+              </>
+            )}
+            <Image imgSrc={images[imgActive]} alt={`product-${code}-${imgActive}`} ratio="1x1" />
+          </div>
+        </Link>
       </div>
       <div className="o-productCard_content">
-        <div className="o-productCard_content_title" onClick={() => handleViewDetail && handleViewDetail(code)}>
-          <Typography.Heading type="h3" modifiers={['15x18']}>{name}</Typography.Heading>
-        </div>
+        <Link href={slug ? `/product-detail/${slug}` : '#'}>
+          <div className="o-productCard_content_title">
+            <Typography.Heading type="h3" modifiers={['15x18']}>{name}</Typography.Heading>
+          </div>
+        </Link>
         <div className="o-productCard_price">
           <PriceSale unit={unit} promo={promo} price={price} />
         </div>
@@ -158,7 +162,6 @@ export const ProductRecentViews: React.FC<ProductCardProps> = ({
 
 ProductCard.defaultProps = {
   promo: undefined,
-  handleViewDetail: undefined,
   handleLove: undefined,
   handleQuickView: undefined,
   handleAddToCart: undefined,
