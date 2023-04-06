@@ -33,8 +33,8 @@ const FeaturedProduct: React.FC<FeaturedProductProps> = ({ products }) => {
       {
         breakpoint: 567,
         settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
+          slidesToShow: 2,
+          slidesToScroll: 2,
           arrows: false,
         },
       },

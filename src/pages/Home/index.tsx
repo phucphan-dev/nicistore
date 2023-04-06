@@ -10,6 +10,7 @@ import Typography from 'components/atoms/Typography';
 import DiscountCode from 'components/molecules/DiscountCode';
 import Section from 'components/organisms/Section';
 import WidgetSection from 'components/organisms/WidgetSection';
+import BuyForMe from 'components/templates/BuyForMe';
 import FeaturedProduct from 'components/templates/FeaturedProduct';
 import HomeBanner from 'components/templates/HomeBanner';
 import HomeCategory, { HomeCategoryData } from 'components/templates/HomeCategory';
@@ -38,6 +39,7 @@ const Home: React.FC = () => {
   );
   const featuredProducts = useMemo(() => (featured ? featured.data.map((item) => ({
     code: item.code,
+    slug: item.slug,
     images: [item.thumbnail],
     promo: item.salePercent,
     name: item.name,
@@ -51,6 +53,7 @@ const Home: React.FC = () => {
 
   const bestSellerProducts = useMemo(() => (bestSeller ? bestSeller.data.map((item) => ({
     code: item.code,
+    slug: item.slug,
     images: [item.thumbnail],
     promo: item.salePercent,
     name: item.name,
@@ -120,13 +123,15 @@ const Home: React.FC = () => {
           <Section>
             <WidgetSection>
               <Typography.Text modifiers={['20x24', 'ferrariRed', 'center']}>
-                Super discount for your
+                Siêu ưu đãi dành cho
                 {' '}
-                <Typography.Text type="span" modifiers={['700']}>first purchase.</Typography.Text>
+                <Typography.Text type="span" modifiers={['700']}>ĐƠN HÀNG ĐẦU TIÊN</Typography.Text>
                 {' '}
                 <DiscountCode>FREE15FIRST</DiscountCode>
-                {' '}
-                <Typography.Text type="span" modifiers={['300', '16x18']}>Use discount code in checkout!</Typography.Text>
+                <Typography.Text type="span" modifiers={['300', '16x18']}>
+                  {'. '}
+                  Sử dụng mã tại bước thanh toán!
+                </Typography.Text>
               </Typography.Text>
             </WidgetSection>
           </Section>
@@ -134,6 +139,9 @@ const Home: React.FC = () => {
             <HomeCategory categories={menus} />
           </Section>
           <Section><FeaturedProduct products={featuredProducts} /></Section>
+          <Section noSpace>
+            <BuyForMe />
+          </Section>
         </>
       )}
     </>
