@@ -18,22 +18,36 @@
 
         .a-image {
             max-height: 100%;
+            @include mobile-down {
+                img {
+                    object-position: 85%;
+                }
+            }
         }
     }
 
     &_product {
         &_price {
             margin-top: rem(16);
+            @include tablet-down {
+                margin-top: rem(8);
+            }
         }
 
         &_colors,
         &_sizes {
             display: flex;
             margin-top: rem(16);
+            @include tablet-down {
+                margin-top: rem(8);
+            }
 
             .a-colorSelect,
             .a-sizeSelect {
                 margin-right: rem(8);
+                @include tablet-down {
+                    margin-right: rem(4);
+                }
             }
         }
     }
@@ -67,7 +81,13 @@
         right: 0;
         bottom: 0;
         left: 0;
-        padding-top: rem(80);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        // padding-top: rem(80);
+        // @include tablet-down {
+        //     padding-top: rem(40);
+        // }
 
         .container {
             position: relative;
@@ -79,7 +99,7 @@
         align-items: center;
         margin-top: rem(32);
         max-width: rem(200);
-        @include mobile-down {
+        @include tablet-down {
             margin-top: rem(16);
         }
     }
@@ -134,12 +154,20 @@
             z-index: 1;
             border-radius: rem(8) rem(8) 0 0;
             backdrop-filter: blur(2px);
+            @include tablet-down {
+                height: calc(100% + rem(16));
+                left: rem(-16);
+            }
         }
 
         &_wrapper {
             position: relative;
             height: rem(120);
             width: 60%;
+            @include tablet-down {
+                width: 100%;
+                height: rem(100);
+            }
         }
 
         &_main {
@@ -160,6 +188,9 @@
             background-color: $white;
             border-radius: rem(8) rem(8) 0 0;
             box-shadow: 0 0 15px rgba(12, 26, 75, 0.2);
+            @include tablet-down {
+                padding: rem(10) rem(16);
+            }
         }
 
         &_description {

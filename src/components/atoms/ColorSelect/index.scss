@@ -10,8 +10,8 @@
 
     [type='radio']:checked::before {
         border: rem(2) solid $carmine-pink;
-        width: calc(100% + 4px);
-        height: calc(100% + 4px);
+        width: calc(100% + 1px);
+        height: calc(100% + 1px);
     }
 
     [type='checkbox'] {

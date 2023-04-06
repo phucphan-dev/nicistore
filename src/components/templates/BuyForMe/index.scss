@@ -23,6 +23,9 @@
 
         &:first-child {
             margin-top: 0;
+            @include tablet-down {
+                margin-top: rem(40);
+            }
         }
 
         &_image {

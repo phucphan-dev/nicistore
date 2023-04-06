@@ -16,7 +16,7 @@ const PriceSale: React.FC<PriceSaleProps> = ({
 }) => (
   <div className={mapModifiers('m-priceSale', isHorizontal && 'horizontal')}>
     <div className="m-priceSale_original">
-      <Typography.Text modifiers={promo ? [bigger ? '16x18' : '12x14', 'ashGrey', 'lineThrough'] : [bigger ? '18x21' : '14x16', '700']}>
+      <Typography.Text modifiers={promo ? [bigger ? '16x18' : '12x14', 'black3', '500', 'lineThrough'] : [bigger ? '18x21' : '14x16', '700']}>
         {renderPrice(price, true, unit)}
       </Typography.Text>
     </div>

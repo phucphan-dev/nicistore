@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useMemo, useRef, useState } from 'react';
 
 import banner from 'assets/images/banner.jpg';
@@ -78,7 +79,7 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ product, handleScrollTo }) => {
                       {Object.keys(colorWithSize).map((key) => {
                         const item = colorWithSize[key];
                         return (
-                          <div className="t-productInfo_color" key={`${item.color.id}-${item.color.color}`}>
+                          <div className="t-homeBanner_product_color" key={`${item.color.id}-${item.color.color}`}>
                             <ColorSelect
                               name={`${product.code}color`}
                               checked={color?.id === item.color.id}
@@ -94,7 +95,7 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ product, handleScrollTo }) => {
                   <Animate type="fadeInUp" noScroll extendClassName="animate-s15">
                     <div className="t-homeBanner_product_sizes">
                       {sizeMemo.map((item) => (
-                        <div className="t-productInfo_size" key={item.code}>
+                        <div className="-homeBanner_product_size" key={item.code}>
                           <SizeSelect
                             name={`${product.code}size`}
                             type="radio"
@@ -122,7 +123,7 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ product, handleScrollTo }) => {
           </Container>
         </div>
       )}
-      <div className="t-homeBanner_bottom" onClick={handleScrollTo}>
+      {/* <div className="t-homeBanner_bottom" onClick={handleScrollTo}>
         <Container>
           <div className="t-homeBanner_bottom_wrapper">
             <Animate type="fadeInUp" noScroll extendClassName="animate-s3">
@@ -132,7 +133,8 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ product, handleScrollTo }) => {
               <Animate type="fadeInUp" noScroll extendClassName="animate-s25">
                 <div className="t-homeBanner_bottom_content">
                   <div className="t-homeBanner_bottom_text">
-                    <Typography.Heading type="h4" modifiers={['22x25']}>Chúng tôi không có sản phẩm bạn cần?</Typography.Heading>
+                    <Typography.Heading type="h4" modifiers={['22x25']}>
+                    Chúng tôi không có sản phẩm bạn cần?</Typography.Heading>
                     <div className="t-homeBanner_bottom_description">
                       <Typography.Text modifiers={['16x18', '400']}>
                         Hãy cho để lại thông tin,
@@ -150,7 +152,7 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ product, handleScrollTo }) => {
             </div>
           </div>
         </Container>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -62,7 +62,7 @@ const BuyForMe: React.FC = () => {
     <div className="t-buyForMe">
       <Container>
         <Row>
-          <Col>
+          <Col lg={6} md={12}>
             <div className="t-buyForMe_content">
               <div className="t-buyForMe_title">
                 <Typography.Heading type="h4" modifiers={['22x25']}>Chúng tôi không có sản phẩm bạn cần?</Typography.Heading>
@@ -79,7 +79,7 @@ const BuyForMe: React.FC = () => {
               </Typography.Text>
             </div>
           </Col>
-          <Col>
+          <Col lg={6} md={12}>
             <FormProvider {...buyForMeMethod}>
               <div className="t-buyForMe_field">
                 <Controller

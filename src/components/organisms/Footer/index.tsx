@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 
@@ -15,7 +16,7 @@ interface FooterProps {
 const Footer: React.FC<FooterProps> = () => (
   <footer className="o-footer">
     <Container>
-      <Row>
+      {/* <Row>
         <Col lg={4}>
           <div className="o-footer_brandInfo">
             <div className="o-footer_logo">
@@ -28,8 +29,10 @@ const Footer: React.FC<FooterProps> = () => (
               </Typography.Text>
             </div>
             <Typography.Text modifiers={['12x14']}>
-              <a href="tel:+84989684624"><Typography.Text type="span" modifiers={['12x14']}>0989 684 624 - </Typography.Text></a>
-              <a href="tel:+84989157716"><Typography.Text type="span" modifiers={['12x14']}>0989 15 77 16</Typography.Text></a>
+              <a href="tel:+84989684624"><Typography.Text type="span"
+              modifiers={['12x14']}>0989 684 624 - </Typography.Text></a>
+              <a href="tel:+84989157716"><Typography.Text type="span"
+              modifiers={['12x14']}>0989 15 77 16</Typography.Text></a>
             </Typography.Text>
             <br />
             <Typography.Text modifiers={['12x14']}>
@@ -165,15 +168,20 @@ const Footer: React.FC<FooterProps> = () => (
             </div>
           </div>
         </Col>
-      </Row>
-      <div className="o-footer_divider" />
-      <Typography.Text modifiers={['13x16']}>
-        Copyright
-        {' '}
-        {new Date().getFullYear()}
-        {' '}
-        © Nici Store. All right reserved. Powered by MNN.
-      </Typography.Text>
+      </Row> */}
+      <div className="o-footer_content">
+        <div className="o-footer_logo">
+          <Image imgSrc={logo} alt="Logo" ratio="75x46" />
+        </div>
+        {/* <div className="o-footer_divider" /> */}
+        <Typography.Text modifiers={['13x16']}>
+          Copyright
+          {' '}
+          {new Date().getFullYear()}
+          {' '}
+          © Nici Store. All right reserved. Powered by MNN.
+        </Typography.Text>
+      </div>
     </Container>
   </footer>
 );
