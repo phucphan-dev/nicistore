@@ -1,13 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.06cb49a3.css",
-    "main.js": "/static/js/main.a853c65d.js",
+    "main.css": "/static/css/main.12b8122f.css",
+    "main.js": "/static/js/main.cbc10bd7.js",
     "static/js/787.aedbec2c.chunk.js": "/static/js/787.aedbec2c.chunk.js",
     "static/media/NC000002.jpg": "/static/media/NC000002.3cfdd680f4cce46c7d4e.jpg",
     "static/media/NC000001.jpg": "/static/media/NC000001.13584a7f561b92b8344b.jpg",
     "static/media/topseller_collection.jpg": "/static/media/topseller_collection.3192ebdff24d8837f704.jpg",
     "static/media/banner.jpg": "/static/media/banner.51dcaa30d58074e435db.jpg",
     "static/media/logo.svg": "/static/media/logo.a0a19a034ccff12f9b73fd0857c65212.svg",
+    "static/media/woman.jpg": "/static/media/woman.cb52ee75e78845b3a431.jpg",
+    "static/media/case.jpg": "/static/media/case.39a5d37ba18027d38e74.jpg",
+    "static/media/man.jpg": "/static/media/man.a9228ca7e64c295c4894.jpg",
+    "static/media/accessories.jpg": "/static/media/accessories.1f84feb077747fec0cee.jpg",
     "static/media/ic_tiktok.svg": "/static/media/ic_tiktok.a10d2d66b1d7a0910b88.svg",
     "static/media/ic_instagram.svg": "/static/media/ic_instagram.101d8133516ee76d9653.svg",
     "static/media/ic_shop.svg": "/static/media/ic_shop.7d7ce6b50977b2869244.svg",
@@ -48,12 +52,12 @@
     "static/media/ic_star.svg": "/static/media/ic_star.0de1563052c3095649c9.svg",
     "static/media/ic_arrow_down.svg": "/static/media/ic_arrow_down.dd3112097f1db89fd8fb.svg",
     "static/media/ic_check.svg": "/static/media/ic_check.41aebc39a168e9b51510.svg",
-    "main.06cb49a3.css.map": "/static/css/main.06cb49a3.css.map",
-    "main.a853c65d.js.map": "/static/js/main.a853c65d.js.map",
+    "main.12b8122f.css.map": "/static/css/main.12b8122f.css.map",
+    "main.cbc10bd7.js.map": "/static/js/main.cbc10bd7.js.map",
     "787.aedbec2c.chunk.js.map": "/static/js/787.aedbec2c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.06cb49a3.css",
-    "static/js/main.a853c65d.js"
+    "static/css/main.12b8122f.css",
+    "static/js/main.cbc10bd7.js"
   ]
 }
