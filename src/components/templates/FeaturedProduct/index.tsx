@@ -44,21 +44,23 @@ const FeaturedProduct: React.FC<FeaturedProductProps> = ({ products }) => {
     <div className="t-featuredProduct">
       <Container>
         <Typography.Heading type="h3" modifiers={['center', '30x36', '500']}>Sản phẩm nổi bật</Typography.Heading>
-        <div className="t-featuredProduct_description">
+        {/* <div className="t-featuredProduct_description">
           <Typography.Text modifiers={['center', 'sonicSilver', '16x18']}>
             Lorem ipsum dolor sit amet, consectetur
             adipiscing elit, sed do eiusmod tempor incididunt ut
             labore et dolore magna aliqua. Quis ipsum suspendisse
             ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
           </Typography.Text>
+        </div> */}
+        <div className="t-featuredProduct_products">
+          <Carousel settings={settings}>
+            {products.map((product, index) => (
+              <div className="t-featuredProduct_item" key={`t-featuredProduct-${index.toString()}`}>
+                <ProductCard {...product} />
+              </div>
+            ))}
+          </Carousel>
         </div>
-        <Carousel settings={settings}>
-          {products.map((product, index) => (
-            <div className="t-featuredProduct_item" key={`t-featuredProduct-${index.toString()}`}>
-              <ProductCard {...product} />
-            </div>
-          ))}
-        </Carousel>
       </Container>
     </div>
   );

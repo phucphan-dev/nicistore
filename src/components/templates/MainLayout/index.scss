@@ -26,3 +26,32 @@
         margin-bottom: rem(16);
     }
 }
+
+.footer-menu {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    background-color: $white;
+    padding-top: rem(8);
+    padding-bottom: rem(24);
+    box-shadow: 0 0 8px rgba($black, 0.2);
+    display: none;
+
+    @include mobile-down-portrait {
+        display: flex;
+    }
+
+    &_item {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        .a-text {
+            margin-top: rem(4);
+        }
+    }
+}

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Animate from '../Animate';
 import Container from '../Container';
@@ -14,35 +14,33 @@ import { useAppSelector } from 'store/hooks';
 import mapModifiers from 'utils/functions';
 
 interface HeaderProps {
+  open: boolean;
   menus: MenuItem[];
+  handleToggleMenu?: () => void;
   handleSearch?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ menus, handleSearch }) => {
+const Header: React.FC<HeaderProps> = ({
+  open, menus, handleSearch, handleToggleMenu
+}) => {
   const navigate = useNavigate();
-  const location = useLocation();
   const cartDetail = useAppSelector((state) => state.cart);
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    setOpen(false);
-  }, [location]);
 
   return (
     <header className="o-header">
-      <Animate type="slideInDown">
+      <Animate type="slideInDown" noScroll>
         <div className="o-header_content">
           <Container>
             <div className="o-header_wrapper">
               <div className="o-header_hambuger">
-                <Button iconName="hambuger" iconSize="32" handleClick={() => setOpen(true)} />
+                <Button iconName="hambuger" iconSize="32" handleClick={handleToggleMenu} />
               </div>
               <div className="o-header_left">
                 <div className="o-header_logo"><Link href="/"><Image imgSrc={logo} alt="Nici Logo" ratio="75x46" /></Link></div>
                 <div className={mapModifiers('o-header_menu', open && 'opened')}>
                   <div className="o-header_menu_logo">
                     <Link href="/"><Image imgSrc={logo} alt="Nici Logo" ratio="75x46" /></Link>
-                    <Button iconName="close" iconSize="24" handleClick={() => setOpen(false)} />
+                    <Button iconName="close" iconSize="24" handleClick={handleToggleMenu} />
                   </div>
                   <Menu menu={menus} />
                   <div className="o-header_menu_account">
@@ -54,7 +52,7 @@ const Header: React.FC<HeaderProps> = ({ menus, handleSearch }) => {
                 <div className="o-header_right_button hide-mobile">
                   <Button iconName="user" iconSize="24" handleClick={() => navigate('/account')} />
                 </div>
-                <div className="o-header_right_button">
+                <div className="o-header_right_button hide-mobile">
                   <Button iconName="search" iconSize="24" handleClick={handleSearch} />
                 </div>
                 <div className="o-header_right_button hide-mobile">

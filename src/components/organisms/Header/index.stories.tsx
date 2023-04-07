@@ -10,5 +10,5 @@ export default {
 } as Meta;
 
 export const normal: Story = () => (
-  <div style={{ height: '100vh', background: '#ccc' }}><Header menus={[]} /></div>
+  <div style={{ height: '100vh', background: '#ccc' }}><Header open={false} menus={[]} /></div>
 );

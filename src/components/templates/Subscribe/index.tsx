@@ -16,7 +16,7 @@ const Subscribe: React.FC<SubscribeProps> = () => (
         <div className="t-subscribe_left">
           <Typography.Heading type="h3" modifiers={['white', '20x24']}>Nhận email của chúng tôi để biết thông tin về các mặt hàng mới, bán hàng và hơn thế nữa.</Typography.Heading>
           <div className="t-subscribe_input">
-            <Input placeholder="Enter your email address" />
+            <Input placeholder="Nhập email của bạn" />
             <div className="t-subscribe_button">
               <Button sizes="h48" variant="dark">Đăng ký</Button>
             </div>
