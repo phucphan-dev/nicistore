@@ -2,15 +2,27 @@
     padding-top: rem(40);
     padding-bottom: rem(40);
 
+    
     @include mobile-down {
         padding-top: rem(24);
         padding-bottom: rem(24);
+    }
+    
+    @include mobile-down-portrait {
+        padding-bottom: rem(104);
     }
 
     &_content {
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
+        @include mobile-down {
+            display: block;
+
+            .o-footer_logo {
+                margin-bottom: rem(24);
+            }
+        }
     }
 
     &_brandInfo {
