@@ -57,6 +57,23 @@ const MainLayout: React.FC = () => {
         <Subscribe />
       </Section>
       <Footer />
+      <div
+        className={mapModifiers('search-panel', openSearch && 'opened')}
+        style={{ width: `${width}px`, height: `${openSearch ? height : 0}px` }}
+      >
+        <Container>
+          <div className="search-panel_head">
+            <Typography.Text modifiers={['16x18']}>Bạn đang tìm kiếm sản phẩm nào?</Typography.Text>
+            <Button iconName="close" iconSize="20" handleClick={() => setOpenSearch(false)} />
+          </div>
+          <div className="search-panel_input">
+            <Input placeholder="Tìm kiếm sản phẩm của bạn" search />
+          </div>
+          <Typography.Text modifiers={['14x16', 'ashGrey']}>
+            Vui lòng nhập từ khoá bạn muốn tìm và nhấn &quot;enter&quot;
+          </Typography.Text>
+        </Container>
+      </div>
       <div className="footer-menu">
         {pathname === '/' ? (
           <Link href="/tat-cas" customClassName="footer-menu_item">
@@ -77,33 +94,16 @@ const MainLayout: React.FC = () => {
           <Icon iconName="search" size="24" />
           <Typography.Text modifiers={['12x14', '500']}>Tìm kiếm</Typography.Text>
         </div>
-        <Link href="/wishlist" customClassName="footer-menu_item">
+        {/* <Link href="/wishlist" customClassName="footer-menu_item">
           <Icon iconName="love" size="24" />
           <Typography.Text modifiers={['12x14', '500']}>Yêu thích</Typography.Text>
-        </Link>
+        </Link> */}
         <Link href="/account" customClassName="footer-menu_item">
           <Icon iconName="user" size="24" />
           <Typography.Text modifiers={['12x14', '500']}>Tài khoản</Typography.Text>
         </Link>
       </div>
-      <div
-        className={mapModifiers('search-panel', openSearch && 'opened')}
-        style={{ width: `${width}px`, height: `${openSearch ? height : 0}px` }}
-      >
-        <Container>
-          <div className="search-panel_head">
-            <Typography.Text modifiers={['16x18']}>Bạn đang tìm kiếm sản phẩm nào?</Typography.Text>
-            <Button iconName="close" iconSize="20" handleClick={() => setOpenSearch(false)} />
-          </div>
-          <div className="search-panel_input">
-            <Input placeholder="Tìm kiếm sản phẩm của bạn" search />
-          </div>
-          <Typography.Text modifiers={['14x16', 'ashGrey']}>
-            Vui lòng nhập từ khoá bạn muốn tìm và nhấn &quot;enter&quot;
-          </Typography.Text>
-        </Container>
-      </div>
-      <ToastContainer autoClose={1000} style={{ fontSize: '12px' }} />
+      <ToastContainer autoClose={300} style={{ fontSize: '12px' }} />
     </main>
   );
 };

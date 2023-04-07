@@ -37,6 +37,7 @@
     padding-bottom: rem(24);
     box-shadow: 0 0 8px rgba($black, 0.2);
     display: none;
+    z-index: $z-search;
 
     @include mobile-down-portrait {
         display: flex;

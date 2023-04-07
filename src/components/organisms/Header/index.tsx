@@ -55,9 +55,9 @@ const Header: React.FC<HeaderProps> = ({
                 <div className="o-header_right_button hide-mobile">
                   <Button iconName="search" iconSize="24" handleClick={handleSearch} />
                 </div>
-                <div className="o-header_right_button hide-mobile">
+                {/* <div className="o-header_right_button hide-mobile">
                   <Button iconName="love" iconSize="24" badge={0} />
-                </div>
+                </div> */}
                 <div className="o-header_right_button">
                   <Button iconName="cart" iconSize="24" badge={cartDetail.items.length} handleClick={() => navigate('/cart')} />
                 </div>

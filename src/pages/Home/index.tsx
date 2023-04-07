@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useMemo } from 'react';
 import { useQuery } from 'react-query';
 
-import {
-  bannerDummy, topSellerDummy
-} from 'assets/dummy/homepage';
+import accessories from 'assets/images/accessories.jpg';
+import phonecase from 'assets/images/case.jpg';
+import man from 'assets/images/man.jpg';
+import woman from 'assets/images/woman.jpg';
 import Loading from 'components/atoms/Loading';
 import Typography from 'components/atoms/Typography';
 import DiscountCode from 'components/molecules/DiscountCode';
@@ -32,7 +32,7 @@ const Home: React.FC = () => {
   const { data: bestSeller, isLoading: bestSellerLoading } = useQuery(
     ['getBestSellerProduct'],
     () => getAllProductService({
-      limit: 2,
+      limit: 3,
       page: 1,
       isBestSeller: true
     }),
@@ -71,7 +71,7 @@ const Home: React.FC = () => {
     return [
       {
         name: data[2].text,
-        thumbnail: 'https://k4j3j2s7.rocketcdn.me/clotya/wp-content/uploads/2022/05/banner-11.jpg',
+        thumbnail: woman,
         ratio: '272x289',
         items: data[2].childrens?.map((item) => ({
           name: item.text,
@@ -80,7 +80,7 @@ const Home: React.FC = () => {
       },
       {
         name: data[1].text,
-        thumbnail: 'https://k4j3j2s7.rocketcdn.me/clotya/wp-content/uploads/2022/05/banner-12.jpg',
+        thumbnail: man,
         ratio: '34x17',
         items: data[1].childrens?.map((item) => ({
           name: item.text,
@@ -89,7 +89,7 @@ const Home: React.FC = () => {
       },
       {
         name: data[3].text,
-        thumbnail: 'https://k4j3j2s7.rocketcdn.me/clotya/wp-content/uploads/2022/05/banner-12.jpg',
+        thumbnail: accessories,
         ratio: '257x274',
         items: data[3].childrens?.map((item) => ({
           name: item.text,
@@ -98,7 +98,7 @@ const Home: React.FC = () => {
       },
       {
         name: data[4].text,
-        thumbnail: 'https://k4j3j2s7.rocketcdn.me/clotya/wp-content/uploads/2022/05/banner-12.jpg',
+        thumbnail: phonecase,
         ratio: '257x274',
         items: data[4].childrens?.map((item) => ({
           name: item.text,
@@ -115,9 +115,13 @@ const Home: React.FC = () => {
         <>
           <Section>
             <TopSeller
-              collection={topSellerDummy.collection}
-              first={bestSellerProducts[0]}
-              second={bestSellerProducts[1]}
+              collection={{
+                title: bestSellerProducts[0].name,
+                thumbnail: bestSellerProducts[0].images[0],
+                href: `/product-detail/${bestSellerProducts[0].slug}`
+              }}
+              first={bestSellerProducts[1]}
+              second={bestSellerProducts[2]}
             />
           </Section>
           <Section>
