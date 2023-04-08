@@ -91,6 +91,7 @@ const Products: React.FC = () => {
 
   const productsMemo: ProductInfoData[] = useMemo(() => (data
     ? data.data.map((item) => ({
+      id: item.id,
       slug: item.slug,
       code: item.code,
       images: [item.thumbnail],

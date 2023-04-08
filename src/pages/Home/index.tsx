@@ -8,6 +8,7 @@ import woman from 'assets/images/woman.jpg';
 import Loading from 'components/atoms/Loading';
 import Typography from 'components/atoms/Typography';
 import DiscountCode from 'components/molecules/DiscountCode';
+import Animate from 'components/organisms/Animate';
 import Section from 'components/organisms/Section';
 import WidgetSection from 'components/organisms/WidgetSection';
 import BuyForMe from 'components/templates/BuyForMe';
@@ -38,6 +39,7 @@ const Home: React.FC = () => {
     }),
   );
   const featuredProducts = useMemo(() => (featured ? featured.data.map((item) => ({
+    id: item.id,
     code: item.code,
     slug: item.slug,
     images: [item.thumbnail],
@@ -52,6 +54,7 @@ const Home: React.FC = () => {
   })) : []), [featured]);
 
   const bestSellerProducts = useMemo(() => (bestSeller ? bestSeller.data.map((item) => ({
+    id: item.id,
     code: item.code,
     slug: item.slug,
     images: [item.thumbnail],
@@ -125,19 +128,21 @@ const Home: React.FC = () => {
             />
           </Section>
           <Section>
-            <WidgetSection>
-              <Typography.Text modifiers={['20x24', 'ferrariRed', 'center']}>
-                Siêu ưu đãi dành cho
-                {' '}
-                <Typography.Text type="span" modifiers={['700']}>ĐƠN HÀNG ĐẦU TIÊN</Typography.Text>
-                {' '}
-                <DiscountCode>FREE15FIRST</DiscountCode>
-                <Typography.Text type="span" modifiers={['300', '16x18']}>
-                  {'. '}
-                  Sử dụng mã tại bước thanh toán!
+            <Animate type="bounce">
+              <WidgetSection>
+                <Typography.Text modifiers={['20x24', 'ferrariRed', 'center']}>
+                  Siêu ưu đãi dành cho
+                  {' '}
+                  <Typography.Text type="span" modifiers={['700']}>ĐƠN HÀNG ĐẦU TIÊN</Typography.Text>
+                  {' '}
+                  <DiscountCode>FREE15FIRST</DiscountCode>
+                  <Typography.Text type="span" modifiers={['300', '16x18']}>
+                    {'. '}
+                    Sử dụng mã tại bước thanh toán!
+                  </Typography.Text>
                 </Typography.Text>
-              </Typography.Text>
-            </WidgetSection>
+              </WidgetSection>
+            </Animate>
           </Section>
           <Section>
             <HomeCategory categories={menus} />

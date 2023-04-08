@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Typography from 'components/atoms/Typography';
+import Animate from 'components/organisms/Animate';
 import Carousel, { NextArrow, PrevArrow } from 'components/organisms/Carousel';
 import Container from 'components/organisms/Container';
 import ProductCard, { ProductCardProps } from 'components/organisms/ProductCard';
@@ -43,7 +44,9 @@ const FeaturedProduct: React.FC<FeaturedProductProps> = ({ products }) => {
   return (
     <div className="t-featuredProduct">
       <Container>
-        <Typography.Heading type="h3" modifiers={['center', '30x36', '500']}>Sản phẩm nổi bật</Typography.Heading>
+        <Animate type="fadeInDown">
+          <Typography.Heading type="h3" modifiers={['center', '30x36', '500']}>Sản phẩm nổi bật</Typography.Heading>
+        </Animate>
         {/* <div className="t-featuredProduct_description">
           <Typography.Text modifiers={['center', 'sonicSilver', '16x18']}>
             Lorem ipsum dolor sit amet, consectetur
@@ -56,7 +59,9 @@ const FeaturedProduct: React.FC<FeaturedProductProps> = ({ products }) => {
           <Carousel settings={settings}>
             {products.map((product, index) => (
               <div className="t-featuredProduct_item" key={`t-featuredProduct-${index.toString()}`}>
-                <ProductCard {...product} />
+                <Animate type="wobble">
+                  <ProductCard {...product} />
+                </Animate>
               </div>
             ))}
           </Carousel>

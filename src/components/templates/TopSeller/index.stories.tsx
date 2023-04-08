@@ -14,6 +14,7 @@ export default {
 export const normal: Story = () => (
   <TopSeller
     first={{
+      id: 1,
       code: 'C00001_00001',
       images: [nc000001],
       promo: 12,
@@ -26,6 +27,7 @@ export const normal: Story = () => (
       solded: 21,
     }}
     second={{
+      id: 1,
       code: 'C00001_00001',
       images: [nc000001],
       promo: 12,

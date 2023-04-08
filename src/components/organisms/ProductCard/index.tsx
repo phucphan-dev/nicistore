@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/no-unused-prop-types */
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Badge from 'components/atoms/Badge';
 import Button from 'components/atoms/Button';
@@ -8,9 +10,11 @@ import Link from 'components/atoms/Link';
 import Typography from 'components/atoms/Typography';
 import PriceSale from 'components/molecules/PriceSale';
 import StarCount from 'components/molecules/StarCount';
+import { useAppSelector } from 'store/hooks';
 import mapModifiers from 'utils/functions';
 
 export interface ProductInfoData {
+  id: number;
   slug?: string;
   code: string;
   images: string[];
@@ -33,6 +37,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
   slug, code, images, promo, name, price, unit, starCount, reviewCount,
   available, solded, handleAddToCart, handleLove, handleQuickView
 }) => {
+  const navigate = useNavigate();
+  const profile = useAppSelector((state) => state.auth.profile);
   const [imgActive, setImgActive] = useState(0);
   return (
     <div className="o-productCard">
@@ -40,15 +46,17 @@ const ProductCard: React.FC<ProductCardProps> = ({
         {!!promo && promo > 0 && <div className="o-productCard_badge"><Badge isOnSale content={`${promo}%`} /></div>}
         <div className="o-productCard_actions">
           <div className="o-productCard_actions_item">
-            <Button
-              iconName="love"
-              iconSize="16"
-              sizes="h34"
-              variant="circle"
-              handleClick={() => handleLove && handleLove(code)}
-            />
+            {profile && (
+              <Button
+                iconName="love"
+                iconSize="16"
+                sizes="h34"
+                variant="circle"
+                handleClick={() => handleLove && handleLove(code)}
+              />
+            )}
           </div>
-          <div className="o-productCard_actions_item">
+          {/* <div className="o-productCard_actions_item">
             <Button
               iconName="expand"
               iconSize="16"
@@ -56,14 +64,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
               variant="circle"
               handleClick={() => handleQuickView && handleQuickView(code)}
             />
-          </div>
+          </div> */}
           <div className="o-productCard_actions_item">
             <Button
               iconName="cart"
               iconSize="16"
               sizes="h34"
               variant="circle"
-              handleClick={() => handleAddToCart && handleAddToCart(code)}
+              handleClick={() => navigate(`/product-detail/${slug}`)}
             />
           </div>
         </div>

@@ -26,12 +26,18 @@ export const getProfileAction = createAsyncThunk<
 export const authenticateSlice = createSlice({
   name: 'authenticateReducer',
   initialState,
-  reducers: {},
+  reducers: {
+    logout: ($state) => {
+      $state.profile = undefined;
+    }
+  },
   extraReducers(builder) {
     builder.addCase(getProfileAction.fulfilled, ($state, action) => {
       $state.profile = action.payload;
     });
   },
 });
+
+export const { logout } = authenticateSlice.actions;
 
 export default authenticateSlice.reducer;

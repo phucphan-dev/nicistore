@@ -27,10 +27,15 @@ const FilterRange: React.FC<FilterRangeProps> = ({
   const [maxValueChange, setMaxValueChange] = useState(defaultValue?.max || maxValue);
   const rangeRef = useRef<HTMLDivElement>(null);
 
-  useDebounce(() => handleFilter({
-    min: Math.min(minValueChange, maxValueChange),
-    max: Math.max(minValueChange, maxValueChange)
-  }), 1000, [minValueChange, maxValueChange]);
+  useDebounce(() => {
+    if (minValueChange === minValue && maxValueChange === maxValue) {
+      return;
+    }
+    handleFilter({
+      min: Math.min(minValueChange, maxValueChange),
+      max: Math.max(minValueChange, maxValueChange)
+    });
+  }, 1000, [minValueChange, maxValueChange]);
 
   const getPercent = useCallback(
     (value: number) => ((value - minValue) / (maxValue - minValue)) * 100,

@@ -14,6 +14,7 @@ export default {
 export const normal: Story = () => (
   <div style={{ width: '20%', padding: '25px' }}>
     <ProductCard
+      id={1}
       code="C00001_00001"
       images={[nc000001]}
       promo={12}
@@ -31,6 +32,7 @@ export const normal: Story = () => (
 export const productRecentViews: Story = () => (
   <div style={{ padding: '25px' }}>
     <ProductRecentViews
+      id={1}
       code="C00001_00001"
       images={[nc000001]}
       promo={12}

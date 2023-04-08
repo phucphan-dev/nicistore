@@ -13,7 +13,8 @@ import Container from 'components/organisms/Container';
 import Section from 'components/organisms/Section';
 import { logoutService } from 'services/authenticate';
 import { removeAccessToken, removeRefreshToken } from 'services/common/storage';
-import { useAppSelector } from 'store/hooks';
+import { logout } from 'store/authenticate';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 import mapModifiers from 'utils/functions';
 
 const menu = [
@@ -32,6 +33,7 @@ const menu = [
 ];
 
 const Account: React.FC = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [active, setActive] = useState(1);
   const profile = useAppSelector((state) => state.auth.profile);
@@ -49,6 +51,7 @@ const Account: React.FC = () => {
       onSuccess: () => {
         removeAccessToken();
         removeRefreshToken();
+        dispatch(logout());
         navigate('/authenticate');
       },
       onError: () => {

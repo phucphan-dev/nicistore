@@ -229,8 +229,8 @@ const ProductInfo: React.FC<ProductInfo> = ({
             </div>
           </div>
           <div className="t-productInfo_controls">
-            <Button iconName="love" iconSize="16">Yêu thích</Button>
-            <Button iconName="share" iconSize="16">Chia sẻ</Button>
+            {profile && <Button iconName="love" iconSize="16">Yêu thích</Button>}
+            {/* <Button iconName="share" iconSize="16">Chia sẻ</Button> */}
           </div>
           <div className="t-productInfo_tags">
             {sku && (

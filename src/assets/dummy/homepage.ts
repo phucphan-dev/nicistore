@@ -132,6 +132,7 @@ export const categoriesDummy: HomeCategoryData[] = [
 
 export const featuredProducts = [
   {
+    id: 1,
     code: 'C00001_00001',
     images: [nc000001],
     promo: 12,
@@ -144,6 +145,7 @@ export const featuredProducts = [
     solded: 21,
   },
   {
+    id: 1,
     code: 'C00001_00002',
     images: [nc000002],
     promo: 12,
@@ -156,6 +158,7 @@ export const featuredProducts = [
     solded: 21,
   },
   {
+    id: 1,
     code: 'C00001_00003',
     images: [nc000001],
     promo: 12,
@@ -168,6 +171,7 @@ export const featuredProducts = [
     solded: 21,
   },
   {
+    id: 1,
     code: 'C00001_00004',
     images: [nc000002],
     promo: 12,
@@ -180,6 +184,7 @@ export const featuredProducts = [
     solded: 21,
   },
   {
+    id: 1,
     code: 'C00001_00005',
     images: [nc000001],
     promo: 12,
@@ -192,6 +197,7 @@ export const featuredProducts = [
     solded: 21,
   },
   {
+    id: 1,
     code: 'C00001_00006',
     images: [nc000002],
     promo: 12,

@@ -28,3 +28,13 @@ export const getProductDetailService = async (slug: string):
   const response = await axiosInstance.get(`client/products/${slug}`);
   return response.data.data;
 };
+
+export const favoriteProductService = async (productId: number): Promise<void> => {
+  await axiosInstance.post('client/product-favorites', { productId });
+};
+
+export const getAllFavoriteProductService = async (params?: FilterProductParams):
+  Promise<APIPaginationResponse<ProductListItemData[]>> => {
+  const response = await axiosInstance.get('client/product-favorites', { params });
+  return response.data;
+};

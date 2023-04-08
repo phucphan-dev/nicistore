@@ -3,6 +3,7 @@ import React from 'react';
 import Image from 'components/atoms/Image';
 import Link from 'components/atoms/Link';
 import Typography from 'components/atoms/Typography';
+import Animate from 'components/organisms/Animate';
 import Container from 'components/organisms/Container';
 
 export interface HomeCategoryData {
@@ -21,44 +22,46 @@ interface HomeCategoryProps {
 const HomeCategory: React.FC<HomeCategoryProps> = ({ categories }) => {
   const renderItem = (item: HomeCategoryData, index?: number) => (
     <div className="t-homeCategory_item" key={index ? item.name + index.toString() : undefined}>
-      <Image imgSrc={item.thumbnail} alt={item.name} ratio={item.ratio} />
-      <div className="t-homeCategory_content">
-        {item.totalProduct && (
-          <div className="t-homeCategory_total">
-            <Typography.Text modifiers={['13x16']}>
-              {item.totalProduct}
-              {' '}
-              Products
-            </Typography.Text>
+      <Animate type="slideInUp">
+        <Image imgSrc={item.thumbnail} alt={item.name} ratio={item.ratio} />
+        <div className="t-homeCategory_content">
+          {item.totalProduct && (
+            <div className="t-homeCategory_total">
+              <Typography.Text modifiers={['13x16']}>
+                {item.totalProduct}
+                {' '}
+                Products
+              </Typography.Text>
+            </div>
+          )}
+          <div className="t-homeCategory_name">
+            <Typography.Heading type="h2" modifiers={['28x32']}>
+              {item.name}
+            </Typography.Heading>
           </div>
-        )}
-        <div className="t-homeCategory_name">
-          <Typography.Heading type="h2" modifiers={['28x32']}>
-            {item.name}
-          </Typography.Heading>
-        </div>
-        {item.description && (
-          <div className="t-homeCategory_description">
-            <Typography.Text modifiers={['16x18']}>
-              {item.description}
-            </Typography.Text>
-          </div>
-        )}
-        {item.items && (
-          <div className="t-homeCategory_items">
-            {item.items.map((type) => (
-              <div className="t-homeCategory_itemLink">
-                <Link href={type.href} key={`category-${item.name}-${type}`}>
-                  <Typography.Text modifiers={['14x16']}>
-                    {type.name}
-                  </Typography.Text>
-                </Link>
+          {item.description && (
+            <div className="t-homeCategory_description">
+              <Typography.Text modifiers={['16x18']}>
+                {item.description}
+              </Typography.Text>
+            </div>
+          )}
+          {item.items && (
+            <div className="t-homeCategory_items">
+              {item.items.map((type) => (
+                <div className="t-homeCategory_itemLink">
+                  <Link href={type.href} key={`category-${item.name}-${type}`}>
+                    <Typography.Text modifiers={['14x16']}>
+                      {type.name}
+                    </Typography.Text>
+                  </Link>
 
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </Animate>
     </div>
   );
 

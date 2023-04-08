@@ -10,6 +10,7 @@ import Input from 'components/atoms/Input';
 import Link from 'components/atoms/Link';
 import { LoadingMain } from 'components/atoms/Loading';
 import Typography from 'components/atoms/Typography';
+import Animate from 'components/organisms/Animate';
 import Container from 'components/organisms/Container';
 import Footer from 'components/organisms/Footer';
 import Header from 'components/organisms/Header';
@@ -41,6 +42,10 @@ const MainLayout: React.FC = () => {
       link: 'contact',
     }], [categories]);
 
+  useEffect(() => {
+    setOpenMenu(false);
+  }, [pathname]);
+
   return (
     <main id="main">
       <LoadingMain closed={!loading} />
@@ -50,12 +55,14 @@ const MainLayout: React.FC = () => {
         handleToggleMenu={() => setOpenMenu(!openMenu)}
         handleSearch={() => setOpenSearch(true)}
       />
-      <div className="main-content">
+      <div className="main-content" style={{ minHeight: `${height}px` }}>
         <Outlet />
       </div>
-      <Section noSpace>
-        <Subscribe />
-      </Section>
+      <Animate type="slideInUp">
+        <Section noSpace>
+          <Subscribe />
+        </Section>
+      </Animate>
       <Footer />
       <div
         className={mapModifiers('search-panel', openSearch && 'opened')}
@@ -75,33 +82,37 @@ const MainLayout: React.FC = () => {
         </Container>
       </div>
       <div className="footer-menu">
-        {pathname === '/' ? (
-          <Link href="/tat-cas" customClassName="footer-menu_item">
-            <Icon iconName="shop" size="24" />
-            <Typography.Text modifiers={['12x14', '500']}>Cửa hàng</Typography.Text>
-          </Link>
-        ) : (
-          <Link href="/" customClassName="footer-menu_item">
-            <Icon iconName="home" size="24" />
-            <Typography.Text modifiers={['12x14', '500']}>Trang chủ</Typography.Text>
-          </Link>
-        )}
-        <div className="footer-menu_item" onClick={() => setOpenMenu(!openMenu)}>
-          <Icon iconName="menu" size="24" />
-          <Typography.Text modifiers={['12x14', '500']}>Danh mục</Typography.Text>
-        </div>
-        <div className="footer-menu_item" onClick={() => setOpenSearch(true)}>
-          <Icon iconName="search" size="24" />
-          <Typography.Text modifiers={['12x14', '500']}>Tìm kiếm</Typography.Text>
-        </div>
-        {/* <Link href="/wishlist" customClassName="footer-menu_item">
-          <Icon iconName="love" size="24" />
-          <Typography.Text modifiers={['12x14', '500']}>Yêu thích</Typography.Text>
-        </Link> */}
-        <Link href="/account" customClassName="footer-menu_item">
-          <Icon iconName="user" size="24" />
-          <Typography.Text modifiers={['12x14', '500']}>Tài khoản</Typography.Text>
-        </Link>
+        <Animate type="slideInUp" noScroll extendClassName="animate-s2">
+          <div className="footer-menu_wrapper">
+            {pathname === '/' ? (
+              <Link href="/tat-cas" customClassName="footer-menu_item">
+                <Icon iconName="shop" size="24" />
+                <Typography.Text modifiers={['12x14', '500']}>Cửa hàng</Typography.Text>
+              </Link>
+            ) : (
+              <Link href="/" customClassName="footer-menu_item">
+                <Icon iconName="home" size="24" />
+                <Typography.Text modifiers={['12x14', '500']}>Trang chủ</Typography.Text>
+              </Link>
+            )}
+            <div className="footer-menu_item" onClick={() => setOpenMenu(!openMenu)}>
+              <Icon iconName="menu" size="24" />
+              <Typography.Text modifiers={['12x14', '500']}>Danh mục</Typography.Text>
+            </div>
+            <div className="footer-menu_item" onClick={() => setOpenSearch(true)}>
+              <Icon iconName="search" size="24" />
+              <Typography.Text modifiers={['12x14', '500']}>Tìm kiếm</Typography.Text>
+            </div>
+            <Link href="/wishlist" customClassName="footer-menu_item">
+              <Icon iconName="love" size="24" />
+              <Typography.Text modifiers={['12x14', '500']}>Yêu thích</Typography.Text>
+            </Link>
+            <Link href="/account" customClassName="footer-menu_item">
+              <Icon iconName="user" size="24" />
+              <Typography.Text modifiers={['12x14', '500']}>Tài khoản</Typography.Text>
+            </Link>
+          </div>
+        </Animate>
       </div>
       <ToastContainer autoClose={300} style={{ fontSize: '12px' }} />
     </main>

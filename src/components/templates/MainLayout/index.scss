@@ -32,15 +32,19 @@
     bottom: 0;
     width: 100%;
     left: 0;
-    background-color: $white;
-    padding-top: rem(8);
-    padding-bottom: rem(24);
-    box-shadow: 0 0 8px rgba($black, 0.2);
     display: none;
     z-index: $z-search;
 
     @include mobile-down-portrait {
+        display: block;
+    }
+
+    &_wrapper {
         display: flex;
+        background-color: $white;
+        padding-top: rem(8);
+        padding-bottom: rem(24);
+        box-shadow: 0 0 8px rgba($black, 0.2);
     }
 
     &_item {
