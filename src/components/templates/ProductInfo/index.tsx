@@ -45,6 +45,7 @@ const ProductInfo: React.FC<ProductInfo> = ({
   code,
   images,
   name,
+  shortDescription,
   description,
   promo,
   price,
@@ -174,7 +175,7 @@ const ProductInfo: React.FC<ProductInfo> = ({
           <div className="t-productInfo_price">
             <PriceSale isHorizontal unit={unit} price={price} promo={promo} />
           </div>
-          <div className="t-productInfo_description" dangerouslySetInnerHTML={{ __html: description }} />
+          <div className="t-productInfo_description" dangerouslySetInnerHTML={{ __html: shortDescription }} />
           {colorWithSize && (
             <>
               <div className="t-productInfo_colors">

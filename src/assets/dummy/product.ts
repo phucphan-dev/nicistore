@@ -10,6 +10,7 @@ const productDummy = {
   images: [nc000001, nc000002],
   name: 'Basic Colored Sweatpants With Elastic Hems',
   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  shortDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
   promo: 12,
   price: 25.09,
   unit: '$',

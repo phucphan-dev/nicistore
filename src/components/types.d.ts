@@ -39,6 +39,7 @@ interface ProductInfo {
   code: string;
   images: string[];
   name: string;
+  shortDescription: string;
   description: string;
   promo?: number;
   price: number;
