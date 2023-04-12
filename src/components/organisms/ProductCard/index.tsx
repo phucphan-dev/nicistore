@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/no-unused-prop-types */
 import React, { useState } from 'react';
+import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import Badge from 'components/atoms/Badge';
 import Button from 'components/atoms/Button';
@@ -10,6 +12,7 @@ import Link from 'components/atoms/Link';
 import Typography from 'components/atoms/Typography';
 import PriceSale from 'components/molecules/PriceSale';
 import StarCount from 'components/molecules/StarCount';
+import { favoriteProductService } from 'services/product';
 import { useAppSelector } from 'store/hooks';
 import mapModifiers from 'utils/functions';
 
@@ -34,27 +37,35 @@ export interface ProductCardProps extends ProductInfoData {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
-  slug, code, images, promo, name, price, unit, starCount, reviewCount,
-  available, solded, handleAddToCart, handleLove, handleQuickView
+  id, slug, code, images, promo, name, price, unit, starCount, reviewCount,
+  available, solded
 }) => {
   const navigate = useNavigate();
   const profile = useAppSelector((state) => state.auth.profile);
   const [imgActive, setImgActive] = useState(0);
+  const { mutate: favoriteMutate } = useMutation(
+    'favoriteAction',
+    favoriteProductService,
+  );
   return (
     <div className="o-productCard">
       <div className="o-productCard_thumbnail">
         {!!promo && promo > 0 && <div className="o-productCard_badge"><Badge isOnSale content={`${promo}%`} /></div>}
         <div className="o-productCard_actions">
           <div className="o-productCard_actions_item">
-            {profile && (
-              <Button
-                iconName="love"
-                iconSize="16"
-                sizes="h34"
-                variant="circle"
-                handleClick={() => handleLove && handleLove(code)}
-              />
-            )}
+            <Button
+              iconName="love"
+              iconSize="16"
+              sizes="h34"
+              variant="circle"
+              handleClick={() => {
+                if (profile) {
+                  favoriteMutate(id);
+                } else {
+                  toast.error('Đăng nhập để sử dụng tính năng này');
+                }
+              }}
+            />
           </div>
           {/* <div className="o-productCard_actions_item">
             <Button

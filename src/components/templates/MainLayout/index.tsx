@@ -114,7 +114,7 @@ const MainLayout: React.FC = () => {
           </div>
         </Animate>
       </div>
-      <ToastContainer autoClose={300} style={{ fontSize: '12px' }} />
+      <ToastContainer autoClose={1000} style={{ fontSize: '12px' }} />
     </main>
   );
 };
