@@ -11,3 +11,15 @@ export const LOCALSTORAGE = {
   NICI_CART: 'NICI_CART',
   NICI_HAS_ACCESS: 'NICI_HAS_ACCESS',
 };
+
+export const ROUTES_PATH = {
+  HOME: '/',
+  AUTHENTICATE: '/authenticate',
+  PRODUCT_DETAIL: '/product-detail',
+  CART: '/cart',
+  CHECKOUT: '/checkout',
+  TRACKING_ORDER: '/tracking-order',
+  ACCOUNT: '/account',
+  CONTACT: '/contact',
+  WISHLIST: '/wishlist',
+};

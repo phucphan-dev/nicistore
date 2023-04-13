@@ -49,3 +49,10 @@ export const buyForMeSchema = yup.object({
   phone: yup.string().required('Vui lòng nhập số điện thoại').matches(phoneRegExp, 'Số điện thoại không hợp lệ'),
   email: yup.string().required('Vui lòng nhập lại địa chỉ email').email('Email không hợp lệ'),
 });
+
+export const contactScheme = yup.object({
+  name: yup.string().required('Vui lòng nhập họ tên'),
+  email: yup.string().required('Vui lòng nhập lại địa chỉ email').email('Email không hợp lệ'),
+  subject: yup.string().required('Vui lòng nhập chủ để'),
+  message: yup.string().required('Vui lòng để lại lời nhắn')
+});

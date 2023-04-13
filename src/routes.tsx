@@ -11,21 +11,24 @@ import Home from 'pages/Home';
 import ProductDetail from 'pages/ProductDetail';
 import Products from 'pages/Products';
 import TrackingOrder from 'pages/TrackingOrder';
+import Wishlist from 'pages/Wishlist';
+import { ROUTES_PATH } from 'utils/constants';
 
 const routes: RouteObject[] = [
   {
-    path: '/',
+    path: ROUTES_PATH.HOME,
     element: <MainLayout />,
     children: [
       { index: true, element: <Home /> },
-      { path: '/authenticate', element: <Authenticate /> },
+      { path: ROUTES_PATH.AUTHENTICATE, element: <Authenticate /> },
       { path: '/:category', element: <Products /> },
-      { path: '/product-detail/:product', element: <ProductDetail /> },
-      { path: '/cart', element: <Cart /> },
-      { path: '/checkout', element: <Checkout /> },
-      { path: '/tracking-order', element: <TrackingOrder /> },
-      { path: '/account', element: <Account /> },
-      { path: '/contact', element: <Contact /> },
+      { path: `${ROUTES_PATH.PRODUCT_DETAIL}/:product`, element: <ProductDetail /> },
+      { path: ROUTES_PATH.CART, element: <Cart /> },
+      { path: ROUTES_PATH.CHECKOUT, element: <Checkout /> },
+      { path: ROUTES_PATH.TRACKING_ORDER, element: <TrackingOrder /> },
+      { path: ROUTES_PATH.ACCOUNT, element: <Account /> },
+      { path: ROUTES_PATH.CONTACT, element: <Contact /> },
+      { path: ROUTES_PATH.WISHLIST, element: <Wishlist /> },
     ],
   },
 ];

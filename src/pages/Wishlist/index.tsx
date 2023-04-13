@@ -1,88 +1,96 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 
 import Checkbox from 'components/atoms/Checkbox';
+import Image from 'components/atoms/Image';
+import Link from 'components/atoms/Link';
 import Typography from 'components/atoms/Typography';
 import Container from 'components/organisms/Container';
 import Section from 'components/organisms/Section';
 import { getAllFavoriteProductService } from 'services/product';
+import { ROUTES_PATH } from 'utils/constants';
+import { renderPrice } from 'utils/functions';
 
 const Wishlist: React.FC = () => {
-  const { data, isLoading } = useQuery(
+  const [checkList, setCheckList] = useState<number[]>([]);
+  const { data: favoritesData } = useQuery(
     ['getAllFavoriteProduct'],
     () => getAllFavoriteProductService(),
   );
+  const handleSelectItem = (id: number, checked: boolean) => {
+    if (checked) {
+      setCheckList([...checkList, id]);
+    } else {
+      setCheckList(checkList.filter((item) => item !== id));
+    }
+  };
   return (
     <Section>
-      <Container>
-        <table className="p-cart_table">
-          <tr className="p-cart_t">
-            <th>
-              <div className="p-cart_th checkAll">
-                <Checkbox
-                  name="checkAll"
-                // checked={checkList.length === cartDetail.length}
-                // onChange={(e) => (e.currentTarget.checked
-                //   ? setCheckList(cartDetail.map((item) => item.id)) : setCheckList([]))}
-                />
-              </div>
-
-            </th>
-            <th><div className="p-cart_th"><Typography.Text>Tên sản phẩm</Typography.Text></div></th>
-            <th><div className="p-cart_th price"><Typography.Text>Giá</Typography.Text></div></th>
-            <th><div className="p-cart_th"><Typography.Text>Quantity</Typography.Text></div></th>
-            <th><div className="p-cart_th price"><Typography.Text>Subtotal</Typography.Text></div></th>
-          </tr>
-          {/* {cartDetail.map((item) => (
-            <tr className="p-cart_t" key={item.name + item.link}>
-              <td>
-                <div className="p-cart_td">
+      <div className="p-wishlist">
+        <Container>
+          <table className="p-wishlist_table">
+            <tr className="p-wishlist_tr">
+              <th style={{ width: 60 }}>
+                <div className="p-wishlist_th checkAll">
                   <Checkbox
-                    name={String(item.id)}
-                    checked={checkList.includes(item.id)}
-                    onChange={(e) => handleSelectItem(item.id, e.currentTarget.checked)}
+                    name="checkAll"
+                    checked={checkList.length === favoritesData?.data.length}
+                    onChange={(e) => (e.currentTarget.checked
+                      ? setCheckList(favoritesData
+                        ? favoritesData.data.map((item) => item.id) : []) : setCheckList([]))}
                   />
                 </div>
-              </td>
-              <td>
-                <div className="p-cart_td">
-                  <ProductCartItem
-                    image={item.image}
-                    href={item.link}
-                    name={item.name}
-                    color={item.color.name}
-                    size={item.size.name}
-                    handleDelete={() => handleDelete(item.id)}
-                  />
-                </div>
-              </td>
-              <td>
-                <div className="p-cart_td price">
-                  <Typography.Text>
-                    {renderPrice(item.price, true, 'VNĐ')}
-                  </Typography.Text>
-                </div>
-              </td>
-              <td>
-                <div className="p-cart_td">
-                  <QuantityInput
-                    initQuantity={item.quantity}
-                    handleChange={(value) => handleChangeQuantity(item, value)}
-                  />
-                </div>
-              </td>
-              <td>
-                <div className="p-cart_td price">
-                  <Typography.Text>
-                    {renderPrice(item.price, true, 'VNĐ')}
-                  </Typography.Text>
-                </div>
-              </td>
+              </th>
+              <th><div className="p-wishlist_th hide-mobile"><Typography.Text>Hình ảnh</Typography.Text></div></th>
+              <th><div className="p-wishlist_th"><Typography.Text>Tên sản phẩm</Typography.Text></div></th>
+              <th><div className="p-wishlist_th"><Typography.Text>Giá</Typography.Text></div></th>
+              <th><div className="p-wishlist_th hide-mobile"><Typography.Text>Tồn kho</Typography.Text></div></th>
             </tr>
-          ))} */}
-        </table>
-      </Container>
+            {favoritesData?.data.map((item) => (
+              <tr className="p-wishlist_t" key={item.name + item.slug}>
+                <td>
+                  <div className="p-wishlist_td">
+                    <Checkbox
+                      name={String(item.id)}
+                      checked={checkList.includes(item.id)}
+                      onChange={(e) => handleSelectItem(item.id, e.currentTarget.checked)}
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div className="p-wishlist_td hide-mobile">
+                    <Image imgSrc={item.thumbnail} ratio="1x1" />
+                  </div>
+                </td>
+                <td>
+                  <div className="p-wishlist_td">
+                    <Link href={`${ROUTES_PATH.PRODUCT_DETAIL}/${item.slug}`}>
+                      <Typography.Text>
+                        {item.name}
+                      </Typography.Text>
+                    </Link>
+                  </div>
+                </td>
+                <td>
+                  <div className="p-wishlist_td">
+                    <Typography.Text>
+                      {renderPrice(item.price, true, 'VNĐ')}
+                    </Typography.Text>
+                  </div>
+                </td>
+                <td>
+                  <div className="p-wishlist_td hide-mobile">
+                    <Typography.Text>
+                      {item.stock}
+                    </Typography.Text>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </table>
+        </Container>
+      </div>
     </Section>
   );
 };

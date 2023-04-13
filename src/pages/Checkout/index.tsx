@@ -26,7 +26,7 @@ import { CreateOrderDataRequest } from 'services/order/types';
 import { ShippingAddressData } from 'services/shippingAddress/types';
 import { deleteCheckoutId } from 'store/cart';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { LOCALSTORAGE } from 'utils/constants';
+import { LOCALSTORAGE, ROUTES_PATH } from 'utils/constants';
 import { renderPrice } from 'utils/functions';
 import { orderSchema } from 'utils/schemas';
 
@@ -150,7 +150,7 @@ const Checkout: React.FC = () => {
               </div>
               <Typography.Text modifiers={['mayGreen', '700', '20x24', 'center']}>Đặt hàng thành công</Typography.Text>
               <div className="p-checkout_button continue">
-                <Button variant="primary" sizes="h48" handleClick={() => navigate('/')}>Tiếp tục mua hàng</Button>
+                <Button variant="primary" sizes="h48" handleClick={() => navigate(ROUTES_PATH.HOME)}>Tiếp tục mua hàng</Button>
               </div>
             </>
           ) : (
@@ -287,7 +287,7 @@ const Checkout: React.FC = () => {
                         field: { onChange, value },
                         fieldState: { error },
                       }) => (
-                        <TextArea name="note" label="Ghi chú" rows={6} value={value} onChange={onChange} error={error?.message} />
+                        <TextArea required name="note" label="Ghi chú" rows={6} value={value} onChange={onChange} error={error?.message} />
                       )}
                     />
                   </div>

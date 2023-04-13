@@ -22,6 +22,7 @@ import FooterProduct from 'components/templates/FooterProduct';
 import { getAllProductService, getProductCategoryDetailService } from 'services/product';
 import { FilterSortParams, PropertiesProductFilter } from 'services/product/types';
 import { useAppSelector } from 'store/hooks';
+import { ROUTES_PATH } from 'utils/constants';
 import mapModifiers, { groupMenusCategoriesFilter } from 'utils/functions';
 
 const Products: React.FC = () => {
@@ -181,7 +182,7 @@ const Products: React.FC = () => {
                 <div className="p-products_list">
                   {productsMemo.map((item, index) => (
                     <div className="p-products_item" key={item.code + index.toString()}>
-                      <Link href={`/${category}/${item.slug}`}><ProductCard {...item} /></Link>
+                      <Link href={`${ROUTES_PATH.PRODUCT_DETAIL}/${item.slug}`}><ProductCard {...item} /></Link>
                     </div>
                   ))}
                 </div>
