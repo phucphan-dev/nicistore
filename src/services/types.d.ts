@@ -37,8 +37,10 @@ type ProductProperty = {
 };
 
 type ColorSize = {
-  color: ProductProperty
-  size: ProductProperty
+  color: ProductProperty;
+  size: ProductProperty;
+  quantity: number;
+  image: string;
 };
 
 type Category = {

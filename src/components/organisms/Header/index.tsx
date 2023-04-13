@@ -26,6 +26,7 @@ const Header: React.FC<HeaderProps> = ({
 }) => {
   const navigate = useNavigate();
   const cartDetail = useAppSelector((state) => state.cart);
+  const profile = useAppSelector((state) => state.auth.profile);
 
   return (
     <header className="o-header">
@@ -56,9 +57,11 @@ const Header: React.FC<HeaderProps> = ({
                 <div className="o-header_right_button hide-mobile">
                   <Button name="search-button" aria-label="Search" iconName="search" iconSize="24" handleClick={handleSearch} />
                 </div>
-                <div className="o-header_right_button hide-mobile">
-                  <Button name="love-button" aria-label="Love" iconName="love" iconSize="24" badge={0} handleClick={() => navigate(ROUTES_PATH.WISHLIST)} />
-                </div>
+                {profile && (
+                  <div className="o-header_right_button hide-mobile">
+                    <Button name="love-button" aria-label="Love" iconName="love" iconSize="24" badge={0} handleClick={() => navigate(ROUTES_PATH.WISHLIST)} />
+                  </div>
+                )}
                 <div className="o-header_right_button">
                   <Button name="cart-button" aria-label="Cart" iconName="cart" iconSize="24" badge={cartDetail.items.length} handleClick={() => navigate(ROUTES_PATH.CART)} />
                 </div>

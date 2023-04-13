@@ -37,7 +37,10 @@ interface ProductInfo {
   id: number;
   slug: string;
   code: string;
-  images: string[];
+  images: {
+    id: number;
+    path: string
+  }[];
   name: string;
   shortDescription: string;
   description: string;
@@ -73,6 +76,8 @@ type Color = {
 type ColorWithSize = {
   [key: string]: {
     color: Color;
-    size: ProductProperty[]
+    size: ProductProperty[];
+    quantity: number;
+    image: string;
   }
 };

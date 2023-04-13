@@ -53,7 +53,7 @@ const Order: React.FC = () => {
               </thead>
               <tbody>
                 {orderList.data.map((item) => (
-                  <tr>
+                  <tr key={item.code}>
                     <td>
                       <Typography.Text>
                         #

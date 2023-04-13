@@ -49,13 +49,12 @@ const HomeCategory: React.FC<HomeCategoryProps> = ({ categories }) => {
           {item.items && (
             <div className="t-homeCategory_items">
               {item.items.map((type) => (
-                <div className="t-homeCategory_itemLink">
+                <div className="t-homeCategory_itemLink" key={type.href}>
                   <Link href={type.href} key={`category-${item.name}-${type}`}>
                     <Typography.Text modifiers={['14x16']}>
                       {type.name}
                     </Typography.Text>
                   </Link>
-
                 </div>
               ))}
             </div>

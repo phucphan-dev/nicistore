@@ -30,7 +30,8 @@ const ProductDetail: React.FC = () => {
     id: data.id,
     slug: `${data.categories.map((item) => `/${item.slug}`).join()}/${data.slug}`,
     code: data.code,
-    images: data.galleries.map((item) => item.path),
+    images: data.galleries.map((item, idx) => (
+      { id: idx, path: item.path })),
     name: data.name,
     shortDescription: data.shortDescription,
     description: data.description,

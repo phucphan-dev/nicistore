@@ -25,13 +25,14 @@ const Tabs: React.FC<TabsProps> = ({
                 handleIndex(idx);
               }
             }}
+            key={`tabs-${idx.toString()}`}
             className={mapModifiers('o-tabs_tab', active === idx && 'active')}
           >
             <div className="o-tabs_label">{item}</div>
           </div>
         ))}
       </div>
-      {Children.toArray(children).map((item, idx) => <div className={mapModifiers('o-tabs_panel', active === idx && 'active')}>{item}</div>)}
+      {Children.toArray(children).map((item, idx) => <div className={mapModifiers('o-tabs_panel', active === idx && 'active')} key={`tabspanel-${idx.toString()}`}>{item}</div>)}
     </div>
   );
 };

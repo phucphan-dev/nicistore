@@ -7,7 +7,7 @@ const productDummy = {
   id: 1,
   slug: '',
   code: 'test',
-  images: [nc000001, nc000002],
+  images: [{ id: 1, path: nc000001 }, { id: 2, path: nc000002 }],
   name: 'Basic Colored Sweatpants With Elastic Hems',
   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
   shortDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',

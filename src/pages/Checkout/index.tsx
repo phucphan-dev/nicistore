@@ -301,7 +301,7 @@ const Checkout: React.FC = () => {
                     </div>
                     <div className="p-checkout_divider" />
                     {checkoutItems.map((item) => (
-                      <div className="p-checkout_summary">
+                      <div className="p-checkout_summary" key={item.id}>
                         <div className="p-checkout_product">
                           <Typography.Text modifiers={['13x16', '700']}>
                             {item.name}

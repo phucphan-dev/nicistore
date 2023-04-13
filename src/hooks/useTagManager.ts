@@ -5,9 +5,11 @@ import { ANALYTICS } from 'utils/constants';
 
 const useTagManager = () => {
   useEffect(() => {
-    TagManager.initialize({
-      gtmId: ANALYTICS.GTM,
-    });
+    setTimeout(() => {
+      TagManager.initialize({
+        gtmId: ANALYTICS.GTM,
+      });
+    }, 2000);
   }, []);
 };
 

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import './App.scss';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import {
@@ -12,7 +12,11 @@ import { store } from 'store';
 
 const App: React.FC = () => {
   const element = useRoutes(routes);
-  return element;
+  return (
+    <Suspense fallback={null}>
+      {element}
+    </Suspense>
+  );
 };
 
 const AppMain: React.FC = () => {

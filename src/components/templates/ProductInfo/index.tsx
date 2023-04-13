@@ -1,6 +1,7 @@
 /* eslint-disable react/no-danger */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {
+  useCallback,
   useEffect, useMemo, useRef, useState
 } from 'react';
 import { Col, Row } from 'react-bootstrap';
@@ -80,7 +81,9 @@ const ProductInfo: React.FC<ProductInfo> = ({
             label: curr.color.name,
             color: curr.color.code
           },
-          size: [curr.size]
+          size: [curr.size],
+          quantity: curr.quantity,
+          image: curr.image
         }
     }), {}) : undefined), [colorSize]);
 
@@ -89,6 +92,11 @@ const ProductInfo: React.FC<ProductInfo> = ({
       color && colorWithSize ? colorWithSize[color.id.toString()].size : []),
     [color, colorWithSize]
   );
+
+  const imageGaleries = useMemo(() => (colorWithSize
+    ? ([...images, ...Object.values(colorWithSize).filter((item) => !!item.image).map(
+      (item, idx) => ({ id: images.length + idx, path: item.image })
+    )]) : images), [colorWithSize, images]);
 
   const { mutate: addToCartMutate, isLoading } = useMutation(
     'addToCartAction',
@@ -100,7 +108,7 @@ const ProductInfo: React.FC<ProductInfo> = ({
     favoriteProductService,
   );
 
-  const handleAddToCart = () => {
+  const handleAddToCart = useCallback(() => {
     if (!color) {
       toast.error('Vui lòng chọn màu sắc', { toastId: 'selectColor' });
     } else if (!size) {
@@ -113,7 +121,7 @@ const ProductInfo: React.FC<ProductInfo> = ({
       dispatch(addToCart({
         id: cartData.length > 0 ? Number(cartData[cartData.length - 1].id) + 1 : 1,
         productId: id,
-        image: images[0],
+        image: imageGaleries[active].path,
         link: slug,
         name,
         color: { id: color.id, name: color.label, code: color.color },
@@ -128,7 +136,8 @@ const ProductInfo: React.FC<ProductInfo> = ({
         }]);
       }
     }
-  };
+  }, [active, addToCartMutate, color, dispatch, id,
+    imageGaleries, name, price, profile, quantity, size, slug]);
 
   useEffect(() => {
     if (color && colorWithSize) {
@@ -145,22 +154,23 @@ const ProductInfo: React.FC<ProductInfo> = ({
   useEffect(() => {
     carouselRef.current?.slickGoTo(active);
   }, [active]);
+
   return (
     <div className="t-productInfo">
       <Row>
         <Col lg={5}>
           <div className="t-productInfo_carousel">
             <Carousel ref={carouselRef} settings={settings}>
-              {images.map((item, idx) => <ImagePreview key={`${code}-image-${idx.toString()}`} imgSrc={item} alt={`${code}-image-${idx}`} />)}
+              {imageGaleries.map((item, idx) => <ImagePreview key={`${code}-image-${idx.toString()}`} imgSrc={item.path} alt={`${code}-image-${idx}`} />)}
             </Carousel>
             <div className="t-productInfo_expanded" onClick={() => setZoom(true)}>
               <Icon iconName="expand" size="20" />
             </div>
           </div>
           <div className="t-productInfo_dots">
-            {images.map((item, idx) => (
+            {imageGaleries.map((item, idx) => (
               <div className={mapModifiers('t-productInfo_dot', active === idx && 'active')} onClick={() => setActive(idx)}>
-                <Image imgSrc={item} alt={`${code}-image-${idx}`} ratio="1x1" />
+                <Image imgSrc={item.path} alt={`${code}-image-${idx}`} ratio="1x1" />
               </div>
             ))}
           </div>
@@ -190,7 +200,7 @@ const ProductInfo: React.FC<ProductInfo> = ({
                   <strong>{color?.label}</strong>
                 </Typography.Text>
                 <div className="t-productInfo_colors_list">
-                  {Object.keys(colorWithSize).map((key) => {
+                  {Object.keys(colorWithSize).map((key, idx) => {
                     const item = colorWithSize[key];
                     return (
                       <div className="t-productInfo_color" key={`${item.color.id}-${item.color.color}`}>
@@ -199,7 +209,10 @@ const ProductInfo: React.FC<ProductInfo> = ({
                           checked={color?.id === item.color.id}
                           type="radio"
                           color={item.color.color}
-                          onChange={() => setColor(item.color)}
+                          onChange={() => {
+                            setColor(item.color);
+                            setActive(idx + images.length);
+                          }}
                         />
                       </div>
                     );
@@ -226,6 +239,15 @@ const ProductInfo: React.FC<ProductInfo> = ({
                   ))}
                 </div>
               </div>
+              {color && (
+                <div className="t-productInfo_stock">
+                  <Typography.Text modifiers={['14x16', '400']}>
+                    Kho:
+                    {' '}
+                    <strong>{colorWithSize[color.id.toString()].quantity > 0 ? colorWithSize[color.id.toString()].quantity : 'Hết hàng'}</strong>
+                  </Typography.Text>
+                </div>
+              )}
             </>
           )}
           <div className="t-productInfo_quantity">
@@ -285,7 +307,7 @@ const ProductInfo: React.FC<ProductInfo> = ({
       <div className={mapModifiers('t-productInfo_previewer', zoom && 'active')} style={{ width: `${wWidth}px`, height: `${wHeight}px` }}>
         <TransformWrapper>
           <TransformComponent>
-            <img src={images[active]} alt={code} />
+            <img src={imageGaleries[active].path} alt={code} />
           </TransformComponent>
         </TransformWrapper>
         <div className="t-productInfo_close" onClick={() => setZoom(false)}>

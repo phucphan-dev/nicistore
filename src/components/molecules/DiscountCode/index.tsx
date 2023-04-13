@@ -7,9 +7,9 @@ interface DiscountCodeProps {
 }
 
 const DiscountCode: React.FC<DiscountCodeProps> = ({ children }) => (
-  <div className="m-discountCode">
-    <Typography.Text modifiers={['14x16', 'ferrariRed', '500']}>{children}</Typography.Text>
-  </div>
+  <span className="m-discountCode">
+    <Typography.Text type="span" modifiers={['14x16', 'ferrariRed', '500']}>{children}</Typography.Text>
+  </span>
 );
 
 DiscountCode.defaultProps = {
