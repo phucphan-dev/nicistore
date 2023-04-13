@@ -35,11 +35,15 @@
 
     &_input {
         display: flex;
-        align-items: center;
+        align-items: start;
         margin-top: rem(24);
 
         .a-input {
             flex-grow: 1;
+
+            input {
+                height: rem(46);
+            }
         }
     }
 

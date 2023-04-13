@@ -18,7 +18,7 @@ import { addToCartService } from 'services/cart';
 import { setAccessToken, setRefreshToken } from 'services/common/storage';
 import { getProfileAction } from 'store/authenticate';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { ERROR_MAPPING, LOCALSTORAGE } from 'utils/constants';
+import { ERROR_MAPPING, LOCALSTORAGE, ROUTES_PATH } from 'utils/constants';
 import mapModifiers from 'utils/functions';
 import { loginSchema, registerSchema } from 'utils/schemas';
 
@@ -42,7 +42,7 @@ const Authenticate: React.FC = () => {
         localStorage.removeItem(LOCALSTORAGE.NICI_CART);
       },
       onSettled: () => {
-        navigate('/');
+        navigate(ROUTES_PATH.HOME);
       }
     }
   );
@@ -66,7 +66,7 @@ const Authenticate: React.FC = () => {
             quantity: item.quantity
           })));
         } else {
-          navigate('/');
+          navigate(ROUTES_PATH.HOME);
         }
       },
       onError: (errors: any) => {
@@ -230,9 +230,10 @@ const Authenticate: React.FC = () => {
                 </Button>
               </div>
             </FormProvider>
-            <div className="p-authenticate_forgot">
-              <Link><Typography.Text modifiers={['14x16', 'ferrariRed']}>Quên mật khẩu?</Typography.Text></Link>
-            </div>
+            {/* <div className="p-authenticate_forgot">
+              <Link><Typography.Text modifiers={['14x16', 'ferrariRed']}>
+              Quên mật khẩu?</Typography.Text></Link>
+            </div> */}
           </div>
           <div className={mapModifiers('p-authenticate_register', !isLogin && 'active')}>
             <FormProvider {...registerMethod}>

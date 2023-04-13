@@ -18,7 +18,7 @@ import { removeItemCartService, updateItemCartService } from 'services/cart';
 import { AddCartDataRequest } from 'services/cart/types';
 import { deleteItemCartLocal, processCheckoutAction, updateItemCartLocal } from 'store/cart';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { LOCALSTORAGE } from 'utils/constants';
+import { LOCALSTORAGE, ROUTES_PATH } from 'utils/constants';
 import { renderPrice } from 'utils/functions';
 
 const Cart: React.FC = () => {
@@ -86,7 +86,7 @@ const Cart: React.FC = () => {
   const processCheckout = () => {
     if (checkList.length <= 20) {
       dispatch(processCheckoutAction(checkList));
-      navigate('/checkout');
+      navigate(ROUTES_PATH.CHECKOUT);
     } else {
       toast.error('Vui lòng không đặt quá 20 sản phẩm', { toastId: 'overOrder' });
     }
@@ -120,10 +120,10 @@ const Cart: React.FC = () => {
                         </div>
 
                       </th>
-                      <th><div className="p-cart_th"><Typography.Text>Product</Typography.Text></div></th>
-                      <th><div className="p-cart_th price"><Typography.Text>Price</Typography.Text></div></th>
-                      <th><div className="p-cart_th"><Typography.Text>Quantity</Typography.Text></div></th>
-                      <th><div className="p-cart_th price"><Typography.Text>Subtotal</Typography.Text></div></th>
+                      <th><div className="p-cart_th"><Typography.Text>Sản phẩm</Typography.Text></div></th>
+                      <th><div className="p-cart_th price"><Typography.Text>Giá</Typography.Text></div></th>
+                      <th><div className="p-cart_th"><Typography.Text>Số lượng</Typography.Text></div></th>
+                      <th><div className="p-cart_th price"><Typography.Text>Tạm tính</Typography.Text></div></th>
                     </tr>
                     {cartDetail.map((item) => (
                       <tr className="p-cart_t" key={item.name + item.link}>

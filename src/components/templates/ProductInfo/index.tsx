@@ -23,6 +23,7 @@ import Carousel, { NextArrow, PrevArrow } from 'components/organisms/Carousel';
 import ImagePreview from 'components/organisms/ImagePreview';
 import useWindowDimensions from 'hooks/useWindowDemensions';
 import { addToCartService } from 'services/cart';
+import { favoriteProductService } from 'services/product';
 import { addToCart } from 'store/cart';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { LOCALSTORAGE } from 'utils/constants';
@@ -46,7 +47,6 @@ const ProductInfo: React.FC<ProductInfo> = ({
   images,
   name,
   shortDescription,
-  description,
   promo,
   price,
   unit,
@@ -93,6 +93,11 @@ const ProductInfo: React.FC<ProductInfo> = ({
   const { mutate: addToCartMutate, isLoading } = useMutation(
     'addToCartAction',
     addToCartService,
+  );
+
+  const { mutate: favoriteMutate } = useMutation(
+    'favoriteAction',
+    favoriteProductService,
   );
 
   const handleAddToCart = () => {
@@ -230,7 +235,19 @@ const ProductInfo: React.FC<ProductInfo> = ({
             </div>
           </div>
           <div className="t-productInfo_controls">
-            {profile && <Button iconName="love" iconSize="16">Yêu thích</Button>}
+            <Button
+              iconName="love"
+              iconSize="16"
+              handleClick={() => {
+                if (profile) {
+                  favoriteMutate(id);
+                } else {
+                  toast.error('Đăng nhập để sử dụng tính năng này');
+                }
+              }}
+            >
+              Yêu thích
+            </Button>
             {/* <Button iconName="share" iconSize="16">Chia sẻ</Button> */}
           </div>
           <div className="t-productInfo_tags">

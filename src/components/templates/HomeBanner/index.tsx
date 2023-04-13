@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useMemo, useRef, useState } from 'react';
+import { useMutation } from 'react-query';
+import { toast } from 'react-toastify';
 
 import banner from 'assets/images/banner.jpg';
 import Button from 'components/atoms/Button';
@@ -12,7 +14,11 @@ import PriceSale from 'components/molecules/PriceSale';
 import Animate from 'components/organisms/Animate';
 import Container from 'components/organisms/Container';
 import useWindowDimensions from 'hooks/useWindowDemensions';
+import { addToCartService } from 'services/cart';
 import { ProductListItemData } from 'services/product/types';
+import { addToCart } from 'store/cart';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { LOCALSTORAGE } from 'utils/constants';
 
 interface HomeBannerProps {
   product?: ProductListItemData;
@@ -20,10 +26,16 @@ interface HomeBannerProps {
 }
 
 const HomeBanner: React.FC<HomeBannerProps> = ({ product, handleScrollTo }) => {
+  const dispatch = useAppDispatch();
+  const profile = useAppSelector((state) => state.auth.profile);
   const { height } = useWindowDimensions();
   const [color, setColor] = useState<Color>();
   const [size, setSize] = useState<ProductProperty>();
   const ref = useRef<HTMLDivElement>(null);
+  const { mutate: addToCartMutate, isLoading } = useMutation(
+    'addToCartHomeAction',
+    addToCartService,
+  );
   const colorWithSize: ColorWithSize | undefined = useMemo(() => {
     if (!product || !product.colorSize.length) {
       return undefined;
@@ -57,6 +69,30 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ product, handleScrollTo }) => {
     },
     [color, colorWithSize]
   );
+  const handleAddToCart = () => {
+    if (!product || !color || !size) {
+      return;
+    }
+    const cartLocal = localStorage.getItem(LOCALSTORAGE.NICI_CART);
+    const cartData = cartLocal ? JSON.parse(cartLocal) as CartItem[] : [];
+    dispatch(addToCart({
+      id: cartData.length > 0 ? Number(cartData[cartData.length - 1].id) + 1 : 1,
+      productId: product.id,
+      image: product.thumbnail,
+      link: product.slug,
+      name: product.name,
+      color: { id: color.id, name: color.label, code: color.color },
+      size,
+      quantity: 1,
+      price: product.price
+    }));
+    toast.success('Thêm vào giỏ thành công!', { toastId: 'addToCartSuccess' });
+    if (profile) {
+      addToCartMutate([{
+        productId: product.id, sizeId: size.id, colorId: color.id, quantity: 1
+      }]);
+    }
+  };
   return (
     <div className="t-homeBanner" ref={ref} style={{ maxHeight: `${height - 84}px` }}>
       <div className="t-homeBanner_background"><Image imgSrc={banner} alt="banner" ratio="16x9" /></div>
@@ -114,6 +150,8 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ product, handleScrollTo }) => {
                   <Button
                     variant="dark"
                     sizes="h48"
+                    loading={isLoading}
+                    handleClick={handleAddToCart}
                   >
                     Thêm vào giỏ hàng
                   </Button>

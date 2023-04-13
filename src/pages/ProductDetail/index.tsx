@@ -4,6 +4,7 @@ import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 
 import { featuredProducts } from 'assets/dummy/homepage';
+import Loading from 'components/atoms/Loading';
 import Breadcrumb from 'components/molecules/Breadcrumb';
 import Container from 'components/organisms/Container';
 import Tabs from 'components/organisms/Tabs';
@@ -52,24 +53,30 @@ const ProductDetail: React.FC = () => {
       text: data?.name || ''
     }
   ];
-  if (!productDetail) {
-    return null;
-  }
   return (
     <div className="p-productDetail">
       <Container>
         <Breadcrumb breadcrumbs={breadcrumbs} />
-        <div className="p-productDetail_content">
-          <ProductInfo {...productDetail} />
-        </div>
-        <div className="p-productDetail_tabs">
-          <Tabs tabs={['Mô tả sản phẩm']} modifiers={['underline']}>
-            <div dangerouslySetInnerHTML={{ __html: productDetail.description }} />
-          </Tabs>
-        </div>
-        <div className="p-productDetail_related">
-          <FooterProduct title="Sản phẩm liên quan" products={featuredProducts.slice(0, 4)} />
-        </div>
+        {isLoading ? <Loading isShow variant="fullScreen" /> : (
+          <>
+            <div className="p-productDetail_content">
+              {productDetail && <ProductInfo {...productDetail} />}
+            </div>
+            <div className="p-productDetail_tabs">
+              <Tabs tabs={['Mô tả sản phẩm']} modifiers={['underline']}>
+                {productDetail && (
+                  <div dangerouslySetInnerHTML={
+                    { __html: productDetail.description }
+                  }
+                  />
+                )}
+              </Tabs>
+            </div>
+            <div className="p-productDetail_related">
+              <FooterProduct title="Sản phẩm liên quan" products={featuredProducts.slice(0, 4)} />
+            </div>
+          </>
+        )}
       </Container>
     </div>
   );

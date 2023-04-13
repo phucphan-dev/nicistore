@@ -15,6 +15,7 @@ import { logoutService } from 'services/authenticate';
 import { removeAccessToken, removeRefreshToken } from 'services/common/storage';
 import { logout } from 'store/authenticate';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { ROUTES_PATH } from 'utils/constants';
 import mapModifiers from 'utils/functions';
 
 const menu = [
@@ -40,7 +41,7 @@ const Account: React.FC = () => {
 
   useEffect(() => {
     if (!profile) {
-      navigate('/authenticate');
+      navigate(ROUTES_PATH.AUTHENTICATE);
     }
   }, [navigate, profile]);
 
@@ -52,7 +53,7 @@ const Account: React.FC = () => {
         removeAccessToken();
         removeRefreshToken();
         dispatch(logout());
-        navigate('/authenticate');
+        navigate(ROUTES_PATH.AUTHENTICATE);
       },
       onError: () => {
         toast.error('Đã có lỗi xảy ra!', { toastId: 'logoutFail' });
