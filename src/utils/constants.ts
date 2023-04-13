@@ -23,3 +23,8 @@ export const ROUTES_PATH = {
   CONTACT: '/contact',
   WISHLIST: '/wishlist',
 };
+
+export const ANALYTICS = {
+  GA4: 'G-XL0Z94ZB49',
+  GTM: 'GTM-WMQNVGC'
+};
