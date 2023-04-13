@@ -31,6 +31,7 @@ const ColorSelect = React.forwardRef<HTMLInputElement, ColorSelectProps>(
           id={id}
           className="a-colorSelect_input"
           style={{ backgroundColor: color }}
+          aria-label="color-picker"
         />
         {label && (
           <span className="a-colorSelect_label">

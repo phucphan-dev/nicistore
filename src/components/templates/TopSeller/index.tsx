@@ -35,7 +35,7 @@ const TopSeller: React.FC<TopSellerProps> = ({ first, second, collection }) => (
       </div>
       <div className="t-topSeller_collection">
         <Animate type="zoomIn">
-          <Image imgSrc={collection.thumbnail} alt={collection.subtitle} ratio="605x480" />
+          <Image imgSrc={collection.thumbnail} alt={collection.title} ratio="605x480" />
           <div className="t-topSeller_content">
             <div className="t-topSeller_subtitle">
               <Typography.Heading type="h4" modifiers={['uppercase', '12x14', 'white', 'center']}>{collection.subtitle}</Typography.Heading>

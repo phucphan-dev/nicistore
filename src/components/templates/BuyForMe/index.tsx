@@ -93,7 +93,7 @@ const BuyForMe: React.FC = () => {
                       field: { onChange, value },
                       fieldState: { error },
                     }) => (
-                      <Input name="fullname" required label="Họ và tên" type="text" value={value} bordered onChange={onChange} error={error?.message} />
+                      <Input name="fullname" aria-label="fullname" required label="Họ và tên" type="text" value={value} bordered onChange={onChange} error={error?.message} />
                     )}
                   />
                 </div>
@@ -105,7 +105,7 @@ const BuyForMe: React.FC = () => {
                       field: { onChange, value },
                       fieldState: { error },
                     }) => (
-                      <Input name="phone" required label="Số điện thoại" type="text" value={value} bordered onChange={onChange} error={error?.message} />
+                      <Input name="phone" aria-label="phone" required label="Số điện thoại" type="text" value={value} bordered onChange={onChange} error={error?.message} />
                     )}
                   />
                 </div>
@@ -117,7 +117,7 @@ const BuyForMe: React.FC = () => {
                       field: { onChange, value },
                       fieldState: { error },
                     }) => (
-                      <Input name="email" required label="Email" type="text" value={value} bordered onChange={onChange} error={error?.message} />
+                      <Input name="email" aria-label="email" required label="Email" type="text" value={value} bordered onChange={onChange} error={error?.message} />
                     )}
                   />
                 </div>
@@ -129,7 +129,7 @@ const BuyForMe: React.FC = () => {
                       field: { onChange, value },
                       fieldState: { error },
                     }) => (
-                      <TextArea name="guestNote" label="Ghi chú" rows={2} value={value} onChange={onChange} error={error?.message} />
+                      <TextArea name="guestNote" aria-label="guestNote" label="Ghi chú" rows={2} value={value} onChange={onChange} error={error?.message} />
                     )}
                   />
                 </div>

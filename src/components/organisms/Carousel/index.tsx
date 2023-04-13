@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-indent */
 /* eslint-disable react/require-default-props */
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { useState } from 'react';
 import ReactSlick, { CustomArrowProps, Settings } from 'react-slick';
 
 import mapModifiers from 'utils/functions';
@@ -39,22 +39,31 @@ export const NextArrow: React.FC<
 const Carousel = React.forwardRef<ReactSlick, CarouselProps>(
   ({
     settings, children, asNavFor, centerMode,
-  }, ref) => (
-    <div className={mapModifiers('o-carousel', centerMode && 'centermode', settings?.arrows && 'hasarrow')}>
-      <ReactSlick
-        centerPadding="0"
-        {...settings}
-        {...(asNavFor && { asNavFor })}
-        ref={ref}
-      >
-        {React.Children.map(children, (item) => (
-          <div className="o-carousel_wrap">
-            <div className="o-carousel_item">{item}</div>
-          </div>
-        ))}
-      </ReactSlick>
-    </div>
-  ),
+  }, ref) => {
+    const [activeSlide, setActiveSlide] = useState(0);
+
+    return (
+      <div className={mapModifiers('o-carousel', centerMode && 'centermode', settings?.arrows && 'hasarrow')}>
+        <ReactSlick
+          centerPadding="0"
+          {...settings}
+          {...(asNavFor && { asNavFor })}
+          beforeChange={(_, next) => setActiveSlide(next)}
+          ref={ref}
+        >
+          {React.Children.map(children, (item, idx) => (
+            <div
+              className="o-carousel_wrap"
+              key={`carousel-${idx.toString()}`}
+              hidden={activeSlide !== idx ? true : undefined}
+            >
+              <div className="o-carousel_item">{item}</div>
+            </div>
+          ))}
+        </ReactSlick>
+      </div>
+    );
+  },
 );
 
 Carousel.defaultProps = {

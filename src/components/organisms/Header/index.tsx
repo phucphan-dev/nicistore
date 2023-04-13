@@ -34,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({
           <Container>
             <div className="o-header_wrapper">
               <div className="o-header_hambuger">
-                <Button iconName="hambuger" iconSize="32" handleClick={handleToggleMenu} />
+                <Button name="hambuger-button" iconName="hambuger" iconSize="32" handleClick={handleToggleMenu} />
               </div>
               <div className="o-header_left">
                 <div className="o-header_logo"><Link href={ROUTES_PATH.HOME}><Image imgSrc={logo} alt="Nici Logo" ratio="75x46" /></Link></div>
@@ -51,16 +51,16 @@ const Header: React.FC<HeaderProps> = ({
               </div>
               <div className="o-header_right">
                 <div className="o-header_right_button hide-mobile">
-                  <Button iconName="user" iconSize="24" handleClick={() => navigate(ROUTES_PATH.ACCOUNT)} />
+                  <Button name="user-button" iconName="user" iconSize="24" handleClick={() => navigate(ROUTES_PATH.ACCOUNT)} />
                 </div>
                 <div className="o-header_right_button hide-mobile">
-                  <Button iconName="search" iconSize="24" handleClick={handleSearch} />
+                  <Button name="search-button" iconName="search" iconSize="24" handleClick={handleSearch} />
                 </div>
                 <div className="o-header_right_button hide-mobile">
-                  <Button iconName="love" iconSize="24" badge={0} handleClick={() => navigate(ROUTES_PATH.WISHLIST)} />
+                  <Button name="love-button" iconName="love" iconSize="24" badge={0} handleClick={() => navigate(ROUTES_PATH.WISHLIST)} />
                 </div>
                 <div className="o-header_right_button">
-                  <Button iconName="cart" iconSize="24" badge={cartDetail.items.length} handleClick={() => navigate(ROUTES_PATH.CART)} />
+                  <Button name="cart-button" iconName="cart" iconSize="24" badge={cartDetail.items.length} handleClick={() => navigate(ROUTES_PATH.CART)} />
                 </div>
               </div>
             </div>

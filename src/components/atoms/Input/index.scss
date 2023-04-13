@@ -9,7 +9,7 @@
     &_ele {
         background-color: $white;
         border-radius: rem(2) 0 0 rem(2);
-        @include font-base(14, 20);
+        @include font-base(16, 20);
         
         input {
             width: 100%;
