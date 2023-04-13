@@ -41,7 +41,7 @@ const Header: React.FC<HeaderProps> = ({
                 <div className={mapModifiers('o-header_menu', open && 'opened')}>
                   <div className="o-header_menu_logo">
                     <Link href={ROUTES_PATH.HOME}><Image imgSrc={logo} alt="Nici Logo" ratio="75x46" /></Link>
-                    <Button iconName="close" iconSize="24" handleClick={handleToggleMenu} />
+                    <Button name="close-button" aria-label="Close" iconName="close" iconSize="24" handleClick={handleToggleMenu} />
                   </div>
                   <Menu menu={menus} />
                   <div className="o-header_menu_account">

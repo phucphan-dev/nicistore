@@ -73,7 +73,7 @@ const MainLayout: React.FC = () => {
         <Container>
           <div className="search-panel_head">
             <Typography.Text modifiers={['16x18']}>Bạn đang tìm kiếm sản phẩm nào?</Typography.Text>
-            <Button iconName="close" iconSize="20" handleClick={() => setOpenSearch(false)} />
+            <Button name="close-button" aria-label="Close" iconName="close" iconSize="20" handleClick={() => setOpenSearch(false)} />
           </div>
           <div className="search-panel_input">
             <Input placeholder="Tìm kiếm sản phẩm của bạn" search />
