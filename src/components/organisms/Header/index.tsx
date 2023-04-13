@@ -34,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({
           <Container>
             <div className="o-header_wrapper">
               <div className="o-header_hambuger">
-                <Button name="hambuger-button" iconName="hambuger" iconSize="32" handleClick={handleToggleMenu} />
+                <Button name="hambuger-button" aria-label="Hambuger" iconName="hambuger" iconSize="32" handleClick={handleToggleMenu} />
               </div>
               <div className="o-header_left">
                 <div className="o-header_logo"><Link href={ROUTES_PATH.HOME}><Image imgSrc={logo} alt="Nici Logo" ratio="75x46" /></Link></div>
@@ -51,16 +51,16 @@ const Header: React.FC<HeaderProps> = ({
               </div>
               <div className="o-header_right">
                 <div className="o-header_right_button hide-mobile">
-                  <Button name="user-button" iconName="user" iconSize="24" handleClick={() => navigate(ROUTES_PATH.ACCOUNT)} />
+                  <Button name="user-button" aria-label="User" iconName="user" iconSize="24" handleClick={() => navigate(ROUTES_PATH.ACCOUNT)} />
                 </div>
                 <div className="o-header_right_button hide-mobile">
-                  <Button name="search-button" iconName="search" iconSize="24" handleClick={handleSearch} />
+                  <Button name="search-button" aria-label="Search" iconName="search" iconSize="24" handleClick={handleSearch} />
                 </div>
                 <div className="o-header_right_button hide-mobile">
-                  <Button name="love-button" iconName="love" iconSize="24" badge={0} handleClick={() => navigate(ROUTES_PATH.WISHLIST)} />
+                  <Button name="love-button" aria-label="Love" iconName="love" iconSize="24" badge={0} handleClick={() => navigate(ROUTES_PATH.WISHLIST)} />
                 </div>
                 <div className="o-header_right_button">
-                  <Button name="cart-button" iconName="cart" iconSize="24" badge={cartDetail.items.length} handleClick={() => navigate(ROUTES_PATH.CART)} />
+                  <Button name="cart-button" aria-label="Cart" iconName="cart" iconSize="24" badge={cartDetail.items.length} handleClick={() => navigate(ROUTES_PATH.CART)} />
                 </div>
               </div>
             </div>

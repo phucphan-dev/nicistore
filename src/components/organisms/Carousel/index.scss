@@ -99,10 +99,10 @@
             }
       
             li {
-                height: rem(8);
-                width: rem(8);
+                height: rem(48);
+                width: rem(48);
+                padding: rem(20);
                 border-radius: rem(4);
-                background-color: $white;
                 opacity: 0.4;
 
                 &.slick-active {
@@ -112,6 +112,9 @@
                 }
 
                 button {
+                    width: rem(12);
+                    height: rem(12);
+                    background-color: $white;
                     opacity: 0;
                 }
             }
@@ -122,11 +125,6 @@
             bottom: rem(-40);
 
             li {
-                margin: 0 rem(2);
-                width: rem(8);
-                height: rem(8);
-                background-color: $black;
-                border-radius: 50%;
                 opacity: 0.3;
 
                 &.slick-active {
@@ -134,12 +132,22 @@
                 }
 
                 button {
-                    padding: 0;
-                    width: rem(8);
-                    height: rem(8);
+                    height: rem(32);
+                    width: rem(32);
 
                     &::before {
                         content: unset;
+                    }
+
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        transform: translate(-50%, -50%);
+                        width: rem(12);
+                        height: rem(12);
+                        border-radius: 50%;
+                        background-color: $black;
+
                     }
                 }
             }

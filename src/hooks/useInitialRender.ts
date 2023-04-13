@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import useDidMount from './useDidMount';
+import useGaTracker from './useGaTracker';
+import useTagManager from './useTagManager';
 
 import { getAccessToken } from 'services/common/storage';
 import { getProfileAction } from 'store/authenticate';
@@ -15,7 +17,8 @@ const useInitialRender = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const [loading, setLoading] = useState(true);
-
+  useGaTracker();
+  useTagManager();
   useEffect(() => {
     scrollToTop();
   }, [location]);
