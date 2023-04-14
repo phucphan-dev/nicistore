@@ -83,6 +83,18 @@ export interface FilterProductParams extends BaseFilterParams,
   isBestSeller?: boolean;
 }
 
+export interface RelatedProductData {
+  id: number
+  thumbnail: string
+  code: string
+  price: number
+  salePrice: number
+  stock: number
+  name: string
+  slug: string
+  shortDescription: string
+}
+
 export interface ProductDetail {
   id: number
   code: string
@@ -101,4 +113,5 @@ export interface ProductDetail {
   colors: ProductProperty[]
   sizes: ProductProperty[]
   colorSize: ColorSize[]
+  relateds: RelatedProductData[]
 }

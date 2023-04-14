@@ -3,7 +3,6 @@ import React, { useMemo } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 
-import { featuredProducts } from 'assets/dummy/homepage';
 import Loading from 'components/atoms/Loading';
 import Breadcrumb from 'components/molecules/Breadcrumb';
 import Container from 'components/organisms/Container';
@@ -54,6 +53,18 @@ const ProductDetail: React.FC = () => {
       text: data?.name || ''
     }
   ];
+  const featuredProducts = useMemo(() => (data ? data.relateds.map((item) => ({
+    id: item.id,
+    code: item.code,
+    images: [item.thumbnail],
+    name: item.name,
+    price: item.price,
+    unit: 'VNĐ',
+    starCount: 3,
+    reviewCount: 5,
+    available: item.stock,
+    solded: 21,
+  })) : []), [data]);
   return (
     <div className="p-productDetail">
       <Container>
@@ -73,9 +84,11 @@ const ProductDetail: React.FC = () => {
                 )}
               </Tabs>
             </div>
-            <div className="p-productDetail_related">
-              <FooterProduct title="Sản phẩm liên quan" products={featuredProducts.slice(0, 4)} />
-            </div>
+            {featuredProducts.length > 0 && (
+              <div className="p-productDetail_related">
+                <FooterProduct title="Sản phẩm liên quan" products={featuredProducts} />
+              </div>
+            )}
           </>
         )}
       </Container>
