@@ -10,7 +10,6 @@ import { sortOptionDummy } from 'assets/dummy/filters';
 import { featuredProducts } from 'assets/dummy/homepage';
 import Button from 'components/atoms/Button';
 // import Image from 'components/atoms/Image';
-import Link from 'components/atoms/Link';
 import Loading from 'components/atoms/Loading';
 import Select from 'components/atoms/Select';
 import Typography from 'components/atoms/Typography';
@@ -22,7 +21,6 @@ import FooterProduct from 'components/templates/FooterProduct';
 import { getAllProductService, getProductCategoryDetailService } from 'services/product';
 import { FilterSortParams, PropertiesProductFilter } from 'services/product/types';
 import { useAppSelector } from 'store/hooks';
-import { ROUTES_PATH } from 'utils/constants';
 import mapModifiers, { groupMenusCategoriesFilter } from 'utils/functions';
 
 const Products: React.FC = () => {
@@ -104,6 +102,7 @@ const Products: React.FC = () => {
       reviewCount: Math.floor(Math.random() * 10),
       available: item.stock,
       solded: 21,
+      isFavorited: item.isFavorited
     })) : []), [data]);
 
   const handleFilterProperties = useCallback((
@@ -182,7 +181,7 @@ const Products: React.FC = () => {
                 <div className="p-products_list">
                   {productsMemo.map((item, index) => (
                     <div className="p-products_item" key={item.code + index.toString()}>
-                      <Link href={`${ROUTES_PATH.PRODUCT_DETAIL}/${item.slug}`}><ProductCard {...item} /></Link>
+                      <ProductCard {...item} />
                     </div>
                   ))}
                 </div>

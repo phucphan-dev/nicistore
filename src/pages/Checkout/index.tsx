@@ -114,7 +114,13 @@ const Checkout: React.FC = () => {
       const information = orderMethod.getValues();
       createOrderMutate({
         ...information,
-        items: checkoutItems.map((item) => ({
+        items: checkoutItems.filter((item) => !item.isOrder).map((item) => ({
+          productId: item.productId,
+          sizeId: item.size.id,
+          colorId: item.color.id,
+          quantity: item.quantity
+        })),
+        itemOrders: checkoutItems.filter((item) => item.isOrder).map((item) => ({
           productId: item.productId,
           sizeId: item.size.id,
           colorId: item.color.id,
@@ -129,11 +135,15 @@ const Checkout: React.FC = () => {
   });
 
   useEffect(() => {
-    getDistrictsMutate(watchCity);
+    if (watchCity) {
+      getDistrictsMutate(watchCity);
+    }
   }, [getDistrictsMutate, orderMethod, watchCity]);
 
   useEffect(() => {
-    getWardsMutate(watchDistrict);
+    if (watchDistrict) {
+      getWardsMutate(watchDistrict);
+    }
   }, [getWardsMutate, orderMethod, watchDistrict]);
 
   return (
@@ -198,6 +208,7 @@ const Checkout: React.FC = () => {
                         fieldState: { error },
                       }) => (
                         <Select
+                          isSearch
                           name="cityId"
                           placeholder="---"
                           label="Tỉnh / Thành phố"
@@ -220,6 +231,7 @@ const Checkout: React.FC = () => {
                         fieldState: { error },
                       }) => (
                         <Select
+                          isSearch
                           name="districtId"
                           placeholder="---"
                           label="Quận / Huyện"
@@ -242,6 +254,7 @@ const Checkout: React.FC = () => {
                         fieldState: { error },
                       }) => (
                         <Select
+                          isSearch
                           name="wardId"
                           placeholder="---"
                           label="Phường / Xã"
@@ -287,7 +300,7 @@ const Checkout: React.FC = () => {
                         field: { onChange, value },
                         fieldState: { error },
                       }) => (
-                        <TextArea required name="note" label="Ghi chú" rows={6} value={value} onChange={onChange} error={error?.message} />
+                        <TextArea name="note" label="Ghi chú" rows={6} value={value} onChange={onChange} error={error?.message} />
                       )}
                     />
                   </div>
@@ -320,6 +333,11 @@ const Checkout: React.FC = () => {
                             {' '}
                             {item.size.name}
                           </Typography.Text>
+                          {item.isOrder && (
+                            <Typography.Text modifiers={['14x16', '500', 'ferrariRed']} type="p">
+                              Đặt trước
+                            </Typography.Text>
+                          )}
                         </div>
                         <div className="p-checkout_price">
                           <Typography.Text modifiers={['15x18', '600']}>{renderPrice(item.price * item.quantity, true, 'VNĐ')}</Typography.Text>
@@ -332,10 +350,10 @@ const Checkout: React.FC = () => {
                       <Typography.Text modifiers={['15x18', '600']}>{renderPrice(totalCost, true, 'VNĐ')}</Typography.Text>
                     </div>
                     <div className="p-checkout_divider" />
-                    <div className="p-checkout_summary">
+                    {/* <div className="p-checkout_summary">
                       <Typography.Text modifiers={['13x16']}>Giảm giá</Typography.Text>
                       <Typography.Text modifiers={['15x18', '600']}>0 VNĐ</Typography.Text>
-                    </div>
+                    </div> */}
                     <div className="p-checkout_divider" />
                     <div className="p-checkout_summary">
                       <Typography.Text modifiers={['13x16']}>Tổng đơn hàng</Typography.Text>
@@ -349,6 +367,14 @@ const Checkout: React.FC = () => {
                         handleClick={orderAction}
                       >
                         Đặt hàng
+                      </Button>
+                      <Button
+                        variant="secondary"
+                        loading={isLoading}
+                        sizes="h48"
+                        handleClick={() => navigate('/cart')}
+                      >
+                        Quay lại giỏ hàng
                       </Button>
                     </div>
                   </div>

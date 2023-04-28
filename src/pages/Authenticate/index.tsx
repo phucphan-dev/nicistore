@@ -63,7 +63,8 @@ const Authenticate: React.FC = () => {
             productId: item.productId,
             sizeId: item.size.id,
             colorId: item.color.id,
-            quantity: item.quantity
+            quantity: item.quantity,
+            isOrder: item.isOrder
           })));
         } else {
           navigate(ROUTES_PATH.HOME);

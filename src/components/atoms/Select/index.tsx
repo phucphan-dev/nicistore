@@ -4,7 +4,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import Typography from '../Typography';
 
 import useClickOutside from 'hooks/useClickOutside';
-import mapModifiers from 'utils/functions';
+import useDebounce from 'hooks/useDebounce';
+import mapModifiers, { formatStringVn } from 'utils/functions';
 
 type Modifiers = 'nobackground' | 'bordered';
 
@@ -29,20 +30,25 @@ const Select: React.FC<SelectProps> = ({
   const [optionData, setOptionData] = useState<OptionType[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [txtSearch, setTxtSearch] = useState('');
+  const [debouceSearch, setDebouceSearch] = useState('');
   const toggling = () => setIsOpen(!isOpen);
+
+  useDebounce(() => setDebouceSearch(txtSearch), 500, [txtSearch]);
 
   useClickOutside(pulldownRef, () => {
     if (isOpen) setIsOpen(false);
   });
 
   useEffect(() => {
-    if (txtSearch) {
-      setOptionData(optionData.filter((option) => option.label.includes(txtSearch)));
+    if (debouceSearch) {
+      setOptionData(options.filter((option) => formatStringVn(option.label).includes(
+        formatStringVn(debouceSearch)
+      )));
     } else {
       setOptionData(options);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [txtSearch]);
+  }, [debouceSearch]);
 
   useEffect(() => {
     setOptionData(options);

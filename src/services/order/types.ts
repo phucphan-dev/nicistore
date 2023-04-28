@@ -27,6 +27,15 @@ export interface OrderData {
     salePercent: number
     finalPrice: number
   }[]
+  itemOrders: {
+    product: OrderProduct
+    size: ProductProperty
+    color: ProductProperty
+    quantity: number
+    price: number
+    salePercent: number
+    finalPrice: number
+  }[]
   totalPrice: number
   totalFinalPrice: number
 }
@@ -49,4 +58,5 @@ export interface CreateOrderDataRequest {
   email: string
   note: string
   items: OrderProductItem[]
+  itemOrders: OrderProductItem[]
 }

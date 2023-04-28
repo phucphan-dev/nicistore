@@ -28,7 +28,7 @@
         visibility: hidden;
         transition: $transition;
         padding: rem(4);
-        z-index: 1;
+        z-index: 9;
 
         &_item {
             margin-top: rem(8);

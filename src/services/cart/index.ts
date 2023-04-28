@@ -2,6 +2,10 @@ import { AddCartDataRequest, CartDetail } from './types';
 
 import axiosInstance from 'services/common/instance';
 
+export const checkStockService = async (params: AddCartDataRequest): Promise<void> => {
+  await axiosInstance.post('client/check-item-stock', { ...params });
+};
+
 export const addToCartService = async (params: AddCartDataRequest[]): Promise<void> => {
   await axiosInstance.post('client/add-to-cart', { items: params });
 };

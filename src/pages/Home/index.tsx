@@ -51,6 +51,7 @@ const Home: React.FC = () => {
     reviewCount: 5,
     available: item.stock,
     solded: 21,
+    isFavorited: item.isFavorited
   })) : []), [featured]);
 
   const bestSellerProducts = useMemo(() => (bestSeller ? bestSeller.data.map((item) => ({
@@ -66,6 +67,7 @@ const Home: React.FC = () => {
     reviewCount: 5,
     available: item.stock,
     solded: 21,
+    isFavorited: item.isFavorited
   })) : []), [bestSeller]);
 
   const menus: HomeCategoryData[] = useMemo(() => {

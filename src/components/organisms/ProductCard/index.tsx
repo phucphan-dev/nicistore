@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/no-unused-prop-types */
 import React, { useState } from 'react';
@@ -30,6 +31,7 @@ export interface ProductInfoData {
   reviewCount?: number;
   available?: number;
   solded?: number;
+  isFavorited: boolean;
 }
 export interface ProductCardProps extends ProductInfoData {
   handleLove?: (code: string) => void;
@@ -38,12 +40,13 @@ export interface ProductCardProps extends ProductInfoData {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
-  id, slug, code, images, promo, name, price, unit, starCount, reviewCount,
+  id, slug, code, images, promo, name, price, unit, isFavorited, starCount, reviewCount,
   available, solded
 }) => {
   const navigate = useNavigate();
   const profile = useAppSelector((state) => state.auth.profile);
   const [imgActive, setImgActive] = useState(0);
+  const [favorite, setFavorite] = useState(isFavorited);
   const { mutate: favoriteMutate } = useMutation(
     'favoriteAction',
     favoriteProductService,
@@ -52,15 +55,35 @@ const ProductCard: React.FC<ProductCardProps> = ({
     <div className="o-productCard">
       <div className="o-productCard_thumbnail">
         {!!promo && promo > 0 && <div className="o-productCard_badge"><Badge isOnSale content={`${promo}%`} /></div>}
+        <Link href={slug ? `${ROUTES_PATH.PRODUCT_DETAIL}/${slug}` : '#'}>
+          <div className="o-productCard_images">
+            {images.length > 1 && (
+              <>
+                <div className="o-productCard_slider">
+                  {images.map((item, idx) => (
+                    <div key={item} className="o-productCard_slider-pane" onMouseEnter={() => setImgActive(idx)} />
+                  ))}
+                </div>
+                <div className="o-productCard_indicator">
+                  {images.map((item, idx) => (
+                    <div key={`${item}indicator`} className={mapModifiers('o-productCard_indicator-dot', idx === imgActive && 'active')} />
+                  ))}
+                </div>
+              </>
+            )}
+            <Image imgSrc={images[imgActive]} alt={`product-${code}-${imgActive}`} ratio="1x1" />
+          </div>
+        </Link>
         <div className="o-productCard_actions">
           <div className="o-productCard_actions_item">
             <Button
-              iconName="love"
+              iconName={favorite ? 'loveFill' : 'love'}
               iconSize="16"
               sizes="h34"
               variant="circle"
               handleClick={() => {
                 if (profile) {
+                  setFavorite(!favorite);
                   favoriteMutate(id);
                 } else {
                   toast.error('Đăng nhập để sử dụng tính năng này');
@@ -87,25 +110,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
             />
           </div>
         </div>
-        <Link href={slug ? `${ROUTES_PATH.PRODUCT_DETAIL}/${slug}` : '#'}>
-          <div className="o-productCard_images">
-            {images.length > 1 && (
-              <>
-                <div className="o-productCard_slider">
-                  {images.map((item, idx) => (
-                    <div key={item} className="o-productCard_slider-pane" onMouseEnter={() => setImgActive(idx)} />
-                  ))}
-                </div>
-                <div className="o-productCard_indicator">
-                  {images.map((item, idx) => (
-                    <div key={`${item}indicator`} className={mapModifiers('o-productCard_indicator-dot', idx === imgActive && 'active')} />
-                  ))}
-                </div>
-              </>
-            )}
-            <Image imgSrc={images[imgActive]} alt={`product-${code}-${imgActive}`} ratio="1x1" />
-          </div>
-        </Link>
       </div>
       <div className="o-productCard_content">
         <Link href={slug ? `${ROUTES_PATH.PRODUCT_DETAIL}/${slug}` : '#'}>
@@ -116,7 +120,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <div className="o-productCard_price">
           <PriceSale unit={unit} promo={promo} price={price} />
         </div>
-        <div className="o-productCard_content_switcher">
+        {/* <div className="o-productCard_content_switcher">
           {starCount && <StarCount count={starCount} />}
           {reviewCount && (
             <Typography.Text modifiers={['12x14']}>
@@ -125,8 +129,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
               review
             </Typography.Text>
           )}
-        </div>
-        {!!available && !!solded && (
+        </div> */}
+        {/* {!!available && !!solded && (
           <>
             <div className="o-productCard_inventory_progress">
               <div
@@ -145,7 +149,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               </div>
             </div>
           </>
-        )}
+        )} */}
       </div>
     </div>
   );

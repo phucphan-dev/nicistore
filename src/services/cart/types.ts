@@ -3,6 +3,7 @@ export interface AddCartDataRequest {
   sizeId: number
   colorId: number
   quantity: number
+  isOrder?: boolean;
 }
 
 export interface CartItem {
@@ -17,8 +18,9 @@ export interface CartItem {
   calculateSalePrice: number
   name: string
   slug: string
-  colors: ProductProperty
-  sizes: ProductProperty
+  colors: ProductProperty[]
+  sizes: ProductProperty[]
+  inStock?: boolean
 }
 
 export interface CartDetail {

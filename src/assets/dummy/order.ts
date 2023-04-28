@@ -69,6 +69,7 @@ const orderDummy: OrderData = {
       finalPrice: 108000,
     }
   ],
+  itemOrders: [],
   totalPrice: 0,
   totalFinalPrice: 0
 };

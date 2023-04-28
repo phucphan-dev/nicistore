@@ -65,6 +65,7 @@ interface CartItem {
   size: ProductProperty;
   quantity: number;
   price: number;
+  isOrder?: boolean;
 }
 
 type Color = {

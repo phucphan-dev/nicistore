@@ -37,7 +37,8 @@ export const cartSlice = createSlice({
     addToCart: ($state, action: PayloadAction<CartItem>) => {
       const findIndex = $state.items.findIndex((
         item
-      ) => item.productId === action.payload.productId);
+      ) => item.productId === action.payload.productId
+      && item.color.id === action.payload.color.id && item.size.id === action.payload.size.id);
       if (findIndex === -1) {
         $state.items = [...$state.items, action.payload];
       } else {
@@ -78,10 +79,11 @@ export const cartSlice = createSlice({
         image: item.thumbnail,
         link: item.slug,
         name: item.name,
-        color: item.colors,
-        size: item.sizes,
+        color: item.colors[0],
+        size: item.sizes[0],
         quantity: item.quantity,
-        price: item.price
+        price: item.price,
+        isOrder: !item.inStock
       }));
     });
   },

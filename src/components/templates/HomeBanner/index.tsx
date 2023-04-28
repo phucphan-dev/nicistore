@@ -40,7 +40,9 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ product, handleScrollTo }) => {
     if (!product || !product.colorSize.length) {
       return undefined;
     }
-    const data: ColorWithSize = product.colorSize.reduce((prev: any, curr) => ({
+    const data: ColorWithSize = product.colorSize.filter(
+      (item) => item.quantity > 0
+    ).reduce((prev: any, curr) => ({
       ...prev,
       [curr.color.id.toString()]: prev[curr.color.id] ? {
         ...prev[curr.color.id],

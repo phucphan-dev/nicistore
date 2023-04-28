@@ -11,11 +11,12 @@ interface ProductCartItemProps {
   href: string;
   color?: string;
   size?: string;
+  isOrder?: boolean;
   handleDelete?: () => void;
 }
 
 const ProductCartItem: React.FC<ProductCartItemProps> = ({
-  image, name, href, color, size, handleDelete
+  image, name, href, color, size, isOrder, handleDelete
 }) => (
   <div className="o-productCartItem">
     <div className="o-productCartItem_image">
@@ -39,6 +40,11 @@ const ProductCartItem: React.FC<ProductCartItemProps> = ({
           </Typography.Text>
         )}
       </div>
+      {isOrder && (
+        <div className="o-productCartItem_isOrder">
+          <Typography.Text modifiers={['14x16', '600', 'ferrariRed']}>Đặt trước</Typography.Text>
+        </div>
+      )}
     </div>
     <div className="o-productCartItem_remove" onClick={handleDelete}>
       <Icon iconName="closeWhite" size="8" />

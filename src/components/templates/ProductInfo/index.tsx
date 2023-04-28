@@ -5,7 +5,7 @@ import React, {
   useEffect, useMemo, useRef, useState
 } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import ReactSlick from 'react-slick';
 import { toast } from 'react-toastify';
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
@@ -23,7 +23,7 @@ import StarCount from 'components/molecules/StarCount';
 import Carousel, { NextArrow, PrevArrow } from 'components/organisms/Carousel';
 import ImagePreview from 'components/organisms/ImagePreview';
 import useWindowDimensions from 'hooks/useWindowDemensions';
-import { addToCartService } from 'services/cart';
+import { addToCartService, checkStockService } from 'services/cart';
 import { favoriteProductService } from 'services/product';
 import { addToCart } from 'store/cart';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
@@ -58,6 +58,7 @@ const ProductInfo: React.FC<ProductInfo> = ({
   categories,
   tags,
 }) => {
+  const queryClient = useQueryClient();
   const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.auth.profile);
   const { width: wWidth, height: wHeight } = useWindowDimensions();
@@ -67,6 +68,7 @@ const ProductInfo: React.FC<ProductInfo> = ({
   const [color, setColor] = useState<Color>();
   const [size, setSize] = useState<ProductProperty>();
   const [quantity, setQuantity] = useState(1);
+  const [error, setError] = useState<string | undefined>(undefined);
 
   const colorWithSize: ColorWithSize | undefined = useMemo(() => (colorSize && colorSize.length > 0
     ? colorSize.reduce((prev: any, curr) => ({
@@ -103,41 +105,95 @@ const ProductInfo: React.FC<ProductInfo> = ({
     addToCartService,
   );
 
+  const { mutate: checkStockMutate, isLoading: checkStockLoading } = useMutation(
+    'checkStockAction',
+    checkStockService,
+    {
+      onSuccess: () => {
+        const cartLocal = localStorage.getItem(LOCALSTORAGE.NICI_CART);
+        const cartData = cartLocal ? JSON.parse(cartLocal) as CartItem[] : [];
+        if (!color) {
+          toast.error('Vui lòng chọn màu sắc', { toastId: 'selectColor' });
+        } else if (!size) {
+          toast.error('Vui lòng chọn kích thước', { toastId: 'selectColor' });
+        } else if (quantity < 1) {
+          toast.error('Số lượng phải lớn hơn 0', { toastId: 'selectColor' });
+        } else {
+          dispatch(addToCart({
+            id: cartData.length > 0 ? Number(cartData[cartData.length - 1].id) + 1 : 1,
+            productId: id,
+            image: imageGaleries[active].path,
+            link: slug,
+            name,
+            color: { id: color.id, name: color.label, code: color.color },
+            size,
+            quantity,
+            price
+          }));
+          toast.success('Thêm vào giỏ thành công!', { toastId: 'addToCartSuccess' });
+          if (profile) {
+            addToCartMutate([{
+              productId: id, sizeId: size.id, colorId: color.id, quantity
+            }]);
+          }
+        }
+      },
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      onError(error: any) {
+        setError(`Số lượng tồn kho không đủ. Hiện chỉ còn ${error.response.data.errors[0].stock}`);
+        queryClient.invalidateQueries(['getProductDetail']);
+      },
+    }
+  );
+
   const { mutate: favoriteMutate } = useMutation(
     'favoriteAction',
     favoriteProductService,
   );
 
-  const handleAddToCart = useCallback(() => {
+  const handleAddToCart = useCallback((isOrder?: boolean) => {
     if (!color) {
       toast.error('Vui lòng chọn màu sắc', { toastId: 'selectColor' });
     } else if (!size) {
       toast.error('Vui lòng chọn kích thước', { toastId: 'selectColor' });
     } else if (quantity < 1) {
       toast.error('Số lượng phải lớn hơn 0', { toastId: 'selectColor' });
-    } else {
+    } else if (isOrder) {
       const cartLocal = localStorage.getItem(LOCALSTORAGE.NICI_CART);
       const cartData = cartLocal ? JSON.parse(cartLocal) as CartItem[] : [];
-      dispatch(addToCart({
-        id: cartData.length > 0 ? Number(cartData[cartData.length - 1].id) + 1 : 1,
-        productId: id,
-        image: imageGaleries[active].path,
-        link: slug,
-        name,
-        color: { id: color.id, name: color.label, code: color.color },
-        size,
-        quantity,
-        price
-      }));
-      toast.success('Thêm vào giỏ thành công!', { toastId: 'addToCartSuccess' });
-      if (profile) {
-        addToCartMutate([{
-          productId: id, sizeId: size.id, colorId: color.id, quantity
-        }]);
+      if (!color) {
+        toast.error('Vui lòng chọn màu sắc', { toastId: 'selectColor' });
+      } else if (!size) {
+        toast.error('Vui lòng chọn kích thước', { toastId: 'selectColor' });
+      } else if (quantity < 1) {
+        toast.error('Số lượng phải lớn hơn 0', { toastId: 'selectColor' });
+      } else {
+        dispatch(addToCart({
+          id: cartData.length > 0 ? Number(cartData[cartData.length - 1].id) + 1 : 1,
+          productId: id,
+          image: imageGaleries[active].path,
+          link: slug,
+          name,
+          color: { id: color.id, name: color.label, code: color.color },
+          size,
+          quantity,
+          price,
+          isOrder
+        }));
+        toast.success('Thêm vào giỏ thành công!', { toastId: 'addToCartSuccess' });
+        if (profile) {
+          addToCartMutate([{
+            productId: id, sizeId: size.id, colorId: color.id, quantity, isOrder
+          }]);
+        }
       }
+    } else {
+      checkStockMutate({
+        productId: id, sizeId: size.id, colorId: color.id, quantity
+      });
     }
-  }, [active, addToCartMutate, color, dispatch, id,
-    imageGaleries, name, price, profile, quantity, size, slug]);
+  }, [active, addToCartMutate, checkStockMutate, color,
+    dispatch, id, imageGaleries, name, price, profile, quantity, size, slug]);
 
   useEffect(() => {
     if (color && colorWithSize) {
@@ -211,7 +267,9 @@ const ProductInfo: React.FC<ProductInfo> = ({
                           color={item.color.color}
                           onChange={() => {
                             setColor(item.color);
-                            setActive(idx + images.length);
+                            if (idx + images.length < imageGaleries.length) {
+                              setActive(idx + images.length);
+                            }
                           }}
                         />
                       </div>
@@ -251,11 +309,34 @@ const ProductInfo: React.FC<ProductInfo> = ({
             </>
           )}
           <div className="t-productInfo_quantity">
-            <QuantityInput initQuantity={quantity} handleChange={(value) => setQuantity(value)} />
+            <QuantityInput
+              initQuantity={quantity}
+              handleChange={(value) => {
+                setQuantity(value);
+                if (error) {
+                  setError(undefined);
+                }
+              }}
+            />
             <div className="t-productInfo_addTo">
-              <Button variant="dark" sizes="h48" handleClick={handleAddToCart} loading={isLoading}>Thêm vào giỏ hàng</Button>
+              <Button
+                variant="dark"
+                sizes="h48"
+                handleClick={() => handleAddToCart(colorWithSize && color
+                  && colorWithSize[color.id.toString()].quantity === 0)}
+                loading={isLoading || checkStockLoading}
+              >
+                {colorWithSize && color && colorWithSize[color.id.toString()].quantity > 0 ? 'Thêm vào giỏ hàng' : 'Đặt hàng'}
+              </Button>
             </div>
           </div>
+          {
+            error && (
+              <div className="t-productInfo_error">
+                {error}
+              </div>
+            )
+          }
           <div className="t-productInfo_controls">
             <Button
               iconName="love"

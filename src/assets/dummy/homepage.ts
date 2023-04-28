@@ -143,6 +143,7 @@ export const featuredProducts = [
     reviewCount: 5,
     available: 79,
     solded: 21,
+    isFavorited: false
   },
   {
     id: 1,
@@ -156,6 +157,7 @@ export const featuredProducts = [
     reviewCount: 5,
     available: 79,
     solded: 21,
+    isFavorited: false
   },
   {
     id: 1,
@@ -169,6 +171,7 @@ export const featuredProducts = [
     reviewCount: 5,
     available: 79,
     solded: 21,
+    isFavorited: false
   },
   {
     id: 1,
@@ -182,6 +185,7 @@ export const featuredProducts = [
     reviewCount: 5,
     available: 79,
     solded: 21,
+    isFavorited: false
   },
   {
     id: 1,
@@ -195,6 +199,7 @@ export const featuredProducts = [
     reviewCount: 5,
     available: 79,
     solded: 21,
+    isFavorited: false
   },
   {
     id: 1,
@@ -208,5 +213,6 @@ export const featuredProducts = [
     reviewCount: 5,
     available: 79,
     solded: 21,
+    isFavorited: false
   },
 ];

@@ -1,5 +1,5 @@
 import React, {
-  useCallback, useEffect, useMemo, useState
+  useCallback, useMemo, useState
 } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useMutation } from 'react-query';
@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 
 import Button from 'components/atoms/Button';
 import Checkbox from 'components/atoms/Checkbox';
-import Input from 'components/atoms/Input';
+// import Input from 'components/atoms/Input';
 import Typography from 'components/atoms/Typography';
 import QuantityInput from 'components/molecules/QuantityInput';
 import Container from 'components/organisms/Container';
@@ -18,7 +18,7 @@ import { removeItemCartService, updateItemCartService } from 'services/cart';
 import { AddCartDataRequest } from 'services/cart/types';
 import { deleteItemCartLocal, processCheckoutAction, updateItemCartLocal } from 'store/cart';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { LOCALSTORAGE, ROUTES_PATH } from 'utils/constants';
+import { ROUTES_PATH } from 'utils/constants';
 import { renderPrice } from 'utils/functions';
 
 const Cart: React.FC = () => {
@@ -92,12 +92,6 @@ const Cart: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    if (!profile) {
-      localStorage.setItem(LOCALSTORAGE.NICI_CART, JSON.stringify(cartDetail));
-    }
-  }, [cartDetail, profile]);
-
   return (
     <Section>
       <div className="p-cart">
@@ -140,10 +134,11 @@ const Cart: React.FC = () => {
                           <div className="p-cart_td">
                             <ProductCartItem
                               image={item.image}
-                              href={item.link}
+                              href={`${ROUTES_PATH.PRODUCT_DETAIL}/${item.link}`}
                               name={item.name}
                               color={item.color.name}
                               size={item.size.name}
+                              isOrder={item.isOrder}
                               handleDelete={() => handleDelete(item.id)}
                             />
                           </div>
@@ -173,14 +168,14 @@ const Cart: React.FC = () => {
                       </tr>
                     ))}
                   </table>
-                  <div className="p-cart_coupon">
+                  {/* <div className="p-cart_coupon">
                     <div className="p-cart_coupon_input">
                       <Input placeholder="Mã giảm giá" bordered />
                     </div>
                     <div className="p-cart_coupon_button">
                       <Button variant="secondary" sizes="h42">Áp dụng</Button>
                     </div>
-                  </div>
+                  </div> */}
                 </Col>
                 <Col lg={4}>
                   <div className="p-cart_total">
@@ -191,10 +186,10 @@ const Cart: React.FC = () => {
                       <Typography.Text modifiers={['14x16', '400']}>{renderPrice(totalCost, true, 'VNĐ')}</Typography.Text>
                     </div>
                     <div className="p-cart_divider" />
-                    <div className="p-cart_line">
+                    {/* <div className="p-cart_line">
                       <Typography.Text modifiers={['14x16', '400']}>Giảm giá</Typography.Text>
                       <Typography.Text modifiers={['14x16', '400']}>0 VNĐ</Typography.Text>
-                    </div>
+                    </div> */}
                     <div className="p-cart_divider" />
                     <div className="p-cart_line">
                       <Typography.Text modifiers={['16x18', '700']}>Tổng đơn hàng</Typography.Text>

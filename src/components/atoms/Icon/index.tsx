@@ -6,6 +6,7 @@ export const iconList = {
   cart: 'cart',
   expand: 'expand',
   love: 'love',
+  loveFill: 'loveFill',
   search: 'search',
   star: 'star',
   user: 'user',

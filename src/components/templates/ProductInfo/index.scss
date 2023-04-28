@@ -154,4 +154,10 @@
             margin-top: rem(4);
         }
     }
+
+    &_error {
+        color: $fire-engine-red;
+        margin-top: rem(16);
+        @include font-base(14, 17);
+    }
 }

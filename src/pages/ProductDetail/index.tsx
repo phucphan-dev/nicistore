@@ -64,6 +64,7 @@ const ProductDetail: React.FC = () => {
     reviewCount: 5,
     available: item.stock,
     solded: 21,
+    isFavorited: item.isFavorited
   })) : []), [data]);
   return (
     <div className="p-productDetail">

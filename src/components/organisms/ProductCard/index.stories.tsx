@@ -25,6 +25,7 @@ export const normal: Story = () => (
       reviewCount={5}
       available={79}
       solded={21}
+      isFavorited={false}
     />
   </div>
 );
@@ -39,6 +40,7 @@ export const productRecentViews: Story = () => (
       name="Check Overshirt With Pocket Detail"
       price={112}
       unit="$"
+      isFavorited={false}
     />
   </div>
 );

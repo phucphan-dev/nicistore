@@ -49,6 +49,7 @@ export interface ProductListItemData {
   id: number
   code: string
   thumbnail: string
+  isFavorited: boolean;
   price: number
   displayOrder: number
   salePercent: number
@@ -93,6 +94,7 @@ export interface RelatedProductData {
   name: string
   slug: string
   shortDescription: string
+  isFavorited: boolean
 }
 
 export interface ProductDetail {

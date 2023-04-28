@@ -18,7 +18,7 @@ import Section from 'components/organisms/Section';
 import useInitialRender from 'hooks/useInitialRender';
 import useWindowDimensions from 'hooks/useWindowDemensions';
 import { useAppSelector } from 'store/hooks';
-import { ROUTES_PATH } from 'utils/constants';
+import { LOCALSTORAGE, ROUTES_PATH } from 'utils/constants';
 import mapModifiers, { groupMenusFromCategories } from 'utils/functions';
 
 const MainLayout: React.FC = () => {
@@ -26,6 +26,7 @@ const MainLayout: React.FC = () => {
   const { width, height } = useWindowDimensions();
   const profile = useAppSelector((state) => state.auth.profile);
   const categories = useAppSelector((state) => state.product.categories);
+  const cartItems = useAppSelector((state) => state.cart.items);
   const [openSearch, setOpenSearch] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const loading = useInitialRender();
@@ -47,6 +48,12 @@ const MainLayout: React.FC = () => {
   useEffect(() => {
     setOpenMenu(false);
   }, [pathname]);
+
+  useEffect(() => {
+    if (!profile) {
+      localStorage.setItem(LOCALSTORAGE.NICI_CART, JSON.stringify(cartItems));
+    }
+  }, [cartItems, profile]);
 
   return (
     <main id="main">
@@ -118,7 +125,7 @@ const MainLayout: React.FC = () => {
           </div>
         </Animate>
       </div>
-      <ToastContainer autoClose={1000} style={{ fontSize: '12px' }} />
+      <ToastContainer autoClose={1000} position="bottom-right" style={{ fontSize: '12px' }} />
     </main>
   );
 };

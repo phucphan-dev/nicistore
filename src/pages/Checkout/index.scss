@@ -42,12 +42,16 @@
     }
 
     &_button {
-        margin-top: rem(60);
+        margin-top: rem(44);
 
         &.continue {
             max-width: rem(240);
             margin-left: auto;
             margin-right: auto;
+        }
+
+        .a-button {
+            margin-top: rem(16);
         }
     }
 

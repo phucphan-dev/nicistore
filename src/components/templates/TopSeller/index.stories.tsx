@@ -25,6 +25,7 @@ export const normal: Story = () => (
       reviewCount: 5,
       available: 79,
       solded: 21,
+      isFavorited: false
     }}
     second={{
       id: 1,
@@ -38,6 +39,7 @@ export const normal: Story = () => (
       reviewCount: 5,
       available: 79,
       solded: 21,
+      isFavorited: false
     }}
     collection={
       {
