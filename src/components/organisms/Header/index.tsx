@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Animate from '../Animate';
@@ -10,6 +11,7 @@ import Button from 'components/atoms/Button';
 import Image from 'components/atoms/Image';
 import Link from 'components/atoms/Link';
 import Typography from 'components/atoms/Typography';
+// import useClickOutside from 'hooks/useClickOutside';
 import { useAppSelector } from 'store/hooks';
 import { ROUTES_PATH } from 'utils/constants';
 import mapModifiers from 'utils/functions';
@@ -27,6 +29,13 @@ const Header: React.FC<HeaderProps> = ({
   const navigate = useNavigate();
   const cartDetail = useAppSelector((state) => state.cart);
   const profile = useAppSelector((state) => state.auth.profile);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  // useClickOutside(menuRef, () => {
+  //   if (handleToggleMenu && open) {
+  //     handleToggleMenu();
+  //   }
+  // });
 
   return (
     <header className="o-header">
@@ -39,7 +48,7 @@ const Header: React.FC<HeaderProps> = ({
               </div>
               <div className="o-header_left">
                 <div className="o-header_logo"><Link href={ROUTES_PATH.HOME}><Image imgSrc={logo} alt="Nici Logo" ratio="75x46" /></Link></div>
-                <div className={mapModifiers('o-header_menu', open && 'opened')}>
+                <div className={mapModifiers('o-header_menu', open && 'opened')} ref={menuRef}>
                   <div className="o-header_menu_logo">
                     <Link href={ROUTES_PATH.HOME}><Image imgSrc={logo} alt="Nici Logo" ratio="75x46" /></Link>
                     <Button name="close-button" aria-label="Close" iconName="close" iconSize="24" handleClick={handleToggleMenu} />
@@ -54,9 +63,10 @@ const Header: React.FC<HeaderProps> = ({
                 <div className="o-header_right_button hide-mobile">
                   <Button name="user-button" aria-label="User" iconName="user" iconSize="24" handleClick={() => navigate(ROUTES_PATH.ACCOUNT)} />
                 </div>
-                <div className="o-header_right_button hide-mobile">
-                  <Button name="search-button" aria-label="Search" iconName="search" iconSize="24" handleClick={handleSearch} />
-                </div>
+                {/* <div className="o-header_right_button hide-mobile">
+                  <Button name="search-button" aria-label="Search"
+                  iconName="search" iconSize="24" handleClick={handleSearch} />
+                </div> */}
                 {profile && (
                   <div className="o-header_right_button hide-mobile">
                     <Button name="love-button" aria-label="Love" iconName="love" iconSize="24" badge={0} handleClick={() => navigate(ROUTES_PATH.WISHLIST)} />

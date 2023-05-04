@@ -1,5 +1,5 @@
 import React, {
-  useCallback, useMemo, useState
+  useCallback, useEffect, useMemo, useState
 } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useMutation } from 'react-query';
@@ -26,15 +26,15 @@ const Cart: React.FC = () => {
   const navigate = useNavigate();
   const profile = useAppSelector((state) => state.auth.profile);
   const cartDetail = useAppSelector((state) => state.cart.items);
-  const [checkList, setCheckList] = useState<number[]>(cartDetail.map((item) => item.id));
+  const [checkList, setCheckList] = useState<number[]>([]);
 
-  const handleSelectItem = (id: number, checked: boolean) => {
+  const handleSelectItem = useCallback((id: number, checked: boolean) => {
     if (checked) {
       setCheckList([...checkList, id]);
     } else {
       setCheckList(checkList.filter((item) => item !== id));
     }
-  };
+  }, [checkList]);
 
   const { mutate: updateItemCartMutate } = useMutation(
     'updateItemCartAction',
@@ -91,6 +91,13 @@ const Cart: React.FC = () => {
       toast.error('Vui lòng không đặt quá 20 sản phẩm', { toastId: 'overOrder' });
     }
   };
+
+  useEffect(() => {
+    if (checkList.length === 0) {
+      setCheckList(cartDetail.map((item) => item.id));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cartDetail]);
 
   return (
     <Section>
@@ -186,10 +193,10 @@ const Cart: React.FC = () => {
                       <Typography.Text modifiers={['14x16', '400']}>{renderPrice(totalCost, true, 'VNĐ')}</Typography.Text>
                     </div>
                     <div className="p-cart_divider" />
-                    {/* <div className="p-cart_line">
+                    <div className="p-cart_line">
                       <Typography.Text modifiers={['14x16', '400']}>Giảm giá</Typography.Text>
                       <Typography.Text modifiers={['14x16', '400']}>0 VNĐ</Typography.Text>
-                    </div> */}
+                    </div>
                     <div className="p-cart_divider" />
                     <div className="p-cart_line">
                       <Typography.Text modifiers={['16x18', '700']}>Tổng đơn hàng</Typography.Text>

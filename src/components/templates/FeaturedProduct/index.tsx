@@ -59,7 +59,7 @@ const FeaturedProduct: React.FC<FeaturedProductProps> = ({ products }) => {
           <Carousel settings={settings}>
             {products.map((product, index) => (
               <div className="t-featuredProduct_item" key={`t-featuredProduct-${index.toString()}`}>
-                <Animate type="wobble">
+                <Animate type="backInUp">
                   <ProductCard {...product} />
                 </Animate>
               </div>

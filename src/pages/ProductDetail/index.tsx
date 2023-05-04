@@ -78,9 +78,11 @@ const ProductDetail: React.FC = () => {
             <div className="p-productDetail_tabs">
               <Tabs tabs={['Mô tả sản phẩm']} modifiers={['underline']}>
                 {productDetail && (
-                  <div dangerouslySetInnerHTML={
-                    { __html: productDetail.description }
-                  }
+                  <div
+                    className="p-productDetail_tabs_content"
+                    dangerouslySetInnerHTML={
+                      { __html: productDetail.description }
+                    }
                   />
                 )}
               </Tabs>

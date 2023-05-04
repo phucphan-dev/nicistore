@@ -350,10 +350,10 @@ const Checkout: React.FC = () => {
                       <Typography.Text modifiers={['15x18', '600']}>{renderPrice(totalCost, true, 'VNĐ')}</Typography.Text>
                     </div>
                     <div className="p-checkout_divider" />
-                    {/* <div className="p-checkout_summary">
+                    <div className="p-checkout_summary">
                       <Typography.Text modifiers={['13x16']}>Giảm giá</Typography.Text>
                       <Typography.Text modifiers={['15x18', '600']}>0 VNĐ</Typography.Text>
-                    </div> */}
+                    </div>
                     <div className="p-checkout_divider" />
                     <div className="p-checkout_summary">
                       <Typography.Text modifiers={['13x16']}>Tổng đơn hàng</Typography.Text>

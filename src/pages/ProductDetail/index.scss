@@ -7,6 +7,18 @@
 
     &_tabs {
         margin-top: rem(62);
+        margin-bottom: rem(40);
+
+        &_content {
+            img {
+                max-width: 50%;
+                margin-top: rem(16);
+
+                @include mobile-down {
+                    max-width: 100%;
+                }
+            }
+        }
     }
 
     &_related {
