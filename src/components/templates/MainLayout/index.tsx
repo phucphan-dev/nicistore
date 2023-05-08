@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import Subscribe from '../Subscribe';
@@ -22,14 +22,19 @@ import { LOCALSTORAGE, ROUTES_PATH } from 'utils/constants';
 import mapModifiers, { groupMenusFromCategories } from 'utils/functions';
 
 const MainLayout: React.FC = () => {
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const { width, height } = useWindowDimensions();
   const profile = useAppSelector((state) => state.auth.profile);
   const categories = useAppSelector((state) => state.product.categories);
   const cartItems = useAppSelector((state) => state.cart.items);
+
   const [openSearch, setOpenSearch] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
+  const [searchTxt, setSearchTxt] = useState('');
+
   const loading = useInitialRender();
+
   useEffect(() => {
     if (openSearch || loading) {
       document.documentElement.style.overflowY = 'hidden';
@@ -83,7 +88,17 @@ const MainLayout: React.FC = () => {
             <Button name="close-button" aria-label="Close" iconName="close" iconSize="20" handleClick={() => setOpenSearch(false)} />
           </div>
           <div className="search-panel_input">
-            <Input placeholder="Tìm kiếm sản phẩm của bạn" search />
+            <Input
+              placeholder="Tìm kiếm sản phẩm của bạn"
+              search
+              onChange={(e) => setSearchTxt(e.currentTarget.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  navigate(`/tat-ca?search=${searchTxt}`);
+                  setOpenSearch(false);
+                }
+              }}
+            />
           </div>
           <Typography.Text modifiers={['14x16', 'ashGrey']}>
             Vui lòng nhập từ khoá bạn muốn tìm và nhấn &quot;enter&quot;

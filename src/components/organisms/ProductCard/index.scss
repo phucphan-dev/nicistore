@@ -1,13 +1,13 @@
 .o-productCard {
     $root: &;
 
-    &:hover {
-        #{$root}_actions {
-            right: rem(10);
-            opacity: 1;
-            visibility: visible;
-        }
-    }
+    // &:hover {
+    //     #{$root}_actions {
+    //         right: rem(10);
+    //         opacity: 1;
+    //         visibility: visible;
+    //     }
+    // }
 
     &_thumbnail {
         position: relative;
@@ -23,9 +23,7 @@
     &_actions {
         position: absolute;
         top: rem(10);
-        right: rem(-20);
-        opacity: 0;
-        visibility: hidden;
+        right: rem(10);
         transition: $transition;
         padding: rem(4);
         z-index: 9;

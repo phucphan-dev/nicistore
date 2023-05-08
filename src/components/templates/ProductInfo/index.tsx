@@ -136,6 +136,7 @@ const ProductInfo: React.FC<ProductInfo> = ({
               productId: id, sizeId: size.id, colorId: color.id, quantity
             }]);
           }
+          setError(undefined);
         }
       },
       // eslint-disable-next-line @typescript-eslint/no-shadow

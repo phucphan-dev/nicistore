@@ -29,6 +29,7 @@ const Products: React.FC = () => {
   const categories = useAppSelector((state) => state.product.categories);
   const [searchParams, setSearchParams] = useSearchParams();
   const pageParam = Number(searchParams.get('page'));
+  const keyword = searchParams.get('search');
 
   const [open, setOpen] = useState(false);
   const [sorter, setSorter] = useState<OptionType>();
@@ -75,7 +76,7 @@ const Products: React.FC = () => {
   );
 
   const { data, isLoading } = useQuery(
-    ['getAllProduct', category, sorterParams, page, propertiesFilter],
+    ['getAllProduct', category, sorterParams, page, propertiesFilter, keyword],
     () => getAllProductService({
       categoryIds: categories?.find(
         (item) => item.slug === category
@@ -83,6 +84,7 @@ const Products: React.FC = () => {
       ...sorterParams,
       limit: 12,
       page,
+      keyword: keyword || '',
       ...propertiesFilter
     }),
     { enabled: !!categories }
@@ -117,6 +119,10 @@ const Products: React.FC = () => {
     }
     setOpen(false);
   }, [pageParam, pathname]);
+
+  useEffect(() => {
+    setPropertiesFilter({});
+  }, [pathname]);
 
   return (
     <div className="p-products">
@@ -185,7 +191,7 @@ const Products: React.FC = () => {
                     </div>
                   ))}
                 </div>
-              ) : <Typography.Text modifiers={['700', 'center']}>Đang cập nhật sản phẩm</Typography.Text>}
+              ) : <Typography.Text modifiers={['700', 'center']}>Không tìm thấy sản phẩm</Typography.Text>}
               <div className="p-products_pagination">
                 <Pagination
                   totalPage={data?.meta.totalPages || 0}

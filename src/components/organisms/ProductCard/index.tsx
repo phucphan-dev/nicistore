@@ -100,7 +100,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               handleClick={() => handleQuickView && handleQuickView(code)}
             />
           </div> */}
-          <div className="o-productCard_actions_item">
+          {/* <div className="o-productCard_actions_item">
             <Button
               iconName="cart"
               iconSize="16"
@@ -108,7 +108,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               variant="circle"
               handleClick={() => navigate(`${ROUTES_PATH.PRODUCT_DETAIL}/${slug}`)}
             />
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="o-productCard_content">

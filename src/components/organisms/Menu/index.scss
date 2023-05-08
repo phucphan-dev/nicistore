@@ -42,7 +42,6 @@
         &:has(.o-menu_submenu) {
             #{$root}_link {
                 position: relative;
-                padding-right: rem(24);
         
                 &:hover {
                     &::before {
@@ -91,7 +90,6 @@
         &:has(.o-menu_subchildmenu) {
             left: 0;
             justify-content: space-around;
-
             display: block;
             width: 100%;
         }
@@ -103,6 +101,7 @@
         padding: 0;
 
         &_link {
+            flex-grow: 1;
             display: flex;
             -webkit-box-align: center;
             -ms-flex-align: center;
@@ -110,9 +109,11 @@
             font-size: 15px;
             font-weight: 400;
             white-space: nowrap;
-
-            padding: rem(8) 0;
             position: relative;
+        }
+
+        #{$root}_head {
+            height: rem(40);
         }
 
         #{$root}_submenu {
@@ -134,28 +135,28 @@
 
                     margin-left: rem(8);
 
-                    #{$root}_submenu_link {
-                        &:hover {
-                            &::before {
-                                transform: translateY(-50%) rotate(180deg);
-                            }
-                        }
+                    // #{$root}_submenu_link {
+                    //     &:hover {
+                    //         &::before {
+                    //             transform: translateY(-50%) rotate(180deg);
+                    //         }
+                    //     }
             
-                        &::before {
-                            content: '';
-                            position: absolute;
-                            width: rem(32);
-                            height: rem(32);
-                            background: url('~assets/icons/ic_arrow_down.svg') no-repeat;
-                            background-size: 16px;
-                            background-position: center;
-                            right: rem(14);
-                            transform: translateY(-50%);
-                            top: 50%;
-                            transition: $transition;
-                            z-index: 1;
-                        }
-                    }
+                    //     &::before {
+                    //         content: '';
+                    //         position: absolute;
+                    //         width: rem(32);
+                    //         height: rem(32);
+                    //         background: url('~assets/icons/ic_arrow_down.svg') no-repeat;
+                    //         background-size: 16px;
+                    //         background-position: center;
+                    //         right: rem(14);
+                    //         transform: translateY(-50%);
+                    //         top: 50%;
+                    //         transition: $transition;
+                    //         z-index: 1;
+                    //     }
+                    // }
                 }
             }
         }
@@ -179,5 +180,29 @@
         &_item {
             padding: rem(6);
         }
+    }
+
+    &_link {
+        flex-grow: 1;
+
+        &::before {
+            content: unset !important;
+        }
+    }
+
+    &_head {
+        display: flex;
+        align-items: center;
+        height: rem(28);
+    }
+
+    &_arrow {
+        width: rem(28);
+        height: rem(28);
+        background: url('~assets/icons/ic_arrow_down.svg') no-repeat;
+        background-size: 16px;
+        background-position: center;
+        cursor: pointer;
+        margin-left: rem(24);
     }
 }
