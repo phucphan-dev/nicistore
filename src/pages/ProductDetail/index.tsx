@@ -40,7 +40,7 @@ const ProductDetail: React.FC = () => {
     starCount: 5,
     reviewCount: 2,
     colorSize: data.colorSize,
-    categories: data.categories.map((item) => item.name),
+    // categories: data.categories.map((item) => item.name),
   }) : undefined), [data]);
   const breadcrumbs: BreadcrumbTypes[] = [
     {

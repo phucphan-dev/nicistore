@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useMemo } from 'react';
 import { useQuery } from 'react-query';
 
@@ -72,40 +73,45 @@ const Home: React.FC = () => {
 
   const menus: HomeCategoryData[] = useMemo(() => {
     if (!categories) return [];
+
     const data = groupMenusFromCategories(categories);
     return [
       {
-        name: data[2].text,
+        name: data[1].text,
         thumbnail: woman,
         ratio: '272x289',
-        items: data[2].childrens?.map((item) => ({
-          name: item.text,
-          href: `/${item.link}`
-        }))
-      },
-      {
-        name: data[1].text,
-        thumbnail: man,
-        ratio: '34x17',
+        href: `/${data[1].link}`,
         items: data[1].childrens?.map((item) => ({
           name: item.text,
           href: `/${item.link}`
         }))
       },
       {
-        name: data[3].text,
-        thumbnail: accessories,
-        ratio: '257x274',
-        items: data[3].childrens?.map((item) => ({
+        name: data[0].text,
+        thumbnail: man,
+        ratio: '34x17',
+        href: `/${data[0].link}`,
+        items: data[0].childrens?.map((item) => ({
           name: item.text,
           href: `/${item.link}`
         }))
       },
       {
-        name: data[4].text,
+        name: data[2].text,
+        thumbnail: accessories,
+        ratio: '257x274',
+        href: `/${data[2].link}`,
+        items: data[2].childrens?.map((item) => ({
+          name: item.text,
+          href: `/${item.link}`
+        }))
+      },
+      {
+        name: data[3].text,
         thumbnail: phonecase,
         ratio: '257x274',
-        items: data[4].childrens?.map((item) => ({
+        href: `/${data[3].link}`,
+        items: data[3].childrens?.map((item) => ({
           name: item.text,
           href: `/${item.link}`
         }))
@@ -129,13 +135,14 @@ const Home: React.FC = () => {
               second={bestSellerProducts[2]}
             />
           </Section>
-          <Section>
+          {/* <Section>
             <Animate type="bounce">
               <WidgetSection>
                 <Typography.Text modifiers={['20x24', 'ferrariRed', 'center']}>
                   Siêu ưu đãi dành cho
                   {' '}
-                  <Typography.Text type="span" modifiers={['700']}>ĐƠN HÀNG ĐẦU TIÊN</Typography.Text>
+                  <Typography.Text type="span"
+                  modifiers={['700']}>ĐƠN HÀNG ĐẦU TIÊN</Typography.Text>
                   {' '}
                   <DiscountCode>FREE15FIRST</DiscountCode>
                   <Typography.Text type="span" modifiers={['300', '16x18']}>
@@ -145,7 +152,7 @@ const Home: React.FC = () => {
                 </Typography.Text>
               </WidgetSection>
             </Animate>
-          </Section>
+          </Section> */}
           <Section>
             <HomeCategory categories={menus} />
           </Section>

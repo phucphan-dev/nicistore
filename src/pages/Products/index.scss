@@ -96,6 +96,8 @@
     }
 
     &_controls {
+        position: relative;
+        z-index: 10;
         margin-top: rem(24);
         margin-bottom: rem(8);
         display: flex;

@@ -19,7 +19,7 @@ export const updateItemCartService = async (
   id: number,
   params: AddCartDataRequest
 ): Promise<void> => {
-  await axiosInstance.put(`client/update-item-cart/${id}`, { params });
+  await axiosInstance.put(`client/update-item-cart/${id}`, { ...params });
 };
 
 export const removeItemCartService = async (ids: number[]): Promise<void> => {

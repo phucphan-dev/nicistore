@@ -44,6 +44,11 @@ const MainLayout: React.FC = () => {
   }, [openSearch, loading]);
 
   const menus = useMemo(() => [
+    {
+      id: 'allProduct',
+      text: 'Tất cả sản phẩm',
+      link: 'tat-ca',
+    },
     ...groupMenusFromCategories(categories), {
       id: 'contact',
       text: 'Liên hệ',
@@ -52,6 +57,7 @@ const MainLayout: React.FC = () => {
 
   useEffect(() => {
     setOpenMenu(false);
+    setOpenSearch(false);
   }, [pathname]);
 
   useEffect(() => {
@@ -92,6 +98,10 @@ const MainLayout: React.FC = () => {
               placeholder="Tìm kiếm sản phẩm của bạn"
               search
               onChange={(e) => setSearchTxt(e.currentTarget.value)}
+              handleSearch={(val) => {
+                navigate(`/tat-ca?search=${val}`);
+                setOpenSearch(false);
+              }}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   navigate(`/tat-ca?search=${searchTxt}`);

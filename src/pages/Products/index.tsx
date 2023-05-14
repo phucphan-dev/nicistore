@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-nested-ternary */
 import React, {
   useCallback, useEffect, useMemo, useState
@@ -67,7 +68,7 @@ const Products: React.FC = () => {
   const { data: categoryDetail, isLoading: getCategoryLoading } = useQuery(
     ['getProductCategoryDetail', category],
     () => {
-      if (category) {
+      if (category && category !== 'tat-ca') {
         return getProductCategoryDetailService(category);
       }
       return undefined;
@@ -78,9 +79,9 @@ const Products: React.FC = () => {
   const { data, isLoading } = useQuery(
     ['getAllProduct', category, sorterParams, page, propertiesFilter, keyword],
     () => getAllProductService({
-      categoryIds: categories?.find(
+      categoryIds: category !== 'tat-ca' ? categories?.find(
         (item) => item.slug === category
-      )?.id.toString(),
+      )?.id.toString() : undefined,
       ...sorterParams,
       limit: 12,
       page,
@@ -206,7 +207,7 @@ const Products: React.FC = () => {
           </Col>
         </Row>
         <div className="p-products_related">
-          <FooterProduct title="Đã xem gần đây" products={featuredProducts.slice(0, 4)} />
+          {/* <FooterProduct title="Đã xem gần đây" products={featuredProducts.slice(0, 4)} /> */}
         </div>
       </Container>
     </div>

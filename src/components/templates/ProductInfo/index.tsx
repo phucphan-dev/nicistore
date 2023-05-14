@@ -305,6 +305,16 @@ const ProductInfo: React.FC<ProductInfo> = ({
                     {' '}
                     <strong>{colorWithSize[color.id.toString()].quantity > 0 ? colorWithSize[color.id.toString()].quantity : 'Hết hàng'}</strong>
                   </Typography.Text>
+                  <br />
+                  {colorWithSize[color.id.toString()].quantity === 0 && (
+                    <Typography.Text modifiers={['13x19', '400', 'ferrariRed']}>
+                      Sản phẩm đã bán hết.
+                      Bạn vẫn có thể bấm nút đặt hàng bên dưới để đặt trước sản phẩm này.
+                      <br />
+                      {' '}
+                      Thời gian đặt và giao hàng từ 2 - 3 tuần.
+                    </Typography.Text>
+                  )}
                 </div>
               )}
             </>

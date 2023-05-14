@@ -32,6 +32,27 @@
             width: 90%;
         }
     }
+
+    &-notification {
+        width: 50%;
+        max-width: rem(450);
+        background-color: $white;
+        margin-left: auto;
+        margin-right: auto;
+        #{$root}_wrapper {
+            padding: rem(40) rem(60);
+            @include tablet-down {
+                padding: rem(24) rem(32);
+            }
+            @include mobile-down {
+                padding: rem(16);
+                width: 90%;
+            }
+        }
+        @include mobile-down {
+            width: 90%;
+        }
+    }
 }
 
 .ReactModal__Overlay {

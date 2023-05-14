@@ -12,6 +12,7 @@ import Checkbox from 'components/atoms/Checkbox';
 import Typography from 'components/atoms/Typography';
 import QuantityInput from 'components/molecules/QuantityInput';
 import Container from 'components/organisms/Container';
+import CustomModal from 'components/organisms/Modal';
 import ProductCartItem from 'components/organisms/ProductCartItem';
 import Section from 'components/organisms/Section';
 import { removeItemCartService, updateItemCartService } from 'services/cart';
@@ -27,6 +28,7 @@ const Cart: React.FC = () => {
   const profile = useAppSelector((state) => state.auth.profile);
   const cartDetail = useAppSelector((state) => state.cart.items);
   const [checkList, setCheckList] = useState<number[]>([]);
+  const [removeId, setRemoveId] = useState<number | undefined>();
 
   const handleSelectItem = useCallback((id: number, checked: boolean) => {
     if (checked) {
@@ -56,10 +58,11 @@ const Cart: React.FC = () => {
 
   const handleChangeQuantity = (cartItem: CartItem, quantity: number) => {
     if (quantity === 0) {
-      dispatch(deleteItemCartLocal(cartItem.id));
-      if (profile) {
-        removeItemCartMutate([cartItem.id]);
-      }
+      setRemoveId(cartItem.id);
+      // dispatch(deleteItemCartLocal(cartItem.id));
+      // if (profile) {
+      //   removeItemCartMutate([cartItem.id]);
+      // }
     } else {
       dispatch(updateItemCartLocal({ ...cartItem, quantity }));
       if (profile) {
@@ -81,6 +84,7 @@ const Cart: React.FC = () => {
     if (profile) {
       removeItemCartMutate([id]);
     }
+    setRemoveId(undefined);
   }, [dispatch, profile, removeItemCartMutate]);
 
   const processCheckout = () => {
@@ -146,7 +150,7 @@ const Cart: React.FC = () => {
                               color={item.color.name}
                               size={item.size.name}
                               isOrder={item.isOrder}
-                              handleDelete={() => handleDelete(item.id)}
+                              handleDelete={() => setRemoveId(item.id)}
                             />
                           </div>
                         </td>
@@ -210,6 +214,27 @@ const Cart: React.FC = () => {
               </Row>
             )}
         </Container>
+        <CustomModal isOpen={!!removeId} variant="notification">
+          <Typography.Text modifiers={['18x21', '500', 'center']}>Bạn có muốn xóa sản phẩm này không?</Typography.Text>
+          <div className="p-cart_buttons">
+            <Button
+              variant="secondary"
+              sizes="h48"
+              disabled={checkList.length === 0}
+              handleClick={() => removeId && handleDelete(removeId)}
+            >
+              Có
+            </Button>
+            <Button
+              variant="primary"
+              sizes="h48"
+              disabled={checkList.length === 0}
+              handleClick={() => setRemoveId(undefined)}
+            >
+              Không
+            </Button>
+          </div>
+        </CustomModal>
       </div>
     </Section>
   );

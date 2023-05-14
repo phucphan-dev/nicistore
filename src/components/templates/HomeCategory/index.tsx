@@ -12,6 +12,7 @@ export interface HomeCategoryData {
   totalProduct?: number;
   thumbnail: string;
   ratio: RatioImage;
+  href: string;
   items?: { name: string, href: string }[];
 }
 
@@ -23,7 +24,9 @@ const HomeCategory: React.FC<HomeCategoryProps> = ({ categories }) => {
   const renderItem = (item: HomeCategoryData, index?: number) => (
     <div className="t-homeCategory_item" key={index ? item.name + index.toString() : undefined}>
       <Animate type="slideInUp">
-        <Image imgSrc={item.thumbnail} alt={item.name} ratio={item.ratio} />
+        <Link href={item.href}>
+          <Image imgSrc={item.thumbnail} alt={item.name} ratio={item.ratio} />
+        </Link>
         <div className="t-homeCategory_content">
           {item.totalProduct && (
             <div className="t-homeCategory_total">
@@ -35,9 +38,11 @@ const HomeCategory: React.FC<HomeCategoryProps> = ({ categories }) => {
             </div>
           )}
           <div className="t-homeCategory_name">
-            <Typography.Heading type="h2" modifiers={['28x32']}>
-              {item.name}
-            </Typography.Heading>
+            <Link href={item.href}>
+              <Typography.Heading type="h2" modifiers={['28x32']}>
+                {item.name}
+              </Typography.Heading>
+            </Link>
           </div>
           {item.description && (
             <div className="t-homeCategory_description">

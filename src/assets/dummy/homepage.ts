@@ -65,6 +65,7 @@ export const categoriesDummy: HomeCategoryData[] = [
     totalProduct: 54,
     thumbnail: 'https://k4j3j2s7.rocketcdn.me/clotya/wp-content/uploads/2022/05/banner-11.jpg',
     ratio: '272x289',
+    href: '#',
     items: [
       {
         name: 'Blazers',
@@ -97,6 +98,7 @@ export const categoriesDummy: HomeCategoryData[] = [
     totalProduct: 23,
     thumbnail: 'https://k4j3j2s7.rocketcdn.me/clotya/wp-content/uploads/2022/05/banner-12.jpg',
     ratio: '34x17',
+    href: '#',
     items: [
       {
         name: 'Pants',
@@ -121,12 +123,14 @@ export const categoriesDummy: HomeCategoryData[] = [
     totalProduct: 1,
     thumbnail: 'https://k4j3j2s7.rocketcdn.me/clotya/wp-content/uploads/2022/05/banner-13.jpg',
     ratio: '257x274',
+    href: '#',
   },
   {
     name: 'Accessories',
     totalProduct: 3,
     thumbnail: 'https://k4j3j2s7.rocketcdn.me/clotya/wp-content/uploads/2022/05/banner-14.jpg',
     ratio: '257x274',
+    href: '#',
   },
 ];
 

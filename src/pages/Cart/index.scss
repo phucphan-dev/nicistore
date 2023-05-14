@@ -76,4 +76,16 @@
         align-items: center;
         justify-content: space-between;
     }
+
+    &_buttons {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: rem(24);
+
+        .a-button {
+            margin-left: rem(8);
+            margin-right: rem(8);
+        }
+    }
 }

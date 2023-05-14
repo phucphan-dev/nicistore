@@ -24,6 +24,11 @@ const FilterCategory: React.FC<FilterCategoryProps> = ({
       if (handleChange) {
         handleChange(code);
       }
+    } else {
+      setSelected(undefined);
+      if (handleChange) {
+        handleChange('tat-ca');
+      }
     }
   };
 
