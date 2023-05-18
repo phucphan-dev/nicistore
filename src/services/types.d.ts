@@ -49,6 +49,12 @@ type Category = {
   slug: string
 };
 
+type Breadcrumb = {
+  slug: string
+  text: string
+  type: string
+};
+
 type BaseFilterParams = {
   locale?: string;
   keyword?: string;

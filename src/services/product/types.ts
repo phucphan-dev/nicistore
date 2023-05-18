@@ -112,6 +112,7 @@ export interface ProductDetail {
   shortDescription: string
   description: string
   categories: Category[]
+  breadcrumbs: Breadcrumb[]
   colors: ProductProperty[]
   sizes: ProductProperty[]
   colorSize: ColorSize[]

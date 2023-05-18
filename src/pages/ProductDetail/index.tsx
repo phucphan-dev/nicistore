@@ -47,7 +47,7 @@ const ProductDetail: React.FC = () => {
       slug: '/',
       text: 'Trang chủ',
     },
-    ...(!data ? [] : data.categories.map((item) => ({ slug: `/${item.slug}`, text: item.name }))),
+    ...(!data ? [] : data.breadcrumbs.map((item) => ({ slug: `/${item.slug}`, text: item.text }))),
     {
       slug: '',
       text: data?.name || ''

@@ -9,7 +9,7 @@ const useScrollAnimate = <T extends HTMLElement>(ref: React.RefObject<T>): boole
 
     const onScroll = () => {
       const scrollPos = window.scrollY;
-      if (ele - (window.innerHeight / 1.5) < scrollPos) {
+      if (ele - (window.innerHeight / 1.6) < scrollPos) {
         setIsShow(true);
       }
     };
