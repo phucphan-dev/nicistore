@@ -1,4 +1,4 @@
-type RatioImage = '1531x541' | '75x46' | '1x1' | '272x289' | '34x17' | '257x274' | '605x480' | '921x329' | '96x23' | '16x9' | '1366x684' | '2x3';
+type RatioImage = '1531x541' | '75x46' | '1x1' | '272x289' | '34x17' | '257x274' | '605x480' | '921x329' | '96x23' | '16x9' | '1366x684' | '2x3' | '735x911' | '660x945';
 interface CollectionData {
   subtitle?: string;
   title?: string;
@@ -53,6 +53,7 @@ interface ProductInfo {
   sku?: string;
   categories?: string[];
   tags?: string[];
+  isFavorited: boolean
 }
 
 interface CartItem {
@@ -65,6 +66,7 @@ interface CartItem {
   size: ProductProperty;
   quantity: number;
   price: number;
+  salePrice?: number;
   isOrder?: boolean;
 }
 

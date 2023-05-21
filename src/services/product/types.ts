@@ -117,4 +117,5 @@ export interface ProductDetail {
   sizes: ProductProperty[]
   colorSize: ColorSize[]
   relateds: RelatedProductData[]
+  isFavorited: boolean
 }

@@ -121,7 +121,7 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <Section noSpace><HomeBanner product={bestSeller?.data[1]} /></Section>
+      <Section noSpace><HomeBanner product={bestSeller?.data[2]} /></Section>
       {bestSellerLoading || featuredLoading ? <Loading isShow /> : (
         <>
           <Section>

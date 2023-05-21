@@ -114,6 +114,49 @@
             }
         }   
     }
+
+    &_payment {
+        margin-top: rem(48);
+
+        &_item {
+            margin-top: rem(16);
+        }
+
+        &_info {
+            display: flex;
+            justify-content: space-evenly;
+
+            @include mobile-down {
+                display: block;
+            }
+        }
+
+        &_qr {
+            flex: 1;
+            max-width: 40%;
+            @include mobile-down {
+                max-width: 100%;
+                margin-top: rem(24);
+            }
+
+            .a-image {
+                border: 1px solid $platinum;
+                border-radius: rem(8);
+                overflow: hidden;
+                margin-bottom: rem(24);
+            }
+        }
+
+        &_footer {
+            display: flex;
+            justify-content: center;
+            margin-top: rem(24);
+
+            .a-button {
+                max-width: rem(240);
+            }
+        }
+    }
 }
 @keyframes showSuccess {
     from {

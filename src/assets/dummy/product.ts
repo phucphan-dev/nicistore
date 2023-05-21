@@ -21,6 +21,7 @@ const productDummy = {
   sku: 'BE45VGRT',
   categories: ['PANTS', 'WOMEN'],
   tags: ['black', 'white'],
+  isFavorited: false
 };
 
 export const productTabsDummy = [

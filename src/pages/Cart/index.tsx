@@ -54,7 +54,12 @@ const Cart: React.FC = () => {
   const totalCost = useMemo(() => cartDetail.filter((
     item
   ) => checkList.includes(item.id)).reduce((prev, curr) => prev
-    + (curr.price * curr.quantity), 0), [cartDetail, checkList]);
+    + ((curr.salePrice || curr.price) * curr.quantity), 0), [cartDetail, checkList]);
+
+  const totalCostPromo = useMemo(() => cartDetail.filter((
+    item
+  ) => checkList.includes(item.id)).reduce((prev, curr) => prev
+    + ((curr.price - (curr.salePrice || 0)) * curr.quantity), 0), [cartDetail, checkList]);
 
   const handleChangeQuantity = (cartItem: CartItem, quantity: number) => {
     if (quantity === 0) {
@@ -156,9 +161,14 @@ const Cart: React.FC = () => {
                         </td>
                         <td>
                           <div className="p-cart_td price">
-                            <Typography.Text>
+                            <Typography.Text modifiers={item.salePrice ? ['lineThrough', '14x16', 'ashGrey'] : undefined}>
                               {renderPrice(item.price, true, 'VNĐ')}
                             </Typography.Text>
+                            {item.salePrice && (
+                              <Typography.Text>
+                                {renderPrice(item.salePrice, true, 'VNĐ')}
+                              </Typography.Text>
+                            )}
                           </div>
                         </td>
                         <td>
@@ -172,7 +182,7 @@ const Cart: React.FC = () => {
                         <td>
                           <div className="p-cart_td price">
                             <Typography.Text>
-                              {renderPrice(item.price, true, 'VNĐ')}
+                              {renderPrice(item.salePrice || item.price, true, 'VNĐ')}
                             </Typography.Text>
                           </div>
                         </td>
@@ -199,7 +209,11 @@ const Cart: React.FC = () => {
                     <div className="p-cart_divider" />
                     <div className="p-cart_line">
                       <Typography.Text modifiers={['14x16', '400']}>Giảm giá</Typography.Text>
-                      <Typography.Text modifiers={['14x16', '400']}>0 VNĐ</Typography.Text>
+                      <Typography.Text modifiers={['14x16', '400']}>
+                        -
+                        {' '}
+                        {renderPrice(totalCostPromo, true, 'VNĐ')}
+                      </Typography.Text>
                     </div>
                     <div className="p-cart_divider" />
                     <div className="p-cart_line">

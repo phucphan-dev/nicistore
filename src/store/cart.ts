@@ -83,6 +83,7 @@ export const cartSlice = createSlice({
         size: item.sizes[0],
         quantity: item.quantity,
         price: item.price,
+        salePrice: item.calculateSalePrice,
         isOrder: !item.inStock
       }));
     });

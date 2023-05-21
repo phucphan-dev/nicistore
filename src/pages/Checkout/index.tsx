@@ -6,8 +6,12 @@ import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
+import momo from 'assets/images/momo.jpg';
+import vcb from 'assets/images/vcb.jpg';
 import Button from 'components/atoms/Button';
+import Image from 'components/atoms/Image';
 import Input from 'components/atoms/Input';
+import Radio from 'components/atoms/Radio';
 import Select from 'components/atoms/Select';
 import TextArea from 'components/atoms/TextArea';
 import Typography from 'components/atoms/Typography';
@@ -38,7 +42,9 @@ const Checkout: React.FC = () => {
   const { checkoutId, items } = useAppSelector((state) => state.cart);
   const profile = useAppSelector((state) => state.auth.profile);
   const [isOpen, setIsOpen] = useState(false);
+  const [methodModal, setMethodModal] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [pMethod, setPMethod] = useState('cod');
 
   const orderMethod = useForm<OrderForm>({
     resolver: yupResolver(orderSchema),
@@ -52,7 +58,13 @@ const Checkout: React.FC = () => {
   ) => checkoutId.includes(item.id))), [checkoutId, items]);
 
   const totalCost = useMemo(() => checkoutItems.reduce((prev, curr) => prev
-    + (curr.price * curr.quantity), 0), [checkoutItems]);
+    + ((curr.price) * curr.quantity), 0), [checkoutItems]);
+
+  const lastCost = useMemo(() => checkoutItems.reduce((prev, curr) => prev
+    + ((curr.salePrice || curr.price) * curr.quantity), 0), [checkoutItems]);
+
+  const totalCostPromo = useMemo(() => checkoutItems.reduce((prev, curr) => prev
+    + (curr.price - (curr.salePrice || 0) * curr.quantity), 0), [checkoutItems]);
 
   const { mutate: getCitiesMutate, data: cities } = useMutation(
     'getCitiesAction',
@@ -149,6 +161,16 @@ const Checkout: React.FC = () => {
       getWardsMutate(watchDistrict);
     }
   }, [getWardsMutate, orderMethod, watchDistrict]);
+
+  useEffect(() => {
+    if (pMethod !== 'cod') {
+      setMethodModal(true);
+    }
+  }, [pMethod]);
+
+  if (!checkoutId.length) {
+    navigate('/');
+  }
 
   return (
     <Section>
@@ -344,7 +366,8 @@ const Checkout: React.FC = () => {
                           )}
                         </div>
                         <div className="p-checkout_price">
-                          <Typography.Text modifiers={['15x18', '600']}>{renderPrice(item.price * item.quantity, true, 'VNĐ')}</Typography.Text>
+                          <Typography.Text modifiers={item.salePrice ? ['lineThrough', '13x16'] : ['15x18', '600']}>{renderPrice(item.price * item.quantity, true, 'VNĐ')}</Typography.Text>
+                          {item.salePrice && <Typography.Text modifiers={['15x18', '600']}>{renderPrice(item.salePrice * item.quantity, true, 'VNĐ')}</Typography.Text>}
                         </div>
                       </div>
                     ))}
@@ -356,12 +379,48 @@ const Checkout: React.FC = () => {
                     <div className="p-checkout_divider" />
                     <div className="p-checkout_summary">
                       <Typography.Text modifiers={['16x18']}>Giảm giá</Typography.Text>
-                      <Typography.Text modifiers={['15x18', '600']}>0 VNĐ</Typography.Text>
+                      <Typography.Text modifiers={['15x18', '600']}>
+                        -
+                        {' '}
+                        {renderPrice(totalCostPromo, true, 'VNĐ')}
+                      </Typography.Text>
                     </div>
                     <div className="p-checkout_divider" />
                     <div className="p-checkout_summary">
                       <Typography.Text modifiers={['16x18']}>Tổng đơn hàng</Typography.Text>
-                      <Typography.Text modifiers={['15x18', '600']}>{renderPrice(totalCost, true, 'VNĐ')}</Typography.Text>
+                      <Typography.Text modifiers={['15x18', '600']}>{renderPrice(lastCost, true, 'VNĐ')}</Typography.Text>
+                    </div>
+                    <div className="p-checkout_payment">
+                      <div className="p-checkout_payment_item">
+                        <Radio
+                          type="radio"
+                          name="payment"
+                          value="cod"
+                          checked={pMethod === 'cod'}
+                          text="Thanh toán khi nhận hàng"
+                          onChange={(e) => setPMethod(e.currentTarget.value)}
+                        />
+                      </div>
+                      <div className="p-checkout_payment_item">
+                        <Radio
+                          type="radio"
+                          name="payment"
+                          value="momo"
+                          checked={pMethod === 'momo'}
+                          text="Thanh toán qua Momo"
+                          onChange={(e) => setPMethod(e.currentTarget.value)}
+                        />
+                      </div>
+                      <div className="p-checkout_payment_item">
+                        <Radio
+                          type="radio"
+                          name="payment"
+                          value="banking"
+                          checked={pMethod === 'banking'}
+                          text="Chuyển khoản ngân hàng"
+                          onChange={(e) => setPMethod(e.currentTarget.value)}
+                        />
+                      </div>
                     </div>
                     <div className="p-checkout_button">
                       <Button
@@ -390,6 +449,31 @@ const Checkout: React.FC = () => {
       </div>
       <CustomModal isOpen={isOpen} variant="shipping" showIconClose handleClose={() => setIsOpen(false)}>
         <ShippingAddressList isModal handleSelectAddress={handleSelectAddress} />
+      </CustomModal>
+      <CustomModal isOpen={methodModal} variant="shipping" showIconClose handleClose={() => setMethodModal(false)}>
+        <div className="p-checkout_payment_info">
+          <div className="p-checkout_payment_qr">
+            <Image imgSrc={momo} alt="qrMomo" ratio="1x1" />
+            <Typography.Text modifiers={['20x24', 'center', '500']}>MOMO</Typography.Text>
+          </div>
+          <div className="p-checkout_payment_qr">
+            <Image imgSrc={vcb} alt="qrVCB" ratio="1x1" />
+            <Typography.Text modifiers={['20x24', 'center', '500']}>VIETCOMBANK</Typography.Text>
+          </div>
+        </div>
+        <br />
+        <hr />
+        <Typography.Text modifiers={['center', 'ferrariRed', '500', '18x21']}>Sau khi chuyển khoản, bấm đặt hàng để hoàn tất đơn hàng</Typography.Text>
+        <div className="p-checkout_payment_footer">
+          <Button
+            variant="primary"
+            loading={isLoading}
+            sizes="h48"
+            handleClick={() => setMethodModal(false)}
+          >
+            Đã thanh toán
+          </Button>
+        </div>
       </CustomModal>
     </Section>
   );

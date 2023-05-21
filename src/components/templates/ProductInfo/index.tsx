@@ -28,7 +28,7 @@ import { favoriteProductService } from 'services/product';
 import { addToCart } from 'store/cart';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { LOCALSTORAGE } from 'utils/constants';
-import mapModifiers from 'utils/functions';
+import mapModifiers, { roundingPrice } from 'utils/functions';
 
 const settings = {
   dots: false,
@@ -57,6 +57,7 @@ const ProductInfo: React.FC<ProductInfo> = ({
   sku,
   categories,
   tags,
+  isFavorited
 }) => {
   const queryClient = useQueryClient();
   const dispatch = useAppDispatch();
@@ -69,6 +70,7 @@ const ProductInfo: React.FC<ProductInfo> = ({
   const [size, setSize] = useState<ProductProperty>();
   const [quantity, setQuantity] = useState(1);
   const [error, setError] = useState<string | undefined>(undefined);
+  const [favorite, setFavorite] = useState(isFavorited);
 
   const colorWithSize: ColorWithSize | undefined = useMemo(() => (colorSize && colorSize.length > 0
     ? colorSize.reduce((prev: any, curr) => ({
@@ -128,7 +130,8 @@ const ProductInfo: React.FC<ProductInfo> = ({
             color: { id: color.id, name: color.label, code: color.color },
             size,
             quantity,
-            price
+            price,
+            salePrice: promo ? roundingPrice(price * (100 - promo) / 100) : undefined,
           }));
           toast.success('Thêm vào giỏ thành công!', { toastId: 'addToCartSuccess' });
           if (profile) {
@@ -234,7 +237,7 @@ const ProductInfo: React.FC<ProductInfo> = ({
         </Col>
         <Col lg={7}>
           <Typography.Heading>{name}</Typography.Heading>
-          <div className="t-productInfo_review">
+          {/* <div className="t-productInfo_review">
             {starCount && <StarCount count={starCount} />}
             {reviewCount && (
               <Typography.Text modifiers={['16x18']}>
@@ -243,9 +246,9 @@ const ProductInfo: React.FC<ProductInfo> = ({
                 Đánh giá
               </Typography.Text>
             )}
-          </div>
+          </div> */}
           <div className="t-productInfo_price">
-            <PriceSale isHorizontal unit={unit} price={price} promo={promo} />
+            <PriceSale bigger isHorizontal unit={unit} price={price} promo={promo} />
           </div>
           <div className="t-productInfo_description" dangerouslySetInnerHTML={{ __html: shortDescription }} />
           {colorWithSize && (
@@ -312,7 +315,7 @@ const ProductInfo: React.FC<ProductInfo> = ({
                       Bạn vẫn có thể bấm nút đặt hàng bên dưới để đặt trước sản phẩm này.
                       <br />
                       {' '}
-                      Thời gian đặt và giao hàng từ 2 - 3 tuần.
+                      Thời gian chờ từ 3 - 4 tuần. Shop sẽ liên hệ ngay khi có hàng.
                     </Typography.Text>
                   )}
                 </div>
@@ -350,17 +353,18 @@ const ProductInfo: React.FC<ProductInfo> = ({
           }
           <div className="t-productInfo_controls">
             <Button
-              iconName="love"
+              iconName={favorite ? 'loveFill' : 'love'}
               iconSize="16"
               handleClick={() => {
                 if (profile) {
+                  setFavorite(!favorite);
                   favoriteMutate(id);
                 } else {
                   toast.error('Đăng nhập để sử dụng tính năng này');
                 }
               }}
             >
-              Yêu thích
+              <Typography.Text modifiers={favorite ? ['ferrariRed'] : ['black']}>Yêu thích</Typography.Text>
             </Button>
             {/* <Button iconName="share" iconSize="16">Chia sẻ</Button> */}
           </div>

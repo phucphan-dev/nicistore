@@ -172,6 +172,7 @@ const ShippingAddress: React.FC<Props> = ({ defaultValues, handleSuccess, handle
             fieldState: { error },
           }) => (
             <Select
+              isSearch
               name="cityId"
               placeholder="---"
               label="Tỉnh / Thành phố"
@@ -194,6 +195,7 @@ const ShippingAddress: React.FC<Props> = ({ defaultValues, handleSuccess, handle
             fieldState: { error },
           }) => (
             <Select
+              isSearch
               name="districtId"
               placeholder="---"
               label="Quận / Huyện"
@@ -216,6 +218,7 @@ const ShippingAddress: React.FC<Props> = ({ defaultValues, handleSuccess, handle
             fieldState: { error },
           }) => (
             <Select
+              isSearch
               name="wardId"
               placeholder="---"
               label="Phường / Xã"
