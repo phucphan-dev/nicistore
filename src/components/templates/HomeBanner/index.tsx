@@ -58,7 +58,9 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ product, handleScrollTo }) => {
           size: [curr.size]
         }
     }), {});
-    setColor(data[Object.keys(data)[0]].color);
+    if (Object.keys(data)[0] && data[Object.keys(data)[0]]) {
+      setColor(data[Object.keys(data)[0]]?.color);
+    }
     return data;
   }, [product]);
   const sizeMemo: ProductProperty[] = useMemo(
@@ -78,8 +80,7 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ product, handleScrollTo }) => {
     }
     const cartLocal = localStorage.getItem(LOCALSTORAGE.NICI_CART);
     const cartData = cartLocal ? JSON.parse(cartLocal) as CartItem[] : [];
-
-    dispatch(addToCart({
+    const newItem = {
       id: cartData.length > 0 ? Number(cartData[cartData.length - 1].id) + 1 : 1,
       productId: product.id,
       image: product.thumbnail,
@@ -90,12 +91,16 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ product, handleScrollTo }) => {
       quantity: 1,
       salePrice: roundingPrice(product.price * (100 - product.salePercent) / 100),
       price: product.price
-    }));
+    };
+
+    dispatch(addToCart(newItem));
     toast.success('Thêm vào giỏ thành công!', { toastId: 'addToCartSuccess' });
     if (profile) {
       addToCartMutate([{
         productId: product.id, sizeId: size.id, colorId: color.id, quantity: 1
       }]);
+    } else {
+      localStorage.setItem(LOCALSTORAGE.NICI_CART, JSON.stringify([...cartData, newItem]));
     }
   };
   return (
@@ -105,17 +110,17 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ product, handleScrollTo }) => {
         <div className="t-homeBanner_content">
           <Container>
             <div className="t-homeBanner_title">
-              <Animate type="fadeInLeft" noScroll extendClassName="animate-s1">
+              <Animate type="fadeInLeft" noScroll extendClassName="animate-s05">
                 <Typography.Heading type="h2" modifiers={['76x80', '500']}>{product.name}</Typography.Heading>
               </Animate>
-              <Animate type="fadeInUp" noScroll extendClassName="animate-s1">
+              <Animate type="fadeInUp" noScroll extendClassName="animate-s05">
                 <div className="t-homeBanner_product_price">
                   <PriceSale bigger isHorizontal unit="VNĐ" price={product.price} promo={product.salePercent} />
                 </div>
               </Animate>
               {colorWithSize && (
                 <>
-                  <Animate type="fadeInUp" noScroll extendClassName="animate-s15">
+                  <Animate type="fadeInUp" noScroll extendClassName="animate-s05">
                     <div className="t-homeBanner_product_colors">
                       {Object.keys(colorWithSize).map((key) => {
                         const item = colorWithSize[key];
@@ -133,7 +138,7 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ product, handleScrollTo }) => {
                       })}
                     </div>
                   </Animate>
-                  <Animate type="fadeInUp" noScroll extendClassName="animate-s15">
+                  <Animate type="fadeInUp" noScroll extendClassName="animate-s1">
                     <div className="t-homeBanner_product_sizes">
                       {sizeMemo.map((item) => (
                         <div className="-homeBanner_product_size" key={item.code}>
@@ -150,7 +155,7 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ product, handleScrollTo }) => {
                   </Animate>
                 </>
               )}
-              <Animate type="fadeInUp" noScroll extendClassName="animate-s15">
+              <Animate type="fadeInUp" noScroll extendClassName="animate-s1">
                 <div className="t-homeBanner_link">
                   <Button
                     variant="dark"

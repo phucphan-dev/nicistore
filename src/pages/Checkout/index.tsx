@@ -1,5 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback, useEffect, useMemo, useState
+} from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
@@ -11,6 +13,7 @@ import vcb from 'assets/images/vcb.jpg';
 import Button from 'components/atoms/Button';
 import Image from 'components/atoms/Image';
 import Input from 'components/atoms/Input';
+import Link from 'components/atoms/Link';
 import Radio from 'components/atoms/Radio';
 import Select from 'components/atoms/Select';
 import TextArea from 'components/atoms/TextArea';
@@ -45,6 +48,8 @@ const Checkout: React.FC = () => {
   const [methodModal, setMethodModal] = useState(false);
   const [success, setSuccess] = useState(false);
   const [pMethod, setPMethod] = useState('cod');
+  const [copied, setCopied] = useState(false);
+  const [orderCode, setOrderCode] = useState('');
 
   const orderMethod = useForm<OrderForm>({
     resolver: yupResolver(orderSchema),
@@ -64,7 +69,7 @@ const Checkout: React.FC = () => {
     + ((curr.salePrice || curr.price) * curr.quantity), 0), [checkoutItems]);
 
   const totalCostPromo = useMemo(() => checkoutItems.reduce((prev, curr) => prev
-    + (curr.price - (curr.salePrice || 0) * curr.quantity), 0), [checkoutItems]);
+    + ((curr.salePrice ? (curr.price - curr.salePrice) : 0) * curr.quantity), 0), [checkoutItems]);
 
   const { mutate: getCitiesMutate, data: cities } = useMutation(
     'getCitiesAction',
@@ -86,27 +91,36 @@ const Checkout: React.FC = () => {
     removeItemCartService,
   );
 
+  const handleSuccess = () => {
+    setSuccess(true);
+    dispatch(deleteCheckoutId());
+    if (profile) {
+      removeItemCartMutate(checkoutId);
+    } else {
+      const cartLocal = localStorage.getItem(LOCALSTORAGE.NICI_CART);
+      const cartData = cartLocal ? JSON.parse(cartLocal) as CartItem[] : [];
+      localStorage.setItem(
+        LOCALSTORAGE.NICI_CART,
+        JSON.stringify(cartData.filter((item) => !checkoutId.includes(item.id)))
+      );
+    }
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   const { mutate: createOrderMutate, isLoading } = useMutation(
     'createOrderAction',
     profile ? createOrderService : createOrderUnAuthService,
     {
-      onSuccess: () => {
-        setSuccess(true);
-        dispatch(deleteCheckoutId());
-        if (profile) {
-          removeItemCartMutate(checkoutId);
+      onSuccess: (data, variables) => {
+        if (variables.paymentMethod === 'cod') {
+          handleSuccess();
         } else {
-          const cartLocal = localStorage.getItem(LOCALSTORAGE.NICI_CART);
-          const cartData = cartLocal ? JSON.parse(cartLocal) as CartItem[] : [];
-          localStorage.setItem(
-            LOCALSTORAGE.NICI_CART,
-            JSON.stringify(cartData.filter((item) => !checkoutId.includes(item.id)))
-          );
+          setMethodModal(true);
         }
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        });
+        setOrderCode(data.code);
       },
       onError: () => {
         toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau!', { toastId: 'orderFail' });
@@ -124,12 +138,13 @@ const Checkout: React.FC = () => {
     setIsOpen(false);
   };
 
-  const orderAction = async () => {
+  const orderAction = useCallback(async () => {
     const valid = await orderMethod.trigger();
     if (valid) {
       const information = orderMethod.getValues();
       createOrderMutate({
         ...information,
+        paymentMethod: pMethod,
         items: checkoutItems.filter((item) => !item.isOrder).map((item) => ({
           productId: item.productId,
           sizeId: item.size.id,
@@ -144,7 +159,7 @@ const Checkout: React.FC = () => {
         }))
       });
     }
-  };
+  }, [checkoutItems, createOrderMutate, orderMethod, pMethod]);
 
   useDidMount(() => {
     getCitiesMutate(1);
@@ -162,16 +177,6 @@ const Checkout: React.FC = () => {
     }
   }, [getWardsMutate, orderMethod, watchDistrict]);
 
-  useEffect(() => {
-    if (pMethod !== 'cod') {
-      setMethodModal(true);
-    }
-  }, [pMethod]);
-
-  if (!checkoutId.length) {
-    navigate('/');
-  }
-
   return (
     <Section>
       <div className="p-checkout">
@@ -184,7 +189,11 @@ const Checkout: React.FC = () => {
                   <div className="p-checkout_success-icon_long" />
                 </div>
               </div>
-              <Typography.Text modifiers={['mayGreen', '700', '20x24', 'center']}>Đặt hàng thành công</Typography.Text>
+              <Typography.Text modifiers={['mayGreen', '700', '20x24', 'center']}>
+                Đặt hàng thành công. Theo dõi đơn hàng
+                {' '}
+                <Link href={`${ROUTES_PATH.TRACKING_ORDER}?code=${orderCode}`}><Typography.Text type="span" modifiers={['underline']}>tại đây</Typography.Text></Link>
+              </Typography.Text>
               <div className="p-checkout_button continue">
                 <Button variant="primary" sizes="h48" handleClick={() => navigate(ROUTES_PATH.HOME)}>Tiếp tục mua hàng</Button>
               </div>
@@ -314,7 +323,7 @@ const Checkout: React.FC = () => {
                         field: { onChange, value },
                         fieldState: { error },
                       }) => (
-                        <Input name="email" required label="Email" type="text" value={value} bordered onChange={onChange} error={error?.message} />
+                        <Input name="email" label="Email" type="text" value={value} bordered onChange={onChange} error={error?.message} />
                       )}
                     />
                   </div>
@@ -380,9 +389,9 @@ const Checkout: React.FC = () => {
                     <div className="p-checkout_summary">
                       <Typography.Text modifiers={['16x18']}>Giảm giá</Typography.Text>
                       <Typography.Text modifiers={['15x18', '600']}>
-                        -
-                        {' '}
-                        {renderPrice(totalCostPromo, true, 'VNĐ')}
+                        {
+                          totalCostPromo ? `- ${renderPrice(totalCostPromo, true, 'VNĐ')}` : '0 VNĐ'
+                        }
                       </Typography.Text>
                     </div>
                     <div className="p-checkout_divider" />
@@ -450,28 +459,79 @@ const Checkout: React.FC = () => {
       <CustomModal isOpen={isOpen} variant="shipping" showIconClose handleClose={() => setIsOpen(false)}>
         <ShippingAddressList isModal handleSelectAddress={handleSelectAddress} />
       </CustomModal>
-      <CustomModal isOpen={methodModal} variant="shipping" showIconClose handleClose={() => setMethodModal(false)}>
+      <CustomModal isOpen={methodModal} variant="shipping">
         <div className="p-checkout_payment_info">
           <div className="p-checkout_payment_qr">
-            <Image imgSrc={momo} alt="qrMomo" ratio="1x1" />
-            <Typography.Text modifiers={['20x24', 'center', '500']}>MOMO</Typography.Text>
+            <div className="p-checkout_total">
+              <Typography.Heading type="h3" modifiers={['18x21']}>Thông tin đơn hàng</Typography.Heading>
+              <div className="p-checkout_divider" />
+              <div className="p-checkout_summary">
+                <Typography.Text modifiers={['16x18']}>Tổng tiền sản phẩm</Typography.Text>
+                <Typography.Text modifiers={['15x18', '600']}>{renderPrice(totalCost, true, 'VNĐ')}</Typography.Text>
+              </div>
+              <div className="p-checkout_divider" />
+              <div className="p-checkout_summary">
+                <Typography.Text modifiers={['16x18']}>Giảm giá</Typography.Text>
+                <Typography.Text modifiers={['15x18', '600']}>
+                  {
+                    totalCostPromo ? `- ${renderPrice(totalCostPromo, true, 'VNĐ')}` : '0 VNĐ'
+                  }
+                </Typography.Text>
+              </div>
+              <div className="p-checkout_divider" />
+              <div className="p-checkout_summary">
+                <Typography.Text modifiers={['16x18']}>Tổng đơn hàng</Typography.Text>
+                <Typography.Text modifiers={['15x18', '600']}>{renderPrice(lastCost, true, 'VNĐ')}</Typography.Text>
+              </div>
+            </div>
           </div>
-          <div className="p-checkout_payment_qr">
-            <Image imgSrc={vcb} alt="qrVCB" ratio="1x1" />
-            <Typography.Text modifiers={['20x24', 'center', '500']}>VIETCOMBANK</Typography.Text>
-          </div>
+          {pMethod === 'momo' && (
+            <div className="p-checkout_payment_qr">
+              <Image imgSrc={momo} alt="qrMomo" ratio="1x1" />
+              <div className="p-checkout_payment_copy">
+                <Typography.Text modifiers={['28x32', '500']}>MOMO: 0388197156</Typography.Text>
+                <Button
+                  iconName="copy"
+                  iconSize="32"
+                  handleClick={() => {
+                    navigator.clipboard.writeText('0388197156');
+                    setCopied(true);
+                  }}
+                />
+                {copied && <Typography.Text modifiers={['14x16', '400', 'italic', 'mayGreen']}>Copied!</Typography.Text>}
+              </div>
+            </div>
+          )}
+          {pMethod === 'banking' && (
+            <div className="p-checkout_payment_qr">
+              <Image imgSrc={vcb} alt="qrVCB" ratio="1x1" />
+              <div className="p-checkout_payment_copy">
+                <Typography.Text modifiers={['28x32', '500']}>STK: 9388197156</Typography.Text>
+                <Button
+                  iconName="copy"
+                  iconSize="32"
+                  handleClick={() => {
+                    navigator.clipboard.writeText('9388197156');
+                    setCopied(true);
+                  }}
+                />
+                {copied && <Typography.Text modifiers={['14x16', '400', 'italic', 'mayGreen']}>Copied!</Typography.Text>}
+              </div>
+            </div>
+          )}
         </div>
         <br />
         <hr />
-        <Typography.Text modifiers={['center', 'ferrariRed', '500', '18x21']}>Sau khi chuyển khoản, bấm đặt hàng để hoàn tất đơn hàng</Typography.Text>
         <div className="p-checkout_payment_footer">
           <Button
             variant="primary"
-            loading={isLoading}
             sizes="h48"
-            handleClick={() => setMethodModal(false)}
+            handleClick={() => {
+              setMethodModal(false);
+              handleSuccess();
+            }}
           >
-            Đã thanh toán
+            Đã hoàn thành thanh toán
           </Button>
         </div>
       </CustomModal>

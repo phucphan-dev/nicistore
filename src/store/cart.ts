@@ -68,6 +68,11 @@ export const cartSlice = createSlice({
       const ids = $state.checkoutId;
       $state.items = $state.items.filter((item) => !ids.includes(item.id));
       $state.checkoutId = [];
+    },
+    resetCart: ($state) => {
+      $state.cartId = undefined;
+      $state.items = [];
+      $state.checkoutId = [];
     }
   },
   extraReducers(builder) {
@@ -91,6 +96,6 @@ export const cartSlice = createSlice({
 });
 export const {
   loadCartLocal, addToCart, updateItemCartLocal,
-  deleteItemCartLocal, processCheckoutAction, deleteCheckoutId
+  deleteItemCartLocal, processCheckoutAction, deleteCheckoutId, resetCart
 } = cartSlice.actions;
 export default cartSlice.reducer;

@@ -1,4 +1,4 @@
-import { CreateOrderDataRequest, OrderData } from './types';
+import { CreateOrderDataRequest, CreateOrderResponseData, OrderData } from './types';
 
 import axiosInstance from 'services/common/instance';
 
@@ -13,10 +13,16 @@ export const getOrderDetailService = async (code: string): Promise<OrderData> =>
   return response.data.data;
 };
 
-export const createOrderService = async (data: CreateOrderDataRequest): Promise<void> => {
-  await axiosInstance.post('client/orders/create-order', data);
+export const createOrderService = async (
+  data: CreateOrderDataRequest
+): Promise<CreateOrderResponseData> => {
+  const response = await axiosInstance.post('client/orders/create-order', data);
+  return response.data.data;
 };
 
-export const createOrderUnAuthService = async (data: CreateOrderDataRequest): Promise<void> => {
-  await axiosInstance.post('client/orders/create-order-without-auth', data);
+export const createOrderUnAuthService = async (
+  data: CreateOrderDataRequest
+): Promise<CreateOrderResponseData> => {
+  const response = await axiosInstance.post('client/orders/create-order-without-auth', data);
+  return response.data.data;
 };

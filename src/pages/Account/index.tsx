@@ -14,6 +14,7 @@ import Section from 'components/organisms/Section';
 import { logoutService } from 'services/authenticate';
 import { removeAccessToken, removeRefreshToken } from 'services/common/storage';
 import { logout } from 'store/authenticate';
+import { resetCart } from 'store/cart';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { ROUTES_PATH } from 'utils/constants';
 import mapModifiers from 'utils/functions';
@@ -53,6 +54,7 @@ const Account: React.FC = () => {
         removeAccessToken();
         removeRefreshToken();
         dispatch(logout());
+        dispatch(resetCart());
         navigate(ROUTES_PATH.AUTHENTICATE);
       },
       onError: () => {

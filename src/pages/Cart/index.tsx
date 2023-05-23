@@ -19,7 +19,7 @@ import { removeItemCartService, updateItemCartService } from 'services/cart';
 import { AddCartDataRequest } from 'services/cart/types';
 import { deleteItemCartLocal, processCheckoutAction, updateItemCartLocal } from 'store/cart';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { ROUTES_PATH } from 'utils/constants';
+import { LOCALSTORAGE, ROUTES_PATH } from 'utils/constants';
 import { renderPrice } from 'utils/functions';
 
 const Cart: React.FC = () => {
@@ -58,8 +58,11 @@ const Cart: React.FC = () => {
 
   const totalCostPromo = useMemo(() => cartDetail.filter((
     item
-  ) => checkList.includes(item.id)).reduce((prev, curr) => prev
-    + ((curr.price - (curr.salePrice || 0)) * curr.quantity), 0), [cartDetail, checkList]);
+  ) => checkList.includes(item.id)).reduce(
+    (prev, curr) => prev
+      + ((curr.salePrice ? (curr.price - curr.salePrice) : 0) * curr.quantity),
+    0
+  ), [cartDetail, checkList]);
 
   const handleChangeQuantity = (cartItem: CartItem, quantity: number) => {
     if (quantity === 0) {
@@ -86,9 +89,17 @@ const Cart: React.FC = () => {
 
   const handleDelete = useCallback((id: number) => {
     dispatch(deleteItemCartLocal(id));
+    const cartLocal = localStorage.getItem(LOCALSTORAGE.NICI_CART);
+    const cartData = cartLocal ? JSON.parse(cartLocal) as CartItem[] : [];
     if (profile) {
       removeItemCartMutate([id]);
+    } else {
+      localStorage.setItem(
+        LOCALSTORAGE.NICI_CART,
+        JSON.stringify(cartData.filter((item) => item.id !== id))
+      );
     }
+    setCheckList(((cl) => cl.filter((item) => item !== id)));
     setRemoveId(undefined);
   }, [dispatch, profile, removeItemCartMutate]);
 
@@ -210,9 +221,9 @@ const Cart: React.FC = () => {
                     <div className="p-cart_line">
                       <Typography.Text modifiers={['14x16', '400']}>Giảm giá</Typography.Text>
                       <Typography.Text modifiers={['14x16', '400']}>
-                        -
-                        {' '}
-                        {renderPrice(totalCostPromo, true, 'VNĐ')}
+                        {
+                          totalCostPromo ? `- ${renderPrice(totalCostPromo, true, 'VNĐ')}` : '0 VNĐ'
+                        }
                       </Typography.Text>
                     </div>
                     <div className="p-cart_divider" />

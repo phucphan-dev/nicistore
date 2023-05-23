@@ -59,4 +59,10 @@ export interface CreateOrderDataRequest {
   note: string
   items: OrderProductItem[]
   itemOrders: OrderProductItem[]
+  paymentMethod: string;
+}
+
+export interface CreateOrderResponseData {
+  id: number;
+  code: string;
 }

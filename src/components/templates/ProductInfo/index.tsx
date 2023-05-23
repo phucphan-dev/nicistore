@@ -121,7 +121,7 @@ const ProductInfo: React.FC<ProductInfo> = ({
         } else if (quantity < 1) {
           toast.error('Số lượng phải lớn hơn 0', { toastId: 'selectColor' });
         } else {
-          dispatch(addToCart({
+          const newItem = {
             id: cartData.length > 0 ? Number(cartData[cartData.length - 1].id) + 1 : 1,
             productId: id,
             image: imageGaleries[active].path,
@@ -132,12 +132,15 @@ const ProductInfo: React.FC<ProductInfo> = ({
             quantity,
             price,
             salePrice: promo ? roundingPrice(price * (100 - promo) / 100) : undefined,
-          }));
+          };
+          dispatch(addToCart(newItem));
           toast.success('Thêm vào giỏ thành công!', { toastId: 'addToCartSuccess' });
           if (profile) {
             addToCartMutate([{
               productId: id, sizeId: size.id, colorId: color.id, quantity
             }]);
+          } else {
+            localStorage.setItem(LOCALSTORAGE.NICI_CART, JSON.stringify([...cartData, newItem]));
           }
           setError(undefined);
         }
@@ -172,7 +175,7 @@ const ProductInfo: React.FC<ProductInfo> = ({
       } else if (quantity < 1) {
         toast.error('Số lượng phải lớn hơn 0', { toastId: 'selectColor' });
       } else {
-        dispatch(addToCart({
+        const newItem = {
           id: cartData.length > 0 ? Number(cartData[cartData.length - 1].id) + 1 : 1,
           productId: id,
           image: imageGaleries[active].path,
@@ -183,12 +186,15 @@ const ProductInfo: React.FC<ProductInfo> = ({
           quantity,
           price,
           isOrder
-        }));
+        };
+        dispatch(addToCart(newItem));
         toast.success('Thêm vào giỏ thành công!', { toastId: 'addToCartSuccess' });
         if (profile) {
           addToCartMutate([{
             productId: id, sizeId: size.id, colorId: color.id, quantity, isOrder
           }]);
+        } else {
+          localStorage.setItem(LOCALSTORAGE.NICI_CART, JSON.stringify([...cartData, newItem]));
         }
       }
     } else {

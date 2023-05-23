@@ -33,6 +33,7 @@ export const iconList = {
   home: 'home',
   menu: 'menu',
   shop: 'shop',
+  copy: 'copy',
 };
 
 export type IconName = keyof typeof iconList;

@@ -55,13 +55,13 @@ const Header: React.FC<HeaderProps> = ({
                   </div>
                   <Menu menu={menus} />
                   <div className="o-header_menu_account">
-                    <Link href={ROUTES_PATH.ACCOUNT}><Typography.Text modifiers={['16x18', 'black', 'uppercase']}>Tài khoản</Typography.Text></Link>
+                    <Link href={profile ? ROUTES_PATH.ACCOUNT : ROUTES_PATH.AUTHENTICATE}><Typography.Text modifiers={['16x18', 'black', 'uppercase']}>Tài khoản</Typography.Text></Link>
                   </div>
                 </div>
               </div>
               <div className="o-header_right">
                 <div className="o-header_right_button hide-mobile">
-                  <Button name="user-button" aria-label="User" iconName="user" iconSize="24" handleClick={() => navigate(ROUTES_PATH.ACCOUNT)} />
+                  <Button name="user-button" aria-label="User" iconName="user" iconSize="24" handleClick={() => navigate(profile ? ROUTES_PATH.ACCOUNT : ROUTES_PATH.AUTHENTICATE)} />
                 </div>
                 <div className="o-header_right_button hide-mobile">
                   <Button

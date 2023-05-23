@@ -82,7 +82,6 @@
     height: 100vh;
     z-index: $z-loading;
     transition: 1s;
-    transition-delay: 2s;
 
     &_layer {
         background-color: $black;

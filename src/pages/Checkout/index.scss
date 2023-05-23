@@ -156,6 +156,16 @@
                 max-width: rem(240);
             }
         }
+
+        &_copy {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .a-button {
+                margin-left: rem(8);
+            }
+        }
     }
 }
 @keyframes showSuccess {

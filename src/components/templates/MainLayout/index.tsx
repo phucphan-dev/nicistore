@@ -18,7 +18,7 @@ import Section from 'components/organisms/Section';
 import useInitialRender from 'hooks/useInitialRender';
 import useWindowDimensions from 'hooks/useWindowDemensions';
 import { useAppSelector } from 'store/hooks';
-import { LOCALSTORAGE, ROUTES_PATH } from 'utils/constants';
+import { ROUTES_PATH } from 'utils/constants';
 import mapModifiers, { groupMenusFromCategories } from 'utils/functions';
 
 const MainLayout: React.FC = () => {
@@ -27,7 +27,6 @@ const MainLayout: React.FC = () => {
   const { width, height } = useWindowDimensions();
   const profile = useAppSelector((state) => state.auth.profile);
   const categories = useAppSelector((state) => state.product.categories);
-  const cartItems = useAppSelector((state) => state.cart.items);
 
   const [openSearch, setOpenSearch] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
@@ -59,12 +58,6 @@ const MainLayout: React.FC = () => {
     setOpenMenu(false);
     setOpenSearch(false);
   }, [pathname]);
-
-  useEffect(() => {
-    if (!profile) {
-      localStorage.setItem(LOCALSTORAGE.NICI_CART, JSON.stringify(cartItems));
-    }
-  }, [cartItems, profile]);
 
   return (
     <main id="main">
@@ -143,7 +136,7 @@ const MainLayout: React.FC = () => {
                 <Typography.Text modifiers={['12x14', '500']}>Yêu thích</Typography.Text>
               </Link>
             )}
-            <Link href={ROUTES_PATH.ACCOUNT} customClassName="footer-menu_item">
+            <Link href={profile ? ROUTES_PATH.ACCOUNT : ROUTES_PATH.AUTHENTICATE} customClassName="footer-menu_item">
               <Icon iconName="user" size="24" />
               <Typography.Text modifiers={['12x14', '500']}>Tài khoản</Typography.Text>
             </Link>
