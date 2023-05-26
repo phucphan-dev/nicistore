@@ -1,6 +1,8 @@
+/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useMemo, useRef, useState } from 'react';
 import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import banner from 'assets/images/banner.jpg';
@@ -27,6 +29,7 @@ interface HomeBannerProps {
 }
 
 const HomeBanner: React.FC<HomeBannerProps> = ({ product, handleScrollTo }) => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.auth.profile);
   const { height } = useWindowDimensions();
@@ -118,7 +121,7 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ product, handleScrollTo }) => {
                   <PriceSale bigger isHorizontal unit="VNĐ" price={product.price} promo={product.salePercent} />
                 </div>
               </Animate>
-              {colorWithSize && (
+              {/* {colorWithSize && (
                 <>
                   <Animate type="fadeInUp" noScroll extendClassName="animate-s05">
                     <div className="t-homeBanner_product_colors">
@@ -154,16 +157,19 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ product, handleScrollTo }) => {
                     </div>
                   </Animate>
                 </>
-              )}
+              )} */}
               <Animate type="fadeInUp" noScroll extendClassName="animate-s1">
                 <div className="t-homeBanner_link">
                   <Button
-                    variant="dark"
+                    variant="primary"
                     sizes="h48"
                     loading={isLoading}
-                    handleClick={handleAddToCart}
+                    handleClick={() => navigate('/tat-ca')}
+                    iconName="arrowRightWhite"
+                    iconRight
+                    iconSize="24"
                   >
-                    Thêm vào giỏ hàng
+                    Khám phá ngay
                   </Button>
                 </div>
               </Animate>
