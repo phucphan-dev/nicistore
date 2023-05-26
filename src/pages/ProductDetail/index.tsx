@@ -56,6 +56,7 @@ const ProductDetail: React.FC = () => {
   ];
   const featuredProducts = useMemo(() => (data ? data.relateds.map((item) => ({
     id: item.id,
+    slug: item.slug,
     code: item.code,
     images: [item.thumbnail],
     name: item.name,

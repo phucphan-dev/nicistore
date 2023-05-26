@@ -65,4 +65,5 @@ export interface CreateOrderDataRequest {
 export interface CreateOrderResponseData {
   id: number;
   code: string;
+  preOrderCode: string;
 }

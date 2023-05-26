@@ -50,6 +50,7 @@ const Checkout: React.FC = () => {
   const [pMethod, setPMethod] = useState('cod');
   const [copied, setCopied] = useState(false);
   const [orderCode, setOrderCode] = useState('');
+  const [preOrderCode, setPreOrderCode] = useState('');
 
   const orderMethod = useForm<OrderForm>({
     resolver: yupResolver(orderSchema),
@@ -120,7 +121,12 @@ const Checkout: React.FC = () => {
         } else {
           setMethodModal(true);
         }
-        setOrderCode(data.code);
+        if (data.code) {
+          setOrderCode(data.code);
+        }
+        if (data.preOrderCode) {
+          setPreOrderCode(data.preOrderCode);
+        }
       },
       onError: () => {
         toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau!', { toastId: 'orderFail' });
@@ -189,11 +195,20 @@ const Checkout: React.FC = () => {
                   <div className="p-checkout_success-icon_long" />
                 </div>
               </div>
-              <Typography.Text modifiers={['mayGreen', '700', '20x24', 'center']}>
-                Đặt hàng thành công. Theo dõi đơn hàng
-                {' '}
-                <Link href={`${ROUTES_PATH.TRACKING_ORDER}?code=${orderCode}`}><Typography.Text type="span" modifiers={['underline']}>tại đây</Typography.Text></Link>
-              </Typography.Text>
+              {orderCode && (
+                <Typography.Text modifiers={['mayGreen', '700', '20x24', 'center']}>
+                  Đặt hàng thành công. Theo dõi đơn hàng của bạn
+                  {' '}
+                  <Link href={`${ROUTES_PATH.TRACKING_ORDER}?code=${orderCode}`}><Typography.Text type="span" modifiers={['underline']}>tại đây</Typography.Text></Link>
+                </Typography.Text>
+              )}
+              {preOrderCode && (
+                <Typography.Text modifiers={['mayGreen', '700', '20x24', 'center']}>
+                  Đặt hàng thành công. Theo dõi đơn hàng đặt trước của bạn
+                  {' '}
+                  <Link href={`${ROUTES_PATH.TRACKING_ORDER}?code=${orderCode}`}><Typography.Text type="span" modifiers={['underline']}>tại đây</Typography.Text></Link>
+                </Typography.Text>
+              )}
               <div className="p-checkout_button continue">
                 <Button variant="primary" sizes="h48" handleClick={() => navigate(ROUTES_PATH.HOME)}>Tiếp tục mua hàng</Button>
               </div>
