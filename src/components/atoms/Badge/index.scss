@@ -5,18 +5,21 @@
     &_content {
         display: inline-block;
         padding: rem(4) rem(8);
-        font-size: rem(12);
-        font-weight: 700;
+        font-size: rem(10);
         line-height: 1;
         text-align: center;
         white-space: nowrap;
         vertical-align: baseline;
         border-radius: rem(4);
-        background-color: $white;
+        background-color: $fire-engine-red;
+        color: $white;
+        text-transform: uppercase;
     }
 
     &-onsale {
         #{$root}_content {
+            font-weight: 700;
+            background-color: $white;
             color: $mint;
         }
     }

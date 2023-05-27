@@ -57,8 +57,8 @@ export interface CreateOrderDataRequest {
   phone: string
   email: string
   note: string
-  items: OrderProductItem[]
-  itemOrders: OrderProductItem[]
+  items?: OrderProductItem[]
+  itemOrders?: OrderProductItem[]
   paymentMethod: string;
 }
 

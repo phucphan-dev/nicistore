@@ -15,9 +15,13 @@
 
     &_badge {
         position: absolute;
-        top: rem(10);
+        top: rem(5);
         left: rem(10);
         z-index: 1;
+
+        .a-badge {
+            margin-right: rem(8);
+        }
     }
 
     &_actions {

@@ -54,7 +54,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <div className="o-productCard">
       <div className="o-productCard_thumbnail">
-        {!!promo && promo > 0 && <div className="o-productCard_badge"><Badge isOnSale content={`${promo}%`} /></div>}
+        <div className="o-productCard_badge">
+          <Badge content={available && available > 0 ? 'Có sẵn' : 'Hàng order'} />
+          {!!promo && promo > 0 && <Badge isOnSale content={`${promo}%`} />}
+        </div>
         <Link href={slug ? `${ROUTES_PATH.PRODUCT_DETAIL}/${slug}` : '#'}>
           <div className="o-productCard_images">
             {images.length > 1 && (

@@ -30,13 +30,13 @@ const Cart: React.FC = () => {
   const [checkList, setCheckList] = useState<number[]>([]);
   const [removeId, setRemoveId] = useState<number | undefined>();
 
-  const handleSelectItem = useCallback((id: number, checked: boolean) => {
+  const handleSelectItem = (id: number, checked: boolean) => {
     if (checked) {
-      setCheckList([...checkList, id]);
+      setCheckList((cl) => ([...cl, id]));
     } else {
-      setCheckList(checkList.filter((item) => item !== id));
+      setCheckList((cl) => cl.filter((item) => item !== id));
     }
-  }, [checkList]);
+  };
 
   const { mutate: updateItemCartMutate } = useMutation(
     'updateItemCartAction',

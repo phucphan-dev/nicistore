@@ -30,7 +30,7 @@ const Input: React.FC<InputProps> = ({
       )}
       <div className={mapModifiers('a-input_ele', prefix && 'prefix')}>
         {prefix && <Typography.Text modifiers={['14x16', '500']}>{prefix}</Typography.Text>}
-        <input ref={ref} id={id} {...props} />
+        <input ref={ref} id={id} {...props} autoComplete="off" />
         {search && (
           <div
             className="a-input_icon"

@@ -146,23 +146,25 @@ const Checkout: React.FC = () => {
 
   const orderAction = useCallback(async () => {
     const valid = await orderMethod.trigger();
+    const itemOrder = checkoutItems.filter((item) => !item.isOrder);
+    const itemPreOrder = checkoutItems.filter((item) => item.isOrder);
     if (valid) {
       const information = orderMethod.getValues();
       createOrderMutate({
         ...information,
         paymentMethod: pMethod,
-        items: checkoutItems.filter((item) => !item.isOrder).map((item) => ({
+        items: itemOrder.length > 0 ? itemOrder.map((item) => ({
           productId: item.productId,
           sizeId: item.size.id,
           colorId: item.color.id,
           quantity: item.quantity
-        })),
-        itemOrders: checkoutItems.filter((item) => item.isOrder).map((item) => ({
+        })) : undefined,
+        itemOrders: itemPreOrder.length > 0 ? itemPreOrder.map((item) => ({
           productId: item.productId,
           sizeId: item.size.id,
           colorId: item.color.id,
           quantity: item.quantity
-        }))
+        })) : undefined
       });
     }
   }, [checkoutItems, createOrderMutate, orderMethod, pMethod]);
