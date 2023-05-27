@@ -208,7 +208,7 @@ const Checkout: React.FC = () => {
                 <Typography.Text modifiers={['mayGreen', '700', '20x24', 'center']}>
                   Đặt hàng thành công. Theo dõi đơn hàng đặt trước của bạn
                   {' '}
-                  <Link href={`${ROUTES_PATH.TRACKING_ORDER}?code=${orderCode}`}><Typography.Text type="span" modifiers={['underline']}>tại đây</Typography.Text></Link>
+                  <Link href={`${ROUTES_PATH.TRACKING_ORDER}?code=${preOrderCode}`}><Typography.Text type="span" modifiers={['underline']}>tại đây</Typography.Text></Link>
                 </Typography.Text>
               )}
               <div className="p-checkout_button continue">
