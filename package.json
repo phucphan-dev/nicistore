@@ -1,8 +1,7 @@
 {
-  "name": "carot-shop",
+  "name": "nicistore",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://nicistore.online",
   "dependencies": {
     "@hookform/resolvers": "^2.9.11",
     "@reduxjs/toolkit": "^1.8.1",
@@ -85,9 +84,7 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "postinstall": "patch-package",
-    "change-pjname": "node scripts/change-pjname.js",
-    "predeploy": "npm run build",
-    "deploy": "yarn run build && echo 'nicistore.online' > ./build/CNAME && gh-pages -d build"
+    "change-pjname": "node scripts/change-pjname.js"
   },
   "browserslist": {
     "production": [
@@ -100,6 +97,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "proxy": ""
+  }
 }
