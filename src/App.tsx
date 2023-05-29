@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import './App.scss';
 import React, { Suspense } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
@@ -8,7 +7,6 @@ import {
   BrowserRouter, useRoutes
 } from 'react-router-dom';
 
-import banner from 'assets/images/banner.jpg';
 import routes from 'routes';
 import { store } from 'store';
 
@@ -36,7 +34,7 @@ const App: React.FC = () => {
         <meta
           name="og:image"
           property="og:image"
-          content={banner}
+          content={`${process.env.REACT_APP_BASE_URL}/storage/upload/media/2023/05/banner51dcaa30d58074e435db.jpg`}
         />
       </Helmet>
       {element}
