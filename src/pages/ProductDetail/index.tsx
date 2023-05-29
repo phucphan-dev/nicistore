@@ -1,5 +1,6 @@
 /* eslint-disable react/no-danger */
 import React, { useMemo } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 
@@ -69,35 +70,40 @@ const ProductDetail: React.FC = () => {
     isFavorited: item.isFavorited
   })) : []), [data]);
   return (
-    <div className="p-productDetail">
-      <Container>
-        <Breadcrumb breadcrumbs={breadcrumbs} />
-        {isLoading ? <Loading isShow variant="fullScreen" /> : (
-          <>
-            <div className="p-productDetail_content">
-              {productDetail && <ProductInfo {...productDetail} />}
-            </div>
-            <div className="p-productDetail_tabs">
-              <Tabs tabs={['Mô tả sản phẩm']} modifiers={['underline']}>
-                {productDetail && (
-                  <div
-                    className="p-productDetail_tabs_content"
-                    dangerouslySetInnerHTML={
-                      { __html: productDetail.description }
-                    }
-                  />
-                )}
-              </Tabs>
-            </div>
-            {featuredProducts.length > 0 && (
-              <div className="p-productDetail_related">
-                <FooterProduct title="Sản phẩm liên quan" products={featuredProducts} />
+    <>
+      <Helmet>
+        <title>Nici Store | Chi tiết sản phẩm</title>
+      </Helmet>
+      <div className="p-productDetail">
+        <Container>
+          <Breadcrumb breadcrumbs={breadcrumbs} />
+          {isLoading ? <Loading isShow variant="fullScreen" /> : (
+            <>
+              <div className="p-productDetail_content">
+                {productDetail && <ProductInfo {...productDetail} />}
               </div>
-            )}
-          </>
-        )}
-      </Container>
-    </div>
+              <div className="p-productDetail_tabs">
+                <Tabs tabs={['Mô tả sản phẩm']} modifiers={['underline']}>
+                  {productDetail && (
+                    <div
+                      className="p-productDetail_tabs_content"
+                      dangerouslySetInnerHTML={
+                        { __html: productDetail.description }
+                      }
+                    />
+                  )}
+                </Tabs>
+              </div>
+              {featuredProducts.length > 0 && (
+                <div className="p-productDetail_related">
+                  <FooterProduct title="Sản phẩm liên quan" products={featuredProducts} />
+                </div>
+              )}
+            </>
+          )}
+        </Container>
+      </div>
+    </>
   );
 };
 

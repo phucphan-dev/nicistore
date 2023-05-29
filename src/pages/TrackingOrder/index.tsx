@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useQuery } from 'react-query';
 import { useSearchParams } from 'react-router-dom';
 
@@ -26,11 +27,16 @@ const TrackingOrder: React.FC = () => {
   }
 
   return (
-    <Section>
-      <Container>
-        {detail ? <OrderDetail {...detail} /> : <Typography.Text modifiers={['center']}>Không tìm thấy đơn hàng</Typography.Text>}
-      </Container>
-    </Section>
+    <>
+      <Helmet>
+        <title>Nici Store | Theo dõi đơn hàng</title>
+      </Helmet>
+      <Section>
+        <Container>
+          {detail ? <OrderDetail {...detail} /> : <Typography.Text modifiers={['center']}>Không tìm thấy đơn hàng</Typography.Text>}
+        </Container>
+      </Section>
+    </>
   );
 };
 

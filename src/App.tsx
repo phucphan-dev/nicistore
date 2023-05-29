@@ -17,7 +17,6 @@ const App: React.FC = () => {
   return (
     <Suspense fallback={null}>
       <Helmet>
-        <title>Nici Store</title>
         <meta
           name="description"
           content="Quần áo nam nữ, phụ kiện thời trang. Chuyên order giá rẻ"

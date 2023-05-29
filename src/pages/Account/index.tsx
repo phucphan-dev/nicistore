@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { Helmet } from 'react-helmet-async';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -64,53 +65,58 @@ const Account: React.FC = () => {
   );
 
   return (
-    <Section>
-      <div className="p-account">
-        <Container>
-          <Row>
-            <Col lg={3}>
-              <div className="p-account_menu">
-                <div className="p-account_menu_head">
-                  <Typography.Text>
-                    Xin chào,
-                    {' '}
-                    <br />
-                    {' '}
-                    <Typography.Text type="span" modifiers={['700']}>{profile?.fullName}</Typography.Text>
-                  </Typography.Text>
-                </div>
-                {menu.map((item) => (
-                  <div
-                    className={mapModifiers('p-account_menu_item', item.id === active && 'active')}
-                    key={item.id}
-                    onClick={() => setActive(item.id)}
-                  >
-                    <Typography.Text>{item.text}</Typography.Text>
+    <>
+      <Helmet>
+        <title>Nici Store | Tài khoản</title>
+      </Helmet>
+      <Section>
+        <div className="p-account">
+          <Container>
+            <Row>
+              <Col lg={3}>
+                <div className="p-account_menu">
+                  <div className="p-account_menu_head">
+                    <Typography.Text>
+                      Xin chào,
+                      {' '}
+                      <br />
+                      {' '}
+                      <Typography.Text type="span" modifiers={['700']}>{profile?.fullName}</Typography.Text>
+                    </Typography.Text>
                   </div>
-                ))}
-                <div className="p-account_menu_item" onClick={() => logoutMutate()}>
-                  <Typography.Text>Đăng xuất</Typography.Text>
+                  {menu.map((item) => (
+                    <div
+                      className={mapModifiers('p-account_menu_item', item.id === active && 'active')}
+                      key={item.id}
+                      onClick={() => setActive(item.id)}
+                    >
+                      <Typography.Text>{item.text}</Typography.Text>
+                    </div>
+                  ))}
+                  <div className="p-account_menu_item" onClick={() => logoutMutate()}>
+                    <Typography.Text>Đăng xuất</Typography.Text>
+                  </div>
                 </div>
-              </div>
-            </Col>
-            <Col lg={9}>
-              {(() => {
-                switch (active) {
-                  case 1:
-                    return <Profile />;
-                  case 2:
-                    return <Order />;
-                  case 3:
-                    return <ShippingAddressList />;
-                  default:
-                    return null;
-                }
-              })()}
-            </Col>
-          </Row>
-        </Container>
-      </div>
-    </Section>
+              </Col>
+              <Col lg={9}>
+                {(() => {
+                  switch (active) {
+                    case 1:
+                      return <Profile />;
+                    case 2:
+                      return <Order />;
+                    case 3:
+                      return <ShippingAddressList />;
+                    default:
+                      return null;
+                  }
+                })()}
+              </Col>
+            </Row>
+          </Container>
+        </div>
+      </Section>
+    </>
   );
 };
 

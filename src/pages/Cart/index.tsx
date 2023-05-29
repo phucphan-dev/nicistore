@@ -2,6 +2,7 @@ import React, {
   useCallback, useEffect, useMemo, useState
 } from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { Helmet } from 'react-helmet-async';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -120,87 +121,93 @@ const Cart: React.FC = () => {
   }, [cartDetail]);
 
   return (
-    <Section>
-      <div className="p-cart">
-        <Container>
-          {cartDetail.length === 0
-            ? <Typography.Text modifiers={['center']}>Không có sản phẩm nào trong giỏ hàng</Typography.Text>
-            : (
-              <Row>
-                <Col lg={8}>
-                  <table className="p-cart_table">
-                    <tr className="p-cart_t">
-                      <th>
-                        <div className="p-cart_th checkAll">
-                          <Checkbox
-                            name="checkAll"
-                            checked={checkList.length === cartDetail.length}
-                            onChange={(e) => (e.currentTarget.checked
-                              ? setCheckList(cartDetail.map((item) => item.id)) : setCheckList([]))}
-                          />
-                        </div>
-
-                      </th>
-                      <th><div className="p-cart_th"><Typography.Text>Sản phẩm</Typography.Text></div></th>
-                      <th><div className="p-cart_th price"><Typography.Text>Giá</Typography.Text></div></th>
-                      <th><div className="p-cart_th"><Typography.Text>Số lượng</Typography.Text></div></th>
-                      <th><div className="p-cart_th price"><Typography.Text>Tạm tính</Typography.Text></div></th>
-                    </tr>
-                    {cartDetail.map((item) => (
-                      <tr className="p-cart_t" key={item.name + item.link}>
-                        <td>
-                          <div className="p-cart_td">
+    <>
+      <Helmet>
+        <title>Nici Store | Giỏ hàng</title>
+      </Helmet>
+      <Section>
+        <div className="p-cart">
+          <Container>
+            {cartDetail.length === 0
+              ? <Typography.Text modifiers={['center']}>Không có sản phẩm nào trong giỏ hàng</Typography.Text>
+              : (
+                <Row>
+                  <Col lg={8}>
+                    <table className="p-cart_table">
+                      <tr className="p-cart_t">
+                        <th>
+                          <div className="p-cart_th checkAll">
                             <Checkbox
-                              name={String(item.id)}
-                              checked={checkList.includes(item.id)}
-                              onChange={(e) => handleSelectItem(item.id, e.currentTarget.checked)}
+                              name="checkAll"
+                              checked={checkList.length === cartDetail.length}
+                              onChange={(e) => (e.currentTarget.checked
+                                ? setCheckList(cartDetail.map(
+                                  (item) => item.id
+                                )) : setCheckList([]))}
                             />
                           </div>
-                        </td>
-                        <td>
-                          <div className="p-cart_td">
-                            <ProductCartItem
-                              image={item.image}
-                              href={`${ROUTES_PATH.PRODUCT_DETAIL}/${item.link}`}
-                              name={item.name}
-                              color={item.color.name}
-                              size={item.size.name}
-                              isOrder={item.isOrder}
-                              handleDelete={() => setRemoveId(item.id)}
-                            />
-                          </div>
-                        </td>
-                        <td>
-                          <div className="p-cart_td price">
-                            <Typography.Text modifiers={item.salePrice ? ['lineThrough', '14x16', 'ashGrey'] : undefined}>
-                              {renderPrice(item.price, true, 'VNĐ')}
-                            </Typography.Text>
-                            {item.salePrice && (
-                              <Typography.Text>
-                                {renderPrice(item.salePrice, true, 'VNĐ')}
-                              </Typography.Text>
-                            )}
-                          </div>
-                        </td>
-                        <td>
-                          <div className="p-cart_td">
-                            <QuantityInput
-                              initQuantity={item.quantity}
-                              handleChange={(value) => handleChangeQuantity(item, value)}
-                            />
-                          </div>
-                        </td>
-                        <td>
-                          <div className="p-cart_td price">
-                            <Typography.Text>
-                              {renderPrice(item.salePrice || item.price, true, 'VNĐ')}
-                            </Typography.Text>
-                          </div>
-                        </td>
+
+                        </th>
+                        <th><div className="p-cart_th"><Typography.Text>Sản phẩm</Typography.Text></div></th>
+                        <th><div className="p-cart_th price"><Typography.Text>Giá</Typography.Text></div></th>
+                        <th><div className="p-cart_th"><Typography.Text>Số lượng</Typography.Text></div></th>
+                        <th><div className="p-cart_th price"><Typography.Text>Tạm tính</Typography.Text></div></th>
                       </tr>
-                    ))}
-                  </table>
-                  {/* <div className="p-cart_coupon">
+                      {cartDetail.map((item) => (
+                        <tr className="p-cart_t" key={item.name + item.link}>
+                          <td>
+                            <div className="p-cart_td">
+                              <Checkbox
+                                name={String(item.id)}
+                                checked={checkList.includes(item.id)}
+                                onChange={(e) => handleSelectItem(item.id, e.currentTarget.checked)}
+                              />
+                            </div>
+                          </td>
+                          <td>
+                            <div className="p-cart_td">
+                              <ProductCartItem
+                                image={item.image}
+                                href={`${ROUTES_PATH.PRODUCT_DETAIL}/${item.link}`}
+                                name={item.name}
+                                color={item.color.name}
+                                size={item.size.name}
+                                isOrder={item.isOrder}
+                                handleDelete={() => setRemoveId(item.id)}
+                              />
+                            </div>
+                          </td>
+                          <td>
+                            <div className="p-cart_td price">
+                              <Typography.Text modifiers={item.salePrice ? ['lineThrough', '14x16', 'ashGrey'] : undefined}>
+                                {renderPrice(item.price, true, 'VNĐ')}
+                              </Typography.Text>
+                              {item.salePrice && (
+                                <Typography.Text>
+                                  {renderPrice(item.salePrice, true, 'VNĐ')}
+                                </Typography.Text>
+                              )}
+                            </div>
+                          </td>
+                          <td>
+                            <div className="p-cart_td">
+                              <QuantityInput
+                                initQuantity={item.quantity}
+                                handleChange={(value) => handleChangeQuantity(item, value)}
+                              />
+                            </div>
+                          </td>
+                          <td>
+                            <div className="p-cart_td price">
+                              <Typography.Text>
+                                {renderPrice(item.salePrice || item.price, true, 'VNĐ')}
+                              </Typography.Text>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </table>
+                    {/* <div className="p-cart_coupon">
                     <div className="p-cart_coupon_input">
                       <Input placeholder="Mã giảm giá" bordered />
                     </div>
@@ -208,60 +215,61 @@ const Cart: React.FC = () => {
                       <Button variant="secondary" sizes="h42">Áp dụng</Button>
                     </div>
                   </div> */}
-                </Col>
-                <Col lg={4}>
-                  <div className="p-cart_total">
-                    <Typography.Heading type="h2" modifiers={['16x18', '600']}>Chi tiết giỏ hàng</Typography.Heading>
-                    <div className="p-cart_divider" />
-                    <div className="p-cart_line">
-                      <Typography.Text modifiers={['14x16', '400']}>Tổng sản phẩm</Typography.Text>
-                      <Typography.Text modifiers={['14x16', '400']}>{renderPrice(totalCost, true, 'VNĐ')}</Typography.Text>
+                  </Col>
+                  <Col lg={4}>
+                    <div className="p-cart_total">
+                      <Typography.Heading type="h2" modifiers={['16x18', '600']}>Chi tiết giỏ hàng</Typography.Heading>
+                      <div className="p-cart_divider" />
+                      <div className="p-cart_line">
+                        <Typography.Text modifiers={['14x16', '400']}>Tổng sản phẩm</Typography.Text>
+                        <Typography.Text modifiers={['14x16', '400']}>{renderPrice(totalCost, true, 'VNĐ')}</Typography.Text>
+                      </div>
+                      <div className="p-cart_divider" />
+                      <div className="p-cart_line">
+                        <Typography.Text modifiers={['14x16', '400']}>Giảm giá</Typography.Text>
+                        <Typography.Text modifiers={['14x16', '400']}>
+                          {
+                            totalCostPromo ? `- ${renderPrice(totalCostPromo, true, 'VNĐ')}` : '0 VNĐ'
+                          }
+                        </Typography.Text>
+                      </div>
+                      <div className="p-cart_divider" />
+                      <div className="p-cart_line">
+                        <Typography.Text modifiers={['16x18', '700']}>Tổng đơn hàng</Typography.Text>
+                        <Typography.Text modifiers={['20x24', '700']}>{renderPrice(totalCost, true, 'VNĐ')}</Typography.Text>
+                      </div>
+                      <div className="p-cart_total_button">
+                        <Button variant="primary" sizes="h48" disabled={checkList.length === 0} handleClick={processCheckout}>Tiến hành đặt hàng</Button>
+                      </div>
                     </div>
-                    <div className="p-cart_divider" />
-                    <div className="p-cart_line">
-                      <Typography.Text modifiers={['14x16', '400']}>Giảm giá</Typography.Text>
-                      <Typography.Text modifiers={['14x16', '400']}>
-                        {
-                          totalCostPromo ? `- ${renderPrice(totalCostPromo, true, 'VNĐ')}` : '0 VNĐ'
-                        }
-                      </Typography.Text>
-                    </div>
-                    <div className="p-cart_divider" />
-                    <div className="p-cart_line">
-                      <Typography.Text modifiers={['16x18', '700']}>Tổng đơn hàng</Typography.Text>
-                      <Typography.Text modifiers={['20x24', '700']}>{renderPrice(totalCost, true, 'VNĐ')}</Typography.Text>
-                    </div>
-                    <div className="p-cart_total_button">
-                      <Button variant="primary" sizes="h48" disabled={checkList.length === 0} handleClick={processCheckout}>Tiến hành đặt hàng</Button>
-                    </div>
-                  </div>
-                </Col>
-              </Row>
-            )}
-        </Container>
-        <CustomModal isOpen={!!removeId} variant="notification">
-          <Typography.Text modifiers={['18x21', '500', 'center']}>Bạn có muốn xóa sản phẩm này không?</Typography.Text>
-          <div className="p-cart_buttons">
-            <Button
-              variant="secondary"
-              sizes="h48"
-              disabled={checkList.length === 0}
-              handleClick={() => removeId && handleDelete(removeId)}
-            >
-              Có
-            </Button>
-            <Button
-              variant="primary"
-              sizes="h48"
-              disabled={checkList.length === 0}
-              handleClick={() => setRemoveId(undefined)}
-            >
-              Không
-            </Button>
-          </div>
-        </CustomModal>
-      </div>
-    </Section>
+                  </Col>
+                </Row>
+              )}
+          </Container>
+          <CustomModal isOpen={!!removeId} variant="notification">
+            <Typography.Text modifiers={['18x21', '500', 'center']}>Bạn có muốn xóa sản phẩm này không?</Typography.Text>
+            <div className="p-cart_buttons">
+              <Button
+                variant="secondary"
+                sizes="h48"
+                disabled={checkList.length === 0}
+                handleClick={() => removeId && handleDelete(removeId)}
+              >
+                Có
+              </Button>
+              <Button
+                variant="primary"
+                sizes="h48"
+                disabled={checkList.length === 0}
+                handleClick={() => setRemoveId(undefined)}
+              >
+                Không
+              </Button>
+            </div>
+          </CustomModal>
+        </div>
+      </Section>
+    </>
   );
 };
 

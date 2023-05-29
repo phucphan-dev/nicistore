@@ -4,6 +4,7 @@ import React, {
   useCallback, useEffect, useMemo, useState
 } from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { Helmet } from 'react-helmet-async';
 import { useQuery } from 'react-query';
 import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 
@@ -126,30 +127,34 @@ const Products: React.FC = () => {
   }, [pathname]);
 
   return (
-    <div className="p-products">
-      <Container>
-        <Row>
-          <Col lg={3}>
-            <div className={mapModifiers('p-products_sidebar', open && 'open')}>
-              <div className="p-products_sidebar_title">
-                <Typography.Heading type="h3" modifiers={['14x16', '500']}>Bộ lọc</Typography.Heading>
-                <div className="p-products_sidebar_close">
-                  <Button iconName="close" variant="whiteBorder" iconSize="16" handleClick={() => setOpen(false)} />
+    <>
+      <Helmet>
+        <title>Nici Store | Danh sách sản phẩm</title>
+      </Helmet>
+      <div className="p-products">
+        <Container>
+          <Row>
+            <Col lg={3}>
+              <div className={mapModifiers('p-products_sidebar', open && 'open')}>
+                <div className="p-products_sidebar_title">
+                  <Typography.Heading type="h3" modifiers={['14x16', '500']}>Bộ lọc</Typography.Heading>
+                  <div className="p-products_sidebar_close">
+                    <Button iconName="close" variant="whiteBorder" iconSize="16" handleClick={() => setOpen(false)} />
+                  </div>
                 </div>
+                <FilterProduct
+                  categories={groupMenusCategoriesFilter(categories)}
+                  colors={categoryDetail ? categoryDetail?.colors.map((item) => (
+                    { code: item.colorId.toString(), color: item.code, label: item.name })) : []}
+                  sizes={categoryDetail ? categoryDetail?.sizes.map((item) => (
+                    { code: item.sizeId.toString(), color: item.code, label: item.name })) : []}
+                  handleFilter={handleFilterProperties}
+                />
               </div>
-              <FilterProduct
-                categories={groupMenusCategoriesFilter(categories)}
-                colors={categoryDetail ? categoryDetail?.colors.map((item) => (
-                  { code: item.colorId.toString(), color: item.code, label: item.name })) : []}
-                sizes={categoryDetail ? categoryDetail?.sizes.map((item) => (
-                  { code: item.sizeId.toString(), color: item.code, label: item.name })) : []}
-                handleFilter={handleFilterProperties}
-              />
-            </div>
-          </Col>
-          <Col lg={9}>
-            <div className="p-products_content">
-              {/* <div className="p-products_banner">
+            </Col>
+            <Col lg={9}>
+              <div className="p-products_content">
+                {/* <div className="p-products_banner">
                 <Image
                   imgSrc="https://k4j3j2s7.rocketcdn.me/clotya/wp-content/uploads/2022/05/banner-26.jpg"
                   alt="Product Banner"
@@ -166,51 +171,52 @@ const Products: React.FC = () => {
                   </div>
                 </div>
               </div> */}
-              <div className="p-products_controls">
-                <div className="p-products_controls-left">
-                  <Button iconName="filter" iconSize="24" handleClick={() => setOpen(true)}>
-                    <Typography.Text>Bộ lọc</Typography.Text>
-                  </Button>
+                <div className="p-products_controls">
+                  <div className="p-products_controls-left">
+                    <Button iconName="filter" iconSize="24" handleClick={() => setOpen(true)}>
+                      <Typography.Text>Bộ lọc</Typography.Text>
+                    </Button>
+                  </div>
+                  <div className="p-products_controls-right">
+                    <Typography.Text>Sắp xếp: </Typography.Text>
+                    <Select
+                      name="sort"
+                      placeholder="Chọn.."
+                      modifier={['bordered']}
+                      options={sortOptionDummy}
+                      value={sorter}
+                      handleSelect={(option) => setSorter(option)}
+                    />
+                  </div>
                 </div>
-                <div className="p-products_controls-right">
-                  <Typography.Text>Sắp xếp: </Typography.Text>
-                  <Select
-                    name="sort"
-                    placeholder="Chọn.."
-                    modifier={['bordered']}
-                    options={sortOptionDummy}
-                    value={sorter}
-                    handleSelect={(option) => setSorter(option)}
+                {isLoading || getCategoryLoading ? <Loading isShow /> : productsMemo.length > 0 ? (
+                  <div className="p-products_list">
+                    {productsMemo.map((item, index) => (
+                      <div className="p-products_item" key={item.code + index.toString()}>
+                        <ProductCard {...item} />
+                      </div>
+                    ))}
+                  </div>
+                ) : <Typography.Text modifiers={['700', 'center']}>Không tìm thấy sản phẩm</Typography.Text>}
+                <div className="p-products_pagination">
+                  <Pagination
+                    totalPage={data?.meta.totalPages || 0}
+                    pageCurrent={page}
+                    handleChangePage={(val) => {
+                      setPage(val);
+                      setSearchParams({ page: val.toString() });
+                    }}
                   />
                 </div>
               </div>
-              {isLoading || getCategoryLoading ? <Loading isShow /> : productsMemo.length > 0 ? (
-                <div className="p-products_list">
-                  {productsMemo.map((item, index) => (
-                    <div className="p-products_item" key={item.code + index.toString()}>
-                      <ProductCard {...item} />
-                    </div>
-                  ))}
-                </div>
-              ) : <Typography.Text modifiers={['700', 'center']}>Không tìm thấy sản phẩm</Typography.Text>}
-              <div className="p-products_pagination">
-                <Pagination
-                  totalPage={data?.meta.totalPages || 0}
-                  pageCurrent={page}
-                  handleChangePage={(val) => {
-                    setPage(val);
-                    setSearchParams({ page: val.toString() });
-                  }}
-                />
-              </div>
-            </div>
-          </Col>
-        </Row>
-        <div className="p-products_related">
-          {/* <FooterProduct title="Đã xem gần đây" products={featuredProducts.slice(0, 4)} /> */}
-        </div>
-      </Container>
-    </div>
+            </Col>
+          </Row>
+          <div className="p-products_related">
+            {/* <FooterProduct title="Đã xem gần đây" products={featuredProducts.slice(0, 4)} /> */}
+          </div>
+        </Container>
+      </div>
+    </>
   );
 };
 

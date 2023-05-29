@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useMemo } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useQuery } from 'react-query';
 
 import accessories from 'assets/images/accessories.jpg';
@@ -121,6 +122,9 @@ const Home: React.FC = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Nici Store | Trang chủ</title>
+      </Helmet>
       <Section noSpace><HomeBanner product={bestSeller?.data[2]} /></Section>
       {bestSellerLoading || featuredLoading ? <Loading isShow /> : (
         <>
