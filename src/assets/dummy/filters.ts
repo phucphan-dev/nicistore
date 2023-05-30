@@ -126,6 +126,10 @@ export const sizeDummy: SizeFilter[] = [
 
 export const productStatusDummy: OptionType[] = [
   {
+    value: 'order',
+    label: 'Đặt trước'
+  },
+  {
     value: 'stock',
     label: 'Còn hàng'
   },

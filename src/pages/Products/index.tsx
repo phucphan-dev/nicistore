@@ -87,7 +87,12 @@ const Products: React.FC = () => {
       limit: 12,
       page,
       keyword: keyword || '',
-      ...propertiesFilter
+      ...{
+        ...propertiesFilter,
+        order: undefined,
+        stock: propertiesFilter.stock && propertiesFilter.order ? undefined : propertiesFilter.stock
+          ? true : propertiesFilter.order ? false : undefined
+      }
     }),
     { enabled: !!categories }
   );

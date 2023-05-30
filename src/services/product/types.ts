@@ -74,6 +74,7 @@ export interface PropertiesProductFilter {
   fromPrice?: number;
   toPrice?: number;
   stock?: boolean;
+  order?: boolean;
   hasSale?: boolean;
 }
 

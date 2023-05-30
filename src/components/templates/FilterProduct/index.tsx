@@ -14,6 +14,7 @@ export interface FilterProductProperties {
   fromPrice?: number;
   toPrice?: number;
   stock?: boolean;
+  order?: boolean;
   hasSale?: boolean;
 }
 interface FilterProductProps {
