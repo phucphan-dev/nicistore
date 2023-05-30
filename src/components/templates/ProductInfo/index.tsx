@@ -77,7 +77,7 @@ const ProductInfo: React.FC<ProductInfo> = ({
       ...prev,
       [curr.color.id.toString()]: prev[curr.color.id] ? {
         ...prev[curr.color.id],
-        size: [...prev[curr.color.id].size, curr.size]
+        size: [...prev[curr.color.id].size, { ...curr.size, quantity: curr.quantity }]
       }
         : {
           color: {
@@ -85,8 +85,7 @@ const ProductInfo: React.FC<ProductInfo> = ({
             label: curr.color.name,
             color: curr.color.code
           },
-          size: [curr.size],
-          quantity: curr.quantity,
+          size: [{ ...curr.size, quantity: curr.quantity }],
           image: curr.image
         }
     }), {}) : undefined), [colorSize]);
@@ -101,6 +100,15 @@ const ProductInfo: React.FC<ProductInfo> = ({
     ? ([...images, ...Object.values(colorWithSize).filter((item) => !!item.image).map(
       (item, idx) => ({ id: images.length + idx, path: item.image })
     )]) : images), [colorWithSize, images]);
+
+  const colorSizeSelected = useMemo(() => {
+    if (size && color && colorWithSize) {
+      return colorWithSize[color.id.toString()].size.find(
+        (s) => s.id === size.id
+      );
+    }
+    return undefined;
+  }, [color, colorWithSize, size]);
 
   const { mutate: addToCartMutate, isLoading } = useMutation(
     'addToCartAction',
@@ -307,15 +315,15 @@ const ProductInfo: React.FC<ProductInfo> = ({
                   ))}
                 </div>
               </div>
-              {color && (
+              {colorSizeSelected && (
                 <div className="t-productInfo_stock">
                   <Typography.Text modifiers={['14x16', '400']}>
                     Kho:
                     {' '}
-                    <strong>{colorWithSize[color.id.toString()].quantity > 0 ? colorWithSize[color.id.toString()].quantity : 'Hết hàng'}</strong>
+                    <strong>{colorSizeSelected.quantity > 0 ? colorSizeSelected.quantity : 'Hết hàng'}</strong>
                   </Typography.Text>
                   <br />
-                  {colorWithSize[color.id.toString()].quantity === 0 && (
+                  {colorSizeSelected.quantity === 0 && (
                     <Typography.Text modifiers={['13x19', '400', 'ferrariRed']}>
                       Sản phẩm đã bán hết.
                       Bạn vẫn có thể bấm nút đặt hàng bên dưới để đặt trước sản phẩm này.
@@ -342,11 +350,11 @@ const ProductInfo: React.FC<ProductInfo> = ({
               <Button
                 variant="dark"
                 sizes="h48"
-                handleClick={() => handleAddToCart(colorWithSize && color
-                  && colorWithSize[color.id.toString()].quantity === 0)}
+                handleClick={() => handleAddToCart(colorSizeSelected
+                  && colorSizeSelected.quantity === 0)}
                 loading={isLoading || checkStockLoading}
               >
-                {colorWithSize && color && colorWithSize[color.id.toString()].quantity > 0 ? 'Thêm vào giỏ hàng' : 'Đặt hàng'}
+                {colorSizeSelected && colorSizeSelected.quantity > 0 ? 'Thêm vào giỏ hàng' : 'Đặt hàng'}
               </Button>
             </div>
           </div>

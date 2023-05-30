@@ -32,7 +32,6 @@ const useInitialRender = () => {
         .finally(() => setLoading(false));
     } else {
       const cartLocal = localStorage.getItem(LOCALSTORAGE.NICI_CART);
-      console.log({ cartLocal });
 
       dispatch(loadCartLocal(cartLocal ? JSON.parse(cartLocal) : []));
       setLoading(false);

@@ -79,8 +79,10 @@ type Color = {
 type ColorWithSize = {
   [key: string]: {
     color: Color;
-    size: ProductProperty[];
-    quantity: number;
+
+    size: ({
+      quantity: number;
+    } & ProductProperty)[];
     image: string;
   }
 };
