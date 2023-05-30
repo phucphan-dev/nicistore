@@ -113,14 +113,14 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ product, handleScrollTo }) => {
         <div className="t-homeBanner_content">
           <Container>
             <div className="t-homeBanner_title">
-              <Animate type="fadeInLeft" noScroll extendClassName="animate-s05">
+              {/* <Animate type="fadeInLeft" noScroll extendClassName="animate-s05">
                 <Typography.Heading type="h2" modifiers={['76x80', '500']}>{product.name}</Typography.Heading>
               </Animate>
               <Animate type="fadeInUp" noScroll extendClassName="animate-s05">
                 <div className="t-homeBanner_product_price">
                   <PriceSale bigger isHorizontal unit="VNĐ" price={product.price} promo={product.salePercent} />
                 </div>
-              </Animate>
+              </Animate> */}
               {/* {colorWithSize && (
                 <>
                   <Animate type="fadeInUp" noScroll extendClassName="animate-s05">

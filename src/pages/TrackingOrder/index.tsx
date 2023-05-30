@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useQuery } from 'react-query';
 import { useSearchParams } from 'react-router-dom';
@@ -11,13 +11,14 @@ import OrderDetail from 'components/templates/OrderDetail';
 import { getOrderDetailService } from 'services/order';
 
 const TrackingOrder: React.FC = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const orderCode = searchParams.get('code');
+  const [orderCodeState, setOrderCodeState] = useState(orderCode);
   const { data: detail, isLoading } = useQuery(
-    ['getOrderDetail', orderCode],
+    ['getOrderDetail', orderCodeState],
     () => {
-      if (orderCode) {
-        return getOrderDetailService(orderCode);
+      if (orderCodeState) {
+        return getOrderDetailService(orderCodeState);
       }
       return undefined;
     }
@@ -33,7 +34,15 @@ const TrackingOrder: React.FC = () => {
       </Helmet>
       <Section>
         <Container>
-          {detail ? <OrderDetail {...detail} /> : <Typography.Text modifiers={['center']}>Không tìm thấy đơn hàng</Typography.Text>}
+          {detail ? (
+            <OrderDetail
+              {...detail}
+              handleSearch={(value) => {
+                setSearchParams({ code: value });
+                setOrderCodeState(value);
+              }}
+            />
+          ) : <Typography.Text modifiers={['center']}>Không tìm thấy đơn hàng</Typography.Text>}
         </Container>
       </Section>
     </>

@@ -28,3 +28,5 @@ export const ANALYTICS = {
   GA4: 'G-XL0Z94ZB49',
   GTM: 'GTM-WMQNVGC'
 };
+
+export const STATUS_ORDER = ['Mới', 'Đang xử lý', 'Đang giao hàng', 'Đã hoàn thành', 'Đã huỷ'];

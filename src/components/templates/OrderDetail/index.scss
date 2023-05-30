@@ -21,4 +21,19 @@
     &_line {
         margin-top: rem(8);
     }
+
+    &_search {
+        display: flex;
+        margin-bottom: rem(24);
+
+        .a-input {
+            flex-shrink: 0;
+            flex-grow: 1;
+        }
+
+        .a-button {
+            margin-left: rem(24);
+            width: rem(150);
+        }
+    }
 }
