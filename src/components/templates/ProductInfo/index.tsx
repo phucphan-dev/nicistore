@@ -1,5 +1,4 @@
 /* eslint-disable react/no-danger */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {
   useCallback,
   useEffect, useMemo, useRef, useState
@@ -19,7 +18,6 @@ import SizeSelect from 'components/atoms/SizeSelect';
 import Typography from 'components/atoms/Typography';
 import PriceSale from 'components/molecules/PriceSale';
 import QuantityInput from 'components/molecules/QuantityInput';
-import StarCount from 'components/molecules/StarCount';
 import Carousel, { NextArrow, PrevArrow } from 'components/organisms/Carousel';
 import ImagePreview from 'components/organisms/ImagePreview';
 import useWindowDimensions from 'hooks/useWindowDemensions';
@@ -51,8 +49,8 @@ const ProductInfo: React.FC<ProductInfo> = ({
   promo,
   price,
   unit,
-  starCount,
-  reviewCount,
+  // starCount,
+  // reviewCount,
   colorSize,
   sku,
   categories,
