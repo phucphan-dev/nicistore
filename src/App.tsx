@@ -27,6 +27,11 @@ const App: React.FC = () => {
           content="Nici Store"
         />
         <meta
+          name="og:type"
+          property="og:type"
+          content="fashion"
+        />
+        <meta
           name="og:description"
           property="og:description"
           content="Quần áo nam nữ, phụ kiện thời trang. Chuyên order giá rẻ"
@@ -34,7 +39,7 @@ const App: React.FC = () => {
         <meta
           name="og:image"
           property="og:image"
-          content={`${process.env.REACT_APP_BASE_URL}/storage/upload/media/2023/05/banner51dcaa30d58074e435db.jpg`}
+          content={`${window.location.origin}/logo.svg`}
         />
       </Helmet>
       {element}
