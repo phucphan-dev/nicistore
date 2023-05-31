@@ -42,7 +42,11 @@ const ProductCartItem: React.FC<ProductCartItemProps> = ({
       </div>
       {isOrder && (
         <div className="o-productCartItem_isOrder">
-          <Typography.Text modifiers={['14x16', '600', 'ferrariRed']}>Đặt trước</Typography.Text>
+          <Typography.Text modifiers={['14x16', '600', 'ferrariRed']}>
+            Đặt trước
+            <br />
+            <Typography.Text type="span" modifiers={['400', 'italic', 'ferrariRed']}>Với sản phẩm đặt trước, khách vui lòng cọc 50% giá trị giúp shop nhé &#10084;</Typography.Text>
+          </Typography.Text>
         </div>
       )}
     </div>

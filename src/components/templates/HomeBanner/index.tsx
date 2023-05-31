@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useMemo, useRef, useState } from 'react';
+import ReactPixel from 'react-facebook-pixel';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -164,7 +165,10 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ product, handleScrollTo }) => {
                     variant="primary"
                     sizes="h48"
                     loading={isLoading}
-                    handleClick={() => navigate('/tat-ca')}
+                    handleClick={() => {
+                      ReactPixel.track('ViewContent', { page: 'Tất cả sản phẩm' });
+                      navigate('/tat-ca');
+                    }}
                     iconName="arrowRightWhite"
                     iconRight
                     iconSize="24"
