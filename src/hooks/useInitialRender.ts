@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import ReactPixel from 'react-facebook-pixel';
 import { useLocation } from 'react-router-dom';
 
 import useDidMount from './useDidMount';
@@ -36,6 +37,11 @@ const useInitialRender = () => {
       dispatch(loadCartLocal(cartLocal ? JSON.parse(cartLocal) : []));
       setLoading(false);
     }
+    ReactPixel.init('991387831870191', undefined, {
+      autoConfig: true, // set pixel's autoConfig. More info: https://developers.facebook.com/docs/facebook-pixel/advanced/
+      debug: false, // enable logs
+    });
+    ReactPixel.pageView();
   });
   return loading;
 };
