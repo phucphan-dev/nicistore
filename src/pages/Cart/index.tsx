@@ -16,7 +16,7 @@ import Container from 'components/organisms/Container';
 import CustomModal from 'components/organisms/Modal';
 import ProductCartItem from 'components/organisms/ProductCartItem';
 import Section from 'components/organisms/Section';
-import { removeItemCartService, updateItemCartService } from 'services/cart';
+import { checkStockService, removeItemCartService, updateItemCartService } from 'services/cart';
 import { AddCartDataRequest } from 'services/cart/types';
 import { deleteItemCartLocal, processCheckoutAction, updateItemCartLocal } from 'store/cart';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
@@ -27,7 +27,7 @@ const Cart: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const profile = useAppSelector((state) => state.auth.profile);
-  const cartDetail = useAppSelector((state) => state.cart.items);
+  const { items: cartDetail, cartId } = useAppSelector((state) => state.cart);
   const [checkList, setCheckList] = useState<number[]>([]);
   const [removeId, setRemoveId] = useState<number | undefined>();
 
@@ -68,15 +68,23 @@ const Cart: React.FC = () => {
   const handleChangeQuantity = (cartItem: CartItem, quantity: number) => {
     if (quantity === 0) {
       setRemoveId(cartItem.id);
+      return;
       // dispatch(deleteItemCartLocal(cartItem.id));
       // if (profile) {
       //   removeItemCartMutate([cartItem.id]);
       // }
-    } else {
+    }
+    checkStockService({
+      productId: cartItem.productId,
+      sizeId: cartItem.size.id,
+      colorId: cartItem.color.id,
+      quantity
+    }).then(() => {
       dispatch(updateItemCartLocal({ ...cartItem, quantity }));
-      if (profile) {
+
+      if (profile && cartId) {
         updateItemCartMutate({
-          id: cartItem.id,
+          id: cartId,
           params: {
             productId: cartItem.productId,
             sizeId: cartItem.size.id,
@@ -85,7 +93,9 @@ const Cart: React.FC = () => {
           }
         });
       }
-    }
+    }).catch((error: any) => {
+      toast.error(`Số lượng tồn kho không đủ. Hiện chỉ còn ${error.response.data.errors[0].stock}. Điều chỉnh lại số lượng`, { toastId: 'checkstock' });
+    });
   };
 
   const handleDelete = useCallback((id: number) => {
@@ -193,6 +203,7 @@ const Cart: React.FC = () => {
                             <div className="p-cart_td">
                               <QuantityInput
                                 initQuantity={item.quantity}
+                                value={item.quantity}
                                 handleChange={(value) => handleChangeQuantity(item, value)}
                               />
                             </div>
