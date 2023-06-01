@@ -163,7 +163,7 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ product, handleScrollTo }) => {
                 <div className="t-homeBanner_link">
                   <Button
                     variant="primary"
-                    sizes="h48"
+                    sizes="h56"
                     loading={isLoading}
                     handleClick={() => {
                       ReactPixel.track('ViewContent', { page: 'Tất cả sản phẩm' });

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import './App.scss';
 import React, { Suspense } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
@@ -23,7 +24,7 @@ import { ROUTES_PATH } from 'utils/constants';
 
 const App: React.FC = () => (
   <Suspense fallback={null}>
-    <Helmet>
+    {/* <Helmet>
       <meta
         name="description"
         content="Quần áo nam nữ, phụ kiện thời trang. Chuyên order giá rẻ"
@@ -50,7 +51,7 @@ const App: React.FC = () => (
         property="og:image"
         content={`${window.location.origin}/logo.svg`}
       />
-    </Helmet>
+    </Helmet> */}
     <Routes>
       <Route element={<MainLayout />}>
         <Route index element={<Home />} />
