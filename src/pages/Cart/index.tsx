@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-closing-tag-location */
 import React, {
   useCallback, useEffect, useMemo, useState
 } from 'react';
@@ -16,7 +17,7 @@ import Container from 'components/organisms/Container';
 import CustomModal from 'components/organisms/Modal';
 import ProductCartItem from 'components/organisms/ProductCartItem';
 import Section from 'components/organisms/Section';
-import { removeItemCartService, updateItemCartService } from 'services/cart';
+import { checkStockService, removeItemCartService, updateItemCartService } from 'services/cart';
 import { AddCartDataRequest } from 'services/cart/types';
 import { deleteItemCartLocal, processCheckoutAction, updateItemCartLocal } from 'store/cart';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
@@ -104,10 +105,39 @@ const Cart: React.FC = () => {
     setRemoveId(undefined);
   }, [dispatch, profile, removeItemCartMutate]);
 
-  const processCheckout = () => {
+  const processCheckout = async () => {
+    const itemCheckout: AddCartDataRequest[] = cartDetail.filter((
+      item
+    ) => checkList.includes(item.id) && !item.isOrder).map((prod) => ({
+      productId: prod.productId,
+      colorId: prod.color.id,
+      sizeId: prod.size.id,
+      quantity: prod.quantity
+    }));
     if (checkList.length <= 20) {
-      dispatch(processCheckoutAction(checkList));
-      navigate(ROUTES_PATH.CHECKOUT);
+      await checkStockService(itemCheckout).then((data) => {
+        const fails = data.filter((item) => !item.enough);
+        if (fails.length > 0) {
+          fails.forEach((fail) => {
+            const prod = cartDetail.find((item) => item.productId === fail.productId);
+            toast.error(<Typography.Text>
+              Sản phẩm
+              {' '}
+              <Typography.Text type="span" modifiers={['ferrariRed', '700']}>{prod?.name}</Typography.Text>
+              {' '}
+              chỉ còn
+              {' '}
+              <Typography.Text type="span" modifiers={['ferrariRed', '700']}>{fail.inStock}</Typography.Text>
+              . Hãy điều chỉnh số lượng
+            </Typography.Text>, { toastId: `checkstockFail${fail.productId}`, autoClose: 5000 });
+          });
+        } else {
+          dispatch(processCheckoutAction(checkList));
+          navigate(ROUTES_PATH.CHECKOUT);
+        }
+      }).catch(() => {
+        toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau.', { toastId: 'checkstockFail' });
+      });
     } else {
       toast.error('Vui lòng không đặt quá 20 sản phẩm', { toastId: 'overOrder' });
     }

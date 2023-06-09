@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Typography from 'components/atoms/Typography';
-import mapModifiers, { renderPrice, roundingPrice } from 'utils/functions';
+import mapModifiers, { renderPrice } from 'utils/functions';
 
 interface PriceSaleProps {
   promo?: number;
@@ -23,7 +23,7 @@ const PriceSale: React.FC<PriceSaleProps> = ({
     {!!promo && promo > 0 && (
       <div className="m-priceSale_sale">
         <Typography.Text modifiers={[bigger ? '18x21' : '14x16', '700']}>
-          {renderPrice(roundingPrice(price * (100 - promo) / 100), true, unit)}
+          {renderPrice(price * (100 - promo) / 100, true, unit)}
         </Typography.Text>
       </div>
     )}

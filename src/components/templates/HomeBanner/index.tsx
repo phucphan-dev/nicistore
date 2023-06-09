@@ -22,7 +22,6 @@ import { ProductListItemData } from 'services/product/types';
 import { addToCart } from 'store/cart';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { LOCALSTORAGE } from 'utils/constants';
-import { roundingPrice } from 'utils/functions';
 
 interface HomeBannerProps {
   product?: ProductListItemData;
@@ -93,7 +92,7 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ product, handleScrollTo }) => {
       color: { id: color.id, name: color.label, code: color.color },
       size,
       quantity: 1,
-      salePrice: roundingPrice(product.price * (100 - product.salePercent) / 100),
+      salePrice: product.price * (100 - product.salePercent) / 100,
       price: product.price
     };
 
