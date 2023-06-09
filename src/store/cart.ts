@@ -50,9 +50,6 @@ export const cartSlice = createSlice({
         $state.items = clone;
       }
     },
-    cartIdSync: ($state, action: PayloadAction<number>) => {
-      $state.cartId = action.payload;
-    },
     updateItemCartLocal: ($state, action: PayloadAction<CartItem>) => {
       const findIndex = $state.items.findIndex((item) => item.id === action.payload.id);
       if (findIndex > -1) {
@@ -98,7 +95,7 @@ export const cartSlice = createSlice({
   },
 });
 export const {
-  loadCartLocal, addToCart, updateItemCartLocal, cartIdSync,
+  loadCartLocal, addToCart, updateItemCartLocal,
   deleteItemCartLocal, processCheckoutAction, deleteCheckoutId, resetCart
 } = cartSlice.actions;
 export default cartSlice.reducer;

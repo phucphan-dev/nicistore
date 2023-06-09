@@ -6,9 +6,8 @@ export const checkStockService = async (params: AddCartDataRequest): Promise<voi
   await axiosInstance.post('client/check-item-stock', { ...params });
 };
 
-export const addToCartService = async (params: AddCartDataRequest[]): Promise<{ id: number }> => {
-  const response = await axiosInstance.post('client/add-to-cart', { items: params });
-  return response.data.data;
+export const addToCartService = async (params: AddCartDataRequest[]): Promise<void> => {
+  await axiosInstance.post('client/add-to-cart', { items: params });
 };
 
 export const getDetailCartService = async (): Promise<CartDetail> => {

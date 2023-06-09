@@ -23,7 +23,7 @@ import ImagePreview from 'components/organisms/ImagePreview';
 import useWindowDimensions from 'hooks/useWindowDemensions';
 import { addToCartService, checkStockService } from 'services/cart';
 import { favoriteProductService } from 'services/product';
-import { addToCart, cartIdSync } from 'store/cart';
+import { addToCart } from 'store/cart';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { LOCALSTORAGE } from 'utils/constants';
 import mapModifiers, { roundingPrice } from 'utils/functions';
@@ -111,13 +111,6 @@ const ProductInfo: React.FC<ProductInfo> = ({
   const { mutate: addToCartMutate, isLoading } = useMutation(
     'addToCartAction',
     addToCartService,
-    {
-      onSuccess(data) {
-        console.log(data);
-
-        dispatch(cartIdSync(data.id));
-      },
-    }
   );
 
   const { mutate: checkStockMutate, isLoading: checkStockLoading } = useMutation(
