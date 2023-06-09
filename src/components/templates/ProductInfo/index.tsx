@@ -23,10 +23,10 @@ import ImagePreview from 'components/organisms/ImagePreview';
 import useWindowDimensions from 'hooks/useWindowDemensions';
 import { addToCartService, checkStockService } from 'services/cart';
 import { favoriteProductService } from 'services/product';
-import { addToCart, cartIdSync } from 'store/cart';
+import { addToCart } from 'store/cart';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { LOCALSTORAGE } from 'utils/constants';
-import mapModifiers, { roundingPrice } from 'utils/functions';
+import mapModifiers from 'utils/functions';
 
 const settings = {
   dots: false,
@@ -111,57 +111,54 @@ const ProductInfo: React.FC<ProductInfo> = ({
   const { mutate: addToCartMutate, isLoading } = useMutation(
     'addToCartAction',
     addToCartService,
-    {
-      onSuccess(data) {
-        console.log(data);
-
-        dispatch(cartIdSync(data.id));
-      },
-    }
   );
 
   const { mutate: checkStockMutate, isLoading: checkStockLoading } = useMutation(
     'checkStockAction',
     checkStockService,
     {
-      onSuccess: () => {
-        const cartLocal = localStorage.getItem(LOCALSTORAGE.NICI_CART);
-        const cartData = cartLocal ? JSON.parse(cartLocal) as CartItem[] : [];
-        if (!color) {
-          toast.error('Vui lòng chọn màu sắc', { toastId: 'selectColor' });
-        } else if (!size) {
-          toast.error('Vui lòng chọn kích thước', { toastId: 'selectColor' });
-        } else if (quantity < 1) {
-          toast.error('Số lượng phải lớn hơn 0', { toastId: 'selectColor' });
-        } else {
-          const newItem = {
-            id: cartData.length > 0 ? Number(cartData[cartData.length - 1].id) + 1 : 1,
-            productId: id,
-            image: imageGaleries[active].path,
-            link: slug,
-            name,
-            color: { id: color.id, name: color.label, code: color.color },
-            size,
-            quantity,
-            price,
-            salePrice: promo ? roundingPrice(price * (100 - promo) / 100) : undefined,
-          };
-          dispatch(addToCart(newItem));
-          toast.success('Thêm vào giỏ thành công!', { toastId: 'addToCartSuccess' });
-          if (profile) {
-            addToCartMutate([{
-              productId: id, sizeId: size.id, colorId: color.id, quantity
-            }]);
+      onSuccess: (data) => {
+        if (data[0].enough) {
+          const cartLocal = localStorage.getItem(LOCALSTORAGE.NICI_CART);
+          const cartData = cartLocal ? JSON.parse(cartLocal) as CartItem[] : [];
+          if (!color) {
+            toast.error('Vui lòng chọn màu sắc', { toastId: 'selectColor' });
+          } else if (!size) {
+            toast.error('Vui lòng chọn kích thước', { toastId: 'selectColor' });
+          } else if (quantity < 1) {
+            toast.error('Số lượng phải lớn hơn 0', { toastId: 'selectColor' });
           } else {
-            localStorage.setItem(LOCALSTORAGE.NICI_CART, JSON.stringify([...cartData, newItem]));
+            const newItem = {
+              id: cartData.length > 0 ? Number(cartData[cartData.length - 1].id) + 1 : 1,
+              productId: id,
+              image: imageGaleries[active].path,
+              link: slug,
+              name,
+              color: { id: color.id, name: color.label, code: color.color },
+              size,
+              quantity,
+              price,
+              salePrice: promo ? price * (100 - promo) / 100 : undefined,
+            };
+            dispatch(addToCart(newItem));
+            toast.success('Thêm vào giỏ thành công!', { toastId: 'addToCartSuccess' });
+            if (profile) {
+              addToCartMutate([{
+                productId: id, sizeId: size.id, colorId: color.id, quantity
+              }]);
+            } else {
+              localStorage.setItem(LOCALSTORAGE.NICI_CART, JSON.stringify([...cartData, newItem]));
+            }
+            setError(undefined);
           }
-          setError(undefined);
+        } else {
+          setError(`Số lượng tồn kho không đủ. Hiện chỉ còn ${data[0].inStock}`);
+          queryClient.invalidateQueries(['getProductDetail']);
         }
       },
       // eslint-disable-next-line @typescript-eslint/no-shadow
-      onError(error: any) {
-        setError(`Số lượng tồn kho không đủ. Hiện chỉ còn ${error.response.data.errors[0].stock}`);
-        queryClient.invalidateQueries(['getProductDetail']);
+      onError() {
+        toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau.', { toastId: 'checkstockFail' });
       },
     }
   );
@@ -211,9 +208,9 @@ const ProductInfo: React.FC<ProductInfo> = ({
         }
       }
     } else {
-      checkStockMutate({
+      checkStockMutate([{
         productId: id, sizeId: size.id, colorId: color.id, quantity
-      });
+      }]);
     }
   }, [active, addToCartMutate, checkStockMutate, color,
     dispatch, id, imageGaleries, name, price, profile, quantity, size, slug]);

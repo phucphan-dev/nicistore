@@ -28,7 +28,7 @@ const ProductDetail: React.FC = () => {
 
   const productDetail: ProductInfo | undefined = useMemo(() => (data ? ({
     id: data.id,
-    slug: `${data.categories.map((item) => `/${item.slug}`).join()}/${data.slug}`,
+    slug: data.slug,
     code: data.code,
     images: data.galleries.map((item, idx) => (
       { id: idx, path: item.path })),

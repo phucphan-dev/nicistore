@@ -27,3 +27,12 @@ export interface CartDetail {
   cartId: number;
   items: CartItem[];
 }
+
+export interface CheckItemStockResponse {
+  productId: number
+  sizeId: number
+  colorId: number
+  quantity: number
+  inStock: number
+  enough: boolean
+}

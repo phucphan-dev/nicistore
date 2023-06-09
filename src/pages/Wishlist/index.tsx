@@ -11,7 +11,7 @@ import Container from 'components/organisms/Container';
 import Section from 'components/organisms/Section';
 import { getAllFavoriteProductService } from 'services/product';
 import { ROUTES_PATH } from 'utils/constants';
-import { renderPrice, roundingPrice } from 'utils/functions';
+import { renderPrice } from 'utils/functions';
 
 const Wishlist: React.FC = () => {
   const [checkList, setCheckList] = useState<number[]>([]);
@@ -84,7 +84,7 @@ const Wishlist: React.FC = () => {
                       </Typography.Text>
                       {item.salePercent > 0 && (
                         <Typography.Text>
-                          {renderPrice(roundingPrice(item.price * (100 - item.salePercent) / 100), true, 'VNĐ')}
+                          {renderPrice(item.price * (100 - item.salePercent) / 100, true, 'VNĐ')}
                         </Typography.Text>
                       )}
                     </div>

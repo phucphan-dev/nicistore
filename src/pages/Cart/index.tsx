@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-closing-tag-location */
 import React, {
   useCallback, useEffect, useMemo, useState
 } from 'react';
@@ -27,7 +28,7 @@ const Cart: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const profile = useAppSelector((state) => state.auth.profile);
-  const { items: cartDetail, cartId } = useAppSelector((state) => state.cart);
+  const cartDetail = useAppSelector((state) => state.cart.items);
   const [checkList, setCheckList] = useState<number[]>([]);
   const [removeId, setRemoveId] = useState<number | undefined>();
 
@@ -68,23 +69,15 @@ const Cart: React.FC = () => {
   const handleChangeQuantity = (cartItem: CartItem, quantity: number) => {
     if (quantity === 0) {
       setRemoveId(cartItem.id);
-      return;
       // dispatch(deleteItemCartLocal(cartItem.id));
       // if (profile) {
       //   removeItemCartMutate([cartItem.id]);
       // }
-    }
-    checkStockService({
-      productId: cartItem.productId,
-      sizeId: cartItem.size.id,
-      colorId: cartItem.color.id,
-      quantity
-    }).then(() => {
+    } else {
       dispatch(updateItemCartLocal({ ...cartItem, quantity }));
-
-      if (profile && cartId) {
+      if (profile) {
         updateItemCartMutate({
-          id: cartId,
+          id: cartItem.id,
           params: {
             productId: cartItem.productId,
             sizeId: cartItem.size.id,
@@ -93,9 +86,7 @@ const Cart: React.FC = () => {
           }
         });
       }
-    }).catch((error: any) => {
-      toast.error(`Số lượng tồn kho không đủ. Hiện chỉ còn ${error.response.data.errors[0].stock}. Điều chỉnh lại số lượng`, { toastId: 'checkstock' });
-    });
+    }
   };
 
   const handleDelete = useCallback((id: number) => {
@@ -114,10 +105,39 @@ const Cart: React.FC = () => {
     setRemoveId(undefined);
   }, [dispatch, profile, removeItemCartMutate]);
 
-  const processCheckout = () => {
+  const processCheckout = async () => {
+    const itemCheckout: AddCartDataRequest[] = cartDetail.filter((
+      item
+    ) => checkList.includes(item.id) && !item.isOrder).map((prod) => ({
+      productId: prod.productId,
+      colorId: prod.color.id,
+      sizeId: prod.size.id,
+      quantity: prod.quantity
+    }));
     if (checkList.length <= 20) {
-      dispatch(processCheckoutAction(checkList));
-      navigate(ROUTES_PATH.CHECKOUT);
+      await checkStockService(itemCheckout).then((data) => {
+        const fails = data.filter((item) => !item.enough);
+        if (fails.length > 0) {
+          fails.forEach((fail) => {
+            const prod = cartDetail.find((item) => item.productId === fail.productId);
+            toast.error(<Typography.Text>
+              Sản phẩm
+              {' '}
+              <Typography.Text type="span" modifiers={['ferrariRed', '700']}>{prod?.name}</Typography.Text>
+              {' '}
+              chỉ còn
+              {' '}
+              <Typography.Text type="span" modifiers={['ferrariRed', '700']}>{fail.inStock}</Typography.Text>
+              . Hãy điều chỉnh số lượng
+            </Typography.Text>, { toastId: `checkstockFail${fail.productId}`, autoClose: 5000 });
+          });
+        } else {
+          dispatch(processCheckoutAction(checkList));
+          navigate(ROUTES_PATH.CHECKOUT);
+        }
+      }).catch(() => {
+        toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau.', { toastId: 'checkstockFail' });
+      });
     } else {
       toast.error('Vui lòng không đặt quá 20 sản phẩm', { toastId: 'overOrder' });
     }
@@ -203,7 +223,6 @@ const Cart: React.FC = () => {
                             <div className="p-cart_td">
                               <QuantityInput
                                 initQuantity={item.quantity}
-                                value={item.quantity}
                                 handleChange={(value) => handleChangeQuantity(item, value)}
                               />
                             </div>
