@@ -24,7 +24,7 @@ const HomeCategory: React.FC<HomeCategoryProps> = ({ categories }) => {
   const renderItem = (item: HomeCategoryData, index?: number) => (
     <div className="t-homeCategory_item" key={index ? item.name + index.toString() : undefined}>
       <Animate type="slideInUp">
-        <Link href={item.href}>
+        <Link href={item.href} aria-label={item.name}>
           <Image imgSrc={item.thumbnail} alt={item.name} ratio={item.ratio} />
         </Link>
         <div className="t-homeCategory_content">
@@ -55,7 +55,7 @@ const HomeCategory: React.FC<HomeCategoryProps> = ({ categories }) => {
             <div className="t-homeCategory_items">
               {item.items.map((type) => (
                 <div className="t-homeCategory_itemLink" key={type.href}>
-                  <Link href={type.href} key={`category-${item.name}-${type}`}>
+                  <Link href={type.href} key={`category-${item.name}-${type}`} aria-label={type.name}>
                     <Typography.Text modifiers={['14x16']}>
                       {type.name}
                     </Typography.Text>

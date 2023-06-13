@@ -5,11 +5,12 @@ import { ANALYTICS } from 'utils/constants';
 
 const useTagManager = () => {
   useEffect(() => {
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       TagManager.initialize({
         gtmId: ANALYTICS.GTM,
       });
-    }, 2000);
+    }, 4000);
+    return () => clearTimeout(timeout);
   }, []);
 };
 

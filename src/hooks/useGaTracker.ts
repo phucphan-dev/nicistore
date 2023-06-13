@@ -8,9 +8,10 @@ const useGaTracker = () => {
   const location = useLocation();
 
   useEffect(() => {
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       ReactGA4.initialize(ANALYTICS.GA4);
-    }, 2000);
+    }, 4000);
+    return () => clearTimeout(timeout);
   }, []);
 
   useEffect(() => {

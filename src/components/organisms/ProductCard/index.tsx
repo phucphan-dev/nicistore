@@ -58,7 +58,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           <Badge content={available && available > 0 ? 'Có sẵn' : 'Hàng order'} />
           {!!promo && promo > 0 && <Badge isOnSale content={`${promo}%`} />}
         </div>
-        <Link href={slug ? `${ROUTES_PATH.PRODUCT_DETAIL}/${slug}` : '#'}>
+        <Link href={slug ? `${ROUTES_PATH.PRODUCT_DETAIL}/${slug}` : '#'} aria-label={name}>
           <div className="o-productCard_images">
             {images.length > 1 && (
               <>
@@ -84,6 +84,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
               iconSize="16"
               sizes="h34"
               variant="circle"
+              id="love-action"
+              aria-label="Love Action"
               handleClick={() => {
                 if (profile) {
                   setFavorite(!favorite);
@@ -115,7 +117,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
       </div>
       <div className="o-productCard_content">
-        <Link href={slug ? `${ROUTES_PATH.PRODUCT_DETAIL}/${slug}` : '#'}>
+        <Link href={slug ? `${ROUTES_PATH.PRODUCT_DETAIL}/${slug}` : '#'} aria-label={name}>
           <div className="o-productCard_content_title">
             <Typography.Heading type="h3" modifiers={['15x18']}>{name}</Typography.Heading>
           </div>

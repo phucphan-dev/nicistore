@@ -24,6 +24,21 @@ const useInitialRender = () => {
     scrollToTop();
   }, [location]);
 
+  const initAnalytic = () => {
+    ReactPixel.init('991387831870191', undefined, {
+      autoConfig: true, // set pixel's autoConfig. More info: https://developers.facebook.com/docs/facebook-pixel/advanced/
+      debug: false, // enable logs
+    });
+    ReactPixel.pageView();
+  };
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      initAnalytic();
+    }, 4000);
+    return () => clearTimeout(timeout);
+  }, []);
+
   useDidMount(async () => {
     const token = getAccessToken();
     await dispatch(getProductCategoriesAction()).unwrap();
@@ -37,11 +52,6 @@ const useInitialRender = () => {
       dispatch(loadCartLocal(cartLocal ? JSON.parse(cartLocal) : []));
       setLoading(false);
     }
-    ReactPixel.init('991387831870191', undefined, {
-      autoConfig: true, // set pixel's autoConfig. More info: https://developers.facebook.com/docs/facebook-pixel/advanced/
-      debug: false, // enable logs
-    });
-    ReactPixel.pageView();
   });
   return loading;
 };
