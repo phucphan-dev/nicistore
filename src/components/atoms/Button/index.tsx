@@ -14,7 +14,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   iconSize?: IconSize;
   children?: React.ReactNode;
   circle?: boolean;
-  sizes?: 'h24' | 'h34' | 'h36' | 'h42' | 'h44' | 'h48' | 'h56';
+  sizes?: 'h24' | 'h34' | 'h36' | 'h42' | 'h44' | 'h48' | 'h56' | 'h64';
   loading?: boolean;
   badge?: number;
   iconRight?: boolean;

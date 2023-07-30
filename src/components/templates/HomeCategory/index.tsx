@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Image from 'components/atoms/Image';
 import Link from 'components/atoms/Link';
 import Typography from 'components/atoms/Typography';
 import Animate from 'components/organisms/Animate';
 import Container from 'components/organisms/Container';
+import mapModifiers from 'utils/functions';
 
 export interface HomeCategoryData {
   name: string;
@@ -24,9 +24,7 @@ const HomeCategory: React.FC<HomeCategoryProps> = ({ categories }) => {
   const renderItem = (item: HomeCategoryData, index?: number) => (
     <div className="t-homeCategory_item" key={index ? item.name + index.toString() : undefined}>
       <Animate type="slideInUp">
-        <Link href={item.href} aria-label={item.name}>
-          <Image imgSrc={item.thumbnail} alt={item.name} ratio={item.ratio} />
-        </Link>
+        <div className={mapModifiers('t-homeCategory_placeholder', item.ratio)} />
         <div className="t-homeCategory_content">
           {item.totalProduct && (
             <div className="t-homeCategory_total">

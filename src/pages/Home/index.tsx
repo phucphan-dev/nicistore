@@ -5,8 +5,8 @@ import { useQuery } from 'react-query';
 
 import accessories from 'assets/images/accessories.jpg';
 import phonecase from 'assets/images/case.jpg';
+import cate1 from 'assets/images/category-1.jpeg';
 import man from 'assets/images/man.jpg';
-import woman from 'assets/images/woman.jpg';
 import Loading from 'components/atoms/Loading';
 import Typography from 'components/atoms/Typography';
 import DiscountCode from 'components/molecules/DiscountCode';
@@ -78,21 +78,21 @@ const Home: React.FC = () => {
     const data = groupMenusFromCategories(categories);
     return [
       {
-        name: data[1].text,
-        thumbnail: woman,
+        name: data[0].text,
+        thumbnail: cate1,
         ratio: '272x289',
-        href: `/${data[1].link}`,
-        items: data[1].childrens?.map((item) => ({
+        href: `/${data[0].link}`,
+        items: data[0].childrens?.map((item) => ({
           name: item.text,
           href: `/${item.link}`
         }))
       },
       {
-        name: data[0].text,
+        name: data[1].text,
         thumbnail: man,
         ratio: '34x17',
-        href: `/${data[0].link}`,
-        items: data[0].childrens?.map((item) => ({
+        href: `/${data[1].link}`,
+        items: data[1].childrens?.map((item) => ({
           name: item.text,
           href: `/${item.link}`
         }))

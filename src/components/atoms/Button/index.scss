@@ -50,6 +50,10 @@
         height: rem(56);
     }
 
+    &-h64 {
+        height: rem(64);
+    }
+
     &:disabled {
         opacity: 0.6;
         pointer-events: none;

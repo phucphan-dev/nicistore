@@ -2,7 +2,7 @@
     $root: &;
     width: 100%;
     position: relative;
-    @include aspect-ratio(16, 9);
+    @include aspect-ratio(16, 6);
 
     @include mobile-down {
         @include aspect-ratio(2, 3);

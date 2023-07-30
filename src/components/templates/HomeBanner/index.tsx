@@ -108,7 +108,7 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ product, handleScrollTo }) => {
   };
   return (
     <div className="t-homeBanner" ref={ref} style={{ maxHeight: `${height - 84}px` }}>
-      <div className="t-homeBanner_background"><Image imgSrc={banner} alt="banner" ratio="16x9" /></div>
+      <div className="t-homeBanner_background"><Image imgSrc={banner} alt="banner" ratio="16x6" /></div>
       {product && (
         <div className="t-homeBanner_content">
           <Container>
@@ -162,7 +162,7 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ product, handleScrollTo }) => {
                 <div className="t-homeBanner_link">
                   <Button
                     variant="primary"
-                    sizes="h56"
+                    sizes="h64"
                     loading={isLoading}
                     handleClick={() => {
                       ReactPixel.track('ViewContent', { page: 'Tất cả sản phẩm' });
@@ -172,7 +172,7 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ product, handleScrollTo }) => {
                     iconRight
                     iconSize="24"
                   >
-                    Khám phá ngay
+                    <Typography.Text modifiers={['18x21', 'white']}>Khám phá ngay</Typography.Text>
                   </Button>
                 </div>
               </Animate>

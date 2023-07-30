@@ -49,6 +49,7 @@
 
     &_item {
         position: relative;
+        overflow: hidden;
     }
 
     &_content {
@@ -81,5 +82,28 @@
     &_itemLink {
         height: rem(24);
         margin-top: rem(4);
+    }
+
+    &_placeholder {
+        border-radius: rem(8);
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        &-272x289 {
+            @include aspect-ratio(272, 289);
+            background-image: url('~assets/images/category-1.jpeg');
+            background-position: left bottom;
+        }
+
+        &-34x17 {
+            @include aspect-ratio(34, 17);
+            background-image: url('~assets/images/category-2.jpeg');
+        }
+
+        &-257x274 {
+            @include aspect-ratio(257, 274);
+
+            background-image: url('~assets/images/category-4.jpeg');
+        }
     }
 }

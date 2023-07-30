@@ -74,6 +74,13 @@
         }
     }
     
+    &-16x6 {
+        @include aspect-ratio(16, 6);
+        @include mobile-down {
+            @include aspect-ratio(2, 3);
+        }
+    }
+    
     &-1366x684 {
         @include aspect-ratio(1366, 684);
     }
